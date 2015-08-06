@@ -7,8 +7,8 @@ angular.module('starter.services', [])
 			var url ='http://legixapp.abardev.net';
             var promise = deferred.promise;
 		if(window.localStorage.getItem('user')==null)	{
-		//$http.post(url+'/api/login',{'email':name,'password': pw})
-		$http.post('/api/login',{'email':name,'password': pw})
+		$http.post(url+'/api/login',{'email':name,'password': pw})
+		//$http.post('/api/login',{'email':name,'password': pw})
 				.success(function(data, status, headers, config){
 					//data = $.parseJSON(data);
 					console.log(data);//deferred.resolve()
