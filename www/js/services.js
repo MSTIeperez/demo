@@ -4,10 +4,10 @@ angular.module('starter.services', [])
     return {
         loginUser: function(name, pw) {
             var deferred = $q.defer();
-		//	var $location ='http://legixapp.abardev.net/';
+			var url ='http://legixapp.abardev.net';
             var promise = deferred.promise;
 			
-		$http.post('/api/login',{'email':name,'password': pw})
+		$http.post(url+'/api/login',{'email':name,'password': pw})
 				.success(function(data, status, headers, config){
 					//data = $.parseJSON(data);
 					console.log(data);//deferred.resolve()
