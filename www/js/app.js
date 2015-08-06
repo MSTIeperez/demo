@@ -138,7 +138,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     });*/
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/login');
+    if(window.localStorage.getItem('user')==null)
+		$urlRouterProvider.otherwise('/login');
+	else
+		$urlRouterProvider.otherwise('/feeds');		
     
     // setup an abstract state for the tabs directive
     
