@@ -6,13 +6,16 @@ angular.module('starter.services', [])
             var deferred = $q.defer();
 			var url ='http://legixapp.abardev.net';
             var promise = deferred.promise;
-			
-		$http.post(url+'/api/login',{'email':name,'password': pw})
+		if(window.localStorage.getItem('user')==null)	{
+		//$http.post(url+'/api/login',{'email':name,'password': pw})
+		$http.post('/api/login',{'email':name,'password': pw})
 				.success(function(data, status, headers, config){
 					//data = $.parseJSON(data);
 					console.log(data);//deferred.resolve()
 					 if (data.message=="logged") {
+						window.localStorage.setItem('user',JSON.stringify(data.user));
 						deferred.resolve('Welcome ' + data.name + '!');
+						
 					} else {
 						deferred.reject(data);
 					}
@@ -22,7 +25,7 @@ angular.module('starter.services', [])
 				});
 				
 			//console.log($location.protocol()+"://"+$location.host());
-           
+		}
             promise.success = function(fn) {
                 promise.then(fn);
                 return promise;
