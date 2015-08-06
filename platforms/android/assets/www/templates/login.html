@@ -1,0 +1,48 @@
+<ion-view view-title="Login" name="login-view">
+   
+           <ion-content class="padding" id="login"> 
+        <!-- BEGIN: login header -->
+        <div id="form-header" class="padding">
+            <i class="sprite icon-logo"></i>
+            <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, roin suscipit vulputate nulla ut facilisis.</p>
+        </div>
+        <!-- END: login header -->
+        
+        <!-- BEGIN: form -->
+        <div class="form-content">
+            <form>
+            
+                <div class="list clearfix">
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label" >Usuario</span>
+                        <input type="text" placeholder="Legix" ng-model="data.username" name="username">
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Contraseña</span>
+                        <input type="password" placeholder="******" ng-model="data.password" name="password">
+                    </label>
+                    <a href="#">Olvidé mi contraseña</a>
+                </div>
+                
+                <div class="form-actions padding clearfix">
+                    <button class="button button-outline button-positive"  ng-click="login()" >Ingresar</button>
+                        <label class="checkbox clearfix">
+                            <input type="checkbox">
+                            <span class="checkbox-text">Recordarme</span>
+                        </label>
+                        
+                </div>
+
+            </form>
+        </div>
+        <!-- END: form -->
+        
+         <!-- BEGIN: login header -->
+        <div id="form-info">
+            <a href="#/registro">Registrarme</a>
+            <a href="#">Términos y condiciones</a>
+        </div>
+        <!-- END: login header -->
+
+    </ion-content>
+</ion-view>

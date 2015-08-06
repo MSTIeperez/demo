@@ -4,5 +4,13 @@
             "type": "local",
             "path": "/Users/Carlos/.plugman/cache/com.ionic.keyboard/1.0.4/package"
         }
+    },
+    "cordova-plugin-whitelist": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-whitelist@1"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }
