@@ -1,5 +1,6 @@
 angular.module('starter.controllers', [])
 
+.controller('MainCtrl', function($scope) {})
 .controller('LoginCtrl', function($scope) {})
 .controller('RegisterCtrl', function($scope) {})
 .controller('FeedsCtrl', function($scope) {})
@@ -8,15 +9,26 @@ angular.module('starter.controllers', [])
 .controller('GroupsCtrl', function($scope) {})
 .controller('PerfilCtrl', function($scope) {})
 .controller('RegistroCtrl', function($scope) {})
+/*
+.controller('MainCtrl', function($scope, $controller ){
+	if(window.localStorage.getItem('user')!=null){
+		$controller('LoginCtrl', {$scope:$scope});
+		console.log("usuario: "+$scope.user);}
+	else{
+		
+	}//scope.user = $scope.user; 
+		//console.log("nombre usuario: "+$scope.user.first_name);
+	//else
+		//$scope.user =null;
 
-
-.controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state) {
+})*/
+.controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state, Feeds) {
     $scope.data = {};
- 
     $scope.login = function() {
 		  console.log("LOGIN user: " + $scope.data.username + " - PW: ********");
         LoginService.loginUser($scope.data.username, $scope.data.password).success(function(data) {
-            $state.go('tab.feeds');
+			$scope.user=data.user;
+			$state.go('tab.feeds');
         }).error(function(data) {
 			console.log(data)
             var alertPopup = $ionicPopup.alert({
@@ -35,8 +47,9 @@ angular.module('starter.controllers', [])
   //
   //$scope.$on('$ionicView.enter', function(e) {
   //});
-  
+  //$scope.user =LoginService.user();
   $scope.feeds = Feeds.all();
+  //console.log("variable: "+Feeds.all());
   $scope.remove = function(feed) {
     Feeds.remove(feed);
   }

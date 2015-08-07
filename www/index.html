@@ -32,7 +32,7 @@
     
 </head>
     
-<body ng-app="starter"  animation="slide-left-right">
+<body ng-app="starter"  animation="slide-left-right" >
          
     <ion-side-menus>
         
@@ -73,11 +73,11 @@
                         <img src="img/profiles/user_1234.png" alt="Imagen de usuario">
                     </a>
                 </div>
-                <h2>Rafael rojas</h2>
+                <h2>{{ user.name }}</h2>
             </div>
             <ul class="side-menu-list">
-                <li><a href="#/settings/profile"><i class="icon sprite icon-config"></i>Configuración</a></li>
-                <li><a href="#/perfil"><i class="icon sprite icon-about"></i>Acerca de Legix</a></li>
+                <li><a href="#/settings"><i class="icon sprite icon-config"></i>Configuración</a></li>
+                <li><a href="#/about"><i class="icon sprite icon-about"></i>Acerca de Legix</a></li>
                 <li><a href="#"><i class="icon sprite icon-logout"></i>Cerrar sesión</a></li>
                 <li><a href="#"><i class="icon sprite icon-priv"></i>Política de privacidad</a></li>
                 <li><a href="#"><i class="icon sprite icon-term"></i>Términos y condiciones</a></li>

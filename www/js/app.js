@@ -4,8 +4,8 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 
-
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+'use strict';
+angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.services'])
 .config(function($ionicConfigProvider){
     $ionicConfigProvider.tabs.position('bottom');
 })
@@ -40,7 +40,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         templateUrl: 'templates/signup.html',
 		controller: 'RegistroCtrl'
 		
-    })/*
+    })
+	/*
   
     .state('forgotpassword', {
       url: '/forgot-password',
@@ -122,8 +123,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
           controller: 'FeedFavoritesCtrl'
         }
       }
-    });
-    
+    })
+     .state('tab.profile', {
+            url: '/profile',
+			 views: {
+				'tab-favorites': {
+				templateUrl: 'templates/tab-perfil.html',
+				controller: 'PerfilCtrl'
+				}
+			}
+        });
     
 
     
@@ -138,17 +147,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     });*/
 
     // if none of the above states are matched, use this as the fallback
-    if(window.localStorage.getItem('user')==null)
+    //if(window.localStorage.getItem('user')==false)
 		$urlRouterProvider.otherwise('/login');
-	else
-		$urlRouterProvider.otherwise('/feeds');		
-    
+	
     // setup an abstract state for the tabs directive
     
   
 });
-
-var example = angular.module("example", ['ui.router']);
+/*
+var example = angular.module("starter", ['ui.router']);
 example.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('settings', {
@@ -167,51 +174,7 @@ example.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/settings/profile');
 });
 
-angular.module('Post', [], function($httpProvider) {
-  // Use x-www-form-urlencoded Content-Type
-  $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
-  /**
-   * The workhorse; converts an object to x-www-form-urlencoded serialization.
-   * @param {Object} obj
-   * @return {String}
-   */ 
-  var param = function(obj) {
-    var query = '', name, value, fullSubName, subName, subValue, innerObj, i;
-
-    for(name in obj) {
-      value = obj[name];
-
-      if(value instanceof Array) {
-        for(i=0; i<value.length; ++i) {
-          subValue = value[i];
-          fullSubName = name + '[' + i + ']';
-          innerObj = {};
-          innerObj[fullSubName] = subValue;
-          query += param(innerObj) + '&';
-        }
-      }
-      else if(value instanceof Object) {
-        for(subName in value) {
-          subValue = value[subName];
-          fullSubName = name + '[' + subName + ']';
-          innerObj = {};
-          innerObj[fullSubName] = subValue;
-          query += param(innerObj) + '&';
-        }
-      }
-      else if(value !== undefined && value !== null)
-        query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
-    }
-
-    return query.length ? query.substr(0, query.length - 1) : query;
-  };
-
-  // Override $http service's default transformRequest
-  $httpProvider.defaults.transformRequest = [function(data) {
-    return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
-  }];
-});
 /*
 var express = require('express')
 var app = express()

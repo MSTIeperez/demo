@@ -5,14 +5,14 @@
         <ion-item class="list card" ng-repeat="feed in feeds">
 
             <div class="item item-header item-thumbnail-left">
-                <img class="small-image" ng-src="img/icons/icon-senado.png">
-                <h2>{{ feed.name }}</h2>
-                <h3>{{ feed.from }}</h3>
-                <p>{{ feed.update | date }}</p>
+                <img class="small-image" ng-src="http://legixapp.abardev.net{{ feed.src_img }}">
+                <h2>{{ feed.title_source }}</h2>
+                <h3>{{ feed.title_origin }}</h3>
+                <p>{{ feed.date }}</p>
             </div>
 
             <div class="item item-body">
-                <p>{{ feed.message }}</p>
+                <p>{{ feed.content }} {{feed.url}}</p>
                 <div class="item-attachments">
                     <a href="{{ feed.file }}" dowload="file.txt">
                         <i class="icon ion-android-attach"></i>
