@@ -1,5 +1,6 @@
 angular.module('starter.controllers', [])
 
+
 //.controller('MainCtrl', function($scope) {})
 //.controller('LoginCtrl', function($scope) {})
 .controller('ConfigfeedCtrl', function($scope) {})
@@ -12,12 +13,12 @@ angular.module('starter.controllers', [])
 .controller('RegistroCtrl', function($scope) {})
 .controller('SimpleCtrl', function($scope) {})
 
-.controller('MainCtrl', function($scope,$cookies,$cookieStore ){
-	
+.controller('MainCtrl', function($scope,$cookies,$cookieStore, $rootScope ){
+	var url ='http://legixapp.abardev.net';
 	$scope.$on('$ionicView.enter', function(e) {
 		//$scope.user_data={};
-		$scope.user_data = window.localStorage.getItem('user');
-	
+		$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
+		$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
 	});  
 })
 
@@ -64,9 +65,10 @@ angular.module('starter.controllers', [])
 	});  
 })
 
-.controller('MyfeedsCtrl', function($scope, Feeds) {
- 
+.controller('MyfeedsCtrl', function($scope, Feeds,$rootScope) {
+	 var user = $rootScope.user_data;
 	$scope.$on('$ionicView.enter', function(e) {
+		$scope.temas = user.temas;
 		Feeds.all(-1,'send_data').success(function(data){
 			$scope.feeds = data;
 		});
@@ -76,10 +78,10 @@ angular.module('starter.controllers', [])
 	});  
 })
 
-.controller('FollowingCtrl', function($scope, Feeds) {
-  var user =window.localStorage.getItem('user');
-  var asuntos = user.follow?user.follow:'0,0';
-  console.log(asuntos);
+.controller('FollowingCtrl', function($scope, Feeds, $rootScope) {
+	var user = $rootScope.user_data;
+	var asuntos = user.follow?user.follow:'0,0';
+	console.log(asuntos);
 	$scope.$on('$ionicView.enter', function(e) {
 		Feeds.all(-1,'','send_data',asuntos).success(function(data){
 			$scope.feeds = data;
@@ -100,6 +102,11 @@ angular.module('starter.controllers', [])
 
 .controller('FeedFavoritesCtrl', function($scope, $stateParams, Feeds) {
   $scope.feed = Feeds.get($stateParams.feedId);
+})
+.controller('PerfilCtrl', function($scope,$rootScope) {
+	$scope.$on('$ionicView.enter', function(e) {
+		
+	});
 });
 /*
 .controller('FeedDetailCtrl', function($scope, $stateParams, Chats) {

@@ -90,7 +90,7 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
 	  .state('tab.configfeeds', {
         url: '/config-feeds',
         views: {
-            'tab-config-feeds': {
+            'tab-feeds': {
                 templateUrl: 'templates/tab-config-feeds.html',
                 controller: 'ConfigfeedCtrl'
             }
@@ -106,8 +106,17 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
         }
     })
         
-    .state('tab.myfeeds', {
+    .state('tab.tema_feeds', {
         url: '/myfeeds',
+        views: {
+            'tab-myfeeds': {
+                templateUrl: 'templates/misfeeds-2.html',
+                controller: 'MyfeedsCtrl'
+            }
+        }
+    })
+	.state('tab.myfeeds', {
+        url: '/myfeeds/feeds',
         views: {
             'tab-myfeeds': {
                 templateUrl: 'templates/tab-myfeeds.html',
@@ -155,14 +164,14 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
         }
       }
     })
-     .state('tab.profile', {
+     .state('profile', {
             url: '/profile',
-			 views: {
-				'tab-favorites': {
-				templateUrl: 'templates/tab-perfil.html',
+		 /*views: {
+				'tab-profile': {
+			*/	templateUrl: 'templates/tab-perfil.html',
 				controller: 'PerfilCtrl'
-				}
-			}
+			/*	}
+			}*/
         });
     
 

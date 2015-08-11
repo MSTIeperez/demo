@@ -6,7 +6,7 @@
             
                 <div class="item item-avatar item-thumbnail-left" href="#">
                     <a class="btn-upload" href="#">
-                        <img src="img/profiles/user_1234.png">
+                        <img src="{{user_data.src_img}}">
                         <span class="txt">Editar</span>
                     </a>
                     <p>Elija una foto y un nombre de usuario para su perfil</p>
@@ -14,7 +14,7 @@
                 
                 <div class="list list-inset">
                     <label class="item item-input">
-                        <input type="text" placeholder="" value="Rafael Rojas">
+                        <input type="text" placeholder="" value="{{user_data.first_name}} {{user_data.last_name}}">
                     </label>
                 </div>
                 
@@ -22,7 +22,7 @@
                     <li class="item-button-right">
                         <label class="item item-input item-stacked-label">
                             <span class="input-label">Correo electrónico</span>
-                            <input type="email" placeholder="rafae@llegix.com">
+                            <input type="email" placeholder="{{user_data.email}}">
                         </label>
                         <a class="button button-outline button-positive" href="#">Editar</a>
                     </li>
@@ -36,13 +36,13 @@
                     <li>
                         <label class="item item-input item-stacked-label">
                             <span class="input-label">Suscripción</span>
-                            <input type="text" placeholder="ABALEG-00" disabled>
+                            <input type="text" placeholder="{{user_data.legix_id}}" disabled>
                         </label>
                     </li>
                     <li>
                         <label class="item item-input item-stacked-label">
                             <span class="input-label">Empresa</span>
-                            <input type="text" placeholder="Abar / Legix" disabled>
+                            <input type="text" placeholder="{{user_data.company}}" disabled>
                         </label>
                     </li>
                 </ul>

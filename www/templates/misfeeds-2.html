@@ -1,4 +1,4 @@
-<ion-view view-title="Nombre Cliente">
+<ion-view view-title="{{user_data.first_name}} {{user_data.last_name}}">
     <ion-content class="has-subheader"> 
         <form>
         <div class="group-container padding">
@@ -6,176 +6,39 @@
             <ul class="list list-style">
 
                 <!-- BEGIN: list-->
-                <li class="item li-parent">
+                <li class="item li-parent" ng-repeat="tema in temas">
 
-                    <div class="list-header item item-checkbox item-icon-right">
+                    <div class="list-header item item-checkbox item-icon-right" >
                         <label class="checkbox">
-                           <input type="checkbox">
+                           <input type="checkbox" data-id="{{tema.subject_id}}" data-origin-id="{{tema.origen_id}}" value="{{tema.origen_id}}" >
                         </label>
-                        Origen
-                        <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
+                        {{tema.origen}} | {{tema.tema}}
+                        <a class="icon list-expand" href="#/tab/myfeeds/feeds"><i class="icon ion-arrow-down-b"></i></a>
                     </div>
                     <ul class="list-content">
-                        <li class="item li-parent">
+                        <li class="item li-parent" ng-repeat="comision in tema.comision">
                             <div class="list-header item item-checkbox item-icon-right">
                                 <label class="checkbox">
                                    <input type="checkbox">
                                 </label>
-                                Tema
+                                {{comision.name}}
                                 <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
                             </div>
                             <ul class="list-content">
-                                <li class="item li-parent">
+                                <li class="item li-parent" ng-repeat="asunto in comision.subject">
                                     <div class="list-header item item-checkbox">
                                         <label class="checkbox">
                                            <input type="checkbox">
                                         </label>
-                                        Asunto
-                                    </div>
-                                </li>
-                                <li class="item li-parent">
-                                    <div class="list-header item item-checkbox">
-                                        <label class="checkbox">
-                                           <input type="checkbox">
-                                        </label>
-                                        Asunto
-                                    </div>
-                                </li>
-                                <li class="item li-parent">
-                                    <div class="list-header item item-checkbox">
-                                        <label class="checkbox">
-                                           <input type="checkbox">
-                                        </label>
-                                        Asunto
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="item li-parent">
-                            <div class="list-header item item-checkbox item-icon-right">
-                                <label class="checkbox">
-                                   <input type="checkbox">
-                                </label>
-                                Tema
-                                <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
-                            </div>
-                            <ul class="list-content">
-                                <li class="item li-parent">
-                                    <div class="list-header item item-checkbox">
-                                        <label class="checkbox">
-                                           <input type="checkbox">
-                                        </label>
-                                        Asunto
-                                    </div>
-                                </li>
-                                <li class="item li-parent">
-                                    <div class="list-header item item-checkbox">
-                                        <label class="checkbox">
-                                           <input type="checkbox">
-                                        </label>
-                                        Asunto
-                                    </div>
-                                </li>
-                                <li class="item li-parent">
-                                    <div class="list-header item item-checkbox">
-                                        <label class="checkbox">
-                                           <input type="checkbox">
-                                        </label>
-                                        Asunto
+                                        {{asunto.name}}
                                     </div>
                                 </li>
                             </ul>
                         </li>
                     </ul>
                 </li>
-                
-                <li class="item li-parent">
-
-                    <div class="list-header item item-checkbox item-icon-right">
-                        <label class="checkbox">
-                           <input type="checkbox">
-                        </label>
-                        Origen
-                        <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
-                    </div>
-                    <ul class="list-content">
-                        <li class="item li-parent">
-                            <div class="list-header item item-checkbox item-icon-right">
-                                <label class="checkbox">
-                                   <input type="checkbox">
-                                </label>
-                                Tema
-                                <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
-                            </div>
-                            <ul class="list-content">
-                                <li class="item li-parent">
-                                    <div class="list-header item item-checkbox">
-                                        <label class="checkbox">
-                                           <input type="checkbox">
-                                        </label>
-                                        Asunto
-                                    </div>
-                                </li>
-                                <li class="item li-parent">
-                                    <div class="list-header item item-checkbox">
-                                        <label class="checkbox">
-                                           <input type="checkbox">
-                                        </label>
-                                        Asunto
-                                    </div>
-                                </li>
-                                <li class="item li-parent">
-                                    <div class="list-header item item-checkbox">
-                                        <label class="checkbox">
-                                           <input type="checkbox">
-                                        </label>
-                                        Asunto
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="item li-parent">
-                            <div class="list-header item item-checkbox item-icon-right">
-                                <label class="checkbox">
-                                   <input type="checkbox">
-                                </label>
-                                Tema
-                                <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
-                            </div>
-                            <ul class="list-content">
-                                <li class="item li-parent">
-                                    <div class="list-header item item-checkbox">
-                                        <label class="checkbox">
-                                           <input type="checkbox">
-                                        </label>
-                                        Asunto
-                                    </div>
-                                </li>
-                                <li class="item li-parent">
-                                    <div class="list-header item item-checkbox">
-                                        <label class="checkbox">
-                                           <input type="checkbox">
-                                        </label>
-                                        Asunto
-                                    </div>
-                                </li>
-                                <li class="item li-parent">
-                                    <div class="list-header item item-checkbox">
-                                        <label class="checkbox">
-                                           <input type="checkbox">
-                                        </label>
-                                        Asunto
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                
-                <!-- END: list -->
             </ul>
         </div>
         </form>
-    
     </ion-content>
 </ion-view>
