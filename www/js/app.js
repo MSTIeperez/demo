@@ -27,18 +27,34 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
     $stateProvider
   
     .state('login', {
-      url: '/login',
-	  /*views: {
-            'login': {*/
-                templateUrl: 'templates/login.html',
+      url: '/login', 
+	
+               templateUrl: 'templates/login.html',
                 controller: 'LoginCtrl'
-            /*}
-	  }*/
+	
   }) 
       .state('register', {
         url: '/registro',
         templateUrl: 'templates/signup.html',
 		controller: 'RegistroCtrl'
+		
+    })
+	.state('about', {
+        url: '/acerca',
+        templateUrl: 'templates/simple.html',
+		controller: 'SimpleCtrl'
+		
+    })
+	.state('terms', {
+        url: '/terminos-y-condiciones',
+        templateUrl: 'templates/simple1.html',
+		controller: 'SimpleCtrl'
+		
+    })
+	.state('privacidad', {
+        url: '/politica-de-privacidad',
+        templateUrl: 'templates/simple2.html',
+		controller: 'SimpleCtrl'
 		
     })
 	/*
@@ -51,7 +67,13 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
     .state('tab', {
         url: "/tab",
         abstract: true,
-        templateUrl: "templates/tabs.html"
+        templateUrl: "templates/tabs.html",
+		controller: 'LoginCtrl',
+		onEnter: function($state, Auth){
+        if(!Auth.isLoggedIn()){
+           $state.go('login');
+        }
+    }
     })
   
     // Each tab has its own nav history stack:
@@ -65,6 +87,15 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
             }
         }
     })*/
+	  .state('tab.configfeeds', {
+        url: '/config-feeds',
+        views: {
+            'tab-config-feeds': {
+                templateUrl: 'templates/tab-config-feeds.html',
+                controller: 'ConfigfeedCtrl'
+            }
+        }
+    })
     .state('tab.feeds', {
         url: '/feeds',
         views: {
@@ -79,7 +110,7 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
         url: '/myfeeds',
         views: {
             'tab-myfeeds': {
-                templateUrl: 'templates/tab-perfil.html',
+                templateUrl: 'templates/tab-myfeeds.html',
                 controller: 'MyfeedsCtrl'
             }
         }

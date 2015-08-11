@@ -36,11 +36,11 @@ $( document ).ready(function() {
     // button comments: activa & oculta comentarios
     $( 'body' ).on( 'click', '.show-comments', function() {
         $( this ).parent( '.item-comments' ).toggleClass( 'active' );
-
+		var num= $(this).find('span.comments-count').html();
         if( $( '.item-comments' ).hasClass( 'active') ) {
-            $( this ).html( 'Mostrar menos' );
+            $( this ).html( 'Ocultar <span class="comments-count">'+num+'</span> comentarios previos' );
         } else {
-            $( this ).html( 'Mostrar <span class="comments-count">4</span> comentarios previos' );
+            $( this ).html( 'Mostrar <span class="comments-count">'+num+'</span> comentarios previos' );
         }
 
         return false;

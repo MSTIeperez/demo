@@ -10,43 +10,29 @@
         <ion-item class="list card" ng-repeat="feed in feeds">
 
             <div class="item item-header item-thumbnail-left">
-                <img class="small-image" ng-src="img/icons/icon-senado.png">
-                <h2>{{ feed.name }}</h2>
-                <h3>{{ feed.from }}</h3>
-                <p>{{ feed.update | date }}</p>
+                <img class="small-image" ng-src="http://legixapp.abardev.net{{ feed.src_img }}">
+                <h2>{{ feed.title_source }}</h2>
+                <h3>{{ feed.title_origin }}</h3>
+                <p>{{ feed.date }}</p>
             </div>
 
             <div class="item item-body">
-                <p>{{ feed.message }}</p>
+                <p >{{ feed.content }} {{ feed.url }}</p>
                 <div class="item-attachments">
-                    <a href="{{ feed.file }}" dowload="file.txt">
+                    <a ng-repeat="docs in feed.docs" href="http://legixapp.abardev.net{{ docs.src_file }}" download="{{docs.file}}">
                         <i class="icon ion-android-attach"></i>
-                        File.txt
+                        {{docs.file}}
                     </a>
                 </div>
-                <div class="item-comments">
-                    <a href="#" class="show-comments">Mostrar <span class="comments-count">4</span> comentarios previos</a>
+                <div   ng-hide="{{feed.comments.length<1}}"class="item-comments">
+                    <a ng-hide="{{feed.comments.length-1<1}}" href="#" class="show-comments">Mostrar <span class="comments-count">{{feed.comments.length-1}}</span> comentarios previos</a>
                     <ul class="comments-list">
-                        <li class="comment">
-                            <h3>Armadeo Ibarra</h3>
-                            <p>1¿Este punto de acuerdo ya se votó?</p>
-                            <p class="date">May 19, 2014 a las 1:10 pm</p>
+                        <li class="comment  " ng-repeat="comments in feed.comments" ng-class="!$last ? ' ' : 'last-comment'">
+                            <h3>{{comments.name}}</h3>
+                            <p>{{comments.comment}}</p>
+                            <p class="date">{{comments.date}}</p>
                         </li>
-                        <li class="comment">
-                            <h3>Armadeo Ibarra</h3>
-                            <p>2¿Este punto de acuerdo ya se votó?</p>
-                            <p class="date">May 19, 2014 a las 1:10 pm</p>
-                        </li>
-                        <li class="comment">
-                            <h3>Armadeo Ibarra</h3>
-                            <p>3¿Este punto de acuerdo ya se votó?</p>
-                            <p class="date">May 19, 2014 a las 1:10 pm</p>
-                        </li>
-                        <li class="comment last-comment">
-                            <h3>Armadeo Ibarra</h3>
-                            <p>4¿Este punto de acuerdo ya se votó?</p>
-                            <p class="date">May 19, 2014 a las 1:10 pm</p>
-                        </li>
+                       
                     </ul>
                 </div>
             </div>
@@ -70,7 +56,136 @@
             </div>
 
         </ion-item>
+            
         <!-- END: card -->
  
     </ion-content>
 </ion-view>
+<div class="lightbox lightbox-favorited has-subheader">
+    <form>
+    <div class="lightbox-favorited-header">
+        <h4>Selecciona un archivo favorito</h4>
+    </div>
+    <div class="lightbox-favorited-content">
+        <div class="list has-excerpt"> 
+            
+            <li class="category-element item item-avatar item-icon-left item-button-right">
+                <input class="btn-invisible" type="checkbox">
+                <i class="sprite2x icon icon-folder">8</i>
+                <h2>Todos los diputados</h2>
+                <a class="button button-outline button-positive btn-delete" href="#">Eliminar</a>
+            </li>
+            
+            <li class="category-element item item-avatar item-icon-left item-button-right">
+                <input class="btn-invisible" type="checkbox">
+                <i class="sprite2x icon icon-folder">8</i>
+                <h2>Todos los diputados</h2>
+                <a class="button button-outline button-positive btn-delete" href="#">Eliminar</a>
+            </li>
+            
+            <li class="category-element item item-avatar item-icon-left item-button-right">
+                <input class="btn-invisible" type="checkbox">
+                <i class="sprite2x icon icon-folder">8</i>
+                <h2>Todos los diputados</h2>
+                <a class="button button-outline button-positive btn-delete" href="#">Eliminar</a>
+            </li>
+              
+            <li class="category-element item item-avatar item-icon-left item-button-right">
+                <input class="btn-invisible" type="checkbox">
+                <i class="sprite2x icon icon-folder">8</i>
+                <h2>Todos los diputados</h2>
+                <a class="button button-outline button-positive btn-delete" href="#">Eliminar</a>
+            </li>
+            
+            <li class="category-element item item-avatar item-icon-left item-button-right">
+                <input class="btn-invisible" type="checkbox">
+                <i class="sprite2x icon icon-folder">8</i>
+                <h2>Todos los diputados</h2>
+                <a class="button button-outline button-positive btn-delete" href="#">Eliminar</a>
+            </li>
+            
+            <li class="category-element item item-avatar item-icon-left item-button-right">
+                <input class="btn-invisible" type="checkbox">
+                <i class="sprite2x icon icon-folder">8</i>
+                <h2>Todos los diputados</h2>
+                <a class="button button-outline button-positive btn-delete" href="#">Eliminar</a>
+            </li>
+            
+            <li class="category-element item item-avatar item-icon-left item-button-right">
+                <input class="btn-invisible" type="checkbox">
+                <i class="sprite2x icon icon-folder">8</i>
+                <h2>Todos los diputados</h2>
+                <a class="button button-outline button-positive btn-delete" href="#">Eliminar</a>
+            </li>
+              
+            <li class="category-element item item-avatar item-icon-left item-button-right">
+                <input class="btn-invisible" type="checkbox">
+                <i class="sprite2x icon icon-folder">8</i>
+                <h2>Todos los diputados</h2>
+                <a class="button button-outline button-positive btn-delete" href="#">Eliminar</a>
+            </li>
+            
+            <li class="category-element item item-avatar item-icon-left item-button-right">
+                <input class="btn-invisible" type="checkbox">
+                <i class="sprite2x icon icon-folder">8</i>
+                <h2>Todos los diputados</h2>
+                <a class="button button-outline button-positive btn-delete" href="#">Eliminar</a>
+            </li>
+                            
+        </div>
+    </div>
+    <div class="lightbox-favorited-add">
+        <a class="btn-add" href="#">Agregar archivero favorito</a>
+    </div>
+    <div class="lightbox-favorited-actions clearfix">
+        <button class="button button-outline button-positive" type="submit">Aceptar</button>
+        <a class="close-lightbox" href="#">Cancelar</a>
+    </div>
+    </form>
+</div>
+
+<div class="warning warning-remove">
+    <div class="warning-remove-container center">
+        <div class="warning-remove-content">
+            <p>Remover este Feed hará que desaparezca definitivamente de sus Archivos Favoritos</p>
+        </div>
+        <div class="warning-remove-actions clearfix">
+            <button class="button button-outline button-positive btn-remove-favorited" type="submit">Confirmar</button>
+            <a class="hide-warning" href="#">Cancelar</a>
+        </div>
+    </div>
+</div>
+
+<div class="lightbox lightbox-share has-subheader padding">
+    <form>
+        <div class="lightbox-share-header">
+            <h4>Compartir por E-mail</h4>
+        </div>
+        <div class="lightbox-share-content">
+            <label>
+                <span>To:</span>
+                <input type="email" placeholder="name@domain.com"> 
+            </label>
+            <label>
+                <span>Cc:</span>
+                <input type="email" placeholder=""> 
+            </label>
+            <label>
+                <span>Subject:</span>
+                <input type="email" placeholder="Legix Feed-07/mayo/2015"> 
+            </label>
+            <textarea disabled>Diputados
+                
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum malesuada urna blandit gravida interdum. Duis volutpat id dolor euismod volutpat. Praesent velit nisi, imperdiet a lorem eu, gravida tempus elit. Pellentesque pretium varius erat, vel accumsan mauris tincidunt eget.
+            </textarea>
+            <input type="text" name="attachment" value="Archivo.pdf" disabled>
+            <input type="texr" name="credit" value="CREDITO: Legis Feed - www.legixfeed.com.mx" disabled>
+        
+
+            <div class="lightbox-favorited-actions clearfix">
+                <button class="button button-outline button-positive" type="submit">Aceptar</button>
+                <a class="close-lightbox" href="#">Cancelar</a>
+            </div>
+        </div>
+    </form>
+</div>

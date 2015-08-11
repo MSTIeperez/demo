@@ -1,54 +1,38 @@
 <ion-view view-title="Siguiendo">
     <ion-content class="padding has-subheader bg-color-1"> 
         
-        <!-- BEGIN: card -->
-        <div class="list card">
+     <!-- BEGIN: card -->
+	 <div class="list-card" ng-show="{{feeds.length=0}}">
+		<div class="item item-body">
+			<p>No tienes asuntos siguiendo</p>
+		</div>
+	 </div >
+        <div class="list card" ng-repeat="feed in feeds">
 
             <div class="item item-header item-thumbnail-left">
-                <img class="small-image" src="img/icons/icon-senado.png">
-                <h2>Marty McFly</h2>
-                <h3>De Senado</h3>
-                <p>November 05, 1955</p>
+                <img class="small-image" ng-src="http://legixapp.abardev.net{{ feed.src_img }}">
+                <h2>{{ feed.title_source }}</h2>
+                <h3>{{ feed.title_origin }}</h3>
+                <p>{{ feed.date }}</p>
             </div>
 
             <div class="item item-body">
-                <p>
-                    Se prevee la presentación de un exhorto a la PGR y <a href="#" class="hashtag">#Pemex</a> 
-                    a implemetar un programa de <a href="#" class="hashtag">#PrevencionDeAdeudos</a>...
-                </p>
+                <p >{{ feed.content }} {{ feed.url }}</p>
                 <div class="item-attachments">
-                    <a href="file/file.txt" dowload="file.txt">
+                    <a ng-repeat="docs in feed.docs" href="http://legixapp.abardev.net{{ docs.src_file }}" download="{{docs.file}}">
                         <i class="icon ion-android-attach"></i>
-                        File.txt
-                    </a>
-                    <a href="file/file.txt" dowload="file.txt">
-                        <i class="icon ion-android-attach"></i>
-                        File.txt
+                        {{docs.file}}
                     </a>
                 </div>
-                <div class="item-comments">
-                    <a href="#" class="">Mostrar <span class="comments-count">15</span> comentarios previos</a>
+                <div   ng-hide="{{feed.comments.length<1}}"class="item-comments">
+                    <a ng-hide="{{feed.comments.length-1<1}}" href="#" class="show-comments">Mostrar <span class="comments-count">{{feed.comments.length-1}}</span> comentarios previos</a>
                     <ul class="comments-list">
-                        <li class="comment">
-                            <h3>Armadeo Ibarra</h3>
-                            <p>¿Este punto de acuerdo ya se votó?</p>
-                            <p class="date">May 19, 2014 a las 1:10 pm</p>
+                        <li class="comment  " ng-repeat="comments in feed.comments" ng-class="!$last ? ' ' : 'last-comment'">
+                            <h3>{{comments.name}}</h3>
+                            <p>{{comments.comment}}</p>
+                            <p class="date">{{comments.date}}</p>
                         </li>
-                        <li class="comment">
-                            <h3>Armadeo Ibarra</h3>
-                            <p>¿Este punto de acuerdo ya se votó?</p>
-                            <p class="date">May 19, 2014 a las 1:10 pm</p>
-                        </li>
-                        <li class="comment">
-                            <h3>Armadeo Ibarra</h3>
-                            <p>¿Este punto de acuerdo ya se votó?</p>
-                            <p class="date">May 19, 2014 a las 1:10 pm</p>
-                        </li>
-                        <li class="comment last-comment">
-                            <h3>Armadeo Ibarra</h3>
-                            <p>¿Este punto de acuerdo ya se votó?</p>
-                            <p class="date">May 19, 2014 a las 1:10 pm</p>
-                        </li>
+                       
                     </ul>
                 </div>
             </div>
@@ -60,156 +44,10 @@
                 <a class="tab-item" href="#">
                     <i class="icon sprite icon-mark"></i>
                 </a>
-                <a class="tab-item" href="#">
+                <a class="tab-item show-share" href="#">
                     <i class="icon sprite icon-share"></i>
                 </a>
-                <a class="tab-item" href="#">
-                    <i class="icon sprite icon-favorite"></i>
-                </a>
-                <a class="tab-item" href="#">
-                    <i class="icon sprite icon-print"></i>
-                </a>
-            </div>
-
-        </div>
-        <!-- END: card -->
-        
-        <!-- BEGIN: card -->
-        <div class="list card">
-
-            <div class="item item-header item-thumbnail-left">
-                <img class="small-image" src="img/icons/icon-senado.png">
-                <h2>Marty McFly</h2>
-                <h3>De Senado</h3>
-                <p>November 05, 1955</p>
-            </div>
-
-            <div class="item item-body">
-                <p>
-                    Se prevee la presentación de un exhorto a la PGR y <a href="#" class="hashtag">#Pemex</a> 
-                    a implemetar un programa de <a href="#" class="hashtag">#PrevencionDeAdeudos</a>...
-                </p>
-                <div class="item-attachments">
-                    <a href="file/file.txt" dowload="file.txt">
-                        <i class="icon ion-android-attach"></i>
-                        File.txt
-                    </a>
-                    <a href="file/file.txt" dowload="file.txt">
-                        <i class="icon ion-android-attach"></i>
-                        File.txt
-                    </a>
-                </div>
-                <div class="item-comments">
-                    <a href="#" class="">Mostrar <span class="comments-count">15</span> comentarios previos</a>
-                    <ul class="comments-list">
-                        <li class="comment">
-                            <h3>Armadeo Ibarra</h3>
-                            <p>¿Este punto de acuerdo ya se votó?</p>
-                            <p class="date">May 19, 2014 a las 1:10 pm</p>
-                        </li>
-                        <li class="comment">
-                            <h3>Armadeo Ibarra</h3>
-                            <p>¿Este punto de acuerdo ya se votó?</p>
-                            <p class="date">May 19, 2014 a las 1:10 pm</p>
-                        </li>
-                        <li class="comment">
-                            <h3>Armadeo Ibarra</h3>
-                            <p>¿Este punto de acuerdo ya se votó?</p>
-                            <p class="date">May 19, 2014 a las 1:10 pm</p>
-                        </li>
-                        <li class="comment last-comment">
-                            <h3>Armadeo Ibarra</h3>
-                            <p>¿Este punto de acuerdo ya se votó?</p>
-                            <p class="date">May 19, 2014 a las 1:10 pm</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="item tabs tabs-icon-only tabs-light tabs-secondary">
-                <a class="tab-item" href="#">
-                    <i class="icon sprite icon-message"></i>
-                </a>
-                <a class="tab-item" href="#">
-                    <i class="icon sprite icon-mark"></i>
-                </a>
-                <a class="tab-item" href="#">
-                    <i class="icon sprite icon-share"></i>
-                </a>
-                <a class="tab-item" href="#">
-                    <i class="icon sprite icon-favorite"></i>
-                </a>
-                <a class="tab-item" href="#">
-                    <i class="icon sprite icon-print"></i>
-                </a>
-            </div>
-
-        </div>
-        <!-- END: card -->
-        
-        <!-- BEGIN: card -->
-        <div class="list card">
-
-            <div class="item item-header item-thumbnail-left">
-                <img class="small-image" src="img/icons/icon-senado.png">
-                <h2>Marty McFly</h2>
-                <h3>De Senado</h3>
-                <p>November 05, 1955</p>
-            </div>
-
-            <div class="item item-body">
-                <p>
-                    Se prevee la presentación de un exhorto a la PGR y <a href="#" class="hashtag">#Pemex</a> 
-                    a implemetar un programa de <a href="#" class="hashtag">#PrevencionDeAdeudos</a>...
-                </p>
-                <div class="item-attachments">
-                    <a href="file/file.txt" dowload="file.txt">
-                        <i class="icon ion-android-attach"></i>
-                        File.txt
-                    </a>
-                    <a href="file/file.txt" dowload="file.txt">
-                        <i class="icon ion-android-attach"></i>
-                        File.txt
-                    </a>
-                </div>
-                <div class="item-comments">
-                    <a href="#" class="">Mostrar <span class="comments-count">15</span> comentarios previos</a>
-                    <ul class="comments-list">
-                        <li class="comment">
-                            <h3>Armadeo Ibarra</h3>
-                            <p>¿Este punto de acuerdo ya se votó?</p>
-                            <p class="date">May 19, 2014 a las 1:10 pm</p>
-                        </li>
-                        <li class="comment">
-                            <h3>Armadeo Ibarra</h3>
-                            <p>¿Este punto de acuerdo ya se votó?</p>
-                            <p class="date">May 19, 2014 a las 1:10 pm</p>
-                        </li>
-                        <li class="comment">
-                            <h3>Armadeo Ibarra</h3>
-                            <p>¿Este punto de acuerdo ya se votó?</p>
-                            <p class="date">May 19, 2014 a las 1:10 pm</p>
-                        </li>
-                        <li class="comment last-comment">
-                            <h3>Armadeo Ibarra</h3>
-                            <p>¿Este punto de acuerdo ya se votó?</p>
-                            <p class="date">May 19, 2014 a las 1:10 pm</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="item tabs tabs-icon-only tabs-light tabs-secondary">
-                <a class="tab-item" href="#">
-                    <i class="icon sprite icon-message"></i>
-                </a>
-                <a class="tab-item" href="#">
-                    <i class="icon sprite icon-mark"></i>
-                </a>
-                <a class="tab-item" href="#">
-                    <i class="icon sprite icon-share"></i>
-                </a>
-                <a class="tab-item" href="#">
+                <a class="tab-item btn-favorite" href="#">
                     <i class="icon sprite icon-favorite"></i>
                 </a>
                 <a class="tab-item" href="#">
