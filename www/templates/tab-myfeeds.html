@@ -7,7 +7,7 @@
         </div>
         
         <!-- BEGIN: card -->
-        <ion-item class="list card" ng-repeat="feed in feeds">
+        <ion-item class="list card" data-id="{{feed.id}}" ng-repeat="feed in feeds">
 
             <div class="item item-header item-thumbnail-left">
                 <img class="small-image" ng-src="http://legixapp.abardev.net{{ feed.src_img }}">
@@ -17,7 +17,7 @@
             </div>
 
             <div class="item item-body">
-                <p >{{ feed.content }} {{ feed.url }}</p>
+                <p ng-bind-html="feed.content"></p>
                 <div class="item-attachments">
                     <a ng-repeat="docs in feed.docs" href="http://legixapp.abardev.net{{ docs.src_file }}" download="{{docs.file}}">
                         <i class="icon ion-android-attach"></i>

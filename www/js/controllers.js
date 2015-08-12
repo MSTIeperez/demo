@@ -84,6 +84,9 @@ angular.module('starter.controllers', [])
 		$scope.temas = user.temas;
 		// Feeds.all(-1,'send_data','','',$scope.data.origin_id, $scope.data.theme_id,'').success(function(data){
 		$scope.changeLocation= Feeds.all(-1,'send_data','','',$state.params.origin_id, $state.params.theme_id,'').success(function(data){
+			angular.forEach(data, function(val, key){
+				data[key].content=val.content+' <a href="'+val.url+'" rel="external" target="_system"> '+val.url+'</a>';
+			});//data.content = data.content+' '+data.url;
 			$scope.feeds = data;
 			//if($scope.data.origin_id.length>0)
 			//	$state.go('tab.myfeeds');
