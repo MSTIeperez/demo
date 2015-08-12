@@ -803,7 +803,7 @@ a.list-expand {
 .group-container {
     margin-bottom: 20px;
 }
-.list-style > .li-parent > .list-header {
+.list-style > .li-parent > a > .list-header {
     font-size: 16px;
     font-weight: 700;
 }

@@ -67,7 +67,7 @@ angular.module('starter.services', ['ngCookies'])
    }
 })
 
-.factory('Feeds', function($http, Auth, $q) {
+.factory('Feeds', function($http, Auth, $q, $state) {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
@@ -86,6 +86,12 @@ angular.module('starter.services', ['ngCookies'])
 				feeds=data.feeds;
 				deferred.resolve(data.feeds);
 				console.log("feeds: "+feeds);
+				if(data.message=="el usuario no esta registrado"){
+				
+						Auth.logout();
+						$state.go("login");
+					
+				}
 				})
 				.error(function (data){
 				console.log(data);

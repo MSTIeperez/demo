@@ -1,20 +1,22 @@
 <ion-view view-title="{{user_data.first_name}} {{user_data.last_name}}">
     <ion-content class="has-subheader"> 
-        <form>
+        <form> 
         <div class="group-container padding">
             <!-- <i class="icon ion-ios-people"></i> <--- IMPORTANTE: solo se muestra cuando no hay usuarios -->
             <ul class="list list-style">
 
                 <!-- BEGIN: list-->
-                <li class="item li-parent" ng-repeat="tema in temas">
-
+                <li class="item li-parent" ng-repeat="tema in temas" >
+				<a  href="#/tab/myfeeds/feeds/{{tema.subject_id}}/{{tema.origen_id}}">
                     <div class="list-header item item-checkbox item-icon-right" >
-                        <label class="checkbox">
-                           <input type="checkbox" data-id="{{tema.subject_id}}" data-origin-id="{{tema.origen_id}}" value="{{tema.origen_id}}" >
+                        <label class="checkbox" >
+                           <input type="checkbox" data-id="{{tema.subject_id}}" data-origin-id="{{tema.origen_id}}" ng-true-value="{{tema.origen_id}}"    >
+                           <!--input type="hidden" ng-value="tema.subject_id" ng-model="data.theme_id"-->
                         </label>
                         {{tema.origen}} | {{tema.tema}}
-                        <a class="icon list-expand" href="#/tab/myfeeds/feeds"><i class="icon ion-arrow-down-b"></i></a>
+                        <!--a class="icon list-expand" href="#/tab/myfeeds/feeds/{{tema.subject_id}}/{{tema.origen_id}}"><i class="icon ion-arrow-down-b"></i></a-->
                     </div>
+					</a>
                     <ul class="list-content">
                         <li class="item li-parent" ng-repeat="comision in tema.comision">
                             <div class="list-header item item-checkbox item-icon-right">

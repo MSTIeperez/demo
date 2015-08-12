@@ -6,19 +6,23 @@ angular.module('starter.controllers', [])
 .controller('ConfigfeedCtrl', function($scope) {})
 .controller('RegisterCtrl', function($scope) {})
 //.controller('FeedsCtrl', function($scope) {})
-//.controller('MyfeedsCtrl', function($scope) {})
+.controller('MyfeedCtrl', function($scope) {})
 //.controller('FollowingCtrl', function($scope) {})
 .controller('GroupsCtrl', function($scope) {})
 .controller('PerfilCtrl', function($scope) {})
 .controller('RegistroCtrl', function($scope) {})
 .controller('SimpleCtrl', function($scope) {})
 
-.controller('MainCtrl', function($scope,$cookies,$cookieStore, $rootScope ){
+.controller('MainCtrl', function($scope,$cookies,$cookieStore, $rootScope, Auth ){
 	var url ='http://legixapp.abardev.net';
 	$scope.$on('$ionicView.enter', function(e) {
-		//$scope.user_data={};
+		//alert(window.localStorage.getItem('user').length)
+		//alert(window.localStorage.getItem('user').length>4)
+		if(window.localStorage.getItem('user')&&window.localStorage.getItem('user').length>4){
 		$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
 		$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
+		//console.log("logueado: "+Auth.isLoggedIn())
+		}
 	});  
 })
 
@@ -32,10 +36,17 @@ angular.module('starter.controllers', [])
 		  console.log("LOGIN user: " + $scope.data.username + " - PW: ********");
         LoginService.loginUser($scope.data.username, $scope.data.password).success(function(data) {
 			$scope.user=data.user;
-			 Auth.setUser({
-			  username: $scope.user.id+'-'+$scope.user.first_name+'-'+$scope.user.last_name
-			});
-			$state.go('tab.feeds');
+			 if (data.message=="logged") {
+				Auth.setUser({
+				  username: $scope.user.id+'-'+$scope.user.first_name+'-'+$scope.user.last_name
+				});
+				$state.go('tab.feeds');
+			 }else{
+				 $scope.logout = function() {
+					Auth.logout();
+					$state.go("login");
+				};
+			 }
         }).error(function(data) {
 			console.log(data)
             var alertPopup = $ionicPopup.alert({
@@ -65,13 +76,33 @@ angular.module('starter.controllers', [])
 	});  
 })
 
-.controller('MyfeedsCtrl', function($scope, Feeds,$rootScope) {
+.controller('MyfeedsCtrl', function($scope, Feeds,$rootScope, $state, $stateParams) {
 	 var user = $rootScope.user_data;
+	$scope.data = {};
+	
 	$scope.$on('$ionicView.enter', function(e) {
 		$scope.temas = user.temas;
-		Feeds.all(-1,'send_data').success(function(data){
+		// Feeds.all(-1,'send_data','','',$scope.data.origin_id, $scope.data.theme_id,'').success(function(data){
+		$scope.changeLocation= Feeds.all(-1,'send_data','','',$state.params.origin_id, $state.params.theme_id,'').success(function(data){
 			$scope.feeds = data;
+			//if($scope.data.origin_id.length>0)
+			//	$state.go('tab.myfeeds');
 		});
+		
+		$scope.remove = function(feed) {
+			Feeds.remove(feed);
+		}
+	/*	$scope.changeLocation = function (newRoute) {
+			$state.go(newRoute);
+		}*/
+	});  
+})
+.controller('MyfeedCtrl', function($stateParams, $scope,Feeds,$state){
+	//$scope.feeds=
+	$scope.$on('$ionicView.enter', function(e) {
+			Feeds.all(-1,'send_data','','',$state.params.origin_id, $state.params.theme_id,'').success(function(data){
+			$scope.feeds = data;
+		});  
 		$scope.remove = function(feed) {
 			Feeds.remove(feed);
 		}

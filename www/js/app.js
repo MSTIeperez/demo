@@ -116,7 +116,7 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
         }
     })
 	.state('tab.myfeeds', {
-        url: '/myfeeds/feeds',
+        url: '/myfeeds/feeds/:theme_id/:origin_id',
         views: {
             'tab-myfeeds': {
                 templateUrl: 'templates/tab-myfeeds.html',
