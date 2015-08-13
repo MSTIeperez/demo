@@ -67,7 +67,7 @@
     <gap:splash gap:platform="ios" height="1024" src="www/res/screen/ios/splasscreen.jpg" width="768" />
     <gap:splash gap:platform="ios" height="768" src="www/res/screen/ios/splasscreen.jpg" width="1024" />
     <gap:splash gap:platform="winphone" src="www/res/screen/windows-phone/splasscreen.jpg" />
-    <access origin="*" />
+    <access origin="*" launch-external="yes" />
     <plugin name="cordova-plugin-whitelist" version="1" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

@@ -69,7 +69,7 @@ angular.module('starter.controllers', [])
 	$scope.$on('$ionicView.enter', function(e) {
 		Feeds.all(-1).success(function(data){
 			angular.forEach(data, function(val, key){
-				data[key].content=val.content+' <a href="'+val.url+'"> '+val.url+'</a>';
+				data[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';
 			});
 			$scope.feeds = data;
 		});
@@ -88,7 +88,7 @@ angular.module('starter.controllers', [])
 		// Feeds.all(-1,'send_data','','',$scope.data.origin_id, $scope.data.theme_id,'').success(function(data){
 		$scope.changeLocation= Feeds.all(-1,'send_data','','',$state.params.origin_id, $state.params.theme_id,'').success(function(data){
 			angular.forEach(data, function(val, key){
-				data[key].content=val.content+' <a href="'+val.url+'"> '+val.url+'</a>';
+				data[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';
 			});//data.content = data.content+' '+data.url;
 			$scope.feeds = data;
 			//if($scope.data.origin_id.length>0)
