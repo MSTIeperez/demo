@@ -68,6 +68,9 @@ angular.module('starter.controllers', [])
    	
 	$scope.$on('$ionicView.enter', function(e) {
 		Feeds.all(-1).success(function(data){
+			angular.forEach(data, function(val, key){
+				data[key].content=val.content+' <a href="#" onclick="'+window.open(val.url, '_system')+'"> '+val.url+'</a>';
+			});
 			$scope.feeds = data;
 		});
 		$scope.remove = function(feed) {
