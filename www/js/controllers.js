@@ -94,6 +94,7 @@ angular.module('starter.controllers', [])
 			//if($scope.data.origin_id.length>0)
 			//	$state.go('tab.myfeeds');
 		});
+		$scope.tema_name=$state.params.name;
 		
 		$scope.remove = function(feed) {
 			Feeds.remove(feed);

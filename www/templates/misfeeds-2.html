@@ -7,7 +7,7 @@
 
                 <!-- BEGIN: list-->
                 <li class="item li-parent" ng-repeat="tema in temas" >
-				<a  href="#/tab/myfeeds/feeds/{{tema.subject_id}}/{{tema.origen_id}}">
+				<a  href="#/tab/myfeeds/feeds/{{tema.origen}} | {{tema.tema}}/{{tema.subject_id}}/{{tema.origen_id}}">
                     <div class="list-header item item-checkbox item-icon-right" >
                         <label class="checkbox" >
                            <input type="checkbox" data-id="{{tema.subject_id}}" data-origin-id="{{tema.origen_id}}" ng-true-value="{{tema.origen_id}}"    >
