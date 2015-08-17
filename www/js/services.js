@@ -10,8 +10,8 @@ angular.module('starter.services', ['ngCookies'])
 			
             var promise = deferred.promise;
 	//	if(window.localStorage.getItem('user')==null)	{
-		//$http.post(url+'/api/login',{'email':name,'password': pw})
-		$http.post('/api/login',{'email':name,'password': pw})
+		$http.post(url+'/api/desktop_login',{'email':name,'password': pw})
+		//$http.post('/api/desktop_login',{'email':name,'password': pw})
 				.success(function(data, status, headers, config){
 				console.log(data);
 					 if (data.message=="logged") {
@@ -51,8 +51,8 @@ angular.module('starter.services', ['ngCookies'])
             var deferred = $q.defer();
 			
             var promise = deferred.promise;
-		//$http.post(url+'/api/create',{'legix_id':legix_id,'first_name':first_name, 'last_name':last_name, 'email':email,'password': pw})
-		$http.post('/api/create',{'legix_id':legix_id,'first_name':first_name, 'last_name':last_name, 'email':email,'password': pw})
+		$http.post(url+'/api/create',{'legix_id':legix_id,'first_name':first_name, 'last_name':last_name, 'email':email,'password': pw})
+		//$http.post('/api/create',{'legix_id':legix_id,'first_name':first_name, 'last_name':last_name, 'email':email,'password': pw})
 				.success(function(data, status, headers, config){
 				console.log(data);
 					 if (data.message=="Creada") {
@@ -114,8 +114,8 @@ angular.module('starter.services', ['ngCookies'])
     all: function(status,my_feeds, my_follow, subject_id, origin_id, theme_id, comision_id) {
 			var deferred = $q.defer();
             var promise = deferred.promise;
-		//$http.post(url+'/api/feeds_load',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id})
-		$http.post('/api/feeds_load',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id})
+		$http.post(url+'/api/feeds_load',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id})
+		//$http.post('/api/feeds_load',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id})
 				.success(function(data){
 				console.log(data);
 				feeds=data.feeds;
