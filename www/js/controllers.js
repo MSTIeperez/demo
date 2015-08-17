@@ -40,9 +40,9 @@ angular.module('starter.controllers', [])
 				Auth.setUser({
 				  username: $scope.user.id+'-'+$scope.user.first_name+'-'+$scope.user.last_name
 				});
-				if($scope.user.temas.length>0)
+				if(data.user.temas.length>0)
 					$state.go('tab.tema_feeds');
-				if($scope.user.temas.length==0)
+				if(data.user.temas.length==0)
 					$state.go('tab.configfeeds');
 			 }else{
 				 $scope.logout = function() {
@@ -76,9 +76,9 @@ angular.module('starter.controllers', [])
 							Auth.setUser({
 							  username: $scope.user.id+'-'+$scope.user.first_name+'-'+$scope.user.last_name
 							});
-							if($scope.user.temas.length>0)
+							if(data.user.temas.length>0)
 								$state.go('tab.tema_feeds');
-							if($scope.user.temas.length==0)
+							if(data.user.temas.length==0)
 								$state.go('tab.configfeeds');
 						 }else{
 							 $scope.logout = function() {
@@ -155,6 +155,7 @@ angular.module('starter.controllers', [])
 	 var user = $rootScope.user_data;
 	
 	$scope.data = {};
+	console.log(user.temas.length);
 	if(user.temas.length==0)
 		$state.go('tab.configfeeds');
 	$scope.$on('$ionicView.enter', function(e) {
