@@ -1,8 +1,8 @@
-<ion-view view-title="Nombre Cliente">
+<ion-view view-title="{{user_data.first_name}} {{user_data.last_name}}">
     <ion-content class="has-subheader"> 
         <div class="header-blue padding">
             <p>Registra a tus usuarios en Legix</p>
-            <a class="icon ion-help-circled show-tutorial" href="#users"></a>
+            <a class="icon ion-help-circled show-tutorial" href="#users" onclick="return false;"></a>
         </div>
         
         <form>
@@ -10,36 +10,21 @@
             <!-- <i class="icon ion-ios-people"></i> <--- IMPORTANTE: solo se muestra cuando no hay usuarios -->
             <div class="list category-list"> 
             
-                <li class="category-element item item-avatar item-icon-right item-button-right">
-                    <img src="img/profiles/user_1234.png" alt="Imagen de usuario">
-                    <h2>Javier Chávez</h2>
+                <li class="category-element item item-avatar item-icon-right item-button-right" ng-if="$index>0" ng-repeat="users in user_data.users">
+                    <img src="{{user.src_img}}" alt="Imagen de usuario">
+                    <h2>{{users.first_name}} {{user.last_name}}</h2>
                     <a class="button button-outline button-positive" href="#">Eliminar</a>
                 </li>
-
-                <li class="category-element item item-avatar item-icon-right item-button-right">
-                    <img src="img/profiles/user_1234.png" alt="Imagen de usuario">
-                    <h2>Javier Chávez</h2>
-                    <a class="button button-outline button-positive" href="#">Eliminar</a>
-                </li>
-
-                <li class="category-element item item-avatar item-icon-right item-button-right">
-                    <img src="img/profiles/user_1234.png" alt="Imagen de usuario">
-                    <h2>Javier Chávez</h2>
-                    <a class="button button-outline button-positive" href="#">Eliminar</a>
-                </li>
-
-                <li class="category-element item item-avatar item-icon-right item-button-right">
-                    <i class="icon icon-user">JC</i>
-                    <h2>Javier Chávez</h2>
-                    <a class="button button-outline button-positive" href="#">Eliminar</a>
-                </li>
+				
+                   
+                    <h2  ng-if="user_data.users.length<2">Aun no has agregado a tus usuarios</h2>
 
             </div>
         </div>
             
         <div class="list-actions list-actions-border clearfix">
-            <button class="button button-outline button-positive" type="submit">Agregar usuario</button>
-            <button class="button button-outline button-positive" type="submit">Agregar después</button>
+            <button class="button button-outline button-positive" onclick="window.location.href='#/configuracion/agregar'">Agregar usuario</button>
+            <button class="button button-outline button-positive" onclick="window.location.href='#/tab/feeds'">Agregar después</button>
         </div>
         </form>
         

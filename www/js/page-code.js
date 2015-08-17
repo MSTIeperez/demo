@@ -7,6 +7,12 @@ $( document ).ready(function() {
     $( 'body' ).on( 'click', '.seen-menu a', function() {
         $( '.seen-menu a' ).removeClass( 'active' );
         $( this ).addClass( 'active' );
+		if($(this).hasClass('active')){
+					$('.feeds').hide();
+					console.log($(this).data('class'));
+					$('.'+$(this).data('class')).removeClass('ng-hide');
+					$('.'+$(this).data('class')).show();
+				}
     });
     
     // button search: activa lighbox de busqueda
@@ -81,7 +87,8 @@ $( document ).ready(function() {
      });
      
      // button active tutorial
-    $( 'body' ).on( 'click', '.show-tutorial, .hide-tutorial, .btn-skip', function() {
+    $( 'body' ).on( 'click', '.show-tutorial, .hide-tutorial, .btn-skip', function(e) {
+		e.preventDefault();
         if( ($( this ).attr( 'href' ) != '') && ($( this ).attr( 'href' ) != ' ') && ($( this ).attr( 'href' ) != '#') ) {
             var tutorial = $( this ).attr( 'href' );
             $( tutorial ).toggleClass( 'active' );
@@ -105,7 +112,16 @@ $( document ).ready(function() {
         return false;
     });
      
-    // button hide warning
+$( 'body' ).on( 'click', '.show-warning', function() {
+        $( '.warning' ).addClass( 'active' );
+        return false;
+    });
+
+
+
+	 // button hide warning
+
+
     $( 'body' ).on( 'click', '.hide-warning', function() {
         $( '.warning' ).removeClass( 'active' );
         return false;

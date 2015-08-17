@@ -15,28 +15,32 @@
                 <div class="list clearfix">
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">ID Legix:</span>
-                        <input type="text" placeholder="ABALEG-00">
+                        <input type="text" placeholder="ABALEG-00"  ng-model="data.legix_id">
                     </label>
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">Nombre completo:</span>
-                        <input type="text" placeholder="Nombre(s) y Apellidos">
+                        <input type="text" placeholder="Nombre(s)"  ng-model="data.first_name">
+                    </label>
+					<label class="item item-input item-stacked-label">
+                        <span class="input-label">Apellidos:</span>
+                        <input type="text" placeholder="Apellidos"  ng-model="data.last_name">
                     </label>
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">Correo electrónico:</span>
-                        <input type="email" placeholder="nombre@correo.com">
+                        <input type="email" placeholder="nombre@correo.com"  ng-model="data.email">
                     </label>
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">Contraseña:</span>
-                        <input type="password" placeholder="******">
+                        <input type="password" placeholder="******"  ng-model="data.password"> 
                     </label>
                 </div>
                 
                 <div class="form-actions padding clearfix">
                     <label class="checkbox clearfix">
-                        <input type="checkbox">
-                        <span class="checkbox-text">Acepto <a href="#">Términos y condiciones</a></span>
+                        <input type="checkbox"  ng-model="data.terms">
+                        <span class="checkbox-text">Acepto <a href="#/terminos-y-condiciones">Términos y condiciones</a></span>
                     </label>
-                    <button class="button button-outline button-positive" type="submit">Registrarme</button>
+                    <button class="button button-outline button-positive" type="" ng-click="register()">Registrarme</button>
                 </div>
 
             </form>

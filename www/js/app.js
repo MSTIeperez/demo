@@ -57,6 +57,18 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
 		controller: 'SimpleCtrl'
 		
     })
+	.state('configuracion', {
+        url: '/configuracion',
+        templateUrl: 'templates/user.html',
+		controller: 'ConfigCtrl'
+		
+    })
+	.state('config_agregar', {
+        url: '/configuracion/agregar',
+        templateUrl: 'templates/user-2.html',
+		controller: 'ConfigAddCtrl'
+		
+    })
 	/*
   
     .state('forgotpassword', {
@@ -90,7 +102,7 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
 	  .state('tab.configfeeds', {
         url: '/config-feeds',
         views: {
-            'tab-feeds': {
+            'tab-myfeeds': {
                 templateUrl: 'templates/tab-config-feeds.html',
                 controller: 'ConfigfeedCtrl'
             }

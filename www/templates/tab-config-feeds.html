@@ -9,11 +9,11 @@
 </div>
 
 <ion-view view-title="Mis feeds">
-    <ion-content class="padding has-subheader"> 
+    <ion-content class="padding "> 
         <div class="header padding">
-            <h2>Bienvenido "Nombre Apellido"</h2>
+            <h2>Bienvenido {{ user_data.first_name}} {{user_data.last_name}}</h2>
             <p> 
-                <a class="icon ion-help-circled show-tutorial" href="#temas"></a>
+                <a class="icon ion-help-circled show-tutorial" href="#temas" onclick="return false;"></a>
                 Elige los temas que te interesa seguir, y que quieres que Legix te notifique:
             </p>
         </div>
@@ -22,104 +22,29 @@
         <ul class="list list-style">
                 
             <!-- BEGIN: list-->
-            <li class="item li-master">
+            <li class="item li-master" ng-repeat="temas in themes">
 
                 <div class="list-header">
                     <a class="list-expand item-icon-right" href="#">
-                        <h2>Diputados</h2>
-                        <i class="icon ion-arrow-down-b"></i>
+                        <h2>{{temas.name}}</h2>
+                        <i class="icon ion-arrow-down-b" ng-hide="temas.tema.length<1"></i>
                     </a>
                 </div>
                 <ul class="list-content">
-                    <li class="item li-parent">
+                    <li class="item li-parent" ng-repeat="tema in temas.tema">
                         <div class="list-header item item-checkbox item-icon-right">
                             <label class="checkbox">
                                <input type="checkbox">
                             </label>
-                            Hacienda
-                            <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
+                            {{tema.name}}
+                            <a class="icon list-expand" href=""><i ng-hide="tema.comision.length<1" class="icon ion-arrow-down-b"></i></a>
                         </div>
                         <ul class="list-content">
-                            <li class="item item-checkbox li-children">
+                            <li class="item item-checkbox li-children" ng-repeat="comision in tema.comision">
                                 <!--<label class="checkbox">
                                    <input type="checkbox">
                                 </label>-->
-                                Comisión de hacienda y crédito
-                            </li>
-
-                            <li class="item item-checkbox li-children">
-                                <!--<label class="checkbox">
-                                    <input type="checkbox">
-                                </label>-->
-                                Público
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <li class="item li-parent">
-                        <div class="list-header item item-checkbox item-icon-right">
-                            <label class="checkbox">
-                               <input type="checkbox">
-                            </label>
-                            Hacienda
-                            <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
-                        </div>
-                        <ul class="list-content">
-                            <li class="item item-checkbox li-children">
-                                <!--<label class="checkbox">
-                                   <input type="checkbox">
-                                </label>-->
-                                Comisión de hacienda y crédito
-                            </li>
-
-                            <li class="item item-checkbox li-children">
-                                <!--<label class="checkbox">
-                                    <input type="checkbox">
-                                </label>-->
-                                Público
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <li class="item li-parent">
-                        <div class="list-header item item-checkbox item-icon-right">
-                            <label class="checkbox">
-                               <input type="checkbox">
-                            </label>
-                            Hacienda
-                            <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
-                        </div>
-                        <ul class="list-content">
-                            <li class="item item-checkbox li-children">
-                                <!--<label class="checkbox">
-                                   <input type="checkbox">
-                                </label>-->
-                                Comisión de hacienda y crédito
-                            </li>
-
-                            <li class="item item-checkbox li-children">
-                                <!--<label class="checkbox">
-                                    <input type="checkbox">
-                                </label>-->
-                                Público
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <li class="item li-parent">
-                        <div class="list-header item item-checkbox item-icon-right">
-                            <label class="checkbox">
-                               <input type="checkbox">
-                            </label>
-                            Hacienda
-                            <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
-                        </div>
-                        <ul class="list-content">
-                            <li class="item item-checkbox li-children">
-                                <!--<label class="checkbox">
-                                   <input type="checkbox">
-                                </label>-->
-                                Comisión de hacienda y crédito
+                                {{comision.title}}
                             </li>
 
                             <li class="item item-checkbox li-children">
@@ -131,126 +56,13 @@
                         </ul>
                     </li>
                 </ul>
-
-            </li>
-            
-             <li class="item li-master">
-
-                <div class="list-header">
-                    <a class="list-expand item-icon-right" href="#">
-                        <h2>Senado</h2>
-                        <i class="icon ion-arrow-down-b"></i>
-                    </a>
-                </div>
-                <ul class="list-content">
-                    <li class="item li-parent">
-                        <div class="list-header item item-checkbox item-icon-right">
-                            <label class="checkbox">
-                               <input type="checkbox">
-                            </label>
-                            Hacienda
-                            <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
-                        </div>
-                        <ul class="list-content">
-                            <li class="item item-checkbox li-children">
-                                <!--<label class="checkbox">
-                                   <input type="checkbox">
-                                </label>-->
-                                Comisión de hacienda y crédito
-                            </li>
-
-                            <li class="item item-checkbox li-children">
-                                <!--<label class="checkbox">
-                                    <input type="checkbox">
-                                </label>-->
-                                Público
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <li class="item li-parent">
-                        <div class="list-header item item-checkbox item-icon-right">
-                            <label class="checkbox">
-                               <input type="checkbox">
-                            </label>
-                            Hacienda
-                            <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
-                        </div>
-                        <ul class="list-content">
-                            <li class="item item-checkbox li-children">
-                                <!--<label class="checkbox">
-                                   <input type="checkbox">
-                                </label>-->
-                                Comisión de hacienda y crédito
-                            </li>
-
-                            <li class="item item-checkbox li-children">
-                                <!--<label class="checkbox">
-                                    <input type="checkbox">
-                                </label>-->
-                                Público
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <li class="item li-parent">
-                        <div class="list-header item item-checkbox item-icon-right">
-                            <label class="checkbox">
-                               <input type="checkbox">
-                            </label>
-                            Hacienda
-                            <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
-                        </div>
-                        <ul class="list-content">
-                            <li class="item item-checkbox li-children">
-                                <!--<label class="checkbox">
-                                   <input type="checkbox">
-                                </label>-->
-                                Comisión de hacienda y crédito
-                            </li>
-
-                            <li class="item item-checkbox li-children">
-                                <!--<label class="checkbox">
-                                    <input type="checkbox">
-                                </label>-->
-                                Público
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <li class="item li-parent">
-                        <div class="list-header item item-checkbox item-icon-right">
-                            <label class="checkbox">
-                               <input type="checkbox">
-                            </label>
-                            Hacienda
-                            <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
-                        </div>
-                        <ul class="list-content">
-                            <li class="item item-checkbox li-children">
-                                <!--<label class="checkbox">
-                                   <input type="checkbox">
-                                </label>-->
-                                Comisión de hacienda y crédito
-                            </li>
-
-                            <li class="item item-checkbox li-children">
-                                <!--<label class="checkbox">
-                                    <input type="checkbox">
-                                </label>-->
-                                Público
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-
-            </li>
+            </li>       
             <!-- END: list -->
         </ul>
             
         <div class="list-actions padding clearfix">
-            <button class="button button-outline button-positive" type="submit">Siguiente</button>
-            <a class="btn-next" href="#">Agregar mis temas despues</a>
+            <button class="button button-outline button-positive show-warning" type="">Siguiente</button>
+            <a class="btn-next" href="#/tab/feeds">Agregar mis temas despues</a>
         </div>
         </form>
         

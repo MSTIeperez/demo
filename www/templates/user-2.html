@@ -1,8 +1,8 @@
-<ion-view view-title="Nombre Cliente">
+<ion-view view-title="{{user_data.first_name}} {{user_data.last_name}}">
     <ion-content class="has-subheader"> 
         <div class="header-blue padding">
             <p>Registra a tus usuarios en Legix</p>
-            <a class="icon ion-help-circled show-tutorial" href="#users"></a>
+            <a class="icon ion-help-circled show-tutorial" href="#users" onclick="return false;"></a>
         </div>
         
         <form>
@@ -33,7 +33,7 @@
             
         <div class="list-actions list-actions-border clearfix">
             <button class="button button-outline button-positive" type="submit">Agregar</button>
-            <button class="button button-outline button-positive" type="submit">Agregar después</button>
+            <button class="button button-outline button-positive" onclick="window.location.href='#/tab/feeds'">Agregar después</button>
         </div>
         </form>
         
