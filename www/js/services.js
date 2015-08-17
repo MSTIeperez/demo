@@ -168,8 +168,8 @@ angular.module('starter.services', ['ngCookies'])
     all: function() {
 			var deferred = $q.defer();
             var promise = deferred.promise;
-		//$http.get(url+'/api/temas')
-		$http.get('/api/temas')
+		$http.get(url+'/api/temas')
+		//http.get('/api/temas')
 				.success(function(data){
 				//console.log(data);
 				themas=data.origen;
