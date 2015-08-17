@@ -5,7 +5,7 @@
             <form>
             
                 <div class="item item-avatar item-thumbnail-left" href="#">
-                    <a class="btn-upload" href="#">
+                    <a class="btn-upload" href="#"  onclick="getImage();">
                         <img src="{{user_data.src_img}}">
                         <span class="txt">Editar</span>
                     </a>
@@ -14,7 +14,12 @@
                 
                 <div class="list list-inset">
                     <label class="item item-input">
-                        <input type="text" placeholder="" value="{{user_data.first_name}} {{user_data.last_name}}">
+                        <input type="text" placeholder="" value="{{user_data.first_name}}">
+                    </label>
+                </div>
+				<div class="list list-inset">
+                    <label class="item item-input">
+                        <input type="text" placeholder="" value="{{user_data.last_name}}">
                     </label>
                 </div>
                 
