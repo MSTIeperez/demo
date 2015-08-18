@@ -212,6 +212,19 @@ angular.module('starter.controllers', [])
 		}
 	});  
 })
+.controller('GroupsCtrl', function($scope, Feeds, $rootScope) {
+//	var user = $rootScope.user_data;
+	$scope.grupos=$rootScope.user_data.grupos;
+	//console.log("favoritos: "+fav_feeds);
+	$scope.$on('$ionicView.enter', function(e) {
+	/*	Feeds.all(-1,'','', 'send_data','','','','',fav_feeds).success(function(data){
+			$scope.feeds = data;
+		});*/
+		$scope.remove = function(feed) {
+			Feeds.remove(feed);
+		}
+	});  
+})
 .controller('FavoritesCtrl', function($scope, Feeds, $rootScope) {
 	var user = $rootScope.user_data;
 	var fav_feeds = user.favfeeds?user.favfeeds:'0,0';
@@ -228,7 +241,9 @@ angular.module('starter.controllers', [])
 
 .controller('PerfilCtrl', function($scope,$rootScope) {
 	$scope.$on('$ionicView.enter', function(e) {
-		//$scope.user={};
+		$scope.data={};
+		$scope.data.first_name=$rootScope.user_data.first_name;
+		$scope.data.last_name=$rootScope.user_data.last_name;
 	});
 })
 .controller('ConfigCtrl', function($scope,$rootScope) {

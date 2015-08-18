@@ -1,4 +1,4 @@
-<ion-view view-title="Nombre Cliente">
+<ion-view view-title="{{user_data.first_name}} {{user_data.last_name}}">
     <!-- BEGIN: header -->
     <ion-header-bar class="bar-positive" align-title="center">
         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
@@ -8,49 +8,26 @@
     <!-- END: header -->
     <!-- BEGIN: sub header -->
     <ion-nav-bar class="bar-dark bar-subheader bar-secondary" align-title="left">
-        <ion-nav-back-button>back</ion-nav-back-button>
+        <ion-nav-back-button></ion-nav-back-button>
     </ion-nav-bar>
     <!-- END: sub header -->
     
     <ion-content class="has-subheader"> 
         <div class="header-blue padding">
-            <h2>Temas</h2>
-            <a class="icon ion-gear-b" href="#"></a>
+            <h2>Grupos</h2>
+            <a class="icon ion-gear-b" href="#/tab/config-feeds"></a>
         </div>
         
         <ul class="list category-list groups-list padding has-circle"> 
             
-            <li class="category-element item item-avatar item-icon-left item-icon-right">
+            <li class="category-element item item-avatar item-icon-left item-icon-right" ng-repeat="grupo in grupos">
                 <a class="btn-invisible" href=""></a>
                 <i class="icon ion-android-people"></i>
-                <h2>Diputados | Hacienda</h2>
+                <h2>{{grupo.title}}</h2>
                 <i class="icon ion-chevron-right"></i>
                 
             </li>
-            <li class="category-element item item-avatar item-icon-left item-icon-right">
-                <a class="btn-invisible" href=""></a>
-                <i class="icon ion-android-people"></i>
-                <h2>Diputados | Hacienda</h2>
-                <i class="icon ion-chevron-right"></i>
-            </li>
-            <li class="category-element item item-avatar item-icon-left item-icon-right">
-                <a class="btn-invisible" href=""></a>
-                <i class="icon ion-android-people"></i>
-                <h2>Diputados | Hacienda</h2>
-                <i class="icon ion-chevron-right"></i>
-            </li>
-            <li class="category-element item item-avatar item-icon-left item-icon-right">
-                <a class="btn-invisible" href=""></a>
-                <i class="icon ion-android-people"></i>
-                <h2>Diputados | Hacienda</h2>
-                <i class="icon ion-chevron-right"></i>
-            </li>
-            <li class="category-element item item-avatar item-icon-left item-icon-right">
-                <a class="btn-invisible" href=""></a>
-                <i class="icon ion-android-people"></i>
-                <h2>Diputados | Hacienda</h2>
-                <i class="icon ion-chevron-right"></i>
-            </li>
+         
 
         </ul>
     
