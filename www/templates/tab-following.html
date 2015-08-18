@@ -1,16 +1,25 @@
 <ion-view view-title="Siguiendo">
+    <!-- BEGIN: header -->
+    <ion-header-bar class="bar-positive" align-title="center">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+            <h1 class="title">Legix</h1>
+        <button class="button button-icon icon ion-search"></button>
+    </ion-header-bar>
+    <!-- END: header -->
+    <!-- BEGIN: sub header -->
+    <ion-nav-bar class="bar-dark bar-subheader bar-secondary" align-title="left">
+        <ion-nav-back-button>back</ion-nav-back-button>
+    </ion-nav-bar>
+    <!-- END: sub header -->
+    
     <ion-content class="padding has-subheader bg-color-1"> 
-        <div class="seen-menu clearfix" ng-if="feeds.length>1">
-		     <a class="reads active" data-class="feed_noread" href="#" onclick="return false;">No leídos ({{noread}})</a>
-            <a  class="reads" data-class="feed_read" href="#" onclick="return false;">Leídos</a>
-        </div>
-     <!-- BEGIN: card -->
-	 <div class="list-card" ng-if="feeds.length<1">
-		<div class="item item-header item-thumbnail-left">
-		
-			<h2>No tienes asuntos siguiendo</h2>
-		</div>
-	 </div >
+        
+         <!-- BEGIN: card -->
+         <div class="list-card" ng-if="feeds.length<1">
+            <div class="item item-header item-empty">
+                <h2>No tienes asuntos siguiendo</h2>
+            </div>
+         </div >
         <div class="list card" ng-repeat="feed in feeds">
 
             <div class="item item-header item-thumbnail-left">

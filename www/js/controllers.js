@@ -26,7 +26,7 @@ angular.module('starter.controllers', [])
 	});  
 })
 
-.controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state, Auth) {
+.controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state, Auth, $rootScope) {
     $scope.data = {};
 	$scope.logout = function() {
 		Auth.logout();
@@ -36,6 +36,7 @@ angular.module('starter.controllers', [])
 		  console.log("LOGIN user: " + $scope.data.username + " - PW: ********");
         LoginService.loginUser($scope.data.username, $scope.data.password).success(function(data) {
 			$scope.user=data.user;
+			$rootScope.user_data =data.user;
 			 if (data.message=="logged") {
 				Auth.setUser({
 				  username: $scope.user.id+'-'+$scope.user.first_name+'-'+$scope.user.last_name

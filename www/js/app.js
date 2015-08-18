@@ -122,7 +122,7 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
         url: '/myfeeds',
         views: {
             'tab-myfeeds': {
-                templateUrl: 'templates/misfeeds-2.html',
+                templateUrl: 'templates/temas.html',
                 controller: 'MyfeedsCtrl'
             }
         }
@@ -151,7 +151,7 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
         url: '/groups',
         views: {
             'tab-groups': {
-                templateUrl: 'templates/tab-groups.html',
+                templateUrl: 'templates/grupos.html',
                 controller: 'GroupsCtrl'
             }
         }

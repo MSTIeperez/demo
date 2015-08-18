@@ -3,6 +3,35 @@ $( document ).ready(function() {
     // Global variables
     var step = 1;
     
+    // Notificación
+    function notification() {
+        setTimeout(function() {
+            if($('.notification > i > span').length == 0) {
+                $('.notification > i').append('<span class="not-count">99</span>');
+            }
+        }, 500);
+    }
+    notification();
+    $(document).on('click', function() {
+        notification(); 
+    });
+    
+    // Mostrar grupo
+    $('body').on('click', '#show-all', function() {
+        $('.image-list').toggleClass('active');
+        if($('.image-list').hasClass('active') != true) {
+            $(this).html('Ver todos');
+        } else {
+            $(this).html('Ver menos');
+        }
+    });
+    
+    // input comentar
+    $('body').on('click', '.icon-message', function() {
+         $(this).parent().toggleClass('active');
+        $(this).parent().parent().parent().children('.input-comment').toggleClass('active');
+    });
+    
     // button seen menu: active para botones de no leido & leido
     $( 'body' ).on( 'click', '.seen-menu a', function() {
         $( '.seen-menu a' ).removeClass( 'active' );
@@ -16,7 +45,7 @@ $( document ).ready(function() {
     });
     
     // button search: activa lighbox de busqueda
-    $( '.ion-search, .btn-cancel' ).on( 'click', function() {
+    $( 'body' ).on( 'click', '.ion-search, .btn-cancel', function() {
         $( '.lightbox-search' ).toggleClass( 'active' );
     });
 
@@ -112,16 +141,12 @@ $( document ).ready(function() {
         return false;
     });
      
-$( 'body' ).on( 'click', '.show-warning', function() {
+    $( 'body' ).on( 'click', '.show-warning', function() {
         $( '.warning' ).addClass( 'active' );
         return false;
     });
 
-
-
 	 // button hide warning
-
-
     $( 'body' ).on( 'click', '.hide-warning', function() {
         $( '.warning' ).removeClass( 'active' );
         return false;
