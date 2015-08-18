@@ -228,6 +228,7 @@ angular.module('starter.controllers', [])
 .controller('FavoritesCtrl', function($scope, Feeds, $rootScope) {
 	var user = $rootScope.user_data;
 	var fav_feeds = user.favfeeds?user.favfeeds:'0,0';
+	$scope.favorites=$rootScope.user_data.favfolder;
 	console.log("favoritos: "+fav_feeds);
 	$scope.$on('$ionicView.enter', function(e) {
 		Feeds.all(-1,'','', 'send_data','','','','',fav_feeds).success(function(data){

@@ -161,7 +161,7 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
         url: '/favorites',
         views: {
             'tab-favorites': {
-                templateUrl: 'templates/tab-favorites_back.html',
+                templateUrl: 'templates/tab-favorites.html',
                 controller: 'FavoritesCtrl'
             }
         }
@@ -170,7 +170,7 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
     .state('tab.feed', {
       url: '/favorites/feed',
       views: {
-        'tab-chats': {
+        'tab-favorites': {
           templateUrl: 'templates/tab-favorites-feed.html',
           controller: 'FavoritesCtrl'
         }

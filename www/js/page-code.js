@@ -2,7 +2,7 @@ $( document ).ready(function() {
     
     // Global variables
     var step = 1;
-    var num=1;
+    var num=0;
     // Notificación
     function notification() {
         setTimeout(function() {
