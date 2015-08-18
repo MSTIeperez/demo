@@ -137,17 +137,17 @@ angular.module('starter.controllers', [])
 	});  
 })
 
-.controller('FeedsCtrl', function($scope, Feeds) {
+.controller('FeedsCtrl', function($scope, Feeds_all) {
    	
 	$scope.$on('$ionicView.enter', function(e) {
-		Feeds.all(-1).success(function(data){
+		Feeds_all.all(-1).success(function(data){
 			angular.forEach(data, function(val, key){
 				data[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';
 			});
 			$scope.feeds = data;
 		});
 		$scope.remove = function(feed) {
-			Feeds.remove(feed);
+			Feeds_all.remove(feed);
 		}
 	});  
 })

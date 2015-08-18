@@ -26,7 +26,13 @@ $( document ).ready(function() {
             $(this).html('Ver menos');
         }
     });
-    
+       
+	// Botón visto 
+    $('body').on('click', 'a.read', function(){
+        $(this).children('i').toggleClass('ion-ios-eye-outline');
+        $(this).children('i').toggleClass('ion-ios-eye');
+    });
+	
     // input comentar
     $('body').on('click', '.icon-message', function() {
          $(this).parent().toggleClass('active');

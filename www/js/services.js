@@ -102,12 +102,64 @@ angular.module('starter.services', ['ngCookies'])
    }
 })
 
-.factory('Feeds', function($http, Auth, $q, $state) {
+.factory('Feeds_all', function($http, Auth, $q, $state, $location) {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
   var feeds = [];
+	if(window.localStorage.getItem('user')!=null && Auth.isLoggedIn())	{
 
+  return {
+    all: function(status,my_feeds, my_follow, fav,  subject_id, origin_id, theme_id, comision_id, feed_in) {
+			var deferred = $q.defer();
+            var promise = deferred.promise;
+		$http.post(url+'/api/feeds/get_all',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
+		//$http.post('/api/feeds/get_all',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
+				.success(function(data){
+				console.log(data);
+				feeds=data.feeds;
+				deferred.resolve(data.feeds);
+				console.log("feeds: "+feeds);
+				if(data.message=="el usuario no esta registrado"){
+				
+						Auth.logout();
+						$state.go("login");
+					
+				}
+				})
+				.error(function (data){
+				console.log(data);
+				});
+      promise.success = function(fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function(fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+            return promise;
+        
+    },
+    remove: function(feed) {
+      feed.splice(feeds.indexOf(feed), 1);
+    },
+    get: function(feedId) {
+      for (var i = 0; i < feeds.length; i++) {
+        if (feeds[i].id === parseInt(feedId)) {
+          return feeds[i];
+        }
+      }
+      return null;
+    }
+  }
+	}
+})
+.factory('Feeds', function($http, Auth, $q, $state, $location) {
+  // Might use a resource here that returns a JSON array
+
+  // Some fake testing data
+  var feeds = [];
 	if(window.localStorage.getItem('user')!=null && Auth.isLoggedIn())	{
 
   return {
