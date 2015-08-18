@@ -5,43 +5,29 @@
         <ion-item class="list card" ng-repeat="feed in feeds">
 
             <div class="item item-header item-thumbnail-left">
-                <img class="small-image" ng-src="img/icons/icon-senado.png">
+                <img class="small-image" ng-src="http://legixapp.abardev.net{{ feed.src_img }}">
                 <h2>{{ feed.name }}</h2>
                 <h3>{{ feed.from }}</h3>
                 <p>{{ feed.update | date }}</p>
             </div>
 
             <div class="item item-body">
-                <p>{{ feed.message }}</p>
+                <p ng-bind-html="feed.content"></p>
                 <div class="item-attachments">
-                    <a href="{{ feed.file.link }}" dowload="file.txt">
+                    <a ng-repeat="docs in feed.docs" href="http://legixapp.abardev.net{{ docs.src_file }}" download="{{docs.file}}">
                         <i class="icon ion-android-attach"></i>
-                        File.txt
+                        {{docs.file}}
                     </a>
                 </div>
-                <div class="item-comments">
-                    <a href="#" class="show-comments">Mostrar <span class="comments-count">4</span> comentarios previos</a>
+                <div   ng-hide="{{feed.comments.length<1}}"class="item-comments">
+                    <a ng-hide="{{feed.comments.length-1<1}}" href="#" class="show-comments">Mostrar <span class="comments-count">{{feed.comments.length-1}}</span> comentarios previos</a>
                     <ul class="comments-list">
-                        <li class="comment">
-                            <h3>Armadeo Ibarra</h3>
-                            <p>1¿Este punto de acuerdo ya se votó?</p>
-                            <p class="date">May 19, 2014 a las 1:10 pm</p>
+                        <li class="comment  " ng-repeat="comments in feed.comments" ng-class="!$last ? ' ' : 'last-comment'">
+                            <h3>{{comments.name}}</h3>
+                            <p>{{comments.comment}}</p>
+                            <p class="date">{{comments.date}}</p>
                         </li>
-                        <li class="comment">
-                            <h3>Armadeo Ibarra</h3>
-                            <p>2¿Este punto de acuerdo ya se votó?</p>
-                            <p class="date">May 19, 2014 a las 1:10 pm</p>
-                        </li>
-                        <li class="comment">
-                            <h3>Armadeo Ibarra</h3>
-                            <p>3¿Este punto de acuerdo ya se votó?</p>
-                            <p class="date">May 19, 2014 a las 1:10 pm</p>
-                        </li>
-                        <li class="comment last-comment">
-                            <h3>Armadeo Ibarra</h3>
-                            <p>4¿Este punto de acuerdo ya se votó?</p>
-                            <p class="date">May 19, 2014 a las 1:10 pm</p>
-                        </li>
+                       
                     </ul>
                 </div>
             </div>

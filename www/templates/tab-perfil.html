@@ -8,7 +8,7 @@
     <!-- END: header -->
     <!-- BEGIN: sub header -->
     <ion-nav-bar class="bar-dark bar-subheader bar-secondary" align-title="left">
-        <ion-nav-back-button>back</ion-nav-back-button>
+        <ion-nav-back-button></ion-nav-back-button>
     </ion-nav-bar>
     <!-- END: sub header -->
     
@@ -27,12 +27,12 @@
                 
                 <div class="list list-inset">
                     <label class="item item-input">
-                        <input type="text" placeholder="" value="{{user_data.first_name}}">
+                        <input type="text" placeholder="" value="{{user_data.first_name}}" ng-model="data.first_name">
                     </label>
                 </div>
 				<div class="list list-inset">
                     <label class="item item-input">
-                        <input type="text" placeholder="" value="{{user_data.last_name}}">
+                        <input type="text" placeholder="" value="{{user_data.last_name}}" ng-model="data.last_name">
                     </label>
                 </div>
                 
@@ -40,14 +40,14 @@
                     <li class="item-button-right">
                         <label class="item item-input item-stacked-label">
                             <span class="input-label">Correo electrónico</span>
-                            <input type="email" placeholder="{{user_data.email}}">
+                            <input type="email" placeholder="{{user_data.email}}" disabled>
                         </label>
-                        <a class="button button-outline button-positive" href="#">Editar</a>
+                        <!--a class="button button-outline button-positive" href="#">Editar</a-->
                     </li>
                     <li class="item-button-right">
                         <label class="item item-input item-stacked-label">
                             <span class="input-label">Contraseña</span>
-                            <input type="password" placeholder="******">
+                            <input type="password" placeholder="******"  ng-model="data.password">
                         </label>
                         <a class="button button-outline button-positive" href="#">Editar</a>
                     </li>
@@ -66,7 +66,7 @@
                 </ul>
                 
                 <div class="form-actions padding clearfix">
-                    <button class="button button-outline button-positive center">Guardar</button>
+                    <button class="button button-outline button-positive center" onclick="">Guardar</button>
                 </div>
 
             </form>

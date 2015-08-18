@@ -163,7 +163,7 @@ angular.module('starter.controllers', [])
 		$scope.temas = user.temas;
 		 var noread=0;
 		// Feeds.all(-1,'send_data','','',$scope.data.origin_id, $scope.data.theme_id,'').success(function(data){
-		$scope.changeLocation= Feeds.all(-1,'send_data','','',$state.params.origin_id, $state.params.theme_id,'').success(function(data){
+		$scope.changeLocation= Feeds.all(-1,'send_data','','','', $state.params.origin_id, $state.params.theme_id,'').success(function(data){
 			angular.forEach(data, function(val, key){
 				data[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';
 				if(val.read==0)
@@ -187,7 +187,7 @@ angular.module('starter.controllers', [])
 .controller('MyfeedCtrl', function($stateParams, $scope,Feeds,$state){
 	$scope.noread=0;
 	$scope.$on('$ionicView.enter', function(e) {
-			Feeds.all(-1,'send_data','','',$state.params.origin_id, $state.params.theme_id,'').success(function(data){
+			Feeds.all(-1,'send_data','','','',$state.params.origin_id, $state.params.theme_id,'').success(function(data){
 			$scope.feeds = data;
 			angular.forEach(data, function(val, key){
 				$scope.noread= $scope.noread++;
@@ -204,7 +204,7 @@ angular.module('starter.controllers', [])
 	var asuntos = user.follow?user.follow:'0,0';
 	console.log(asuntos);
 	$scope.$on('$ionicView.enter', function(e) {
-		Feeds.all(-1,'','send_data',asuntos).success(function(data){
+		Feeds.all(-1,'','send_data','',asuntos).success(function(data){
 			$scope.feeds = data;
 		});
 		$scope.remove = function(feed) {
@@ -212,18 +212,20 @@ angular.module('starter.controllers', [])
 		}
 	});  
 })
-.controller('FavoritesCtrl', function($scope, Favorites) {
- 
-  
-  $scope.favorites = Favorites.all();
-  $scope.remove = function(favorite) {
-    Favorites.remove(favorite);
-  }
+.controller('FavoritesCtrl', function($scope, Feeds, $rootScope) {
+	var user = $rootScope.user_data;
+	var fav_feeds = user.favfeeds?user.favfeeds:'0,0';
+	console.log("favoritos: "+fav_feeds);
+	$scope.$on('$ionicView.enter', function(e) {
+		Feeds.all(-1,'','', 'send_data','','','','',fav_feeds).success(function(data){
+			$scope.feeds = data;
+		});
+		$scope.remove = function(feed) {
+			Feeds.remove(feed);
+		}
+	});  
 })
 
-.controller('FeedFavoritesCtrl', function($scope, $stateParams, Feeds) {
-  $scope.feed = Feeds.get($stateParams.feedId);
-})
 .controller('PerfilCtrl', function($scope,$rootScope) {
 	$scope.$on('$ionicView.enter', function(e) {
 		//$scope.user={};

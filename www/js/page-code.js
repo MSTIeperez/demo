@@ -2,14 +2,15 @@ $( document ).ready(function() {
     
     // Global variables
     var step = 1;
-    
+    var num=1;
     // Notificación
     function notification() {
         setTimeout(function() {
             if($('.notification > i > span').length == 0) {
-                $('.notification > i').append('<span class="not-count">99</span>');
+				if(num>0)
+					$('.notification > i').append('<span class="not-count">'+num+'</span>');
             }
-        }, 500);
+        }, 1000);
     }
     notification();
     $(document).on('click', function() {
@@ -38,7 +39,6 @@ $( document ).ready(function() {
         $( this ).addClass( 'active' );
 		if($(this).hasClass('active')){
 					$('.feeds').hide();
-					console.log($(this).data('class'));
 					$('.'+$(this).data('class')).removeClass('ng-hide');
 					$('.'+$(this).data('class')).show();
 				}

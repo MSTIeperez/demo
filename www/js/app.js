@@ -172,7 +172,7 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
       views: {
         'tab-chats': {
           templateUrl: 'templates/tab-favorites-feed.html',
-          controller: 'FeedFavoritesCtrl'
+          controller: 'FavoritesCtrl'
         }
       }
     })
