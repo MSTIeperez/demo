@@ -10,8 +10,8 @@ angular.module('starter.services', ['ngCookies'])
 			
             var promise = deferred.promise;
 	//	if(window.localStorage.getItem('user')==null)	{
-		//$http.post(url+'/api/desktop_login',{'email':name,'password': pw})
-		$http.post('/api/desktop_login',{'email':name,'password': pw})
+		$http.post(url+'/api/desktop_login',{'email':name,'password': pw})
+		//$http.post('/api/desktop_login',{'email':name,'password': pw})
 				.success(function(data, status, headers, config){
 				console.log(data);
 					 if (data.message=="logged") {
@@ -51,8 +51,8 @@ angular.module('starter.services', ['ngCookies'])
             var deferred = $q.defer();
 			
             var promise = deferred.promise;
-		//$http.post(url+'/api/create',{'legix_id':legix_id,'first_name':first_name, 'last_name':last_name, 'email':email,'password': pw})
-		$http.post('/api/create',{'legix_id':legix_id,'first_name':first_name, 'last_name':last_name, 'email':email,'password': pw})
+		$http.post(url+'/api/create',{'legix_id':legix_id,'first_name':first_name, 'last_name':last_name, 'email':email,'password': pw})
+		//$http.post('/api/create',{'legix_id':legix_id,'first_name':first_name, 'last_name':last_name, 'email':email,'password': pw})
 				.success(function(data, status, headers, config){
 				console.log(data);
 					 if (data.message=="Creada") {
@@ -113,8 +113,8 @@ angular.module('starter.services', ['ngCookies'])
     all: function(status,search,my_feeds, my_follow, fav,  subject_id, origin_id, theme_id, comision_id, feed_in) {
 			var deferred = $q.defer();
             var promise = deferred.promise;
-		//$http.post(url+'/api/feeds/get_all',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
-		$http.post('/api/feeds/get_all',{'status':-1,'search':search, 'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
+		$http.post(url+'/api/feeds/get_all',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
+		//$http.post('/api/feeds/get_all',{'status':-1,'search':search, 'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
 				.success(function(data){
 				if(data.message!="Es necesario iniciar sesión"){
 				console.log(data);
@@ -167,8 +167,8 @@ angular.module('starter.services', ['ngCookies'])
     all: function(status,my_feeds, my_follow, fav,  subject_id, origin_id, theme_id, comision_id, feed_in) {
 			var deferred = $q.defer();
             var promise = deferred.promise;
-		//$http.post(url+'/api/my-feeds/get_all',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
-		$http.post('/api/my-feeds/get_all',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
+		$http.post(url+'/api/my-feeds/get_all',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
+		//$http.post('/api/my-feeds/get_all',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
 				.success(function(data){
 				console.log(data);
 				feeds=data.feeds;
@@ -221,8 +221,8 @@ angular.module('starter.services', ['ngCookies'])
     all: function() {
 			var deferred = $q.defer();
             var promise = deferred.promise;
-		//$http.get(url+'/api/temas')
-		$http.get('/api/temas')
+		$http.get(url+'/api/temas')
+		//$http.get('/api/temas')
 				.success(function(data){
 				//console.log(data);
 				themas=data.origen;
