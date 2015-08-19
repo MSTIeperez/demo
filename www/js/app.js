@@ -6,6 +6,22 @@
 
 'use strict';
 angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.services'])
+
+.directive('ngEnter', function () {
+        return function (scope, element, attrs) {
+            element.bind("keydown keypress", function (event) {
+                if (event.which === 13) {
+                    scope.$apply(function () {
+                        scope.$eval(attrs.ngEnter, {
+                            'event': event
+                        });
+                    });
+
+                    event.preventDefault();
+                }
+            });
+        };
+    })
 .config(function($ionicConfigProvider){
     $ionicConfigProvider.tabs.position('bottom');
 })
@@ -22,6 +38,7 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
     }
   });
 })
+
 
 .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
@@ -117,7 +134,15 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
             }
         }
     })
-        
+    .state('tab.feedsearch', {
+        url: '/feeds/busqueda',
+        views: {
+            'tab-feeds': {
+                templateUrl: 'templates/tab-feeds-search.html',
+                controller: 'FeedsCtrl'
+            }
+        }
+    })   
     .state('tab.tema_feeds', {
         url: '/myfeeds',
         views: {
@@ -168,7 +193,7 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
     })
     
     .state('tab.feed', {
-      url: '/favorites/feed',
+      url: '/favorites/feed/:foldername/:favfolder',
       views: {
         'tab-favorites': {
           templateUrl: 'templates/tab-favorites-feed.html',

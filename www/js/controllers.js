@@ -1,27 +1,18 @@
 angular.module('starter.controllers', [])
 
-
-//.controller('MainCtrl', function($scope) {})
-//.controller('LoginCtrl', function($scope) {})
 .controller('ConfigCtrl', function($scope) {})
 .controller('ConfigAddCtrl', function($scope) {})
-//.controller('FeedsCtrl', function($scope) {})
 .controller('MyfeedCtrl', function($scope) {})
-//.controller('FollowingCtrl', function($scope) {})
 .controller('GroupsCtrl', function($scope) {})
 .controller('PerfilCtrl', function($scope) {})
-//.controller('RegistroCtrl', function($scope) {})
 .controller('SimpleCtrl', function($scope) {})
 
 .controller('MainCtrl', function($scope,$cookies,$cookieStore, $rootScope, Auth ){
 	var url ='http://legixapp.abardev.net';
 	$scope.$on('$ionicView.enter', function(e) {
-		//alert(window.localStorage.getItem('user').length)
-		//alert(window.localStorage.getItem('user').length>4)
 		if(window.localStorage.getItem('user')&&window.localStorage.getItem('user').length>4){
 		$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
 		$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
-		//console.log("logueado: "+Auth.isLoggedIn())
 		}
 	});  
 })
@@ -68,7 +59,6 @@ angular.module('starter.controllers', [])
 	  if($scope.data.terms==true){
 		  
         Registerservice.newUser($scope.data.legix_id, $scope.data.first_name, $scope.data.last_name, $scope.data.email, $scope.data.password).success(function(data) {
-		//	console.log(data);
 			$scope.user=data.user;
 			 if (data.message=="Creada") {
 				    LoginService.loginUser($scope.data.email, $scope.data.password).success(function(data) {
@@ -118,12 +108,12 @@ angular.module('starter.controllers', [])
 	  }
     }
 })
+ 
  // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
   // listen for the $ionicView.enter event:
   //
-
 .controller('ConfigfeedCtrl', function($scope, Themes) {
    	
 	$scope.$on('$ionicView.enter', function(e) {
@@ -137,22 +127,31 @@ angular.module('starter.controllers', [])
 	});  
 })
 
-.controller('FeedsCtrl', function($scope, Feeds_all) {
-   	
-	$scope.$on('$ionicView.enter', function(e) {
-		Feeds_all.all(-1).success(function(data){
+.controller('FeedsCtrl', function($scope, Feeds_all, Auth) {
+	
+	$scope.data={}
+	
+	$scope.$on('$ionicView.enter', function(e) { console.log(Auth.isLoggedIn())
+		if(Auth.isLoggedIn()){
+		$scope.load = Feeds_all.all(-1,$scope.data.busqueda).success(function(data){
+			console.log($scope.data.busqueda)
 			angular.forEach(data, function(val, key){
 				data[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';
 			});
 			$scope.feeds = data;
+		
+		}).error(function(){
+			$scope.feeds = "";
 		});
 		$scope.remove = function(feed) {
 			Feeds_all.remove(feed);
 		}
+		} else $state.go('login');
 	});  
 })
 
-.controller('MyfeedsCtrl', function($scope, Feeds,$rootScope, $state, $stateParams) {
+.controller('MyfeedsCtrl', function($scope, Feeds,$rootScope, $state, $stateParams, Auth) {
+	
 	 var user = $rootScope.user_data;
 	
 	$scope.data = {};
@@ -160,6 +159,7 @@ angular.module('starter.controllers', [])
 	if(user.temas.length==0)
 		$state.go('tab.configfeeds');
 	$scope.$on('$ionicView.enter', function(e) {
+		 if(Auth.isLoggedIn()){
 		$scope.temas = user.temas;
 		 var noread=0;
 		// Feeds.all(-1,'send_data','','',$scope.data.origin_id, $scope.data.theme_id,'').success(function(data){
@@ -168,21 +168,19 @@ angular.module('starter.controllers', [])
 				data[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';
 				if(val.read==0)
 					noread++;
-			});//data.content = data.content+' '+data.url;
+			});
 			$scope.feeds = data;
 			$scope.noread = noread;
-			//if($scope.data.origin_id.length>0)
-			//	$state.go('tab.myfeeds');
+		
 		});
 		$scope.tema_name=$state.params.name;
 		
 		$scope.remove = function(feed) {
 			Feeds.remove(feed);
 		}
-	/*	$scope.changeLocation = function (newRoute) {
-			$state.go(newRoute);
-		}*/
+		}else $state.go('login');
 	});  
+	
 })
 .controller('MyfeedCtrl', function($stateParams, $scope,Feeds,$state){
 	$scope.noread=0;
@@ -225,19 +223,40 @@ angular.module('starter.controllers', [])
 		}
 	});  
 })
-.controller('FavoritesCtrl', function($scope, Feeds, $rootScope) {
-	var user = $rootScope.user_data;
-	var fav_feeds = user.favfeeds?user.favfeeds:'0,0';
-	$scope.favorites=$rootScope.user_data.favfolder;
-	console.log("favoritos: "+fav_feeds);
-	$scope.$on('$ionicView.enter', function(e) {
-		Feeds.all(-1,'','', 'send_data','','','','',fav_feeds).success(function(data){
-			$scope.feeds = data;
+.controller('FavoritesCtrl', function($scope, Feeds, $rootScope, $state) {
+	
+	var fav_feeds = [];
+	$scope.favorites=$rootScope.user_data?$rootScope.user_data.favfolder:"";
+	angular.forEach($scope.favorites, function(val, key){
+			fav_feeds.push(val.id);
 		});
+	console.log("favoritos: "+fav_feeds);
+	$scope.favfolder=$state.params.favfolder?$state.params.favfolder:'';
+	//console.log("folder: "+$scope.favfolder);
+	$scope.flag=false;
+	$scope.folder_name=$state.params.foldername?$state.params.foldername:'Feeds Favoritos';
+	$scope.$on('$ionicView.enter', function(e) {
+		if($state.params.favfolder){
+			Feeds.all(-1,'','', 'send_data','','','','',fav_feeds).success(function(data){
+					angular.forEach(data, function(val, key){
+					angular.forEach(val.favfolder, function(dato, index){
+					if($state.params.favfolder==dato.folder_id){
+						data[key].folder=true;
+						$scope.flag=true;
+					}else
+						data[key].folder=false;
+					});
+				});
+				$scope.feeds = data;
+			});
+		}
 		$scope.remove = function(feed) {
 			Feeds.remove(feed);
 		}
 	});  
+	$scope.update_folder=function(){
+	 console.log("datosupdate: "+$scope.data.folder_id+" "+$scope.data.title)	
+	}
 })
 
 .controller('PerfilCtrl', function($scope,$rootScope) {
@@ -257,22 +276,6 @@ angular.module('starter.controllers', [])
 		$scope.user={};
 	});
 });
-/*
-.controller('FeedDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
-
-.controller('FavoritesCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
-})
-
-.controller('FavoritesFeedCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
-});*/
 /*
 .controller('UsuariosCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called

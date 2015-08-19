@@ -1,3 +1,4 @@
+ //setTimeout(function() {
 $( document ).ready(function() {
     
     // Global variables
@@ -67,7 +68,13 @@ $( document ).ready(function() {
         $( '.lightbox-share' ).addClass( 'active' );
         return false;
     });
-    
+     // button edit folder: activa lighbox de edicion folder favorito
+     $( 'body' ).on( 'click', '.show-lightbox-folder', function(e) {
+        e.preventDefault();
+		var folder_id=$(this).parent().data('id');
+		$("#folder_id").attr("ng-value",folder_id)
+		$( '.lightbox-add' ).toggleClass( 'active' );
+      });
     // oculta los lightbox's
     $( 'body' ).on( 'click', '.close-lightbox', function() {
         $( '.share, .lightbox' ).removeClass( 'active' );
@@ -235,3 +242,4 @@ $( document ).ready(function() {
         return false;
     });
 });
+// }, 1000);

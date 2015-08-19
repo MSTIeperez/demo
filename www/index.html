@@ -302,18 +302,87 @@
     </div>
     
     <div class="lightbox lightbox-search">
-        <form>
+        <form ng-controller="FeedsCtrl" >
         <div class="bar bar-header item-input-inset bar-dark">
             <label class="item-input-wrapper">
                 <i class="icon ion-ios-search placeholder-icon"></i>
-                <input type="search" placeholder="Buscar">
+                <input type="search" id="search" placeholder="Buscar" value="data.busqueda" ng-model="data.busqueda" ng-enter="load()" >
             </label>
-            <button class="button button-clear btn-cancel">
+            <button class="button button-clear btn-cancel" >
                 Cancelar
             </button>
         </div>
         </form>
     </div>
+	<div class="lightbox lightbox-add" >
+        <div ng-controller="FavoritesCtrl">
+            <div class="lightbox-add-content">
+                <i class="ion-close close-lightbox"></i>
+                <form >
+                    <label>Cambiar nombre de carpeta</label>
+                    <input class="folder_title" type="text" placeholder="Nombre de carpeta" ng-model="data.title">
+					<input id="folder_id" type="text" ng-value="data.folder_id" ng-model="data.folder_id" style="display:none;">
+                    <div class="actions">
 
+                    </div>
+                </form>
+            </div>
+            <div class="lightbox-add-actions">
+                <button class="button red">Borrar carpeta</button>
+                <button class="button blue update_folder" >Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+	<script>
+	$(document).ready(function(){
+			$('body').on('click','.update_folder',function(e){ 
+				e.preventDefault();
+				var $obj = $(this);
+				var input=  $('.folder_title');
+				var folder_id = $('#folder_id').attr("ng-value");
+				var title= input.val().trim();
+				if(title.length>0){
+					$.post('/api/update_folder',{'title':title,'folder_id':folder_id})
+						 .error(function(){
+								console.log("no se recibieron datos");
+								input.val( "" );
+	                        })
+						 .success(function(data){
+						 
+							response=$.parseJSON(data);
+							console.log(data);
+							if(data.message=="folder_guardado"){
+								$("li[data-id="+data.id+"]").find('h2').html('').html(data.title);
+								$( '.lightbox-add' ).toggleClass( 'active' );
+							}
+						 });
+				
+				}
+			});
+			$('body').on('click','.deleted_folder',function(e){ 
+				e.preventDefault();
+				var $obj = $(this);
+				var folder_id =  $('#folder_id').attr("ng-value");
+				console.log(folder_id);
+				if(folder_id>0){
+					$.post('api/delete_folder', {'send_data':'eliminar','folder_id':folder_id})
+	                        .error(function(){
+								console.log("no se recibieron datos");
+	                        })
+						 .success(function(data){
+							response=$.parseJSON(data);
+							if(response.message=="folder_eliminado"){
+								$(".folder_"+response.id).remove();
+								$(".feed_name").html("");
+								$(".feed").show();
+								$(".no_feeds").hide();
+								$(".onefolder.infolder_"+response.id).hide();
+								$(".delete_fav").hide();
+							}
+						 });
+				}
+			});			
+		}); 
+	</script>
 </body>
 </html>

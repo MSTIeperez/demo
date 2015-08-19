@@ -410,6 +410,16 @@ a.actived > i,
 }
 .item-header {
     padding-bottom: 8px;
+    position: relative;
+}
+.item-header a.read {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.item-header a.read i {
+    color: #a0a0a0;
+    font-size: 30px;
 }
 .item-header h2,
 .item-header h3,
@@ -1232,6 +1242,77 @@ a.list-expand {
     top: 0;
 }
 
+/*//////////////
+
+   LIGHTBOX: ADD
+
+///////////////////*/
+.lightbox-add {
+    background-color: rgba(0, 0, 0, .5);
+}
+.lightbox-add > div {
+    background-color: #FFF;
+    display: block;
+    margin: 0 auto;
+    margin-top: -100px;
+    position: relative;
+    top: 50%;
+    width: 90%;
+}
+.lightbox-add > div div.lightbox-add-content {
+    padding: 20px 15px 15px 15px;
+}
+.lightbox-add > div i {
+    font-size: 20px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 1;
+}
+.lightbox-add > div label {
+    display: block;
+    text-align: left;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+.lightbox-add > div input {
+    border: 1px solid #ccc;
+    height: 40px;
+    padding: 10px;
+    width: 100%;
+}
+.lightbox-add > div div.lightbox-add-actions {
+    overflow: hidden;
+}
+.lightbox-add > div div.lightbox-add-actions button {
+    -webkit-box-sizing: border-box;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    display: block;
+    float: left;
+    left: 0;
+    margin: 0;
+    overflow: hidden;
+    right: 0;
+    width: 50%;
+}
+.lightbox-add > div div.lightbox-add-actions button:first-child {
+    border-left: 0;
+}
+.lightbox-add > div div.lightbox-add-actions button:last-child {
+    border-left: 0;
+    border-right: 0;
+}
+.lightbox-add > div div.lightbox-add-actions button:after {
+    display: none;
+}
+
+.lightbox-add > div div.lightbox-add-actions button.red {
+    color: #f10;
+}
+.lightbox-add > div div.lightbox-add-actions button.blue {
+    color: #3091f4;
+}
 
 /*//////////////
 

@@ -1,4 +1,4 @@
-<ion-view view-title="Mis feeds">
+<ion-view view-title="Configurar Temas">
     <div class="bar bar-header item-input-inset bar-dark">
         <label class="item-input-wrapper">
             <i class="icon ion-ios-search placeholder-icon"></i>
@@ -8,8 +8,12 @@
             Cancelar
         </button>
     </div>
-    
-    <ion-content class="padding has-header"> 
+  <!-- BEGIN: sub header -->
+    <ion-nav-bar class="bar-dark bar-subheader bar-secondary" align-title="left">
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+    <!-- END: sub header -->   
+    <ion-content class="padding has-subheader"> 
         <div class="header padding">
             <h2>Bienvenido {{ user_data.first_name}} {{user_data.last_name}}</h2>
             <p> 
