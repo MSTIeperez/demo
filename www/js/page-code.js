@@ -1,4 +1,4 @@
- //setTimeout(function() {
+ setTimeout(function() {
 $( document ).ready(function() {
     
     // Global variables
@@ -245,4 +245,4 @@ $( document ).ready(function() {
         return false;
     });
 });
-// }, 1000);
+ }, 1000);
