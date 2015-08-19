@@ -135,10 +135,10 @@ angular.module('starter.controllers', [])
 		if(Auth.isLoggedIn()){
 		$scope.load = Feeds_all.all(-1,$scope.data.busqueda).success(function(data){
 			console.log($scope.data.busqueda)
-			angular.forEach(data, function(val, key){
-				data[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';
+			angular.forEach(data.feeds, function(val, key){
+				data.feeds[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';
 			});
-			$scope.feeds = data;
+			$scope.feeds = data.feeds;
 		
 		}).error(function(){
 			$scope.feeds = "";
@@ -164,12 +164,12 @@ angular.module('starter.controllers', [])
 		 var noread=0;
 		// Feeds.all(-1,'send_data','','',$scope.data.origin_id, $scope.data.theme_id,'').success(function(data){
 		$scope.changeLocation= Feeds.all(-1,'send_data','','','', $state.params.origin_id, $state.params.theme_id,'').success(function(data){
-			angular.forEach(data, function(val, key){
-				data[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';
+			angular.forEach(data.feeds, function(val, key){
+				data.feeds[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';
 				if(val.read==0)
 					noread++;
 			});
-			$scope.feeds = data;
+			$scope.feeds = data.feeds;
 			$scope.noread = noread;
 		
 		});
@@ -181,13 +181,13 @@ angular.module('starter.controllers', [])
 		}else $state.go('login');
 	});  
 	
-})
+})/*
 .controller('MyfeedCtrl', function($stateParams, $scope,Feeds,$state){
 	$scope.noread=0;
 	$scope.$on('$ionicView.enter', function(e) {
 			Feeds.all(-1,'send_data','','','',$state.params.origin_id, $state.params.theme_id,'').success(function(data){
-			$scope.feeds = data;
-			angular.forEach(data, function(val, key){
+			$scope.feeds = data.feeds;
+			angular.forEach(data.feeds, function(val, key){
 				$scope.noread= $scope.noread++;
 			});
 		});  
@@ -195,7 +195,7 @@ angular.module('starter.controllers', [])
 			Feeds.remove(feed);
 		}
 	});  
-})
+})*/
 
 .controller('FollowingCtrl', function($scope, Feeds, $rootScope) {
 	var user = $rootScope.user_data;
@@ -203,7 +203,7 @@ angular.module('starter.controllers', [])
 	console.log(asuntos);
 	$scope.$on('$ionicView.enter', function(e) {
 		Feeds.all(-1,'','send_data','',asuntos).success(function(data){
-			$scope.feeds = data;
+			$scope.feeds = data.feeds;
 		});
 		$scope.remove = function(feed) {
 			Feeds.remove(feed);
@@ -238,16 +238,19 @@ angular.module('starter.controllers', [])
 	$scope.$on('$ionicView.enter', function(e) {
 		if($state.params.favfolder){
 			Feeds.all(-1,'','', 'send_data','','','','',fav_feeds).success(function(data){
-					angular.forEach(data, function(val, key){
+					console.log(data)
+					
+					$rootScope.user_data= window.localStorage.setItem('user',JSON.stringify(data.user_data));
+					angular.forEach(data.feeds, function(val, key){
 					angular.forEach(val.favfolder, function(dato, index){
 					if($state.params.favfolder==dato.folder_id){
-						data[key].folder=true;
+						data.feeds[key].folder=true;
 						$scope.flag=true;
 					}else
-						data[key].folder=false;
+						data.feeds[key].folder=false;
 					});
 				});
-				$scope.feeds = data;
+				$scope.feeds = data.feeds;
 			});
 		}
 		$scope.remove = function(feed) {

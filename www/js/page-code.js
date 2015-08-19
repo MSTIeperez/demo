@@ -72,7 +72,10 @@ $( document ).ready(function() {
      $( 'body' ).on( 'click', '.show-lightbox-folder', function(e) {
         e.preventDefault();
 		var folder_id=$(this).parent().data('id');
-		$("#folder_id").attr("ng-value",folder_id)
+		var folder_name=$(this).parent('li').find('h2').html();
+		console.log(folder_name)
+		$("#folder_id").attr("ng-value",folder_id);
+		$(".folder_title").attr("placeholder",folder_name);
 		$( '.lightbox-add' ).toggleClass( 'active' );
       });
     // oculta los lightbox's

@@ -1056,6 +1056,7 @@ a.list-expand {
 ///////////////////*/
 .lightbox,
 .warning {
+
     background: #FFF;
     bottom: -60px;
     display: block;
@@ -1070,6 +1071,9 @@ a.list-expand {
     width: 100%;
     z-index: 1;
     -webkit-transition: all .3s ease;
+}
+.warning {
+z-index: 9999;
 }
 .lightbox.active,
 .lightbox-favorited.active,

@@ -116,11 +116,12 @@ angular.module('starter.services', ['ngCookies'])
 		//$http.post(url+'/api/feeds/get_all',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
 		$http.post('/api/feeds/get_all',{'status':-1,'search':search, 'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
 				.success(function(data){
+				if(data.message!="Es necesario iniciar sesión"){
 				console.log(data);
 				feeds=data.feeds;
-				deferred.resolve(data.feeds);
+				deferred.resolve(data);
 				console.log("feeds: "+feeds);
-				if(data.message=="Es necesario iniciar sesión"){
+				}else{
 				
 						Auth.logout();
 						$state.go("login");
@@ -171,7 +172,7 @@ angular.module('starter.services', ['ngCookies'])
 				.success(function(data){
 				console.log(data);
 				feeds=data.feeds;
-				deferred.resolve(data.feeds);
+				deferred.resolve(data);
 				console.log("feeds: "+feeds);
 				if(data.message=="Es necesario iniciar sesión"){
 				

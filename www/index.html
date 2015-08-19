@@ -154,7 +154,7 @@
                 </p>
             </div>
             <div class="warning-actions">
-                <a class="hide-warning button button-outline button-positive " href="#" onclick="return false;">Aceptar</a>
+                <a class="hide-warning button button-outline button-positive " id="btn-aceptar" href="#" onclick="return false;">Aceptar</a>
                 <a class="button button-outline button-positive hide-warning" href="#/tab/config-feeds">Regresar</a>
             </div>
         </div>
@@ -320,7 +320,7 @@
                 <i class="ion-close close-lightbox"></i>
                 <form >
                     <label>Cambiar nombre de carpeta</label>
-                    <input class="folder_title" type="text" placeholder="Nombre de carpeta" ng-model="data.title">
+                    <input class="folder_title" type="text" placeholder="" ng-model="data.title">
 					<input id="folder_id" type="text" ng-value="data.folder_id" ng-model="data.folder_id" style="display:none;">
                     <div class="actions">
 
@@ -328,7 +328,7 @@
                 </form>
             </div>
             <div class="lightbox-add-actions">
-                <button class="button red">Borrar carpeta</button>
+                <button class="button red deleted_folder">Borrar carpeta</button>
                 <button class="button blue update_folder" >Guardar cambios</button>
             </div>
         </div>
@@ -349,10 +349,12 @@
 	                        })
 						 .success(function(data){
 						 
-							response=$.parseJSON(data);
+							data=$.parseJSON(data);
 							console.log(data);
+							console.log(data.message);
 							if(data.message=="folder_guardado"){
 								$("li[data-id="+data.id+"]").find('h2').html('').html(data.title);
+								$("li[data-id="+data.id+"]").find('a.btn-invisible').attr('href','#/tab/favorites/feed/'+data.title+'/'+data.id);
 								$( '.lightbox-add' ).toggleClass( 'active' );
 							}
 						 });
@@ -361,7 +363,15 @@
 			});
 			$('body').on('click','.deleted_folder',function(e){ 
 				e.preventDefault();
-				var $obj = $(this);
+				var folder_name =$('.folder_title').attr("placeholder");
+				$( '.warning-content' ).find('p').html("").html( '¿Estás seguro de borrar <strong>'+folder_name+'</strong> y todos sus contenidos?' );
+				$('.warning-actions').find('a').attr('href',"#");
+				$('.warning-actions').find('a#btn-aceptar').addClass('deleted_folder_ok');
+				$( '.warning' ).addClass( 'active' );
+				return false;
+			});
+			$('body').on('click','.deleted_folder_ok',function(e){ 
+				e.preventDefault();
 				var folder_id =  $('#folder_id').attr("ng-value");
 				console.log(folder_id);
 				if(folder_id>0){
@@ -370,14 +380,10 @@
 								console.log("no se recibieron datos");
 	                        })
 						 .success(function(data){
-							response=$.parseJSON(data);
-							if(response.message=="folder_eliminado"){
-								$(".folder_"+response.id).remove();
-								$(".feed_name").html("");
-								$(".feed").show();
-								$(".no_feeds").hide();
-								$(".onefolder.infolder_"+response.id).hide();
-								$(".delete_fav").hide();
+							data=$.parseJSON(data);
+							if(data.message=="folder_eliminado"){
+								$("li[data-id="+data.id+"]").remove();
+								$( '.lightbox-add' ).toggleClass( 'active' );
 							}
 						 });
 				}
