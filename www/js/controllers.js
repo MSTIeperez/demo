@@ -131,7 +131,7 @@ angular.module('starter.controllers', [])
 	
 	$scope.data={}
 	
-	$scope.$on('$ionicView.enter', function(e) { console.log(Auth.isLoggedIn())
+	$scope.$on('$ionicView.beforeEnter', function(e) { console.log(Auth.isLoggedIn())
 		if(Auth.isLoggedIn()){
 		$scope.load = Feeds_all.all(-1,$scope.data.busqueda).success(function(data){
 			console.log($scope.data.busqueda)
@@ -158,7 +158,7 @@ angular.module('starter.controllers', [])
 	console.log(user.temas.length);
 	if(user.temas.length==0)
 		$state.go('tab.configfeeds');
-	$scope.$on('$ionicView.enter', function(e) {
+	$scope.$on('$ionicView.beforeEnter', function(e) {
 		 if(Auth.isLoggedIn()){
 		$scope.temas = user.temas;
 		 var noread=0;
