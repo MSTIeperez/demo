@@ -107,7 +107,7 @@ angular.module('starter.services', ['ngCookies'])
 
   // Some fake testing data
   var feeds = [];
-	if(window.localStorage.getItem('user')!=null )	{
+	//if(window.localStorage.getItem('user')!=null )	{
 
   return {
     all: function(status,search,my_feeds, my_follow, fav,  subject_id, origin_id, theme_id, comision_id, feed_in) {
@@ -154,14 +154,14 @@ angular.module('starter.services', ['ngCookies'])
       return null;
     }
   }
-	}else return null;
+//	}else return null;
 })
 .factory('Feeds', function($http, Auth, $q, $state, $location) {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
   var feeds = [];
-	if(window.localStorage.getItem('user')!=null )	{
+	//if(window.localStorage.getItem('user')!=null )	{
 
   return {
     all: function(status,my_feeds, my_follow, fav,  subject_id, origin_id, theme_id, comision_id, feed_in) {
@@ -207,7 +207,7 @@ angular.module('starter.services', ['ngCookies'])
       return null;
     }
   }
-	} else return null;
+//	} else return null;
 })
 .factory('Themes', function($http, Auth, $q, $state) {
   // Might use a resource here that returns a JSON array
