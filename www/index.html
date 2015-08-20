@@ -155,7 +155,7 @@
             </div>
             <div class="warning-actions">
                 <a class="hide-warning button button-outline button-positive " id="btn-aceptar" href="#" onclick="return false;">Aceptar</a>
-                <a class="button button-outline button-positive hide-warning" href="#/tab/config-feeds">Regresar</a>
+                <a class="button button-outline button-positive hide-warning" id="returns" href="#/tab/config-feeds">Regresar</a>
             </div>
         </div>
     </div>
@@ -314,7 +314,7 @@
         </div>
         </form>
     </div>
-	<div class="lightbox lightbox-add" >
+	<div class="lightbox lightbox-add update-folder" >
         <div ng-controller="FavoritesCtrl">
             <div class="lightbox-add-content">
                 <i class="ion-close close-lightbox"></i>
@@ -333,63 +333,23 @@
             </div>
         </div>
     </div>
-	<script>
-	var url ='http://legixapp.abardev.net';
-	$(document).ready(function(){
-			$('body').on('click','.update_folder',function(e){ 
-				e.preventDefault();
-				var $obj = $(this);
-				var input=  $('.folder_title');
-				var folder_id = $('#folder_id').attr("ng-value");
-				var title= input.val().trim();
-				if(title.length>0){
-					$.post(url+'/api/update_folder',{'title':title,'folder_id':folder_id})
-						 .error(function(){
-								console.log("no se recibieron datos");
-								input.val( "" );
-	                        })
-						 .success(function(data){
-						 
-							data=$.parseJSON(data);
-							console.log(data);
-							console.log(data.message);
-							if(data.message=="folder_guardado"){
-								$("li[data-id="+data.id+"]").find('h2').html('').html(data.title);
-								$("li[data-id="+data.id+"]").find('a.btn-invisible').attr('href','#/tab/favorites/feed/'+data.title+'/'+data.id);
-								$( '.lightbox-add' ).toggleClass( 'active' );
-							}
-						 });
-				
-				}
-			});
-			$('body').on('click','.deleted_folder',function(e){ 
-				e.preventDefault();
-				var folder_name =$('.folder_title').attr("placeholder");
-				$( '.warning-content' ).find('p').html("").html( '¿Estás seguro de borrar <strong>'+folder_name+'</strong> y todos sus contenidos?' );
-				$('.warning-actions').find('a').attr('href',"#");
-				$('.warning-actions').find('a#btn-aceptar').addClass('deleted_folder_ok');
-				$( '.warning' ).addClass( 'active' );
-				return false;
-			});
-			$('body').on('click','.deleted_folder_ok',function(e){ 
-				e.preventDefault();
-				var folder_id =  $('#folder_id').attr("ng-value");
-				console.log(folder_id);
-				if(folder_id>0){
-					$.post(url+'api/delete_folder', {'send_data':'eliminar','folder_id':folder_id})
-	                        .error(function(){
-								console.log("no se recibieron datos");
-	                        })
-						 .success(function(data){
-							data=$.parseJSON(data);
-							if(data.message=="folder_eliminado"){
-								$("li[data-id="+data.id+"]").remove();
-								$( '.lightbox-add' ).toggleClass( 'active' );
-							}
-						 });
-				}
-			});			
-		}); 
-	</script>
+	<div class="lightbox lightbox-add create-folder" >
+        <div ng-controller="FavoritesCtrl">
+            <div class="lightbox-add-content">
+                <i class="ion-close close-lightbox"></i>
+                <form >
+                    <label>Ingresa el nombre de la carpeta</label>
+                    <input class="title_folder" type="text" placeholder="" ng-model="data.title">
+                    <div class="actions">
+
+                    </div>
+                </form>
+            </div>
+            <div class="lightbox-add-actions">
+                <button class="button red cancel_folder">Cancelar</button>
+                <button class="button blue create_folder" >Guardar</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

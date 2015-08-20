@@ -1,4 +1,4 @@
-<ion-view view-title="Mis favoritos">
+<ion-view view-title="{{user_data.first_name}} {{user_data.last_name}}">
     <!-- BEGIN: header -->
     <ion-header-bar class="bar-positive" align-title="center">
         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
@@ -12,8 +12,12 @@
     </ion-nav-bar>
     <!-- END: sub header -->
     
-    <ion-content class="padding has-subheader">
-        <div class="list category-list has-excerpt"> 
+    <ion-content class="has-subheader">
+		<div class="header-blue padding">
+            <h2>Mis Favoritos</h2>
+            <a class="icon ion-gear-b btn-add-folder" href="#"></a>
+        </div>
+        <div class="padding list category-list has-excerpt favorite_feeds"> 
             
             <li class="category-element item item-avatar item-icon-left item-button-right" ng-repeat="favorite in favorites" data-id="{{favorite.id}}">
                 <a class="btn-invisible" href="#/tab/favorites/feed/{{ favorite.name }}/{{favorite.id}}"></a>

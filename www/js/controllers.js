@@ -132,7 +132,7 @@ angular.module('starter.controllers', [])
 	$scope.data={}
 	
 	$scope.$on('$ionicView.beforeEnter', function(e) { console.log(Auth.isLoggedIn())
-		if(Auth.isLoggedIn()){
+		if(Auth.isLoggedIn() && window.localStorage.getItem('user')!=null ){
 		$scope.load = Feeds_all.all(-1,$scope.data.busqueda).success(function(data){
 			console.log($scope.data.busqueda)
 			angular.forEach(data.feeds, function(val, key){
@@ -159,7 +159,7 @@ angular.module('starter.controllers', [])
 	if(user.temas.length==0)
 		$state.go('tab.configfeeds');
 	$scope.$on('$ionicView.beforeEnter', function(e) {
-		 if(Auth.isLoggedIn()){
+		 if(Auth.isLoggedIn() && window.localStorage.getItem('user')!=null ){
 		$scope.temas = user.temas;
 		 var noread=0;
 		// Feeds.all(-1,'send_data','','',$scope.data.origin_id, $scope.data.theme_id,'').success(function(data){
@@ -226,30 +226,31 @@ angular.module('starter.controllers', [])
 .controller('FavoritesCtrl', function($scope, Feeds, $rootScope, $state) {
 	
 	var fav_feeds = [];
-	$scope.favorites=$rootScope.user_data?$rootScope.user_data.favfolder:"";
+	
+	$scope.favorites=$rootScope.user_data?$rootScope.user_data.favfolder:"0,0";
 	angular.forEach($scope.favorites, function(val, key){
 			fav_feeds.push(val.id);
 		});
 	console.log("favoritos: "+fav_feeds);
 	$scope.favfolder=$state.params.favfolder?$state.params.favfolder:'';
-	//console.log("folder: "+$scope.favfolder);
 	$scope.flag=false;
 	$scope.folder_name=$state.params.foldername?$state.params.foldername:'Feeds Favoritos';
-	$scope.$on('$ionicView.enter', function(e) {
+	$scope.$on('$ionicView.beforeEnter', function(e) {
 		if($state.params.favfolder){
 			Feeds.all(-1,'','', 'send_data','','','','',fav_feeds).success(function(data){
 					console.log(data)
-					
 					$rootScope.user_data= window.localStorage.setItem('user',JSON.stringify(data.user_data));
 					angular.forEach(data.feeds, function(val, key){
-					angular.forEach(val.favfolder, function(dato, index){
-					if($state.params.favfolder==dato.folder_id){
-						data.feeds[key].folder=true;
-						$scope.flag=true;
-					}else
-						data.feeds[key].folder=false;
+						fav_feeds=[];
+						angular.forEach(val.favfolder, function(dato, index){
+							fav_feeds.push(dato.folder_id);
+						});
+						if(fav_feeds.indexOf($state.params.favfolder)!=-1){
+							data.feeds[key].folder=true;
+							$scope.flag=true;
+						}else
+							data.feeds[key].folder=false;
 					});
-				});
 				$scope.feeds = data.feeds;
 			});
 		}

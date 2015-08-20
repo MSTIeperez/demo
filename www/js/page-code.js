@@ -54,6 +54,9 @@ $( document ).ready(function() {
     // button search: activa lighbox de busqueda
     $( 'body' ).on( 'click', '.ion-search, .btn-cancel', function() {
         $( '.lightbox-search' ).toggleClass( 'active' );
+		setTimeout(function(){
+						$('#search').focus();
+					}, 300);	
     });
 
     // button share: activa lighbox de compartir
@@ -76,7 +79,10 @@ $( document ).ready(function() {
 		console.log(folder_name)
 		$("#folder_id").attr("ng-value",folder_id);
 		$(".folder_title").attr("placeholder",folder_name);
-		$( '.lightbox-add' ).toggleClass( 'active' );
+		$( '.lightbox-add.update-folder' ).toggleClass( 'active' );
+		setTimeout(function(){
+			$('.folder_title').focus();
+		}, 300);	
       });
     // oculta los lightbox's
     $( 'body' ).on( 'click', '.close-lightbox', function() {
@@ -244,5 +250,113 @@ $( document ).ready(function() {
         $( this ).children( 'i' ).toggleClass( 'ion-arrow-down-b ion-arrow-up-b' );
         return false;
     });
+	//-------------------------------INDEX HTML FUNCTIONS--------------------------------
+		var url ='http://legixapp.abardev.net';
+	$('body').on('click','.update_folder',function(e){ 
+				e.preventDefault();
+				var $obj = $(this);
+				var input=  $('.folder_title');
+				var folder_id = $('#folder_id').attr("ng-value");
+				var title= input.val().trim();
+				if(title.length>0){
+					$.post(url+'/api/update_folder',{'title':title,'folder_id':folder_id})
+					//$.post('/api/update_folder',{'title':title,'folder_id':folder_id})
+						 .error(function(){
+								console.log("no se recibieron datos");
+								input.val( "" );
+	                        })
+						 .success(function(data){
+						 
+							data=$.parseJSON(data);
+							console.log(data);
+							console.log(data.message);
+							if(data.message=="folder_guardado"){
+								$("li[data-id="+data.id+"]").find('h2').html('').html(data.title);
+								$("li[data-id="+data.id+"]").find('a.btn-invisible').attr('href','#/tab/favorites/feed/'+data.title+'/'+data.id);
+								$( '.lightbox-add.update-folder' ).toggleClass( 'active' );
+							}
+						 });
+				
+				}
+			});
+			$('body').on('click','.deleted_folder',function(e){ 
+				e.preventDefault();
+				var folder_name =$('.folder_title').attr("placeholder");
+				$( '.warning-content' ).find('p').html("").html( '¿Estás seguro de borrar <strong>'+folder_name+'</strong> y todos sus contenidos?' );
+				$('.warning-actions').find('a#returns').attr('href',"#");
+				$('.warning-actions').find('a#btn-aceptar').addClass('deleted_folder_ok');
+				$( '.warning' ).addClass( 'active' );
+				return false;
+			});
+			$('body').on('click','.deleted_folder_ok',function(e){ 
+				e.preventDefault();
+				var folder_id =  $('#folder_id').attr("ng-value");
+				console.log(folder_id);
+				if(folder_id>0){
+					//$.post('/api/delete_folder', {'send_data':'eliminar','folder_id':folder_id})
+					$.post(url+'/api/delete_folder', {'send_data':'eliminar','folder_id':folder_id})
+	                        .error(function(){
+								console.log("no se recibieron datos");
+	                        })
+						 .success(function(data){
+							data=$.parseJSON(data);
+							if(data.message=="folder_eliminado"){
+								$("li[data-id="+data.id+"]").remove();
+								$( '.lightbox-add.update-folder' ).toggleClass( 'active' );
+								$( '.warning-content' ).find('p').html("").html( ' No has dado de alta ningún Tema. Sin personalización de Temas, solo recibirás el Feed genérico sin notificaciones en las sección de Temas ni de Mis Feeds. Puedes continuar y posteriormente hacerlo.' );
+								$('.warning-actions').find('a#returns').attr('href',"#/tab/config-feeds");
+								$('.warning-actions').find('a#btn-aceptar').removeClass('deleted_folder_ok');
+								//$( '.warning' ).removeClass( 'active' );
+							}
+						 });
+				}
+			});			
+			$('body').on('click','#returns', function(e){
+				e.preventDefault();
+				$( '.warning-content' ).find('p').html("").html( ' No has dado de alta ningún Tema. Sin personalización de Temas, solo recibirás el Feed genérico sin notificaciones en las sección de Temas ni de Mis Feeds. Puedes continuar y posteriormente hacerlo.' );
+				$(this).attr('href',"#/tab/config-feeds");
+				$('.warning-actions').find('a#btn-aceptar').removeClass('deleted_folder_ok');
+				});
+			$('body').on('click','.btn-add-folder, .cancel_folder',function(e){
+				e.preventDefault();
+				$( '.lightbox-add.create-folder' ).toggleClass( 'active' );
+				setTimeout(function(){
+						$(".title_folder").focus();
+					}, 300);	
+			});
+			$("body").on('click','.create_folder',function(e){
+				e.preventDefault();
+				var title= $('.title_folder').val().trim();
+				if(title.length>0){
+					$.post(url+'/api/add_folder', {'title':title})
+					//$.post('/api/add_folder', {'title':title})
+				        .error(function(){
+								console.log("no se recibieron datos");
+								$('.title_folder').val( "" );
+	                        })
+						 .success(function(data){
+							data=$.parseJSON(data);
+							console.log(data);
+							if(data.message=='folder_guardado'){
+								var favfolder 	= '<li class="category-element item item-avatar item-icon-left item-button-right" data-id="'+data.id+'">'+
+															'<a class="btn-invisible" href="#/tab/favorites/feed/'+data.title+'/'+data.id+'"></a>'+
+																'<i class="sprite2x icon icon-folder">0</i>'+
+																'<h2>'+data.title+'</h2>'+
+																'<p></p>'+
+															'<a class="button button-outline button-positive show-lightbox-folder" href="#" onclick="return false;">Editar</a>'+
+														'</li>';
+								$('.title_folder').val( "" );
+								$(".favorite_feeds").append(favfolder);
+								$(".lightbox-add.create-folder").toggleClass("active");
+							}else
+								$('.title_folder').css('border','1px solid #FF0000');
+							
+						 });
+				
+				}else{
+					$('.title_folder').css('border','1px solid #FF0000');
+				}
+				
+			});
 });
  }, 1000);

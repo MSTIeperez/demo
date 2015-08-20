@@ -16,10 +16,10 @@
         <!-- BEGIN: card -->
 		<div class="list-card"  ng-if="!flag">
             <div class="item item-header item-empty">
-                <h2>No tienes Feeds en esta carpeta</h2>
+                <h2>Cargando Feeds...</h2>
             </div>
          </div >
-		
+	
         <ion-item class="list card feeds" ng-repeat="feed in feeds" ng-show="feed.folder">
 
             <div class="item item-header item-thumbnail-left">
@@ -80,6 +80,13 @@
             </div>		
         </ion-item>
         <!-- END: card -->
- 
+	<script>	
+	$(document).load(function(){
+				var num=$(".feeds".size());
+				alert(num);
+		 
+		});
+		
+	</script>	
     </ion-content>
 </ion-view>
