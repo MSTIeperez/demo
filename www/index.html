@@ -334,6 +334,7 @@
         </div>
     </div>
 	<script>
+	var url ='http://legixapp.abardev.net';
 	$(document).ready(function(){
 			$('body').on('click','.update_folder',function(e){ 
 				e.preventDefault();
@@ -342,7 +343,7 @@
 				var folder_id = $('#folder_id').attr("ng-value");
 				var title= input.val().trim();
 				if(title.length>0){
-					$.post('/api/update_folder',{'title':title,'folder_id':folder_id})
+					$.post(url+'/api/update_folder',{'title':title,'folder_id':folder_id})
 						 .error(function(){
 								console.log("no se recibieron datos");
 								input.val( "" );
@@ -375,7 +376,7 @@
 				var folder_id =  $('#folder_id').attr("ng-value");
 				console.log(folder_id);
 				if(folder_id>0){
-					$.post('api/delete_folder', {'send_data':'eliminar','folder_id':folder_id})
+					$.post(url+'api/delete_folder', {'send_data':'eliminar','folder_id':folder_id})
 	                        .error(function(){
 								console.log("no se recibieron datos");
 	                        })
