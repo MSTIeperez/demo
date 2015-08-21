@@ -50,6 +50,12 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
                 controller: 'LoginCtrl'
 	
   }) 
+   .state('login-password', {
+      url: '/recover-password', 
+               templateUrl: 'templates/login-recover.html',
+                controller: 'LoginCtrl'
+	
+  }) 
       .state('register', {
         url: '/registro',
         templateUrl: 'templates/signup.html',

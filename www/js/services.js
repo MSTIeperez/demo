@@ -37,6 +37,36 @@ angular.module('starter.services', ['ngCookies'])
             }
             return promise;
         },
+	recoverpass: function(email) {
+            var deferred = $q.defer();
+			
+            var promise = deferred.promise;
+	//	if(window.localStorage.getItem('user')==null)	{
+		$http.post(url+'/api/recpassword',{'email':name,'password': pw})
+		//$http.post('/api/recpassword',{'email':email})
+				.success(function(data, status, headers, config){
+				console.log(data);
+					 if (data.message=="Nuevo") {
+						deferred.resolve(data);
+						
+					} else {
+						deferred.reject(data);
+					}
+				})
+				.error(function (data){
+					deferred.reject(data);
+				});
+		//}
+            promise.success = function(fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function(fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+            return promise;
+        },
 	user: function() {
 		  return user_data;
 		}

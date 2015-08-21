@@ -18,7 +18,9 @@ angular.module('starter.controllers', [])
 })
 
 .controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state, Auth, $rootScope) {
-    $scope.data = {};
+    $scope.$on('$ionicView.enter', function(e) {
+	$scope.data = {};
+	});
 	$scope.logout = function() {
 		Auth.logout();
 		$state.go("login");
@@ -51,6 +53,50 @@ angular.module('starter.controllers', [])
             });
         });
     }
+	$scope.recover=function(){
+		LoginService.recoverpass($scope.data.email).success(function(data){
+			console.log(data)
+            var alertPopup = $ionicPopup.alert({
+                title: 'Recuperación de contraseña',
+                template: "Contraseña provisional generada, revisa tu correo electrónico.", //'¡Por favor revisa tu correo y/o contraseña!',
+				buttons:[{
+						text: 'Aceptar',
+						type: 'button-positive',
+						onTap: function(e) {
+							$state.go('login');
+						}
+					}]	
+            });
+		}).error(function(data){
+			console.log(data)
+			if(data.message=="No-existe"){
+				 var alertPopup = $ionicPopup.alert({
+					title: 'Error al enviar datos',
+					template: "Correo no encontrado en la base de datos. <strong>Regístrate</strong> y comienza tu período de 15 días.", //'¡Por favor revisa tu correo y/o contraseña!',
+					buttons:[{
+						text:'Cancelar',
+						type:'button-default',
+						onTap: function(e){
+							
+							}
+						},{
+						text: 'Registrarse',
+						type: 'button-positive',
+						onTap: function(e) {
+							$state.go('register');
+						}
+					}]	
+				});
+			}else{
+				var alertPopup = $ionicPopup.alert({
+					title: 'Error al enviar datos',
+					template: data.message, //'¡Por favor revisa tu correo y/o contraseña!',
+					ontap: "#/registro", //'¡Por favor revisa tu correo y/o contraseña!',
+					okText: 'Aceptar'
+				});
+			}
+		});
+	}
 })
 .controller('RegistroCtrl', function($scope, Registerservice, LoginService, $ionicPopup, $state, Auth) {
 	$scope.data={};

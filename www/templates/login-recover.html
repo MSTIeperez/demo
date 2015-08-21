@@ -1,0 +1,38 @@
+<ion-view view-title="Recover" name="login-view">
+           <ion-content class="padding" id="recover"> 
+        <!-- BEGIN: login header -->
+        <div id="form-header" class="padding">
+            <i class="sprite icon-logo"></i>
+            <p class="description">Se enviará un correo a tu correo con una contraseña provisional.</p>
+        </div>
+        <!-- END: login header -->
+        
+        <!-- BEGIN: form -->
+        <div class="form-content">
+            <form>
+            
+                <div class="list clearfix">
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label" >Usuario(email)</span>
+                        <input type="text" class="email_recover" placeholder="Legix" ng-model="data.email" name="email">
+                    </label>
+                   <a></a></br>
+                </div>
+                
+                <div class="form-actions padding clearfix registrar">
+                    <button class="button button-outline button-positive"  ng-click="recover()" >Enviar</button>
+					 <a href="#/login"id="regresar-login">Regresar</a>
+					
+                </div>
+
+            </form>
+        </div>
+        <!-- END: form -->
+         <!-- BEGIN: login header -->
+        <div id="form-info">
+            <a href="#/terminos-y-condiciones">Términos y condiciones</a>
+        </div>
+        <!-- END: login header -->
+
+    </ion-content>
+</ion-view>

@@ -87,6 +87,8 @@ $( document ).ready(function() {
     // oculta los lightbox's
     $( 'body' ).on( 'click', '.close-lightbox', function() {
         $( '.share, .lightbox' ).removeClass( 'active' );
+		$(".folder_title").val("");
+		$(".title_folder").val("");
         return false;
     });
 
