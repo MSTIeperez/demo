@@ -14,12 +14,13 @@
     <ion-content class="padding has-subheader bg-color-1"> 
         
         <!-- BEGIN: card -->
-		<div class="list-card"  ng-if="!flag">
+		<div class="list-card"   ng-switch="flag" ng-show="flag" ng-hide="flag==false">
             <div class="item item-header item-empty">
-                <h2>Cargando Feeds...</h2>
+                <h2 ng-switch-when="true">Cargando Feeds...</h2>
+                <h2 ng-switch-when="no_feeds">No hay Feeds en esta carpeta</h2>
             </div>
-         </div >
-	
+        </div >
+		
         <ion-item class="list card feeds" ng-repeat="feed in feeds" ng-show="feed.folder">
 
             <div class="item item-header item-thumbnail-left">

@@ -279,7 +279,8 @@ angular.module('starter.controllers', [])
 		});
 	console.log("favoritos: "+fav_feeds);
 	$scope.favfolder=$state.params.favfolder?$state.params.favfolder:'';
-	$scope.flag=false;
+	$scope.flag=true;
+	var flag=0;
 	$scope.folder_name=$state.params.foldername?$state.params.foldername:'Feeds Favoritos';
 	$scope.$on('$ionicView.beforeEnter', function(e) {
 		if($state.params.favfolder){
@@ -293,10 +294,13 @@ angular.module('starter.controllers', [])
 						});
 						if(fav_feeds.indexOf($state.params.favfolder)!=-1){
 							data.feeds[key].folder=true;
-							$scope.flag=true;
-						}else
+							$scope.flag=false;
+						}else{
 							data.feeds[key].folder=false;
+							flag++;}
 					});
+				if(data.feeds.length==(flag))
+					$scope.flag="no_feeds";
 				$scope.feeds = data.feeds;
 			});
 		}
