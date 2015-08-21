@@ -346,7 +346,7 @@ $( document ).ready(function() {
 																'<h2>'+data.title+'</h2>'+
 																'<p></p>'+
 															'<a class="button button-outline button-positive show-lightbox-folder" href="#" onclick="return false;">Editar</a>'+
-														'</li>';
+															'</li>';
 								$('.title_folder').val( "" );
 								$(".favorite_feeds").append(favfolder);
 								$(".lightbox-add.create-folder").toggleClass("active");

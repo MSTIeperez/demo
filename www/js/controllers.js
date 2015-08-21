@@ -227,32 +227,21 @@ angular.module('starter.controllers', [])
 		}else $state.go('login');
 	});  
 	
-})/*
-.controller('MyfeedCtrl', function($stateParams, $scope,Feeds,$state){
-	$scope.noread=0;
-	$scope.$on('$ionicView.enter', function(e) {
-			Feeds.all(-1,'send_data','','','',$state.params.origin_id, $state.params.theme_id,'').success(function(data){
-			$scope.feeds = data.feeds;
-			angular.forEach(data.feeds, function(val, key){
-				$scope.noread= $scope.noread++;
-			});
-		});  
-		$scope.remove = function(feed) {
-			Feeds.remove(feed);
-		}
-	});  
-})*/
+})
 
-.controller('FollowingCtrl', function($scope, Feeds, $rootScope) {
-	var user = $rootScope.user_data;
-	var asuntos = user.follow?user.follow:'0,0';
-	console.log(asuntos);
+.controller('FollowingCtrl', function($scope, Follow, $rootScope) {
+	var asuntos = $rootScope.user_data?$rootScope.user_data.follow:'0,0';
+		asuntos= asuntos.toString()
+	console.log(asuntos.toString());
 	$scope.$on('$ionicView.enter', function(e) {
-		Feeds.all(-1,'','send_data','',asuntos).success(function(data){
+		Follow.all(-1,'','send_data','',asuntos).success(function(data){
+			angular.forEach(data.feeds, function(val, key){
+				data.feeds[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';
+			});
 			$scope.feeds = data.feeds;
 		});
 		$scope.remove = function(feed) {
-			Feeds.remove(feed);
+			Follow.remove(feed);
 		}
 	});  
 })
@@ -292,6 +281,7 @@ angular.module('starter.controllers', [])
 						angular.forEach(val.favfolder, function(dato, index){
 							fav_feeds.push(dato.folder_id);
 						});
+						data.feeds[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';
 						if(fav_feeds.indexOf($state.params.favfolder)!=-1){
 							data.feeds[key].folder=true;
 							$scope.flag=false;
