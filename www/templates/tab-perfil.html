@@ -20,8 +20,9 @@
             
                 <div class="item item-avatar item-thumbnail-left" href="#">
                     <a class="btn-upload" href="#"  >
-                        <img src="{{user_data.src_img}}">
-						<input type="text" ng-model="data.thumbnail" style="display:none;">
+                        <img src="{{user_data.src_img}}" id="image">
+						<input type="text" ng-model="data.thumbnail" id="image_name" style="display:none;">
+						<input type="text"  id="type_user" ng-value="{{user_data.type_id}}"style="display:none;">
                         <span class="txt">Editar</span>
                     </a>
                     <p>Elija una foto y un nombre de usuario para su perfil</p>

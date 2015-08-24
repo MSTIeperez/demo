@@ -14,37 +14,45 @@ function onDeviceReady() {
 //
 
 function onPhotoDataSuccess(imageURI) {
-	alert("fire");
+	alert(imageURI);
     // Uncomment to view the base64-encoded image data
     console.log(imageURI);
     // Get image handle
     //
-    var cameraImage = document.getElementById('image');
+    var cameraImage = $('#image');
     // Unhide image elements
     //
-    cameraImage.style.display = 'block';
+	var filename= imageURI.substr(imageURI.lastIndexOf('/') + 1);
+    var img_name = $('#image_name');
+	img_name.attr('ng-value', filename)
+   // cameraImage.style.display = 'block';
     // Show the captured photo
     // The inline CSS rules are used to resize the image
     //
     cameraImage.src = imageURI;
+	//$('#load_photo').toggleClass("active");
 }
 // Called when a photo is successfully retrieved
 //
 
 function onPhotoURISuccess(imageURI) {
-	alert("fire");
+	alert(imageURI);
     // Uncomment to view the image file URI
     console.log(imageURI);
     // Get image handle
     //
-    var galleryImage = document.getElementById('image');
+    var galleryImage = $('#image');
+	var filename= imageURI.substr(imageURI.lastIndexOf('/') + 1);
+    var img_name = $('#image_name');
+	img_name.attr('ng-value', filename)
     // Unhide image elements
     //
-    galleryImage.style.display = 'block';
+    //galleryImage.style.display = 'block';
     // Show the captured photo
     // The inline CSS rules are used to resize the image
     //
     galleryImage.src = imageURI;
+	//$('#load_photo').toggleClass("active");
 }
 // A button will call this function
 //
@@ -76,11 +84,11 @@ function getPhoto(source) {
 //
 
 function onFail(message) {
-    //alert('Failed because: ' + message);
+    alert('Failed because: ' + message);
 }
 
 function upload() {
-    var img = document.getElementById('image');
+    var img = $('#image');
     var imageURI = img.src;
     var options = new FileUploadOptions();
     options.fileKey = "file";
@@ -90,7 +98,7 @@ function upload() {
     options.params = params;
     options.chunkedMode = false;
     var ft = new FileTransfer();
-    ft.upload(imageURI, "https://www.example.com/upload.php", win, fail,
+    ft.upload(imageURI, "https://abardev.net/assets/files/tmp", win, fail,
         options);
 }
 
@@ -101,7 +109,7 @@ function win(r) {
 }
 
 function fail(error) {
-    alert("An error has occurred: Code = " + error.code);
+   console.log("An error has occurred: Code = " + error.code);
     console.log("upload error source " + error.source);
     console.log("upload error target " + error.target);
 }
