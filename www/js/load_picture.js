@@ -29,7 +29,7 @@ function onPhotoDataSuccess(imageURI) {
     // Show the captured photo
     // The inline CSS rules are used to resize the image
     //
-    cameraImage.src = imageURI;
+    cameraImage.attr('src',imageURI);
 	//$('#load_photo').toggleClass("active");
 }
 // Called when a photo is successfully retrieved
@@ -51,7 +51,7 @@ function onPhotoURISuccess(imageURI) {
     // Show the captured photo
     // The inline CSS rules are used to resize the image
     //
-    galleryImage.src = imageURI;
+    galleryImage.attr('src',imageURI);
 	//$('#load_photo').toggleClass("active");
 }
 // A button will call this function
@@ -89,7 +89,7 @@ function onFail(message) {
 
 function upload() {
     var img = $('#image');
-    var imageURI = img.src;
+    var imageURI = img.attr('src');
     var options = new FileUploadOptions();
     options.fileKey = "file";
     options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
