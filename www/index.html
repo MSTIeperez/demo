@@ -29,6 +29,7 @@
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
     <script src="js/page-code.js"></script>
+	 <script src="js/load_picture.js" type="text/javascript"></script>
     <!--<script src="js/favorites.js"></script>-->
      <script type="text/javascript" charset="utf-8">
 /*
@@ -144,18 +145,32 @@
         
     </ion-side-menus>
 
-    <div class="warning">
+    <div class="warning grl">
         <div class="warning-container center">
-            <div class="warning-content">
+            <div class="warning-content grl">
                 <p>
                     No has dado de alta ningún Tema. Sin personalización de Temas, 
                     solo recibirás el Feed genérico sin notificaciones en las sección 
                     de Temas ni de Mis Feeds. Puedes continuar y posteriormente hacerlo.
                 </p>
             </div>
-            <div class="warning-actions">
+            <div class="warning-actions grl">
                 <a class="hide-warning button button-outline button-positive " id="btn-aceptar" href="#" onclick="return false;">Aceptar</a>
                 <a class="button button-outline button-positive hide-warning" id="returns" href="#/tab/config-feeds">Regresar</a>
+            </div>
+        </div>
+    </div>
+	<div class="warning"id="load_photo">
+        <div class="warning-container center">
+            <div class="warning-content">
+                <p>
+                   Selecciona una imagen para tu perfil:
+                </p>
+            </div>
+            <div class="warning-actions">
+                <a class="button button-outline button-positive " id="" href="#" onclick="capturePhoto();">Capturar imagen</a>
+                <a class="button button-outline button-positive " id="" href="#" onclick="getPhoto(pictureSource.PHOTOLIBRARY);">Galería</a>
+                <a class="button button-outline button-positive hide-warning"  href="#">Regresar</a>
             </div>
         </div>
     </div>

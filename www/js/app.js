@@ -92,6 +92,15 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
 		controller: 'ConfigAddCtrl'
 		
     })
+	    .state('profile', {
+            url: '/profile',
+		 /*views: {
+				'tab-profile': {
+			*/	templateUrl: 'templates/tab-perfil.html',
+				controller: 'PerfilCtrl'
+			/*	}
+			}*/
+        })
 	/*
   
     .state('forgotpassword', {
@@ -206,16 +215,7 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
           controller: 'FavoritesCtrl'
         }
       }
-    })
-     .state('profile', {
-            url: '/profile',
-		 /*views: {
-				'tab-profile': {
-			*/	templateUrl: 'templates/tab-perfil.html',
-				controller: 'PerfilCtrl'
-			/*	}
-			}*/
-        });
+    });
     
 
     

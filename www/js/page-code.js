@@ -166,7 +166,7 @@ $( document ).ready(function() {
     });
      
     $( 'body' ).on( 'click', '.show-warning', function() {
-        $( '.warning' ).addClass( 'active' );
+        $( '.warning.grl' ).addClass( 'active' );
         return false;
     });
 
@@ -284,10 +284,10 @@ $( document ).ready(function() {
 			$('body').on('click','.deleted_folder',function(e){ 
 				e.preventDefault();
 				var folder_name =$('.folder_title').attr("placeholder");
-				$( '.warning-content' ).find('p').html("").html( '¿Estás seguro de borrar <strong>'+folder_name+'</strong> y todos sus contenidos?' );
-				$('.warning-actions').find('a#returns').attr('href',"#");
-				$('.warning-actions').find('a#btn-aceptar').addClass('deleted_folder_ok');
-				$( '.warning' ).addClass( 'active' );
+				$( '.warning-content.grl' ).find('p').html("").html( '¿Estás seguro de borrar <strong>'+folder_name+'</strong> y todos sus contenidos?' );
+				$('.warning-actions.grl').find('a#returns').attr('href',"#");
+				$('.warning-actions.grl').find('a#btn-aceptar').addClass('deleted_folder_ok');
+				$( '.warning.grl' ).addClass( 'active' );
 				return false;
 			});
 			$('body').on('click','.deleted_folder_ok',function(e){ 
@@ -305,9 +305,9 @@ $( document ).ready(function() {
 							if(data.message=="folder_eliminado"){
 								$("li[data-id="+data.id+"]").remove();
 								$( '.lightbox-add.update-folder' ).toggleClass( 'active' );
-								$( '.warning-content' ).find('p').html("").html( ' No has dado de alta ningún Tema. Sin personalización de Temas, solo recibirás el Feed genérico sin notificaciones en las sección de Temas ni de Mis Feeds. Puedes continuar y posteriormente hacerlo.' );
-								$('.warning-actions').find('a#returns').attr('href',"#/tab/config-feeds");
-								$('.warning-actions').find('a#btn-aceptar').removeClass('deleted_folder_ok');
+								$( '.warning-content.grl' ).find('p').html("").html( ' No has dado de alta ningún Tema. Sin personalización de Temas, solo recibirás el Feed genérico sin notificaciones en las sección de Temas ni de Mis Feeds. Puedes continuar y posteriormente hacerlo.' );
+								$('.warning-actions.grl').find('a#returns').attr('href',"#/tab/config-feeds");
+								$('.warning-actions.grl').find('a#btn-aceptar').removeClass('deleted_folder_ok');
 								//$( '.warning' ).removeClass( 'active' );
 							}
 						 });
@@ -315,9 +315,9 @@ $( document ).ready(function() {
 			});			
 			$('body').on('click','#returns', function(e){
 				e.preventDefault();
-				$( '.warning-content' ).find('p').html("").html( ' No has dado de alta ningún Tema. Sin personalización de Temas, solo recibirás el Feed genérico sin notificaciones en las sección de Temas ni de Mis Feeds. Puedes continuar y posteriormente hacerlo.' );
+				$( '.warning-content.grl' ).find('p').html("").html( ' No has dado de alta ningún Tema. Sin personalización de Temas, solo recibirás el Feed genérico sin notificaciones en las sección de Temas ni de Mis Feeds. Puedes continuar y posteriormente hacerlo.' );
 				$(this).attr('href',"#/tab/config-feeds");
-				$('.warning-actions').find('a#btn-aceptar').removeClass('deleted_folder_ok');
+				$('.warning-actions.grl').find('a#btn-aceptar').removeClass('deleted_folder_ok');
 				});
 			$('body').on('click','.btn-add-folder, .cancel_folder',function(e){
 				e.preventDefault();
@@ -360,5 +360,46 @@ $( document ).ready(function() {
 				}
 				
 			});
+			$('body').on('click','.ok_temas',function(e){ 
+				var temas_name=[]
+				//console.log()
+				$(".tema_id").each(function(){
+					if($(this).is(":checked")){
+						temas_name.push($(this).data("name"));
+					}
+				});
+				console.log(temas_name)
+				$('.warning-actions.grl').find('a#btn-aceptar').addClass('add_temas_ok');
+				$('.warning-actions.grl').find('a#btn-aceptar').removeAttr('onclick');
+				$.each(temas_name, function(val, index){
+				});
+				$( '.warning-content.grl' ).find('p').html("").html( 'Estas seguro de seleccionar estos temas: <strong>'+temas_name+'.</strong>');
+			});
+			$('body').on('click','.add_temas_ok', function(e){
+				e.preventDefault();
+				var temas_id= []
+				var temas_name=[]
+				//console.log()
+				$(".tema_id").each(function(){
+					if($(this).is(":checked")){
+						temas_id.push($(this).val());
+						temas_name.push($(this).data("name"));
+					}
+				});
+				console.log(temas_id)
+				console.log(temas_name)
+				//$.post(url+'/api/update_temas', {'temas_id':temas_id})
+					$.post('/api/update_temas', {'temas_id':temas_id})
+					.error(function(data){
+						console.log(data.message);
+					})
+					.success(function(data){
+						data= $.parseJSON(data);
+						console.log(data);
+					});
+			});
+		$("body").on('click','.btn-upload',function(){
+			$('#load_photo').toggleClass("active");
+		});			
 });
  }, 1000);

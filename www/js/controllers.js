@@ -161,12 +161,15 @@ angular.module('starter.controllers', [])
   // listen for the $ionicView.enter event:
   //
 .controller('ConfigfeedCtrl', function($scope, Themes) {
-   	
+   	$scope.data={};
 	$scope.$on('$ionicView.enter', function(e) {
 		Themes.all().success(function(data){
 			
 			$scope.themes = data;
 		});
+		$scope.update_temas= function(){
+			console.log($scope.data.subject_id);
+		}
 		$scope.remove = function(theme) {
 			Themes.remove(theme);
 		}
@@ -230,7 +233,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('FollowingCtrl', function($scope, Follow, $rootScope) {
-	var asuntos = $rootScope.user_data?$rootScope.user_data.follow:'0,0';
+	var asuntos = $rootScope.user_data?($rootScope.user_data.follow?$rootScope.user_data.follow:'0,0'):'0,0';
 		asuntos= asuntos.toString()
 	console.log(asuntos.toString());
 	$scope.$on('$ionicView.enter', function(e) {
@@ -303,12 +306,48 @@ angular.module('starter.controllers', [])
 	}
 })
 
-.controller('PerfilCtrl', function($scope,$rootScope) {
+.controller('PerfilCtrl', function($scope,$rootScope, UpdateService, $ionicPopup, $state, Auth, LoadImage) {
 	$scope.$on('$ionicView.enter', function(e) {
 		$scope.data={};
+		$scope.photo= function(){
+				var alertPopup = $ionicPopup.alert({
+					title: 'Cambiar imagen de Perfil',
+					//template: "Selecciona una imagen de tu galería o directo de la cámara", //'¡Por favor revisa tu correo y/o contraseña!',
+					buttons:[{
+						text:'Capturar Foto',
+						type:'button-positive',
+						onTap: function(e){
+							capturePhoto();
+							}
+						},{
+						text: 'De la galería',
+						type: 'button-positive',
+						onTap: function(e) {
+							getPhoto(pictureSource.PHOTOLIBRARY);
+						 }
+						},{
+						text: 'Aceptar',
+						type: 'button-positive',
+						onTap: function(e) {
+							
+						}
+					}]	
+				});
+		}
 		$scope.data.first_name=$rootScope.user_data.first_name;
 		$scope.data.last_name=$rootScope.user_data.last_name;
-	});
+		$scope.data.thumbnail=$rootScope.user_data.thumbnail;
+		$scope.data.alias=$rootScope.user_data.alias;
+		$scope.update = function(){
+			console.log($scope.data);
+			UpdateService.updateUser($scope.data.first_name, $scope.data_falst_name, $scope.data.alias, $scope.data.password, $scope.data.thumbnail)
+				.success(function(data){
+					console.log(data)
+				}).error(function(data){
+					console.log(data)
+				});
+		}
+});
 })
 .controller('ConfigCtrl', function($scope,$rootScope) {
 	$scope.$on('$ionicView.enter', function(e) {

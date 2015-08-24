@@ -13,13 +13,15 @@
     <!-- END: sub header -->
     
     <ion-content class="has-subheader"> 
-        
+       
         <div class="list perfil-list">
+		
             <form>
             
                 <div class="item item-avatar item-thumbnail-left" href="#">
-                    <a class="btn-upload" href="#"  onclick="getImage();">
+                    <a class="btn-upload" href="#"  >
                         <img src="{{user_data.src_img}}">
+						<input type="text" ng-model="data.thumbnail" style="display:none;">
                         <span class="txt">Editar</span>
                     </a>
                     <p>Elija una foto y un nombre de usuario para su perfil</p>
@@ -27,13 +29,18 @@
                 
                 <div class="list list-inset">
                     <label class="item item-input">
-                        <input type="text" placeholder="{{data.first_name}}"  ng-model="data.first_name">
+                        <input type="text" placeholder="" value="{{user_data.first_name}}" ng-value="user_data.first_name" ng-model="data.first_name">
                     </label>
                 </div>
 				<div class="list list-inset">
                     <label class="item item-input">
-                        <input type="text" placeholder="" ng-model="data.last_name">
+                        <input type="text" placeholder="" value="{{user_data.last_name}}" ng-value="user_data.last_name" ng-model="data.last_name">
                     </label>
+				</div>
+				<div class="list list-inset">
+                    <label class="item item-input">
+                        <input type="text" placeholder="" value="{{user_data.alias}}" ng-value="user_data.alias" ng-model="data.alias">
+                    </label>	
                 </div>
                 
                 <ul class="list">
@@ -66,11 +73,119 @@
                 </ul>
                 
                 <div class="form-actions padding clearfix">
-                    <button class="button button-outline button-positive center" onclick="">Guardar</button>
+                    <button class="button button-outline button-positive center" ng-click="update()">Guardar</button>
                 </div>
 
             </form>
         </div>
-        
+        <script>
+		var pictureSource; // picture source
+var destinationType; // sets the format of returned value
+// Wait for device API libraries to load
+//
+document.addEventListener("deviceready", onDeviceReady, false);
+// device APIs are available
+//
+
+function onDeviceReady() {
+    pictureSource = navigator.camera.PictureSourceType;
+    destinationType = navigator.camera.DestinationType;
+}
+// Called when a photo is successfully retrieved
+//
+
+function onPhotoDataSuccess(imageURI) {
+	alert("fire");
+    // Uncomment to view the base64-encoded image data
+    console.log(imageURI);
+    // Get image handle
+    //
+    var cameraImage = document.getElementById('image');
+    // Unhide image elements
+    //
+    cameraImage.style.display = 'block';
+    // Show the captured photo
+    // The inline CSS rules are used to resize the image
+    //
+    cameraImage.src = imageURI;
+}
+// Called when a photo is successfully retrieved
+//
+
+function onPhotoURISuccess(imageURI) {
+	alert("fire");
+    // Uncomment to view the image file URI
+    console.log(imageURI);
+    // Get image handle
+    //
+    var galleryImage = document.getElementById('image');
+    // Unhide image elements
+    //
+    galleryImage.style.display = 'block';
+    // Show the captured photo
+    // The inline CSS rules are used to resize the image
+    //
+    galleryImage.src = imageURI;
+}
+// A button will call this function
+//
+
+function capturePhoto() {
+    // Take picture using device camera and retrieve image as base64-encoded string
+    navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
+        quality: 30,
+        targetWidth: 600,
+        targetHeight: 600,
+        destinationType: destinationType.FILE_URI,
+        saveToPhotoAlbum: true
+    });
+}
+// A button will call this function
+//
+
+function getPhoto(source) {
+    // Retrieve image file location from specified source
+    navigator.camera.getPicture(onPhotoURISuccess, onFail, {
+        quality: 30,
+        targetWidth: 600,
+        targetHeight: 600,
+        destinationType: destinationType.FILE_URI,
+        sourceType: source
+    });
+}
+// Called if something bad happens.
+//
+
+function onFail(message) {
+    //alert('Failed because: ' + message);
+}
+
+function upload() {
+    var img = document.getElementById('image');
+    var imageURI = img.src;
+    var options = new FileUploadOptions();
+    options.fileKey = "file";
+    options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+    options.mimeType = "image/jpeg";
+    var params = new Object();
+    options.params = params;
+    options.chunkedMode = false;
+    var ft = new FileTransfer();
+    ft.upload(imageURI, "https://www.example.com/upload.php", win, fail,
+        options);
+}
+
+function win(r) {
+    console.log("Code = " + r.responseCode);
+    console.log("Response = " + r.response);
+    console.log("Sent = " + r.bytesSent);
+}
+
+function fail(error) {
+    alert("An error has occurred: Code = " + error.code);
+    console.log("upload error source " + error.source);
+    console.log("upload error target " + error.target);
+}
+        </script>
     </ion-content>
 </ion-view>

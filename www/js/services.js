@@ -132,6 +132,42 @@ angular.module('starter.services', ['ngCookies'])
    }
 })
 
+
+.service('UpdateService', function($http, $q) {
+	var user_data={};
+    return {
+        updateUser: function(first_name,last_name, alias,  pw, thumbnail) {
+            var deferred = $q.defer();
+			
+            var promise = deferred.promise;
+		$http.post(url+'/api/update_account',{'first_name':first_name, 'last_name':last_name, 'alias':alias,'password': pw, "archivos":thumbnail})
+		//$http.post('/api/update_account',{'first_name':first_name, 'last_name':last_name, 'alias':alias,'password': pw, "thumbnail":thumbnail})
+				.success(function(data, status, headers, config){
+				console.log(data);
+					 if (data.message=="actualizado") {
+						deferred.resolve(data);
+					} else {
+						deferred.reject(data);
+					}
+				})
+				.error(function (data){
+					deferred.reject(data);
+				});
+	         promise.success = function(fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function(fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+            return promise;
+        }
+	
+    }
+	
+})
+
 .factory('Feeds_all', function($http, Auth, $q, $state, $location) {
   // Might use a resource here that returns a JSON array
 
@@ -345,4 +381,75 @@ angular.module('starter.services', ['ngCookies'])
     }
   }
 	}
+})
+.service('LoadImage', function($http, $q) {
+	var user_data={};
+    return {
+        capturePhoto: function(name, pw) {
+            var deferred = $q.defer();
+			
+            var promise = deferred.promise;
+	//	if(window.localStorage.getItem('user')==null)	{
+		$http.post(url+'/api/desktop_login',{'email':name,'password': pw})
+		//$http.post('/api/desktop_login',{'email':name,'password': pw})
+				.success(function(data, status, headers, config){
+				console.log(data);
+					 if (data.message=="logged") {
+						window.localStorage.setItem('user',JSON.stringify(data.user));
+						user_data=data.user;
+						deferred.resolve(data);
+						
+					} else {
+						deferred.reject(data);
+					}
+				})
+				.error(function (data){
+					deferred.reject(data);
+				});
+		//}
+            promise.success = function(fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function(fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+            return promise;
+        },
+	recoverpass: function(email) {
+            var deferred = $q.defer();
+			
+            var promise = deferred.promise;
+	//	if(window.localStorage.getItem('user')==null)	{
+		$http.post(url+'/api/recpassword',{'email':email})
+		//$http.post('/api/recpassword',{'email':email})
+				.success(function(data, status, headers, config){
+				console.log(data);
+					 if (data.message=="Nuevo") {
+						deferred.resolve(data);
+						
+					} else {
+						deferred.reject(data);
+					}
+				})
+				.error(function (data){
+					deferred.reject(data);
+				});
+		//}
+            promise.success = function(fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function(fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+            return promise;
+        },
+	user: function() {
+		  return user_data;
+		}
+    }
+	
 });
