@@ -34,7 +34,7 @@ function onPhotoDataSuccess(imageURI) {
     // The inline CSS rules are used to resize the image
     //
     cameraImage.attr('src',imageURI);
-	//$('#load_photo').toggleClass("active");
+	$('#load_photo').toggleClass("active");
 }
 // Called when a photo is successfully retrieved
 //
@@ -60,7 +60,7 @@ function onPhotoURISuccess(imageURI) {
     // The inline CSS rules are used to resize the image
     //
     galleryImage.attr('src',imageURI);
-	//$('#load_photo').toggleClass("active");
+	$('#load_photo').toggleClass("active");
 }
 // A button will call this function
 //
