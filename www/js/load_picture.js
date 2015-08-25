@@ -14,7 +14,7 @@ function onDeviceReady() {
 //
 
 function onPhotoDataSuccess(imageURI) {
-	alert(imageURI);
+	//alert(imageURI);
     // Uncomment to view the base64-encoded image data
     console.log(imageURI);
     // Get image handle
@@ -24,7 +24,7 @@ function onPhotoDataSuccess(imageURI) {
     //
 	var filename= imageURI.substr(imageURI.lastIndexOf('/') + 1);
     var img_name = $('#image_name');
-	alert(filename);
+	//alert(filename);
 	var newimg_name = $('#newimg');
 	img_name.attr('ng-value', filename);
 	newimg_name.attr('ng-value', filename);
@@ -34,21 +34,22 @@ function onPhotoDataSuccess(imageURI) {
     // The inline CSS rules are used to resize the image
     //
     cameraImage.attr('src',imageURI);
-	//$('#load_photo').toggleClass("active");
+	$('#load_photo').toggleClass("active");
+	upload();
 }
 // Called when a photo is successfully retrieved
 //
 
 function onPhotoURISuccess(imageURI) {
-	alert(imageURI);
+	//alert(imageURI);
     // Uncomment to view the image file URI
     console.log(imageURI);
     // Get image handle
     //
     var galleryImage = $('#image');
 	var file_name= imageURI.substr(imageURI.lastIndexOf('/') + 1);
-	var  filename =file_name.substr(0,file_name.lastIndexOf('?'));
-	alert(filename);
+	var  filename =file_name.substr(file_name.lastIndexOf('?')+1).".jpg";
+	//alert(filename);
     var img_name = $('#image_name');
     var newimg_name = $('#newimg');
 	img_name.attr('ng-value', filename);
@@ -60,7 +61,8 @@ function onPhotoURISuccess(imageURI) {
     // The inline CSS rules are used to resize the image
     //
     galleryImage.attr('src',imageURI);
-	//$('#load_photo').toggleClass("active");
+	$('#load_photo').toggleClass("active");
+	upload();
 }
 // A button will call this function
 //
