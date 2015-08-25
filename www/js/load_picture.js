@@ -47,7 +47,7 @@ function onPhotoURISuccess(imageURI) {
     //
     var galleryImage = $('#image');
 	var file_name= imageURI.substr(imageURI.lastIndexOf('/') + 1);
-	var  filename =file_name?file_name.substr(file_name.lastIndexOf('?')+1).".jpg":"";
+	var  filename =file_name!=""?file_name.substr(file_name.lastIndexOf('?')+1).".jpg":"";
 	//alert(filename);
     var img_name = $('#image_name');
     var newimg_name = $('#newimg');
