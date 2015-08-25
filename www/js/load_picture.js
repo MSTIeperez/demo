@@ -103,7 +103,7 @@ function upload() {
     options.params = params;
     options.chunkedMode = false;
     var ft = new FileTransfer();
-    ft.upload(imageURI, "https://legixapp.abardev.net/assets/upload.php", win, fail,
+    ft.upload(imageURI, "https://legixapp.abardev.net/api/update_account", win, fail,
         options);
 }
 
