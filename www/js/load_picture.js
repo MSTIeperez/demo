@@ -14,7 +14,7 @@ function onDeviceReady() {
 //
 
 function onPhotoDataSuccess(imageURI) {
-	alert(imageURI);
+	//alert(imageURI);
     // Uncomment to view the base64-encoded image data
     console.log(imageURI);
     // Get image handle
@@ -24,7 +24,7 @@ function onPhotoDataSuccess(imageURI) {
     //
 	var filename= imageURI.substr(imageURI.lastIndexOf('/') + 1);
     var img_name = $('#image_name');
-	alert(filename);
+	//alert(filename);
 	var newimg_name = $('#newimg');
 	img_name.attr('ng-value', filename);
 	newimg_name.attr('ng-value', filename);
@@ -40,16 +40,15 @@ function onPhotoDataSuccess(imageURI) {
 //
 
 function onPhotoURISuccess(imageURI) {
-	alert(imageURI);
+	//alert(imageURI);
     // Uncomment to view the image file URI
     console.log(imageURI);
     // Get image handle
     //
     var galleryImage = $('#image');
 	var file_name= imageURI.substr(imageURI.lastIndexOf('/') + 1);
-	var  filename =file_name.substr(file_name.lastIndexOf('?')+1);
-	//filename=filename.".jpg";
-	alert(filename);
+	var  filename =file_name.substr(file_name.lastIndexOf('?')+1)+".jpg";
+	//alert(filename);
     var img_name = $('#image_name');
     var newimg_name = $('#newimg');
 	img_name.attr('ng-value', filename);
