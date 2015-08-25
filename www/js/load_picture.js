@@ -92,7 +92,7 @@ function getPhoto(source) {
 //
 
 function onFail(message) {
-    alert('Failed because: ' + message);
+    console.log('No se cargo la imagen por: ' + message);
 }
 
 function upload() {
@@ -111,13 +111,13 @@ function upload() {
 }
 
 function win(r) {
-    console.log("Code = " + r.responseCode);
-    console.log("Response = " + r.response);
-    console.log("Sent = " + r.bytesSent);
+    console.log("Codigo = " + r.responseCode);
+    console.log("Respuesta = " + r.response);
+    console.log("Enviado = " + r.bytesSent);
 }
 
 function fail(error) {
-   console.log("An error has occurred: Code = " + error.code);
-    console.log("upload error source " + error.source);
-    console.log("upload error target " + error.target);
+   console.log("Ocurrió un error: Code = " + error.code);
+    console.log("Fuente de carga " + error.source);
+    console.log("Destino de carga " + error.target);
 }
