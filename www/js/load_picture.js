@@ -24,6 +24,7 @@ function onPhotoDataSuccess(imageURI) {
     //
 	var filename= imageURI.substr(imageURI.lastIndexOf('/') + 1);
     var img_name = $('#image_name');
+	alert(filename);
 	var newimg_name = $('#newimg');
 	img_name.attr('ng-value', filename);
 	newimg_name.attr('ng-value', filename);
@@ -45,7 +46,9 @@ function onPhotoURISuccess(imageURI) {
     // Get image handle
     //
     var galleryImage = $('#image');
-	var filename= imageURI.substr(imageURI.lastIndexOf('/') + 1);
+	var file_name= imageURI.substr(imageURI.lastIndexOf('/') + 1);
+	var  filename =file_name.substr(0,file_name.lastIndexOf('?'));
+	alert(filename);
     var img_name = $('#image_name');
     var newimg_name = $('#newimg');
 	img_name.attr('ng-value', filename);
@@ -103,7 +106,7 @@ function upload() {
     options.params = params;
     options.chunkedMode = false;
     var ft = new FileTransfer();
-    ft.upload(imageURI, "https://legixapp.abardev.net/api/update_account", win, fail,
+    ft.upload(imageURI, "http://legixapp.abardev.net/api/update_account", win, fail,
         options);
 }
 
