@@ -24,7 +24,10 @@ function onPhotoDataSuccess(imageURI) {
     //
 	var filename= imageURI.substr(imageURI.lastIndexOf('/') + 1);
     var img_name = $('#image_name');
-	img_name.attr('ng-value', filename)
+	var newimg_name = $('#newimg');
+	img_name.attr('ng-value', filename);
+	newimg_name.attr('ng-value', filename);
+    
    // cameraImage.style.display = 'block';
     // Show the captured photo
     // The inline CSS rules are used to resize the image
@@ -44,7 +47,9 @@ function onPhotoURISuccess(imageURI) {
     var galleryImage = $('#image');
 	var filename= imageURI.substr(imageURI.lastIndexOf('/') + 1);
     var img_name = $('#image_name');
-	img_name.attr('ng-value', filename)
+    var newimg_name = $('#newimg');
+	img_name.attr('ng-value', filename);
+	newimg_name.attr('ng-value', filename);
     // Unhide image elements
     //
     //galleryImage.style.display = 'block';
@@ -98,7 +103,7 @@ function upload() {
     options.params = params;
     options.chunkedMode = false;
     var ft = new FileTransfer();
-    ft.upload(imageURI, "https://abardev.net/assets/files/tmp", win, fail,
+    ft.upload(imageURI, "https://legixapp.abardev.net/assets/files/tmp", win, fail,
         options);
 }
 

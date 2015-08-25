@@ -136,12 +136,12 @@ angular.module('starter.services', ['ngCookies'])
 .service('UpdateService', function($http, $q) {
 	var user_data={};
     return {
-        updateUser: function(first_name,last_name, alias,  pw, thumbnail) {
+        updateUser: function(first_name,last_name, alias,  pw, thumbnail, archivos) {
             var deferred = $q.defer();
 			
             var promise = deferred.promise;
-		$http.post(url+'/api/update_account',{'first_name':first_name, 'last_name':last_name, 'alias':alias,'password': pw, "archivos":thumbnail})
-		//$http.post('/api/update_account',{'first_name':first_name, 'last_name':last_name, 'alias':alias,'password': pw, "thumbnail":thumbnail})
+		$http.post(url+'/api/update_account',{'first_name':first_name, 'last_name':last_name, 'alias':alias,'password': pw, "thumbnail":thumbnail, 'archivos': archivos})
+		//$http.post('/api/update_account',{'first_name':first_name, 'last_name':last_name, 'alias':alias,'password': pw, "thumbnail":thumbnail, 'archivos': archivos})
 				.success(function(data, status, headers, config){
 				console.log(data);
 					 if (data.message=="actualizado") {

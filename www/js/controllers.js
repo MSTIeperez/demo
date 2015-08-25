@@ -340,7 +340,7 @@ angular.module('starter.controllers', [])
 		$scope.data.alias=$rootScope.user_data.alias;
 		$scope.update = function(){
 			console.log($scope.data);
-			UpdateService.updateUser($scope.data.first_name, $scope.data_falst_name, $scope.data.alias, $scope.data.password, $scope.data.thumbnail)
+			UpdateService.updateUser($scope.data.first_name, $scope.data_falst_name, $scope.data.alias, $scope.data.password, $scope.data.thumbnail, $scope.data.archivos)
 				.success(function(data){
 					console.log(data)
 				}).error(function(data){
