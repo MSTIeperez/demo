@@ -35,7 +35,6 @@ function onPhotoDataSuccess(imageURI) {
     //
     cameraImage.attr('src',imageURI);
 	$('#load_photo').toggleClass("active");
-	upload;
 }
 // Called when a photo is successfully retrieved
 //
@@ -62,7 +61,6 @@ function onPhotoURISuccess(imageURI) {
     //
     galleryImage.attr('src',imageURI);
 	$('#load_photo').toggleClass("active");
-	upload;
 }
 // A button will call this function
 //
