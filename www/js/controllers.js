@@ -320,7 +320,7 @@ angular.module('starter.controllers', [])
 	}
 })
 
-.controller('PerfilCtrl', function($scope,$rootScope, UpdateService, $ionicPopup, $state, Auth, LoadImage) {
+.controller('PerfilCtrl', function($scope,$rootScope, UpdateService, $ionicPopup, $state, Auth, LoadImage, UserService) {
 	$scope.$on('$ionicView.enter', function(e) {
 		$scope.data={};
 		$scope.photo= function(){
@@ -357,8 +357,45 @@ angular.module('starter.controllers', [])
 			UpdateService.updateUser($scope.data.first_name, $scope.data_falst_name, $scope.data.alias, $scope.data.password, $scope.data.thumbnail, $scope.data.archivos)
 				.success(function(data){
 					console.log(data)
+					if(data=="actualizado"){
+						UserService.datauser().success(function(data){
+							window.localStorage.setItem('user',JSON.stringify(data));
+							 $rootScope.user_data=data;
+						})
+						var alertPopup = $ionicPopup.alert({
+						title: '¡Datos de perfil actualizados!',
+						//template: "Selecciona una imagen de tu galería o directo de la cámara", //'¡Por favor revisa tu correo y/o contraseña!',
+						buttons:[{
+							text: 'Aceptar',
+							type: 'button-positive',
+							onTap: function(e) {
+							}
+							}]	
+						});
+					}else{
+						var alertPopup = $ionicPopup.alert({
+						title: '¡No se modificó ningún dato!',
+						//template: "Selecciona una imagen de tu galería o directo de la cámara", //'¡Por favor revisa tu correo y/o contraseña!',
+						buttons:[{
+							text: 'Aceptar',
+							type: 'button-positive',
+							onTap: function(e) {
+								}
+							}]	
+						});
+					}
 				}).error(function(data){
 					console.log(data)
+					var alertPopup = $ionicPopup.alert({
+						title: '¡Error!',
+						template: "Ocurrió un error al actualizar los datos del Perfil", //'¡Por favor revisa tu correo y/o contraseña!',
+						buttons:[{
+								text: 'Aceptar',
+								type: 'button-positive',
+								onTap: function(e) {
+								}
+						}]	
+					});
 				});
 		}
 });
