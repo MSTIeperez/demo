@@ -17,6 +17,12 @@
             <h2>Grupos</h2>
             <a class="icon ion-gear-b" href="#/tab/config-feeds"></a>
         </div>
+		<div class="list-card" ng-show="grupos.length<1">
+            <div class="item item-header item-empty">
+                <h2 >No tienes Grupos creados aún.</h2>
+                <h2>Administra tus usuarios por grupos.<a class="icon ion-gear-b" href="#"> Configura tus grupos</a>.</h2>
+            </div>
+        </div >
         
         <ul class="list category-list groups-list padding has-circle"> 
             
