@@ -233,10 +233,13 @@ angular.module('starter.controllers', [])
 })
 
 .controller('FollowingCtrl', function($scope, Follow, $rootScope) {
-	var asuntos = $rootScope.user_data?($rootScope.user_data.follow?$rootScope.user_data.follow:'0,0'):'0,0';
-		asuntos= asuntos.toString()
-	console.log(asuntos.toString());
+
 	$scope.$on('$ionicView.enter', function(e) {
+		var asuntos = $rootScope.user_data?($rootScope.user_data.follow?$rootScope.user_data.follow:'0,0'):'0,0';
+		console.log(asuntos);
+	
+		asuntos= asuntos.toString()
+		console.log(asuntos);
 		Follow.all(-1,'','send_data','',asuntos).success(function(data){
 			angular.forEach(data.feeds, function(val, key){
 				data.feeds[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';

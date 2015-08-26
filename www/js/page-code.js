@@ -261,8 +261,8 @@ $( document ).ready(function() {
 				var folder_id = $('#folder_id').attr("ng-value");
 				var title= input.val().trim();
 				if(title.length>0){
-					$.post(url+'/api/update_folder',{'title':title,'folder_id':folder_id})
-					//$.post('/api/update_folder',{'title':title,'folder_id':folder_id})
+					//$.post(url+'/api/update_folder',{'title':title,'folder_id':folder_id})
+					$.post('/api/update_folder',{'title':title,'folder_id':folder_id})
 						 .error(function(){
 								console.log("no se recibieron datos");
 								input.val( "" );
@@ -295,8 +295,8 @@ $( document ).ready(function() {
 				var folder_id =  $('#folder_id').attr("ng-value");
 				console.log(folder_id);
 				if(folder_id>0){
-					//$.post('/api/delete_folder', {'send_data':'eliminar','folder_id':folder_id})
-					$.post(url+'/api/delete_folder', {'send_data':'eliminar','folder_id':folder_id})
+					$.post('/api/delete_folder', {'send_data':'eliminar','folder_id':folder_id})
+					//$.post(url+'/api/delete_folder', {'send_data':'eliminar','folder_id':folder_id})
 	                        .error(function(){
 								console.log("no se recibieron datos");
 	                        })
@@ -330,8 +330,8 @@ $( document ).ready(function() {
 				e.preventDefault();
 				var title= $('.title_folder').val().trim();
 				if(title.length>0){
-					$.post(url+'/api/add_folder', {'title':title})
-					//$.post('/api/add_folder', {'title':title})
+				//	$.post(url+'/api/add_folder', {'title':title})
+					$.post('/api/add_folder', {'title':title})
 				        .error(function(){
 								console.log("no se recibieron datos");
 								$('.title_folder').val( "" );
@@ -362,18 +362,28 @@ $( document ).ready(function() {
 			});
 			$('body').on('click','.ok_temas',function(e){ 
 				var temas_name=[]
-				//console.log()
+				var topics = $("#count_tema").data("topic");
+				var temas = $("#count_tema").data("temas");
+				
+				console.log(topics+' / '+temas )
 				$(".tema_id").each(function(){
 					if($(this).is(":checked")){
 						temas_name.push($(this).data("name"));
 					}
 				});
 				console.log(temas_name)
-				$('.warning-actions.grl').find('a#btn-aceptar').addClass('add_temas_ok');
-				$('.warning-actions.grl').find('a#btn-aceptar').removeAttr('onclick');
-				$.each(temas_name, function(val, index){
-				});
-				$( '.warning-content.grl' ).find('p').html("").html( 'Estas seguro de seleccionar estos temas: <strong>'+temas_name+'.</strong>');
+				if(temas_name.length==0){
+					$( '.warning-content.grl' ).find('p').html("").html( ' No has dado de alta ningún Tema. Sin personalización de Temas, solo recibirás el Feed genérico sin notificaciones en las sección de Temas ni de Mis Feeds. Puedes continuar y posteriormente hacerlo.' );
+					
+				}else{	
+					if((topics-temas)>0){
+						$('.warning-actions.grl').find('a#btn-aceptar').addClass('add_temas_ok');
+						$('.warning-actions.grl').find('a#btn-aceptar').removeAttr('onclick');
+						$( '.warning-content.grl' ).find('p').html("").html( 'Temas contratados: '+temas+'/'+topics+', libres: '+(topics-temas)+'<br> Estas seguro de seleccionar este(os) tema(s): <strong>'+temas_name+'.</strong>');
+					}else{
+						$( '.warning-content.grl' ).find('p').html("").html( 'Temas contratados: '+temas+'/'+topics+', libres: '+(topics-temas)+'<br> ¡Has llegado al límite de tus temas contratados, ya no puedes agregar temas!');
+					}
+				}
 			});
 			$('body').on('click','.add_temas_ok', function(e){
 				e.preventDefault();
