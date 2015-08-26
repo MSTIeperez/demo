@@ -108,6 +108,43 @@ angular.module('starter.services', ['ngCookies'])
     }
 	
 })
+.service('UserService', function($http, $q) {
+	var user_data={};
+    return {
+        datauser: function(section) {
+            var deferred = $q.defer();
+			
+            var promise = deferred.promise;
+		//$http.post(url+'/api/user_data',{'section':section})
+		$http.post('/api/user_data',{'section':section})
+				.success(function(data, status, headers, config){
+				//console.log(data);
+					 if (!data.alert) {
+						//window.localStorage.setItem('user',JSON.stringify(data.user));
+						user_data=data.user;
+						deferred.resolve(data);
+						
+					} else {
+						deferred.reject(data);
+					}
+				})
+				.error(function (data){
+					deferred.reject(data);
+				});
+            promise.success = function(fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function(fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+            return promise;
+        },
+
+    }
+	
+})
 
 .factory('Auth', function ($cookieStore) {
    var _user = $cookieStore.get('starter.user');

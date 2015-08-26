@@ -17,6 +17,12 @@
             <h2>Mis Favoritos</h2>
             <a class="icon ion-gear-b btn-add-folder" href="#"></a>
         </div>
+		<div class="list-card" ng-show="favorites.length<1">
+            <div class="item item-header item-empty">
+                <h2 >No tienes carpetas de archivo.</h2>
+                <h2><a class="btn-add-folder" href="#">Crea una carpeta</a> y agrega tu Feed seleccionando el ícono <i class="icon sprite icon-favorite"></i>.</h2>
+            </div>
+        </div >
         <div class="padding list category-list has-excerpt favorite_feeds"> 
             
             <li class="category-element item item-avatar item-icon-left item-button-right" ng-repeat="favorite in favorites track by $index" data-id="{{favorite.id}}">

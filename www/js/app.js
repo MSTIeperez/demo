@@ -176,9 +176,17 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
             }
         }
     })
-    
-    .state('tab.following', {
+ .state('tab.following_feeds', {
         url: '/following',
+        views: {
+            'tab-following': {
+                templateUrl: 'templates/temas-follow.html',
+                controller: 'FollowingCtrl'
+            }
+        }
+    })   
+    .state('tab.following', {
+        url: '/following/feeds/:name/:theme_id/:origin_id',
         views: {
             'tab-following': {
                 templateUrl: 'templates/tab-following.html',
