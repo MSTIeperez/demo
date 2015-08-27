@@ -1,11 +1,5 @@
 angular.module('starter.controllers', [])
 
-.controller('ConfigCtrl', function($scope) {})
-.controller('ConfigAddCtrl', function($scope) {})
-.controller('MyfeedCtrl', function($scope) {})
-.controller('PerfilCtrl', function($scope) {})
-.controller('SimpleCtrl', function($scope) {})
-
 .controller('MainCtrl', function($scope,$cookies,$cookieStore, $rootScope, Auth ){
 	var url ='http://legixapp.abardev.net';
 	$scope.$on('$ionicView.enter', function(e) {
@@ -15,7 +9,11 @@ angular.module('starter.controllers', [])
 		}
 	});  
 })
-
+.controller('SimpleCtrl', function($scope, $location) {
+	$scope.$on('$ionicView.enter', function(e) {
+		console.log($location.path())
+	});
+})
 .controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state, Auth, $rootScope) {
     $scope.$on('$ionicView.enter', function(e) {
 	$scope.data = {};
