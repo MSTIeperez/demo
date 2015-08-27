@@ -23,8 +23,8 @@
 
             <div class="item item-header item-thumbnail-left">
                 <img class="small-image" ng-src="http://legixapp.abardev.net{{ feed.src_img }}">
-                <h2>{{ feed.title_source }}</h2>
-                <h3>{{ feed.title_origin }}</h3>
+                <h2>{{ feed.title_origin }}</h2>
+                <h3>{{ feed.title_source }}</h3>
                 <p>{{ feed.date }}</p>
 				<a class="read" href="#"><i class="ion-ios-eye-outline"></i></a>
             </div>
@@ -90,7 +90,7 @@
         <h4>Selecciona un archivo favorito</h4>
     </div>
     <div class="lightbox-favorited-content">
-        <div class="list has-excerpt"> 
+        <div class="list has-excerpt favorite_folders"> 
             
             <li class="category-element item item-avatar item-icon-left item-button-right" ng-repeat="folder in user_data.favfolder">
                 <input class="btn-invisible" type="checkbox">

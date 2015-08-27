@@ -13,8 +13,8 @@
     <!-- END: sub header -->
     
     <ion-content class="padding has-subheader bg-color-1"> 
-		 <div class="header-blue padding">
-            <h2>{{tema_name}}</h2>
+		 <div class="header-blue padding" >
+            <h2 style="max-width:100%!important">{{tema_name}}</h2>
             
         </div>
          <div class="seen-menu clearfix">
@@ -27,8 +27,8 @@
 
             <div class="item item-header item-thumbnail-left">
                 <img class="small-image" ng-src="http://legixapp.abardev.net{{ feed.src_img }}">
-                <h2>{{ feed.title_source }}</h2>
-                <h3>{{ feed.title_origin }}</h3>
+                <h2>{{ feed.title_origin }}</h2>
+                <h3>{{ feed.title_source }}</h3>
                 <p>{{ feed.date }}</p>
 				<a class="read" href="#"><i class="ion-ios-eye-outline"></i></a>
             </div>

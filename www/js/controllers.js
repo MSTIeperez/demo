@@ -2,20 +2,26 @@ angular.module('starter.controllers', [])
 
 .controller('MainCtrl', function($scope,$cookies,$cookieStore, $rootScope, Auth ){
 	var url ='http://legixapp.abardev.net';
-	$scope.$on('$ionicView.enter', function(e) {
+	$scope.$on('$ionicView.loaded', function(e) {
 		if(window.localStorage.getItem('user')&&window.localStorage.getItem('user').length>4){
 		$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
 		$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
 		}
 	});  
 })
-.controller('SimpleCtrl', function($scope, $location) {
-	$scope.$on('$ionicView.enter', function(e) {
-		console.log($location.path())
+.controller('SimpleCtrl', function($scope, $location, ContentService) {
+	$scope.$on('$ionicView.loaded', function(e) {
+		console.log($location.hash())
+		var page_id=$location.hash();
+		ContentService.content(page_id).success(function(data){
+			$scope.page=data
+		}).error(function(data){
+			console.log("error en conexión");
+		})
 	});
 })
 .controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state, Auth, $rootScope) {
-    $scope.$on('$ionicView.enter', function(e) {
+    $scope.$on('$ionicView.loaded', function(e) {
 	$scope.data = {};
 	});
 	$scope.logout = function() {
@@ -157,9 +163,11 @@ angular.module('starter.controllers', [])
   // To listen for when this page is active (for example, to refresh data),
   // listen for the $ionicView.enter event:
   //
-.controller('ConfigfeedCtrl', function($scope, Themes) {
+.controller('ConfigfeedCtrl', function($scope, Themes, $rootScope) {
    	$scope.data={};
-	$scope.$on('$ionicView.enter', function(e) {
+	$scope.$on('$ionicView.loaded', function(e) {
+		$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
+		$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
 		Themes.all().success(function(data){
 			
 			$scope.themes = data;
@@ -172,22 +180,49 @@ angular.module('starter.controllers', [])
 		}
 	});  
 })
-
-.controller('FeedsCtrl', function($scope, Feeds_all, Auth,$stateParams, $state) {
+.controller('SearchCtrl', function($scope, Search, Auth,$stateParams, $state) {
 	
 	$scope.data={}
 	
-	$scope.$on('$ionicView.beforeEnter', function(e) { console.log(Auth.isLoggedIn())
+	$scope.$on('$ionicView.loaded', function(e) { console.log(Auth.isLoggedIn())
 		if(Auth.isLoggedIn() && window.localStorage.getItem('user')!=null ){
-		console.log($scope.data.busqueda);	
-		console.log($state.params.busqueda);	
-		$scope.load = Feeds_all.all(-1,$scope.data.busqueda).success(function(data){
-			console.log($scope.data.busqueda)
+		console.log("params: "+$state.params.busqueda);	
+		$scope.busqueda=$state.params.busqueda;
+		if($state.params.busqueda!=""){
+			var noread=0;
+		Search.all(-1,$state.params.busqueda).success(function(data){
 			angular.forEach(data.feeds, function(val, key){
 				data.feeds[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';
+				if(val.read==0)
+					noread++;
 			});
 			$scope.feeds = data.feeds;
+			$scope.noread = noread;
 		
+		
+		}).error(function(){
+			$scope.feeds = "";
+		});
+		}
+		$scope.remove = function(feed) {
+			Search.remove(feed);
+		}
+		} else $state.go('login');
+	});  
+})
+.controller('FeedsCtrl', function($scope, Feeds_all, Auth, $state) {
+	
+	$scope.data={}
+	
+	$scope.$on('$ionicView.loaded', function(e) { console.log(Auth.isLoggedIn())
+		if(Auth.isLoggedIn() && window.localStorage.getItem('user')!=null ){
+		$scope.load = Feeds_all.all(-1).success(function(data){
+			angular.forEach(data.feeds, function(val, key){
+				data.feeds[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';
+					
+			});
+			$scope.feeds = data.feeds;
+			
 		}).error(function(){
 			$scope.feeds = "";
 		});
@@ -199,15 +234,17 @@ angular.module('starter.controllers', [])
 })
 
 .controller('MyfeedsCtrl', function($scope, Feeds,$rootScope, $state, $stateParams, Auth) {
-	
-	 var user = $rootScope.user_data;
-	
-	$scope.data = {};
-	console.log(user.temas.length);
-	if(user.temas.length==0)
-		$state.go('tab.configfeeds');
-	$scope.$on('$ionicView.beforeEnter', function(e) {
+
+	$scope.$on('$ionicView.loaded', function(e) {
 		 if(Auth.isLoggedIn() && window.localStorage.getItem('user')!=null ){
+			//$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
+			//$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
+		 var user = $rootScope.user_data;
+		
+		$scope.data = {};
+		console.log(user.temas.length);
+		if(user.temas.length==0)
+			$state.go('tab.configfeeds');
 		$scope.temas = user.temas;
 		 var noread=0;
 		// Feeds.all(-1,'send_data','','',$scope.data.origin_id, $scope.data.theme_id,'').success(function(data){
@@ -233,7 +270,7 @@ angular.module('starter.controllers', [])
 
 .controller('FollowingCtrl', function($scope, Follow, UserService, $rootScope, Auth, $stateParams, $state) {
 
-	$scope.$on('$ionicView.enter', function(e) {
+	$scope.$on('$ionicView.afterEnter', function(e) {
 		 if(Auth.isLoggedIn() && window.localStorage.getItem('user')!=null ){
 			 UserService.datauser('siguiendo').success(function(data){
 				 console.log(data.temas);
@@ -263,7 +300,7 @@ angular.module('starter.controllers', [])
 })
 .controller('GroupsCtrl', function($scope, Feeds, $rootScope, Auth, $stateParams, $state) {
 
-	$scope.$on('$ionicView.enter', function(e) {
+	$scope.$on('$ionicView.loaded', function(e) {
 		 if(Auth.isLoggedIn() && window.localStorage.getItem('user')!=null ){
 		$scope.grupos=$rootScope.user_data.grupos;
 		if($state.params.id){
@@ -295,8 +332,11 @@ angular.module('starter.controllers', [])
 })
 .controller('FavoritesCtrl', function($scope, Feeds, $rootScope, $state) {
 	
-	var fav_feeds = [];
 	
+	$scope.$on('$ionicView.loaded', function(e) {
+	var fav_feeds = [];
+	//$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
+	//$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
 	$scope.favorites=$rootScope.user_data?$rootScope.user_data.favfolder:"0,0";
 	angular.forEach($scope.favorites, function(val, key){
 			fav_feeds.push(val.id);
@@ -306,11 +346,10 @@ angular.module('starter.controllers', [])
 	$scope.flag=true;
 	var flag=0;
 	$scope.folder_name=$state.params.foldername?$state.params.foldername:'Feeds Favoritos';
-	$scope.$on('$ionicView.beforeEnter', function(e) {
 		if($state.params.favfolder){
 			Feeds.all(-1,'','', 'send_data','','','','',fav_feeds).success(function(data){
 					console.log(data)
-					$rootScope.user_data= window.localStorage.setItem('user',JSON.stringify(data.user_data));
+					//$rootScope.user_data= window.localStorage.setItem('user',JSON.stringify(data.user_data));
 					angular.forEach(data.feeds, function(val, key){
 						fav_feeds=[];
 						angular.forEach(val.favfolder, function(dato, index){
@@ -340,7 +379,7 @@ angular.module('starter.controllers', [])
 
 .controller('PerfilCtrl', function($scope,$rootScope, UpdateService, $ionicPopup, $state, Auth, LoadImage, UserService) {
 	var url ='http://legixapp.abardev.net';
-	$scope.$on('$ionicView.enter', function(e) {
+	$scope.$on('$ionicView.loaded', function(e) {
 		$scope.data={};
 		$scope.photo= function(){
 				var alertPopup = $ionicPopup.alert({
@@ -422,12 +461,12 @@ angular.module('starter.controllers', [])
 });
 })
 .controller('ConfigCtrl', function($scope,$rootScope) {
-	$scope.$on('$ionicView.enter', function(e) {
+	$scope.$on('$ionicView.loaded', function(e) {
 		$scope.user={};
 	});
 })
 .controller('ConfigAddCtrl', function($scope,$rootScope) {
-	$scope.$on('$ionicView.enter', function(e) {
+	$scope.$on('$ionicView.loaded', function(e) {
 		$scope.user={};
 	});
 });

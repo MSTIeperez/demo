@@ -260,9 +260,10 @@ $( document ).ready(function() {
 				var input=  $('.folder_title');
 				var folder_id = $('#folder_id').attr("ng-value");
 				var title= input.val().trim();
+				var user= window.localStorage.getItem('user');
 				if(title.length>0){
-					$.post(url+'/api/update_folder',{'title':title,'folder_id':folder_id})
-					//$.post('/api/update_folder',{'title':title,'folder_id':folder_id})
+					//$.post(url+'/api/update_folder',{'title':title,'folder_id':folder_id})
+					$.post('/api/update_folder',{'title':title,'folder_id':folder_id})
 						 .error(function(){
 								console.log("no se recibieron datos");
 								input.val( "" );
@@ -273,6 +274,12 @@ $( document ).ready(function() {
 							console.log(data);
 							console.log(data.message);
 							if(data.message=="folder_guardado"){
+								//$.get(url+'api/user_data').error(function(){
+								$.get('api/user_data').error(function(){
+									console.log('error de conexión');
+								}).success(function(response){
+									window.localStorage.setItem('user',response);
+								});
 								$("li[data-id="+data.id+"]").find('h2').html('').html(data.title);
 								$("li[data-id="+data.id+"]").find('a.btn-invisible').attr('href','#/tab/favorites/feed/'+data.title+'/'+data.id);
 								$( '.lightbox-add.update-folder' ).toggleClass( 'active' );
@@ -303,6 +310,12 @@ $( document ).ready(function() {
 						 .success(function(data){
 							data=$.parseJSON(data);
 							if(data.message=="folder_eliminado"){
+								//$.get(url+'api/user_data').error(function(){
+								$.get('api/user_data').error(function(){
+									console.log('error de conexión');
+								}).success(function(response){
+									window.localStorage.setItem('user',response);
+								});
 								$("li[data-id="+data.id+"]").remove();
 								$( '.lightbox-add.update-folder' ).toggleClass( 'active' );
 								$( '.warning-content.grl' ).find('p').html("").html( ' No has dado de alta ningún Tema. Sin personalización de Temas, solo recibirás el Feed genérico sin notificaciones en las sección de Temas ni de Mis Feeds. Puedes continuar y posteriormente hacerlo.' );
@@ -330,8 +343,8 @@ $( document ).ready(function() {
 				e.preventDefault();
 				var title= $('.title_folder').val().trim();
 				if(title.length>0){
-					$.post(url+'/api/add_folder', {'title':title})
-					//$.post('/api/add_folder', {'title':title})
+					//$.post(url+'/api/add_folder', {'title':title})
+					$.post('/api/add_folder', {'title':title})
 				        .error(function(){
 								console.log("no se recibieron datos");
 								$('.title_folder').val( "" );
@@ -340,6 +353,13 @@ $( document ).ready(function() {
 							data=$.parseJSON(data);
 							console.log(data);
 							if(data.message=='folder_guardado'){
+								//$.get(url+'api/user_data').error(function(){
+								$.get('api/user_data').error(function(){
+									console.log('error de conexión');
+								}).success(function(response){
+									
+									window.localStorage.setItem('user',response);
+								});
 								var favfolder 	= '<li class="category-element item item-avatar item-icon-left item-button-right" data-id="'+data.id+'">'+
 															'<a class="btn-invisible" href="#/tab/favorites/feed/'+data.title+'/'+data.id+'"></a>'+
 																'<i class="sprite2x icon icon-folder">0</i>'+
@@ -347,8 +367,15 @@ $( document ).ready(function() {
 																'<p></p>'+
 															'<a class="button button-outline button-positive show-lightbox-folder" href="#" onclick="return false;">Editar</a>'+
 															'</li>';
+								var favfolder2 ='<li class="category-element item item-avatar item-icon-left item-button-right" data-id="'+data.id+'">'+
+														'<input class="btn-invisible" type="checkbox">'+
+														'<i class="sprite2x icon icon-folder">0</i>'+
+														'<h2>'+data.title+'</h2>'+
+														'<a class="button button-outline button-positive btn-delete" href="#">Eliminar</a>'+
+													'</li>';
 								$('.title_folder').val( "" );
 								$(".favorite_feeds").append(favfolder);
+								$(".favorite_folders").append(favfolder2);
 								$(".lightbox-add.create-folder").toggleClass("active");
 							}else
 								$('.title_folder').css('border','1px solid #FF0000');
@@ -398,25 +425,33 @@ $( document ).ready(function() {
 				});
 				console.log(temas_id)
 				console.log(temas_name)
-				$.post(url+'/api/update_temas', {'temas_id':temas_id})
-				//	$.post('/api/update_temas', {'temas_id':temas_id})
+				//$.post(url+'/api/update_temas', {'temas_id':temas_id})
+					$.post('/api/update_temas', {'temas_id':temas_id})
 					.error(function(data){
 						console.log(data.message);
 					})
 					.success(function(data){
 						data= $.parseJSON(data);
+						//$.get(url+'api/user_data').error(function(){
+								$.get('api/user_data').error(function(){
+									console.log('error de conexión');
+								}).success(function(response){
+									window.localStorage.setItem('user',response);
+								});
 						console.log(data);
 					});
 			});
 		$("body").on('click','.btn-upload',function(){
 			$('#load_photo').toggleClass("active");
 		});			
-		$("html").on('keypress','#search',function(e){
+		$("html").on('keyup','#search',function(e){
 			console.log(e.keyCode);
 			if(e.keyCode==13){
 				var text=$(this).val()
 					console.log(text);
-						window.location="#/tab/busqueda/"+text;
+					        $( '.lightbox-search' ).toggleClass( 'active' );
+						$('#search').val("")
+						window.location="#/tab/feeds/busqueda/"+text;
 			}
 		});
 			

@@ -63,19 +63,19 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
 		
     })
 	.state('about', {
-        url: '/acerca',
+        url: '/acerca/?#19',
         templateUrl: 'templates/simple.html',
 		controller: 'SimpleCtrl'
 		
     })
 	.state('terms', {
-        url: '/terminos-y-condiciones',
+        url: '/terminos-y-condiciones/?#7',
         templateUrl: 'templates/simple1.html',
 		controller: 'SimpleCtrl'
 		
     })
 	.state('privacidad', {
-        url: '/politica-de-privacidad',
+        url: '/politica-de-privacidad/?#6',
         templateUrl: 'templates/simple2.html',
 		controller: 'SimpleCtrl'
 		
@@ -111,6 +111,7 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
     .state('tab', {
         url: "/tab",
         abstract: true,
+		cache: false,
         templateUrl: "templates/tabs.html",
 		controller: 'LoginCtrl',
 		onEnter: function($state, Auth){
@@ -150,11 +151,11 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
         }
     })
     .state('tab.feedsearch', {
-        url: '/busqueda/:search?',
+        url: '/feeds/busqueda/:busqueda?',
         views: {
-            'tab-feeds': {
+            'tab-myfeeds': {
                 templateUrl: 'templates/tab-feeds-search.html',
-                controller: 'FeedsCtrl'
+                controller: 'SearchCtrl'
             }
         }
     })   
