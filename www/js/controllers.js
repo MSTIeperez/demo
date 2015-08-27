@@ -175,13 +175,14 @@ angular.module('starter.controllers', [])
 	});  
 })
 
-.controller('FeedsCtrl', function($scope, Feeds_all, Auth) {
+.controller('FeedsCtrl', function($scope, Feeds_all, Auth,$stateParams, $state) {
 	
 	$scope.data={}
 	
 	$scope.$on('$ionicView.beforeEnter', function(e) { console.log(Auth.isLoggedIn())
 		if(Auth.isLoggedIn() && window.localStorage.getItem('user')!=null ){
-		console.log($state.data.busqueda);	
+		console.log($scope.data.busqueda);	
+		console.log($state.params.busqueda);	
 		$scope.load = Feeds_all.all(-1,$scope.data.busqueda).success(function(data){
 			console.log($scope.data.busqueda)
 			angular.forEach(data.feeds, function(val, key){
