@@ -3,7 +3,6 @@ angular.module('starter.controllers', [])
 .controller('ConfigCtrl', function($scope) {})
 .controller('ConfigAddCtrl', function($scope) {})
 .controller('MyfeedCtrl', function($scope) {})
-.controller('GroupsCtrl', function($scope) {})
 .controller('PerfilCtrl', function($scope) {})
 .controller('SimpleCtrl', function($scope) {})
 
@@ -182,6 +181,7 @@ angular.module('starter.controllers', [])
 	
 	$scope.$on('$ionicView.beforeEnter', function(e) { console.log(Auth.isLoggedIn())
 		if(Auth.isLoggedIn() && window.localStorage.getItem('user')!=null ){
+		console.log($state.data.busqueda);	
 		$scope.load = Feeds_all.all(-1,$scope.data.busqueda).success(function(data){
 			console.log($scope.data.busqueda)
 			angular.forEach(data.feeds, function(val, key){
@@ -262,17 +262,36 @@ angular.module('starter.controllers', [])
 		} else $state.go('login');
 	});  
 })
-.controller('GroupsCtrl', function($scope, Feeds, $rootScope) {
-//	var user = $rootScope.user_data;
-	$scope.grupos=$rootScope.user_data.grupos;
-	//console.log("favoritos: "+fav_feeds);
+.controller('GroupsCtrl', function($scope, Feeds, $rootScope, Auth, $stateParams, $state) {
+
 	$scope.$on('$ionicView.enter', function(e) {
-	/*	Feeds.all(-1,'','', 'send_data','','','','',fav_feeds).success(function(data){
-			$scope.feeds = data;
-		});*/
+		 if(Auth.isLoggedIn() && window.localStorage.getItem('user')!=null ){
+		$scope.grupos=$rootScope.user_data.grupos;
+		if($state.params.id){
+			var grupo=[];
+			angular.forEach($scope.grupos, function(val,key){
+				if($state.params.id==val.id)
+				grupo.push($scope.grupos[key])
+				grupo=grupo[0];
+			});
+			console.log(grupo);
+			$scope.group=grupo;
+			$scope.tema_name=$state.params.name;
+			var noread=0;
+			Feeds.all(-1,'send_data','','','', $state.params.origin_id, $state.params.theme_id,'').success(function(data){
+				angular.forEach(data.feeds, function(val, key){
+					data.feeds[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';
+					if(val.read==0)
+						noread++;
+				});
+				$scope.feeds = data.feeds;
+				$scope.noread = noread;
+			});
+		}
 		$scope.remove = function(feed) {
 			Feeds.remove(feed);
 		}
+	} else $state.go('login');
 	});  
 })
 .controller('FavoritesCtrl', function($scope, Feeds, $rootScope, $state) {
@@ -321,6 +340,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('PerfilCtrl', function($scope,$rootScope, UpdateService, $ionicPopup, $state, Auth, LoadImage, UserService) {
+	var url ='http://legixapp.abardev.net';
 	$scope.$on('$ionicView.enter', function(e) {
 		$scope.data={};
 		$scope.photo= function(){
@@ -348,19 +368,17 @@ angular.module('starter.controllers', [])
 					}]	
 				});
 		}
-		$scope.data.first_name=$rootScope.user_data.first_name;
-		$scope.data.last_name=$rootScope.user_data.last_name;
-		$scope.data.thumbnail=$rootScope.user_data.thumbnail;
-		$scope.data.alias=$rootScope.user_data.alias;
+		
 		$scope.update = function(){
 			console.log($scope.data);
-			UpdateService.updateUser($scope.data.first_name, $scope.data_falst_name, $scope.data.alias, $scope.data.password, $scope.data.thumbnail, $scope.data.archivos)
+			UpdateService.updateUser($scope.data.first_name, $scope.data.last_name, $scope.data.alias, $scope.data.password, $scope.data.thumbnail, $scope.data.archivos)
 				.success(function(data){
 					console.log(data)
-					if(data=="actualizado"){
-						UserService.datauser().success(function(data){
-							window.localStorage.setItem('user',JSON.stringify(data));
-							 $rootScope.user_data=data;
+					if(data=='"actualizado"'){
+						UserService.datauser().success(function(response){
+							window.localStorage.setItem('user',JSON.stringify(response));
+							 $rootScope.user_data=response;
+							 $rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
 						})
 						var alertPopup = $ionicPopup.alert({
 						title: '¡Datos de perfil actualizados!',
@@ -398,6 +416,10 @@ angular.module('starter.controllers', [])
 					});
 				});
 		}
+		$scope.data.first_name=$rootScope.user_data.first_name;
+		$scope.data.last_name=$rootScope.user_data.last_name;
+		$scope.data.thumbnail=$rootScope.user_data.thumbnail;
+		$scope.data.alias=$rootScope.user_data.alias;
 });
 })
 .controller('ConfigCtrl', function($scope,$rootScope) {

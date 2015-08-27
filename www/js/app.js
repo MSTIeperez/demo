@@ -150,7 +150,7 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
         }
     })
     .state('tab.feedsearch', {
-        url: '/feeds/busqueda',
+        url: '/busqueda/:search?',
         views: {
             'tab-feeds': {
                 templateUrl: 'templates/tab-feeds-search.html',
@@ -204,7 +204,24 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
             }
         }
     })
-    
+	.state('tab.group', {
+        url: '/groups/group/:id',
+        views: {
+            'tab-groups': {
+                templateUrl: 'templates/tab-groups.html',
+                controller: 'GroupsCtrl'
+            }
+        }
+    })
+    .state('tab.group-feeds', {
+        url: '/groups/group/:id/feeds/:name/:theme_id/:origin_id',
+        views: {
+            'tab-groups': {
+                templateUrl: 'templates/tab-groups-feeds	.html',
+                controller: 'GroupsCtrl'
+            }
+        }
+    })
     .state('tab.favorites', {
         url: '/favorites',
         views: {

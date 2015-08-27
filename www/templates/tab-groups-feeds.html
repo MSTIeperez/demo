@@ -1,0 +1,90 @@
+<ion-view view-title="{{group.title}}">
+    <!-- BEGIN: header -->
+    <ion-header-bar class="bar-positive" align-title="center">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+            <h1 class="title">Legix</h1>
+        <button class="button button-icon icon ion-search"></button>
+    </ion-header-bar>
+    <!-- END: header -->
+    <!-- BEGIN: sub header -->
+    <ion-nav-bar class="bar-dark bar-subheader bar-secondary" align-title="left">
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+    <!-- END: sub header -->
+    
+    <ion-content class="padding has-subheader bg-color-1"> 
+		 <div class="header-blue padding">
+            <h2>{{tema_name}}</h2>
+            
+        </div>
+         <div class="seen-menu clearfix">
+		 
+            <a class="reads active" data-class="feed_noread" href="#" onclick="return false;">No leídos ({{noread}})</a>
+            <a  class="reads" data-class="feed_read" href="#" onclick="return false;">Leídos</a>
+        </div>
+         <!-- BEGIN: card -->
+        <ion-item class="list card feeds" data-id="{{feed.id}}" ng-repeat="feed in feeds" ng-class="{feed_noread: feed.read==0, 'feed_read': feed.read==1}" ng-show="feed.read==0">
+
+            <div class="item item-header item-thumbnail-left">
+                <img class="small-image" ng-src="http://legixapp.abardev.net{{ feed.src_img }}">
+                <h2>{{ feed.title_source }}</h2>
+                <h3>{{ feed.title_origin }}</h3>
+                <p>{{ feed.date }}</p>
+				<a class="read" href="#"><i class="ion-ios-eye-outline"></i></a>
+            </div>
+
+            <div class="item item-body">
+                <p ng-bind-html="feed.content"></p>
+                <div class="item-attachments">
+                    <a ng-repeat="docs in feed.docs" href="http://legixapp.abardev.net{{ docs.src_file }}" download="{{docs.file}}">
+                        <i class="icon ion-android-attach"></i>
+                        {{docs.file}}
+                    </a>
+                </div>
+                <div   ng-hide="{{feed.comments.length<1}}"class="item-comments">
+                    <a ng-hide="{{feed.comments.length-1<1}}" href="#" class="show-comments">Mostrar <span class="comments-count">{{feed.comments.length-1}}</span> comentarios previos</a>
+                    <ul class="comments-list">
+                        <li class="comment  " ng-repeat="comments in feed.comments" ng-class="!$last ? ' ' : 'last-comment'">
+                            <h3>{{comments.name}}</h3>
+                            <p>{{comments.comment}}</p>
+                            <p class="date">{{comments.date}}</p>
+                        </li>
+                       
+                    </ul>
+                </div>
+            </div>
+
+            <div class="item tabs tabs-icon-only tabs-light tabs-secondary">
+                <a class="tab-item" href="#">
+                    <i class="icon sprite icon-message"></i>
+                </a>
+                <a class="tab-item" href="#">
+                    <i class="icon sprite icon-mark"></i>
+                </a>
+                <a class="tab-item show-share" href="#">
+                    <i class="icon sprite icon-share"></i>
+                </a>
+                <a class="tab-item btn-favorite" href="#">
+                    <i class="icon sprite icon-favorite"></i>
+                </a>
+                <a class="tab-item" href="#">
+                    <i class="icon sprite icon-print"></i>
+                </a>
+            </div>
+            <div class="list input-comment">
+                <div class="item item-input-inset">
+                    <label class="item-input-wrapper">
+                        <input type="text" placeholder="Escribe un comentario...">
+                    </label>
+                    <button class="button button-small">
+                        Enviar
+                    </button>
+                </div>
+            </div>			
+
+        </ion-item>
+            
+        <!-- END: card -->
+ 
+    </ion-content>
+</ion-view>

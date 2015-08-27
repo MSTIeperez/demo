@@ -261,8 +261,8 @@ $( document ).ready(function() {
 				var folder_id = $('#folder_id').attr("ng-value");
 				var title= input.val().trim();
 				if(title.length>0){
-					//$.post(url+'/api/update_folder',{'title':title,'folder_id':folder_id})
-					$.post('/api/update_folder',{'title':title,'folder_id':folder_id})
+					$.post(url+'/api/update_folder',{'title':title,'folder_id':folder_id})
+					//$.post('/api/update_folder',{'title':title,'folder_id':folder_id})
 						 .error(function(){
 								console.log("no se recibieron datos");
 								input.val( "" );
@@ -295,8 +295,8 @@ $( document ).ready(function() {
 				var folder_id =  $('#folder_id').attr("ng-value");
 				console.log(folder_id);
 				if(folder_id>0){
-					$.post('/api/delete_folder', {'send_data':'eliminar','folder_id':folder_id})
-					//$.post(url+'/api/delete_folder', {'send_data':'eliminar','folder_id':folder_id})
+					//$.post('/api/delete_folder', {'send_data':'eliminar','folder_id':folder_id})
+					$.post(url+'/api/delete_folder', {'send_data':'eliminar','folder_id':folder_id})
 	                        .error(function(){
 								console.log("no se recibieron datos");
 	                        })
@@ -330,8 +330,8 @@ $( document ).ready(function() {
 				e.preventDefault();
 				var title= $('.title_folder').val().trim();
 				if(title.length>0){
-				//	$.post(url+'/api/add_folder', {'title':title})
-					$.post('/api/add_folder', {'title':title})
+					$.post(url+'/api/add_folder', {'title':title})
+					//$.post('/api/add_folder', {'title':title})
 				        .error(function(){
 								console.log("no se recibieron datos");
 								$('.title_folder').val( "" );
@@ -398,8 +398,8 @@ $( document ).ready(function() {
 				});
 				console.log(temas_id)
 				console.log(temas_name)
-				//$.post(url+'/api/update_temas', {'temas_id':temas_id})
-					$.post('/api/update_temas', {'temas_id':temas_id})
+				$.post(url+'/api/update_temas', {'temas_id':temas_id})
+				//	$.post('/api/update_temas', {'temas_id':temas_id})
 					.error(function(data){
 						console.log(data.message);
 					})
@@ -411,5 +411,14 @@ $( document ).ready(function() {
 		$("body").on('click','.btn-upload',function(){
 			$('#load_photo').toggleClass("active");
 		});			
+		$("html").on('keypress','#search',function(e){
+			console.log(e.keyCode);
+			if(e.keyCode==13){
+				var text=$(this).val()
+					console.log(text);
+						window.location="#/tab/busqueda/"+text;
+			}
+		});
+			
 });
  }, 1000);
