@@ -353,8 +353,8 @@ $( document ).ready(function() {
 							data=$.parseJSON(data);
 							console.log(data);
 							if(data.message=='folder_guardado'){
-								//$.get(url+'api/user_data').error(function(){
-								$.get('api/user_data').error(function(){
+								$.get(url+'api/user_data').error(function(){
+								//$.get('api/user_data').error(function(){
 									console.log('error de conexión');
 								}).success(function(response){
 									
