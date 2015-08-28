@@ -560,7 +560,7 @@ angular.module('starter.controllers', [])
 								text: 'Aceptar',
 								type: 'button-positive',
 								onTap: function(e) {
-									$state.go('configuracion');
+									$state.go('config_user');
 								}
 								}]	
 							});

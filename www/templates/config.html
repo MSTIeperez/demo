@@ -1,0 +1,46 @@
+<ion-view view-title="{{user_data.first_name}} {{user_data.last_name}}">
+    <!-- BEGIN: header -->
+    <ion-header-bar class="bar-positive" align-title="center">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+            <h1 class="title">Legix</h1>
+        <button class="button button-icon icon ion-search"></button>
+    </ion-header-bar>
+    <!-- END: header -->
+    <!-- BEGIN: sub header -->
+    <ion-nav-bar class="bar-dark bar-subheader bar-secondary" align-title="left">
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+    <!-- END: sub header -->
+    <ion-content class="has-subheader"> 
+        <div class="header-blue padding">
+            <p>Configuración</p>
+            
+        </div>
+
+        <div class="user-container padding">
+            <!-- <i class="icon ion-ios-people"></i> <--- IMPORTANTE: solo se muestra cuando no hay usuarios -->
+            <div class="list category-list"> 
+            <li class="category-element item item-avatar item-icon-left item-icon-right" >
+                <a class="btn-invisible" href="#/configuracion/grupos"></a>
+                <i class="icon ion-android-people"></i>
+                <h2>Grupos</h2>
+                <i class="icon ion-chevron-right"></i>
+                
+            </li>
+               <li class="category-element item item-avatar item-icon-left item-icon-right" >
+                <a class="btn-invisible" href="#/configuracion/usuarios"></a>
+                <i class="icon ion-android-person"></i>
+                <h2>Usuarios</h2>
+                <i class="icon ion-chevron-right"></i>
+                
+            </li>
+				
+                
+
+            </div>
+        </div>
+            
+
+        
+    </ion-content>
+</ion-view>

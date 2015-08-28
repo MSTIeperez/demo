@@ -82,12 +82,18 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
     })
 	.state('configuracion', {
         url: '/configuracion',
+        templateUrl: 'templates/config.html',
+		controller: 'ConfigCtrl'
+		
+    })
+	.state('config_user', {
+        url: '/configuracion/usuarios',
         templateUrl: 'templates/user.html',
 		controller: 'ConfigCtrl'
 		
     })
 	.state('config_agregar', {
-        url: '/configuracion/agregar',
+        url: '/configuracion/usuarios/agregar',
         templateUrl: 'templates/user-2.html',
 		controller: 'ConfigAddCtrl'
 		

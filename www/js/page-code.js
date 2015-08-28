@@ -267,7 +267,7 @@ $( document ).ready(function() {
 				var user= window.localStorage.getItem('user');
 				if(title.length>0){
 					$.post(url+'/api/update_folder',{'title':title,'folder_id':folder_id})
-					//$.post('/api/update_folder',{'title':title,'folder_id':folder_id})
+					
 						 .error(function(){
 								console.log("no se recibieron datos");
 								input.val( "" );
@@ -279,7 +279,7 @@ $( document ).ready(function() {
 							console.log(data.message);
 							if(data.message=="folder_guardado"){
 								$.get(url+'api/user_data').error(function(){
-								//$.get('api/user_data').error(function(){
+								
 									console.log('error de conexión');
 								}).success(function(response){
 									window.localStorage.setItem('user',response);
@@ -304,9 +304,10 @@ $( document ).ready(function() {
 			$('body').on('click','.deleted_folder_ok',function(e){ 
 				e.preventDefault();
 				var folder_id =  $('#folder_id').attr("ng-value");
+				var count_folder="";
 				console.log(folder_id);
 				if(folder_id>0){
-					//$.post('/api/delete_folder', {'send_data':'eliminar','folder_id':folder_id})
+					
 					$.post(url+'/api/delete_folder', {'send_data':'eliminar','folder_id':folder_id})
 	                        .error(function(){
 								console.log("no se recibieron datos");
@@ -315,16 +316,22 @@ $( document ).ready(function() {
 							data=$.parseJSON(data);
 							if(data.message=="folder_eliminado"){
 								$.get(url+'api/user_data').error(function(){
-								//$.get('api/user_data').error(function(){
+								
 									console.log('error de conexión');
 								}).success(function(response){
 									window.localStorage.setItem('user',response);
+									response=$.parseJSON(response)
+									count_folder=response.favfolder.length;
+									console.log(count_folder);
+									if(count_folder<1)
+										$('.msg').removeClass("ng-hide");
 								});
 								$("li[data-id="+data.id+"]").remove();
 								$( '.lightbox-add.update-folder' ).toggleClass( 'active' );
 								$( '.warning-content.grl' ).find('p').html("").html( ' No has dado de alta ningún Tema. Sin personalización de Temas, solo recibirás el Feed genérico sin notificaciones en las sección de Temas ni de Mis Feeds. Puedes continuar y posteriormente hacerlo.' );
 								$('.warning-actions.grl').find('a#returns').attr('href',"#/tab/config-feeds");
 								$('.warning-actions.grl').find('a#btn-aceptar').removeClass('deleted_folder_ok');
+								
 								//$( '.warning' ).removeClass( 'active' );
 							}
 						 });
@@ -348,7 +355,7 @@ $( document ).ready(function() {
 				var title= $('.title_folder').val().trim();
 				if(title.length>0){
 					$.post(url+'/api/add_folder', {'title':title})
-					//$.post('/api/add_folder', {'title':title})
+					
 				        .error(function(){
 								console.log("no se recibieron datos");
 								$('.title_folder').val( "" );
@@ -358,7 +365,6 @@ $( document ).ready(function() {
 							console.log(data);
 							if(data.message=='folder_guardado'){
 								$.get(url+'api/user_data').error(function(){
-								//$.get('api/user_data').error(function(){
 									console.log('error de conexión');
 								}).success(function(response){
 									
@@ -381,6 +387,7 @@ $( document ).ready(function() {
 								$(".favorite_feeds").append(favfolder);
 								$(".favorite_folders").append(favfolder2);
 								$(".lightbox-add.create-folder").toggleClass("active");
+								$(".msg").addClass('ng-hide');
 							}else
 								$('.title_folder').css('border','1px solid #FF0000');
 							
@@ -420,7 +427,7 @@ $( document ).ready(function() {
 				e.preventDefault();
 				var temas_id= []
 				var temas_name=[]
-				//console.log()
+			
 				$(".tema_id").each(function(){
 					if($(this).is(":checked")){
 						temas_id.push($(this).val());
@@ -430,15 +437,13 @@ $( document ).ready(function() {
 				console.log(temas_id)
 				console.log(temas_name)
 				$.post(url+'/api/update_temas', {'temas_id':temas_id})
-					//$.post('/api/update_temas', {'temas_id':temas_id})
 					.error(function(data){
 						console.log(data.message);
 					})
 					.success(function(data){
 						data= $.parseJSON(data);
 						$.get(url+'api/user_data').error(function(){
-								//$.get('api/user_data').error(function(){
-									console.log('error de conexión');
+										console.log('error de conexión');
 								}).success(function(response){
 									window.localStorage.setItem('user',response);
 								});
