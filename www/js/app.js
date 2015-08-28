@@ -92,6 +92,18 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
 		controller: 'ConfigAddCtrl'
 		
     })
+		.state('config_groups', {
+        url: '/configuracion/grupos',
+        templateUrl: 'templates/group.html',
+		controller: 'ConfigCtrl'
+		
+    })
+		.state('config_groupsadd', {
+        url: '/configuracion/grupos/agregar',
+        templateUrl: 'templates/group-2.html',
+		controller: 'ConfigAddCtrl'
+		
+    })
 	    .state('profile', {
             url: '/profile',
 		 /*views: {
@@ -261,7 +273,7 @@ angular.module('starter', ['ionic','ngRoute', 'starter.controllers', 'starter.se
 	
     // setup an abstract state for the tabs directive
     
-  
+  //app.filter('property',property)
 });
 /*
 var example = angular.module("starter", ['ui.router']);

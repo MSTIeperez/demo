@@ -168,10 +168,36 @@ angular.module('starter.controllers', [])
 	$scope.$on('$ionicView.loaded', function(e) {
 		$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
 		$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
-		Themes.all().success(function(data){
+		/*Themes.all().success(function(data){
+				$scope.themes = data;
+			});*/
+			console.log($rootScope.user_data.temas_ids.length)
+			console.log($rootScope.user_data.temas_ids)
+			console.log($rootScope.user_data.temas_ids.indexOf(1))
+			console.log($rootScope.user_data.temas_ids.indexOf(15))
+			console.log($rootScope.user_data.temas_ids.indexOf(13))
+			console.log($rootScope.user_data.temas_ids.indexOf(35))
 			
-			$scope.themes = data;
-		});
+		if($rootScope.user_data.temas_ids.length==0){
+			console.log("nada")
+			Themes.all().success(function(data){
+				$scope.themes = data;
+			});
+		}else{ console.log("datos")
+			Themes.all().success(function(data){
+				var themas=[];
+				angular.forEach(data, function(dato,key){
+				angular.forEach(dato.tema, function(val,index){
+					//console.log("ids"+val.id)
+					if($rootScope.user_data.temas_ids.indexOf(val.id)!=-1)
+						dato.tema.splice(index,1);
+					$scope.themes = data;
+				});
+				});
+				
+				
+			});
+		}
 		$scope.update_temas= function(){
 			console.log($scope.data.subject_id);
 		}

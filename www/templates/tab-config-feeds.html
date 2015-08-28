@@ -18,7 +18,7 @@
             <h2>Bienvenido {{ user_data.first_name}} {{user_data.last_name}}</h2>
             <p> 
                 <a class="icon ion-help-circled show-tutorial" href="#temas" onclick="return false;"></a>
-                Elige los temas que te interesa seguir, y que quieres que Legix te notifique:
+                Elige los temas que te interesa seguir, y que quieres que Legix te notifique:{{alreadytemas}}
             </p>
         </div>
         <input type="hidden" id="count_tema" data-topic="{{user_data.topics}}" data-temas="{{user_data.temas.length}}"/>
@@ -26,7 +26,7 @@
         <ul class="list list-style">
                 
             <!-- BEGIN: list-->
-            <li class="item li-master" ng-repeat="temas in themes">
+            <li class="item li-master" ng-repeat="temas in themes track by $id(temas)" >
 
                 <div class="list-header">
                     <a class="list-expand item-icon-right" href="#">

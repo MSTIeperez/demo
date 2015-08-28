@@ -472,7 +472,7 @@ angular.module('starter.services', ['ngCookies'])
 				//console.log(data);
 				themas=data.origen;
 				deferred.resolve(data.origen);
-				console.log("temas: "+themas);
+				console.log(themas);
 				if(data.message=="el usuario no esta registrado"){
 				
 						Auth.logout();
@@ -496,6 +496,7 @@ angular.module('starter.services', ['ngCookies'])
     },
     remove: function(theme) {
       theme.splice(themas.indexOf(theme), 1);
+	  return themas;
     },
     get: function(themeId) {
       for (var i = 0; i < feeds.length; i++) {

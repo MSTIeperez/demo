@@ -1,8 +1,20 @@
 <ion-view view-title="Nombre Cliente">
-    <ion-content class="has-subheader"> 
+        <!-- BEGIN: header -->
+    <ion-header-bar class="bar-positive" align-title="center">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+            <h1 class="title">Legix</h1>
+        <button class="button button-icon icon ion-search"></button>
+    </ion-header-bar>
+    <!-- END: header -->
+    <!-- BEGIN: sub header -->
+    <ion-nav-bar class="bar-dark bar-subheader bar-secondary" align-title="left">
+        <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+    <!-- END: sub header -->
+	<ion-content class="has-subheader"> 
         <div class="header-blue padding">
             <p>Registra a tus usuarios en Legix</p>
-            <a class="icon ion-help-circled show-tutorial" href="#grupos"></a>
+            <a class="icon ion-help-circled show-tutorial" href="#grupos" onclick="return false;"></a>
         </div>
         
         <form>
@@ -11,17 +23,17 @@
             <ul class="list list-style">
 
                 <!-- BEGIN: list-->
-                <li class="item li-parent">
+                <li class="item li-parent" ng-repeat="grupos in user_data.grupos">
 
                     <div class="list-header item item-checkbox item-icon-right">
                         <label class="checkbox">
                            <input type="checkbox">
                         </label>
-                        Nombre de grupo
+                        {{grupos.title}}
                         <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
                     </div>
                     <ul class="list-content">
-                        <li class="item li-parent">
+                        <li class="item li-parent" >
                             <div class="list-header item item-checkbox item-icon-right">
                                 <label class="checkbox">
                                    <input type="checkbox">
@@ -30,28 +42,12 @@
                                 <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
                             </div>
                             <ul class="list-content">
-                                <li class="item li-parent">
+                                <li class="item li-parent" ng-repeat="temas in grupos.temas">
                                     <div class="list-header item item-checkbox">
                                         <label class="checkbox">
                                            <input type="checkbox">
                                         </label>
-                                        Hacienda
-                                    </div>
-                                </li>
-                                <li class="item li-parent">
-                                    <div class="list-header item item-checkbox">
-                                        <label class="checkbox">
-                                           <input type="checkbox">
-                                        </label>
-                                        Medio Ambiente
-                                    </div>
-                                </li>
-                                <li class="item li-parent">
-                                    <div class="list-header item item-checkbox">
-                                        <label class="checkbox">
-                                           <input type="checkbox">
-                                        </label>
-                                        Negocios
+                                        {{temas.origen}} | {{temas.tema}}
                                     </div>
                                 </li>
                             </ul>
@@ -65,28 +61,12 @@
                                 <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
                             </div>
                             <ul class="list-content">
-                                <li class="item li-parent">
+                                <li class="item li-parent" ng-repeat="user in grupos.users">
                                     <div class="list-header item item-checkbox">
                                         <label class="checkbox">
                                            <input type="checkbox">
                                         </label>
-                                        Alejandro
-                                    </div>
-                                </li>
-                                <li class="item li-parent">
-                                    <div class="list-header item item-checkbox">
-                                        <label class="checkbox">
-                                           <input type="checkbox">
-                                        </label>
-                                        Juan
-                                    </div>
-                                </li>
-                                <li class="item li-parent">
-                                    <div class="list-header item item-checkbox">
-                                        <label class="checkbox">
-                                           <input type="checkbox">
-                                        </label>
-                                        Armando
+                                        {{user.first_name}} {{user.last_name}}
                                     </div>
                                 </li>
                             </ul>
@@ -94,96 +74,14 @@
                     </ul>
 
                 </li>
-                <li class="item li-parent">
-
-                    <div class="list-header item item-checkbox item-icon-right">
-                        <label class="checkbox">
-                           <input type="checkbox">
-                        </label>
-                        Nombre de grupo
-                        <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
-                    </div>
-                    <ul class="list-content">
-                        <li class="item li-parent">
-                            <div class="list-header item item-checkbox item-icon-right">
-                                <label class="checkbox">
-                                   <input type="checkbox">
-                                </label>
-                                Temas
-                                <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
-                            </div>
-                            <ul class="list-content">
-                                <li class="item li-parent">
-                                    <div class="list-header item item-checkbox">
-                                        <label class="checkbox">
-                                           <input type="checkbox">
-                                        </label>
-                                        Hacienda
-                                    </div>
-                                </li>
-                                <li class="item li-parent">
-                                    <div class="list-header item item-checkbox">
-                                        <label class="checkbox">
-                                           <input type="checkbox">
-                                        </label>
-                                        Medio Ambiente
-                                    </div>
-                                </li>
-                                <li class="item li-parent">
-                                    <div class="list-header item item-checkbox">
-                                        <label class="checkbox">
-                                           <input type="checkbox">
-                                        </label>
-                                        Negocios
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="item li-parent">
-                            <div class="list-header item item-checkbox item-icon-right">
-                                <label class="checkbox">
-                                   <input type="checkbox">
-                                </label>
-                                Usuarios
-                                <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
-                            </div>
-                            <ul class="list-content">
-                                <li class="item li-parent">
-                                    <div class="list-header item item-checkbox">
-                                        <label class="checkbox">
-                                           <input type="checkbox">
-                                        </label>
-                                        Alejandro
-                                    </div>
-                                </li>
-                                <li class="item li-parent">
-                                    <div class="list-header item item-checkbox">
-                                        <label class="checkbox">
-                                           <input type="checkbox">
-                                        </label>
-                                        Juan
-                                    </div>
-                                </li>
-                                <li class="item li-parent">
-                                    <div class="list-header item item-checkbox">
-                                        <label class="checkbox">
-                                           <input type="checkbox">
-                                        </label>
-                                        Armando
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-
-                </li>
+                
                 <!-- END: list -->
             </ul>
         </div>
             
         <div class="list-actions list-actions-border clearfix">
-            <button class="button button-outline button-positive" type="submit">Crear grupo</button>
-            <button class="button button-outline button-positive" type="submit">Crear después</button>
+            <button class="button button-outline button-positive" onclick="window.location.href='#/configuracion/grupos/agregar'">Crear grupo</button>
+            <button class="button button-outline button-positive" onclick="window.location.href='#/tab/groups'">Crear después</button>
         </div>
         </form>
         
