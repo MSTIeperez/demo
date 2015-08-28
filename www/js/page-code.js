@@ -253,7 +253,11 @@ $( document ).ready(function() {
         return false;
     });
 	//-------------------------------INDEX HTML FUNCTIONS--------------------------------
-		var url ='http://legixapp.abardev.net';
+	var url ='';
+	console.log(window.location.hostname);
+	if(window.location.hostname=="")
+		url='http://legixapp.abardev.net';
+
 	$('body').on('click','.update_folder',function(e){ 
 				e.preventDefault();
 				var $obj = $(this);
@@ -274,8 +278,8 @@ $( document ).ready(function() {
 							console.log(data);
 							console.log(data.message);
 							if(data.message=="folder_guardado"){
-								//$.get(url+'api/user_data').error(function(){
-								$.get('api/user_data').error(function(){
+								$.get(url+'api/user_data').error(function(){
+								//$.get('api/user_data').error(function(){
 									console.log('error de conexión');
 								}).success(function(response){
 									window.localStorage.setItem('user',response);
@@ -310,8 +314,8 @@ $( document ).ready(function() {
 						 .success(function(data){
 							data=$.parseJSON(data);
 							if(data.message=="folder_eliminado"){
-								//$.get(url+'api/user_data').error(function(){
-								$.get('api/user_data').error(function(){
+								$.get(url+'api/user_data').error(function(){
+								//$.get('api/user_data').error(function(){
 									console.log('error de conexión');
 								}).success(function(response){
 									window.localStorage.setItem('user',response);
