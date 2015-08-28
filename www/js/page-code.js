@@ -425,8 +425,8 @@ $( document ).ready(function() {
 				});
 				console.log(temas_id)
 				console.log(temas_name)
-				//$.post(url+'/api/update_temas', {'temas_id':temas_id})
-					$.post('/api/update_temas', {'temas_id':temas_id})
+				$.post(url+'/api/update_temas', {'temas_id':temas_id})
+					//$.post('/api/update_temas', {'temas_id':temas_id})
 					.error(function(data){
 						console.log(data.message);
 					})
