@@ -9,8 +9,8 @@ angular.module('starter.services', ['ngCookies'])
 			
             var promise = deferred.promise;
 	//	if(window.localStorage.getItem('user')==null)	{
-		//$http.post(url+'/api/simple_content',{'email':name,'password': pw})
-		$http.post('/api/simple_content',{'id':id})
+		$http.post(url+'/api/simple_content',{'email':name,'password': pw})
+		//$http.post('/api/simple_content',{'id':id})
 				.success(function(data, status, headers, config){
 					 if (data) {
 						
@@ -44,8 +44,8 @@ angular.module('starter.services', ['ngCookies'])
 			
             var promise = deferred.promise;
 	//	if(window.localStorage.getItem('user')==null)	{
-		//$http.post(url+'/api/desktop_login',{'email':name,'password': pw})
-		$http.post('/api/desktop_login',{'email':name,'password': pw})
+		$http.post(url+'/api/desktop_login',{'email':name,'password': pw})
+		//$http.post('/api/desktop_login',{'email':name,'password': pw})
 				.success(function(data, status, headers, config){
 				console.log(data);
 					 if (data.message=="logged") {
@@ -111,12 +111,12 @@ angular.module('starter.services', ['ngCookies'])
 .service('Registerservice', function($http, $q) {
 	var user_data={};
     return {
-        newUser: function(legix_id, first_name,last_name, email, pw) {
+        newUser: function(legix_id, first_name,last_name, email, pw, parent_id) {
             var deferred = $q.defer();
 			
             var promise = deferred.promise;
-		$http.post(url+'/api/create',{'legix_id':legix_id,'first_name':first_name, 'last_name':last_name, 'email':email,'password': pw})
-		//$http.post('/api/create',{'legix_id':legix_id,'first_name':first_name, 'last_name':last_name, 'email':email,'password': pw})
+		$http.post(url+'/api/create',{'legix_id':legix_id,'first_name':first_name, 'last_name':last_name, 'email':email,'password': pw, 'parent_id':parent_id})
+		//$http.post('/api/create',{'legix_id':legix_id,'first_name':first_name, 'last_name':last_name, 'email':email,'password': pw,'parent_id':parent_id})
 				.success(function(data, status, headers, config){
 				console.log(data);
 					 if (data.message=="Creada") {
@@ -149,8 +149,8 @@ angular.module('starter.services', ['ngCookies'])
             var deferred = $q.defer();
 			
             var promise = deferred.promise;
-		//$http.post(url+'/api/user_data',{'section':section})
-		$http.post('/api/user_data',{'section':section})
+		$http.post(url+'/api/user_data',{'section':section})
+		//$http.post('/api/user_data',{'section':section})
 				.success(function(data, status, headers, config){
 				//console.log(data);
 					 if (!data.alert) {
@@ -175,6 +175,36 @@ angular.module('starter.services', ['ngCookies'])
             }
             return promise;
         },
+		 removeuser: function(grupos, usuarios) {
+            var deferred = $q.defer();
+			
+            var promise = deferred.promise;
+		$http.post(url+'/api/configuration',{'user_configuration':"sent", 'grupos':grupos, 'usuarios':usuarios})
+		//$http.post('/api/configuration',{'user_configuration':"sent", 'grupos':grupos, 'usuarios':usuarios})
+				.success(function(data, status, headers, config){
+				//console.log(data);
+					 if (data.message="Eliminados") {
+						//window.localStorage.setItem('user',JSON.stringify(data.user));
+						user_data=data.user;
+						deferred.resolve(data);
+						
+					} else {
+						deferred.reject(data);
+					}
+				})
+				.error(function (data){
+					deferred.reject(data);
+				});
+            promise.success = function(fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function(fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+            return promise;
+        }
 
     }
 	
@@ -234,9 +264,7 @@ angular.module('starter.services', ['ngCookies'])
             }
             return promise;
         }
-	
-    }
-	
+	}	
 })
 
 .factory('Feeds_all', function($http, Auth, $q, $state, $location) {
@@ -250,8 +278,8 @@ angular.module('starter.services', ['ngCookies'])
     all: function(status,search,my_feeds, my_follow, fav,  subject_id, origin_id, theme_id, comision_id, feed_in) {
 			var deferred = $q.defer();
             var promise = deferred.promise;
-		//$http.post(url+'/api/feeds/get_all',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
-		$http.post('/api/feeds/get_all',{'status':-1,'search':search, 'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
+		$http.post(url+'/api/feeds/get_all',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
+		//$http.post('/api/feeds/get_all',{'status':-1,'search':search, 'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
 				.success(function(data){
 				if(data.message!="Es necesario iniciar sesión"){
 				console.log(data);
@@ -304,8 +332,8 @@ angular.module('starter.services', ['ngCookies'])
     all: function(status,my_feeds, my_follow, fav,  subject_id, origin_id, theme_id, comision_id, feed_in) {
 			var deferred = $q.defer();
             var promise = deferred.promise;
-		//$http.post(url+'/api/my-feeds/get_all',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
-		$http.post('/api/my-feeds/get_all',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
+		$http.post(url+'/api/my-feeds/get_all',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
+		//$http.post('/api/my-feeds/get_all',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
 				.success(function(data){
 				console.log(data);
 				feeds=data.feeds;
@@ -358,8 +386,8 @@ angular.module('starter.services', ['ngCookies'])
     all: function(status,search, my_feeds, my_follow, fav,  subject_id, origin_id, theme_id, comision_id, feed_in) {
 			var deferred = $q.defer();
             var promise = deferred.promise;
-		//$http.post(url+'/api/feeds_load',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
-		$http.post('/api/feeds_load',{'status':-1,'search':search,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
+		$http.post(url+'/api/feeds_load',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
+		//$http.post('/api/feeds_load',{'status':-1,'search':search,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
 				.success(function(data){
 				console.log(data);
 				feeds=data.feeds;
@@ -466,8 +494,8 @@ angular.module('starter.services', ['ngCookies'])
     all: function() {
 			var deferred = $q.defer();
             var promise = deferred.promise;
-	//$http.get(url+'/api/temas')
-		$http.get('/api/temas')
+	$http.get(url+'/api/temas')
+		//$http.get('/api/temas')
 				.success(function(data){
 				//console.log(data);
 				themas=data.origen;

@@ -23,9 +23,10 @@
             <div class="list category-list"> 
             
                 <li class="category-element item item-avatar item-icon-right item-button-right" ng-if="$index>0" ng-repeat="users in user_data.users">
-                    <img src="{{user.src_img}}" alt="Imagen de usuario">
-                    <h2>{{users.first_name}} {{user.last_name}}</h2>
-                    <a class="button button-outline button-positive" href="#">Eliminar</a>
+                    <img src="http://legixapp.abardev.net/{{users.src_img}}" alt="Imagen de usuario">
+                    <h2 >{{users.first_name}} {{users.last_name}}</h2>
+                    <input type="text" style="display:none;" ng-value="{{users.id}}" ng-model="data.user_id" ng-init="data.user_id=users.id">
+                    <a class="button button-outline button-positive" href="#" ng-click="removeuser()">Eliminar</a>
                 </li>
 				
                    

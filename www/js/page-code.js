@@ -262,8 +262,8 @@ $( document ).ready(function() {
 				var title= input.val().trim();
 				var user= window.localStorage.getItem('user');
 				if(title.length>0){
-					//$.post(url+'/api/update_folder',{'title':title,'folder_id':folder_id})
-					$.post('/api/update_folder',{'title':title,'folder_id':folder_id})
+					$.post(url+'/api/update_folder',{'title':title,'folder_id':folder_id})
+					//$.post('/api/update_folder',{'title':title,'folder_id':folder_id})
 						 .error(function(){
 								console.log("no se recibieron datos");
 								input.val( "" );
@@ -343,8 +343,8 @@ $( document ).ready(function() {
 				e.preventDefault();
 				var title= $('.title_folder').val().trim();
 				if(title.length>0){
-					//$.post(url+'/api/add_folder', {'title':title})
-					$.post('/api/add_folder', {'title':title})
+					$.post(url+'/api/add_folder', {'title':title})
+					//$.post('/api/add_folder', {'title':title})
 				        .error(function(){
 								console.log("no se recibieron datos");
 								$('.title_folder').val( "" );
@@ -432,8 +432,8 @@ $( document ).ready(function() {
 					})
 					.success(function(data){
 						data= $.parseJSON(data);
-						//$.get(url+'api/user_data').error(function(){
-								$.get('api/user_data').error(function(){
+						$.get(url+'api/user_data').error(function(){
+								//$.get('api/user_data').error(function(){
 									console.log('error de conexión');
 								}).success(function(response){
 									window.localStorage.setItem('user',response);

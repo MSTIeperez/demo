@@ -170,13 +170,8 @@ angular.module('starter.controllers', [])
 		$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
 		/*Themes.all().success(function(data){
 				$scope.themes = data;
-			});*/
-			console.log($rootScope.user_data.temas_ids.length)
-			console.log($rootScope.user_data.temas_ids)
-			console.log($rootScope.user_data.temas_ids.indexOf(1))
-			console.log($rootScope.user_data.temas_ids.indexOf(15))
-			console.log($rootScope.user_data.temas_ids.indexOf(13))
-			console.log($rootScope.user_data.temas_ids.indexOf(35))
+			});*/ var temas_id=[]
+			
 			
 		if($rootScope.user_data.temas_ids.length==0){
 			console.log("nada")
@@ -184,12 +179,15 @@ angular.module('starter.controllers', [])
 				$scope.themes = data;
 			});
 		}else{ console.log("datos")
+			angular.forEach($rootScope.user_data.temas_ids, function(val, key){
+				temas_id.push(parseInt(val));
+			});
 			Themes.all().success(function(data){
 				var themas=[];
 				angular.forEach(data, function(dato,key){
 				angular.forEach(dato.tema, function(val,index){
 					//console.log("ids"+val.id)
-					if($rootScope.user_data.temas_ids.indexOf(val.id)!=-1)
+					if(temas_id.indexOf(val.id)!=-1)
 						dato.tema.splice(index,1);
 					$scope.themes = data;
 				});
@@ -486,15 +484,111 @@ angular.module('starter.controllers', [])
 		$scope.data.alias=$rootScope.user_data.alias;
 });
 })
-.controller('ConfigCtrl', function($scope,$rootScope) {
+.controller('ConfigCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state) {
 	$scope.$on('$ionicView.loaded', function(e) {
-		$scope.user={};
+			$scope.data={}; 
+		$scope.removeuser= function(){
+		console.log($scope.data.user_id);
+		UserService.removeuser('',$scope.data.user_id).success(function(data) {
+				//$scope.user=data.user;
+				 if (data.message=="Eliminado") {
+					UserService.datauser().success(function(response){
+								window.localStorage.setItem('user',JSON.stringify(response));
+								 $rootScope.user_data=response;
+								 $rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
+							})
+					var alertPopup = $ionicPopup.alert({
+							title: '¡Usuario eliminado con éxito!',
+							//template: "Selecciona una imagen de tu galería o directo de la cámara", //'¡Por favor revisa tu correo y/o contraseña!',
+							buttons:[{
+								text: 'Aceptar',
+								type: 'button-positive',
+								onTap: function(e) {
+									$state.go('configuracion');
+								}
+								}]	
+							});
+				 }else{
+					var alertPopup = $ionicPopup.alert({
+					title: 'Error de conexion',
+					template: '¡Por favor intenta mas tarde!', //'¡Por favor revisa tu correo y/o contraseña!',
+					okText: 'Aceptar'
+					});
+				 }
+			}).error(function(data) {
+				console.log(data)
+				var alertPopup = $ionicPopup.alert({
+					title: 'Error de conexión',
+					template: '¡Por favor intenta mas tarde!', //'¡Por favor revisa tu correo y/o contraseña!',
+					okText: 'Aceptar'
+				});
+			});
+	}
 	});
 })
-.controller('ConfigAddCtrl', function($scope,$rootScope) {
+.controller('ConfigAddCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state) {
 	$scope.$on('$ionicView.loaded', function(e) {
-		$scope.user={};
-	});
+	$scope.data={}; //});
+			//console.log($scope.data);
+			var users= $rootScope.user_data.users.length;
+			var contratados= $rootScope.user_data.suscription.users;
+			var id_legix= $rootScope.user_data.legix_id.split('-');
+			var cero =""; 
+			var parent_id = $rootScope.user_data.id;
+			id_legix=id_legix[0];
+			if((contratados-1)<10) cero="0"
+			console.log(contratados-1)
+			$scope.data.legix_id=id_legix+'-'+cero+(contratados-1).toString();
+			console.log($scope.data.legix_id);
+		//=$rootScope.user_data.;
+		$scope.createuser = function(){
+			
+			
+			if(users<contratados){
+				Registerservice.newUser($scope.data.legix_id, $scope.data.first_name, $scope.data.last_name, $scope.data.email, $scope.data.password, parent_id).success(function(data) {
+				$scope.user=data.user;
+				 if (data.message=="Creada") {
+					UserService.datauser().success(function(response){
+								window.localStorage.setItem('user',JSON.stringify(response));
+								 $rootScope.user_data=response;
+								 $rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
+							})
+					var alertPopup = $ionicPopup.alert({
+							title: '¡Usuario creado con éxito!',
+							//template: "Selecciona una imagen de tu galería o directo de la cámara", //'¡Por favor revisa tu correo y/o contraseña!',
+							buttons:[{
+								text: 'Aceptar',
+								type: 'button-positive',
+								onTap: function(e) {
+									$state.go('configuracion');
+								}
+								}]	
+							});
+				 }else{
+					var alertPopup = $ionicPopup.alert({
+					title: 'Error de conexion',
+					template: '¡Por favor intenta mas tarde!', //'¡Por favor revisa tu correo y/o contraseña!',
+					okText: 'Aceptar'
+					});
+				 }
+			}).error(function(data) {
+				console.log(data)
+				var alertPopup = $ionicPopup.alert({
+					title: 'Error de conexión',
+					template: '¡Por favor intenta mas tarde!', //'¡Por favor revisa tu correo y/o contraseña!',
+					okText: 'Aceptar'
+				});
+			});
+			}else{
+				var alertPopup = $ionicPopup.alert({
+					title: '¡Haz llegado al limite de tus usuarios contratados!',
+					//template: data.message, //'¡Por favor revisa tu correo y/o contraseña!',
+					okText: 'Aceptar'
+				});
+			}
+	}
+	
+});
 });
 /*
 .controller('UsuariosCtrl', function($scope, Chats) {

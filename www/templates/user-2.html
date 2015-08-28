@@ -24,19 +24,26 @@
                     <li>
                         <label class="item item-input item-stacked-label">
                             <span class="input-label">ID Legix</span>
-                            <input type="email" placeholder="000000" disabled>
+                            <input type="text" placeholder="{{data.legix_id}}" ng-value="{{data.legix_id}}" disabled ng-model="data.legix_id">
+                          
                         </label>
                     </li>
                     <li>
                         <label class="item item-input border item-stacked-label">
                             <span class="input-label">Nombre completo</span>
-                            <input type="text" placeholder="Nombre y Apellidos">
+                            <input type="text" placeholder="Nombre(s)" ng-model="data.first_name">
+                        </label>
+                    </li>
+					<li>
+                        <label class="item item-input border item-stacked-label">
+                            <span class="input-label">Apellidos</span>
+                            <input type="text" placeholder="Apellidos" ng-model="data.last_name">
                         </label>
                     </li>
                     <li>
                         <label class="item item-input border item-stacked-label">
                             <span class="input-label">Correo electrónico</span>
-                            <input type="email" placeholder="nombre@correo.com">
+                            <input type="email" placeholder="nombre@correo.com" ng-model="data.email">
                         </label>
                     </li>
                 </ul>
@@ -44,7 +51,7 @@
         </div>
             
         <div class="list-actions list-actions-border clearfix">
-            <button class="button button-outline button-positive" type="submit">Agregar</button>
+            <button class="button button-outline button-positive" type="submit" ng-click="createuser()">Agregar</button>
             <button class="button button-outline button-positive" onclick="window.location.href='#/tab/feeds'">Agregar después</button>
         </div>
         </form>
