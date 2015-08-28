@@ -489,9 +489,9 @@ angular.module('starter.controllers', [])
 			$scope.data={}; 
 		$scope.removeuser= function(){
 		console.log($scope.data.user_id);
-		UserService.removeuser('',$scope.data.user_id).success(function(data) {
+		UserService.removeuser($scope.data.grupos,$scope.data.user_id).success(function(data) {
 				//$scope.user=data.user;
-				 if (data.message=="Eliminado") {
+				 if (data.message=="Eliminados") {
 					UserService.datauser().success(function(response){
 								window.localStorage.setItem('user',JSON.stringify(response));
 								 $rootScope.user_data=response;

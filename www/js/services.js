@@ -179,7 +179,7 @@ angular.module('starter.services', ['ngCookies'])
             var deferred = $q.defer();
 			
             var promise = deferred.promise;
-		$http.post(url+'/api/configuration',{'user_configuration':"sent", 'grupos':grupos, 'usuarios':usuarios})
+		$http.post(url+'/api/configuration',{'user_configuration':'sent', 'grupos':grupos, 'usuarios':usuarios})
 		//$http.post('/api/configuration',{'user_configuration':"sent", 'grupos':grupos, 'usuarios':usuarios})
 				.success(function(data, status, headers, config){
 				//console.log(data);
