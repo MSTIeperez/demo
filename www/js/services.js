@@ -1,5 +1,7 @@
 //'user strict';
 var url ='http://legixapp.abardev.net';
+console.log(window.location.hostname);
+
 angular.module('starter.services', ['ngCookies'])
 
 .service('ContentService', function($http, $q) {
