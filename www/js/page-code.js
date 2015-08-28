@@ -1,21 +1,45 @@
  setTimeout(function() {
 $( document ).ready(function() {
-    
+    	
     // Global variables
+	var url ='';
+	console.log(window.location.hostname);
+	if(window.location.hostname=="")
+		url='http://legixapp.abardev.net';
+
     var step = 1;
     var num=0;
-    // Notificación
+    function set_follows_unreads(){
+		
+		$.post(url+'api/follow/get_follows_unread',{'send_data':'send_data'})
+			.success(function(response){
+				
+				response = $.parseJSON( response );
+				return response.total;
+				//console.log(response.total);
+					/*if( response.total > 0 )
+						$(".not-count").html("").html( response.total );*/
+			})
+
+	}
+	// Notificación
     function notification() {
-        setTimeout(function() {
-            if($('.notification > i > span').length == 0) {
-				if(num>0)
-					$('.notification > i').append('<span class="not-count">'+num+'</span>');
-            }
-        }, 1000);
+		$.post(url+'api/follow/get_follows_unread',{'send_data':'send_data'})
+			.success(function(response){
+				
+			response = $.parseJSON( response );
+			setTimeout(function() {
+				if($('.notification > i > span').length == 0) {
+					if(response.total>0)
+						$('.notification > i').append('<span class="not-count">'+response.total+'</span>');
+				}
+			}, 500);
+			});
     }
     notification();
     $(document).on('click', function() {
         notification(); 
+		
     });
     
     // Mostrar grupo
@@ -253,11 +277,7 @@ $( document ).ready(function() {
         return false;
     });
 	//-------------------------------INDEX HTML FUNCTIONS--------------------------------
-	var url ='';
-	console.log(window.location.hostname);
-	if(window.location.hostname=="")
-		url='http://legixapp.abardev.net';
-
+	
 	$('body').on('click','.update_folder',function(e){ 
 				e.preventDefault();
 				var $obj = $(this);

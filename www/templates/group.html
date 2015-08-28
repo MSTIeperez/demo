@@ -13,13 +13,14 @@
     <!-- END: sub header -->
 	<ion-content class="has-subheader"> 
         <div class="header-blue padding">
-            <p>Registra a tus usuarios en Legix</p>
+            <p>Crea tus grupos en Legix</p>
             <a class="icon ion-help-circled show-tutorial" href="#grupos" onclick="return false;"></a>
         </div>
         
         <form>
         <div class="group-container padding">
             <!-- <i class="icon ion-ios-people"></i> <--- IMPORTANTE: solo se muestra cuando no hay usuarios -->
+			 <center><h3  ng-if="user_data.grupos.length<1">Aun no has creado grupos</h3></center>
             <ul class="list list-style">
 
                 <!-- BEGIN: list-->

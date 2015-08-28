@@ -489,7 +489,7 @@ angular.module('starter.controllers', [])
 			$scope.data={}; 
 		$scope.removeuser= function(){
 		console.log($scope.data.user_id);
-		UserService.removeuser($scope.data.grupos,$scope.data.user_id).success(function(data) {
+		UserService.remove($scope.data.grupos,$scope.data.user_id).success(function(data) {
 				//$scope.user=data.user;
 				 if (data.message=="Eliminados") {
 					UserService.datauser().success(function(response){
@@ -542,8 +542,6 @@ angular.module('starter.controllers', [])
 			console.log($scope.data.legix_id);
 		//=$rootScope.user_data.;
 		$scope.createuser = function(){
-			
-			
 			if(users<contratados){
 				Registerservice.newUser($scope.data.legix_id, $scope.data.first_name, $scope.data.last_name, $scope.data.email, $scope.data.password, parent_id).success(function(data) {
 				$scope.user=data.user;
@@ -586,6 +584,41 @@ angular.module('starter.controllers', [])
 					okText: 'Aceptar'
 				});
 			}
+	}
+	$scope.creategroup = function(){
+				GroupService.newgroup($scope.data.group_name, $scope.data.temas,$scope.data.usuarios, $scope.data.group_id).success(function(data) {
+				 if (data.message=="Actualizado") {
+					UserService.datauser().success(function(response){
+								window.localStorage.setItem('user',JSON.stringify(response));
+								 $rootScope.user_data=response;
+								 $rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
+							})
+					var alertPopup = $ionicPopup.alert({
+							title: 'Grupo creado con éxito!',
+							//template: "Selecciona una imagen de tu galería o directo de la cámara", //'¡Por favor revisa tu correo y/o contraseña!',
+							buttons:[{
+								text: 'Aceptar',
+								type: 'button-positive',
+								onTap: function(e) {
+									$state.go('config_groups');
+								}
+								}]	
+							});
+				 }else{
+					var alertPopup = $ionicPopup.alert({
+					title: 'Error de conexion',
+					template: '¡Por favor intenta mas tarde!', //'¡Por favor revisa tu correo y/o contraseña!',
+					okText: 'Aceptar'
+					});
+				 }
+			}).error(function(data) {
+				console.log(data)
+				var alertPopup = $ionicPopup.alert({
+					title: 'Error de conexión',
+					template: '¡Por favor intenta mas tarde!', //'¡Por favor revisa tu correo y/o contraseña!',
+					okText: 'Aceptar'
+				});
+			});
 	}
 	
 });

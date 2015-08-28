@@ -178,7 +178,7 @@ angular.module('starter.services', ['ngCookies'])
             }
             return promise;
         },
-		 removeuser: function(grupos, usuarios) {
+		 remove: function(grupos, usuarios) {
             var deferred = $q.defer();
 			
             var promise = deferred.promise;
@@ -187,8 +187,6 @@ angular.module('starter.services', ['ngCookies'])
 				.success(function(data, status, headers, config){
 			
 					 if (data.message="Eliminados") {
-					
-						user_data=data.user;
 						deferred.resolve(data);
 						
 					} else {
@@ -249,6 +247,37 @@ angular.module('starter.services', ['ngCookies'])
 				.success(function(data, status, headers, config){
 				console.log(data);
 					 if (data=='"actualizado"') {
+						deferred.resolve(data);
+					} else {
+						deferred.reject(data);
+					}
+				})
+				.error(function (data){
+					deferred.reject(data);
+				});
+	         promise.success = function(fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function(fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+            return promise;
+        }
+	}	
+})
+.service('GroupService', function($http, $q) {
+	var user_data={};
+    return {
+        newgroup: function(group_name,temas,usuarios,group_id) {
+            var deferred = $q.defer();
+			
+            var promise = deferred.promise;
+		$http.post(url+'/api/update_group',{'group_name': group_name, 'temas': temas,'usuarios': usuarios, 'group_id': group_id})
+				.success(function(data, status, headers, config){
+				console.log(data);
+					 if (data=='"Actualizado"') {
 						deferred.resolve(data);
 					} else {
 						deferred.reject(data);
