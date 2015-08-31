@@ -148,14 +148,49 @@ $( document ).ready(function() {
     });
     
     // button favorite
-    $( 'body' ).on( 'click', '.btn-favorite', function() {
-        if( $( this ).children( 'i' ).hasClass( 'active' ) == false ) {
+    $( 'body' ).on( 'click', '.btn-favorite', function(e) {
+		
+      
+        e.preventDefault(); 
+			
+			//  if( $( this ).children( 'i' ).hasClass( 'active' ) == false ) {
             $( '.lightbox-favorited' ).addClass( 'active' );
-            $( this ).children( 'i' ).toggleClass( 'active' );
-        } else {
-            $( '.warning-remove' ).addClass( 'active' );
-        }
-        
+            //$( this ).children( 'i' ).toggleClass( 'active' );
+       // } else {
+        //    $( '.warning-remove' ).addClass( 'active' );
+        //}
+			var id=$(this).parents('.feeds').data('id');
+			$('.feed_id').val(id);
+				$("li.list_folder").each(function(){
+					
+											$(this).removeClass("selected");	
+											$(this).children('input').removeAttr("checked");	
+								});	console.log(id); 
+			if(id > 0){
+				$.ajax({
+	                type: "POST",
+	                url: url+'api/add_folder',
+	                data: {folder:"send_data", feed_id:id},
+	                error: function(){
+						console.log("no se recibieron datos");
+			        },
+	                success: function(response){
+						var resp = $.parseJSON( response );
+						console.log(resp);
+	                    if( resp.message="folders_ok" ){
+							if(resp.folder_id.length>0){
+							for(i=0;i<resp.folder_id.length;i++){
+								$("li.list_folder").each(function(){
+										if($(this).data("id")==resp.folder_id[i]){
+											$(this).addClass("selected");	
+										$(this).children('input').attr('checked','checked');	}
+								});
+							}
+							}
+	        		}
+					},
+				});
+	        }
         return false;
     });
     
@@ -178,6 +213,11 @@ $( document ).ready(function() {
      // button selected: seleccion de carpeta favorito donde se guardara el feed
      $( 'body' ).on( 'click', '.lightbox-favorited-content .btn-invisible', function() {
          $( this ).parent().toggleClass( 'selected' );
+        // $( this ).attr( 'checked', 'checked' );
+		 if( $( this ).attr("checked") ){
+				$( this ).removeAttr( 'checked' );
+		}else
+			$( this ).attr( 'checked','checked' )		
          return false;
      });
      
@@ -581,6 +621,99 @@ $( document ).ready(function() {
 						console.log("llena el campo para mandar tu comentario");
 			
 				});
+	$('body').delegate('.add_to_favfolder','click',function(e){
+
+			e.preventDefault();
+			
+			var folder_to_add 		= [];
+			var folder_to_remove 	= [];
+
+			var $obj 		= $(this);
+			var feed_id 	= $("input.feed_id").val();
+			
+			$(".folder_add").each(function(){
+				if( $( this ).attr("checked") ){
+					folder_to_add.push( $(this).data('id') );
+				}else{
+					folder_to_remove.push( $(this).data('id') );
+				}
+				
+			});
+			console.log(folder_to_add);
+			console.log(folder_to_remove);
+			$.ajax({
+                type: "POST",
+                url: url+'api/add_folder',
+                data: {send_data:"send_data", folder_id:folder_to_add, to_remove:folder_to_remove, feed_id:feed_id},
+                error: function(){
+					console.log("no se recibieron datos");
+					$( '.lightbox-favorited' ).toggleClass( 'active' );
+                },
+                success: function(response){
+					
+                       // $("body").css("cursor", "default");
+                       
+                        var resp = $.parseJSON( response );
+						console.log(resp);
+
+                        if( resp.message="feed_guardado" ){
+							/*$("li.list_folder").each(function(){
+								if($(this).hasClass("selected")){
+									var num= $(this).find('i').html();
+									$(this).find('i').html("").html(parseInt(num)+1);
+								}else{
+									var num= $(this).find('i').html();
+									$(this).find('i').html("").html(parseInt(num)-1);
+								}
+								});*/
+                        	$( '.lightbox-favorited' ).toggleClass( 'active' );
+
+							if( folder_to_add.length > 0 )
+								$( this ).children( 'i' ).toggleClass( 'active' );
+							else
+								$( this ).children( 'i' ).removeClass( 'active' );
+
+							//Pasa a leidos los agregados a favoritos <<< Sólo si está en no leídos >>>
+							var read = $('.feeds[data-id="' + feed_id + '"]').hasClass("feed_read");
+
+							if( !read ){
+								//$('article.feed[data-id="' + feed_id + '"]').find(".read").remove();
+								
+								var feeds_noleidos 	= $(".feed_noread").size();
+								var feeds_leidos 	= $(".feed_read").size();
+								
+								$.post('api/feeds_load',{read:'already',feed_id:feed_id}, function(response){
+									 	
+									 	resp=$.parseJSON(response);
+
+										if( resp.message="feed_leido" ){
+											$('.feed[data-id="'+feed_id+'"]').addClass("feed_read");
+											$('.feed[data-id="'+feed_id+'"]').removeClass("feed_noread");
+											$('.feed[data-id="'+feed_id+'"]').hide();
+											$('.feed[data-id="'+feed_id+'"]').find('div.item-header').find('a.read').children('i').toggleClass('ion-ios-eye-outline');
+											$('.feed[data-id="'+feed_id+'"]').find('div.item-header').find('a.read').children('i').toggleClass('ion-ios-eye');
+											if(feeds_noleidos==1) $(".nof_read").html('').htm(feeds_noleidos-1);
+											
+
+										}else if(resp.message="error")
+											console.log("Fallo de conexión con la base de datos");
+								});
+							}
+						$.get(url+'api/user_data').error(function(){
+										console.log('error de conexión');
+								}).success(function(response){
+									window.localStorage.setItem('user',response);
+								});
+						}else{
+							$(".msg").html('').html("Ocurrió un error, intenta mas tarde").css('color', 'red').show();
+								setTimeout(function(){
+									$(".msg").hide();
+								}, 4000);
+						}
+                    },
+            });
+				
+		});
 			
 });
  }, 1000);
