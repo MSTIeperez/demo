@@ -11,7 +11,7 @@ $( document ).ready(function() {
     var num=0;
     function set_follows_unreads(){
 		
-		$.post(url+'api/follow/get_follows_unread',{'send_data':'send_data'})
+		$.post(url+'/api/follow/get_follows_unread',{'send_data':'send_data'})
 			.success(function(response){
 				
 				response = $.parseJSON( response );
@@ -24,7 +24,7 @@ $( document ).ready(function() {
 	}
 	// Notificación
     function notification() {
-		$.post(url+'api/follow/get_follows_unread',{'send_data':'send_data'})
+		$.post(url+'/api/follow/get_follows_unread',{'send_data':'send_data'})
 			.success(function(response){
 				
 			response = $.parseJSON( response );
@@ -62,7 +62,7 @@ $( document ).ready(function() {
 				var feed_id = $obj.parents(".feeds").data("id");
 				console.log(feed_id);
 			if(!$(this).hasClass('active')){	
-				$.post(url+'api/feeds_load',{read:'already',feed_id:feed_id}, function(response){
+				$.post(url+'/api/feeds_load',{read:'already',feed_id:feed_id}, function(response){
 					 resp=$.parseJSON(response);
 					if(resp.message="feed_leido"){
 						$('.feeds[data-id="'+feed_id+'"]').addClass("feed_read");
@@ -169,7 +169,7 @@ $( document ).ready(function() {
 			if(id > 0){
 				$.ajax({
 	                type: "POST",
-	                url: url+'api/add_folder',
+	                url: url+'/api/add_folder',
 	                data: {folder:"send_data", feed_id:id},
 	                error: function(){
 						console.log("no se recibieron datos");
@@ -188,12 +188,20 @@ $( document ).ready(function() {
 							}
 							}
 	        		}
-					},
+					}
 				});
 	        }
         return false;
     });
-    
+     $( 'body' ).on( 'click', '.show-follow', function(e) {
+		
+      
+        e.preventDefault(); 
+
+            $( '.lightbox-follow' ).addClass( 'active' );
+
+        return false;
+    });
     // button add: agreca folder a favoritos
     $( 'body' ).on( 'click', '.btn-add', function() {
         $( this ).text( function( i, text ) {
@@ -356,7 +364,7 @@ $( document ).ready(function() {
 							console.log(data);
 							console.log(data.message);
 							if(data.message=="folder_guardado"){
-								$.get(url+'api/user_data').error(function(){
+								$.get(url+'/api/user_data').error(function(){
 								
 									console.log('error de conexión');
 								}).success(function(response){
@@ -393,7 +401,7 @@ $( document ).ready(function() {
 						 .success(function(data){
 							data=$.parseJSON(data);
 							if(data.message=="folder_eliminado"){
-								$.get(url+'api/user_data').error(function(){
+								$.get(url+'/api/user_data').error(function(){
 								
 									console.log('error de conexión');
 								}).success(function(response){
@@ -442,7 +450,7 @@ $( document ).ready(function() {
 							data=$.parseJSON(data);
 							console.log(data);
 							if(data.message=='folder_guardado'){
-								$.get(url+'api/user_data').error(function(){
+								$.get(url+'/api/user_data').error(function(){
 									console.log('error de conexión');
 								}).success(function(response){
 									
@@ -520,7 +528,7 @@ $( document ).ready(function() {
 					})
 					.success(function(data){
 						data= $.parseJSON(data);
-						$.get(url+'api/user_data').error(function(){
+						$.get(url+'/api/user_data').error(function(){
 										console.log('error de conexión');
 								}).success(function(response){
 									window.localStorage.setItem('user',response);
@@ -643,7 +651,7 @@ $( document ).ready(function() {
 			console.log(folder_to_remove);
 			$.ajax({
                 type: "POST",
-                url: url+'api/add_folder',
+                url: url+'/api/add_folder',
                 data: {send_data:"send_data", folder_id:folder_to_add, to_remove:folder_to_remove, feed_id:feed_id},
                 error: function(){
 					console.log("no se recibieron datos");
@@ -682,7 +690,7 @@ $( document ).ready(function() {
 								var feeds_noleidos 	= $(".feed_noread").size();
 								var feeds_leidos 	= $(".feed_read").size();
 								
-								$.post('api/feeds_load',{read:'already',feed_id:feed_id}, function(response){
+								$.post(url+'/api/feeds_load',{read:'already',feed_id:feed_id}, function(response){
 									 	
 									 	resp=$.parseJSON(response);
 
@@ -699,7 +707,7 @@ $( document ).ready(function() {
 											console.log("Fallo de conexión con la base de datos");
 								});
 							}
-						$.get(url+'api/user_data').error(function(){
+						$.get(url+'/api/user_data').error(function(){
 										console.log('error de conexión');
 								}).success(function(response){
 									window.localStorage.setItem('user',response);

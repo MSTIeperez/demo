@@ -54,7 +54,7 @@
 				<a class="tab-item" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="#" onclick="return false;">
                     <i class="icon sprite icon-message"></i>
                 </a>
-                <a class="tab-item" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="#">
+                <a class="tab-item show-follow" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="#">
                     <i class="icon sprite icon-mark"></i>
                 </a>
                 <a class="tab-item show-share" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="#">
@@ -95,6 +95,33 @@
             <li class="category-element item item-avatar item-icon-left item-button-right list_folder" ng-repeat="folder in user_data.favfolder" data-id="{{folder.id}}" >
                 <input class="btn-invisible folder_add" type="checkbox" ng-true-value="'{{folder.id}}'" data-id="{{folder.id}}" >
                 <i class="sprite2x icon icon-folder">{{folder.total}}</i>
+                <h2>{{folder.title}}</h2>
+                <a class="button button-outline button-positive btn-delete" href="#">Eliminar</a>
+            </li>     
+			<input class="feed_id" type="hidden" value="" >
+        </div>
+    </div>
+    <div class="lightbox-favorited-add">
+        <a class="btn-add-folder" href="#">Agregar archivero favorito</a>
+    </div>
+    <div class="lightbox-favorited-actions clearfix">
+        <button class="button button-outline button-positive add_to_favfolder" type="submit" ng-click="addfeedfolder()">Aceptar</button>
+        <a class="close-lightbox" href="#">Cancelar</a>
+    </div>
+    </form>
+</div>
+
+<div class="lightbox lightbox-follow has-subheader" ng-controller="FunctionsCtrl">
+    <form >
+    <div class="lightbox-favorited-header">
+        <h4>Selecciona un asunto a seguir</h4>
+    </div>
+    <div class="lightbox-favorited-content">
+        <div class="list has-excerpt favorite_folders"> 
+            
+            <li class="category-element item item-avatar item-icon-left item-button-right list_follow" ng-repeat="asunto in user_data.follow" data-id="{{asunto.subject_id}}" >
+                <input class="btn-invisible folder_add" type="checkbox" ng-true-value="'{{asunto.subject_id}}'" data-id="{{asunto.subject_id}}" >
+                <!--i class="sprite2x icon icon-folder">{{folder.total}}</i-->
                 <h2>{{folder.title}}</h2>
                 <a class="button button-outline button-positive btn-delete" href="#">Eliminar</a>
             </li>     
