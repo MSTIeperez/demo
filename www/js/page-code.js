@@ -28,12 +28,12 @@ $( document ).ready(function() {
 			.success(function(response){
 				
 			response = $.parseJSON( response );
-			setTimeout(function() {
+		//	setTimeout(function() {
 				if($('.notification > i > span').length == 0) {
 					if(response.total>0)
 						$('.notification > i').append('<span class="not-count">'+response.total+'</span>');
 				}
-			}, 500);
+			//}, 500);
 			});
     }
     notification();

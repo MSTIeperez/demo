@@ -2,7 +2,7 @@ angular.module('starter.controllers', [])
 
 .controller('MainCtrl', function($scope,$cookies,$cookieStore, $rootScope, Auth ){
 	var url ='http://legixapp.abardev.net';
-	$scope.$on('$ionicView.loaded', function(e) {
+	$scope.$on('$ionicView.enter', function(e) {
 		if(window.localStorage.getItem('user')&&window.localStorage.getItem('user').length>4){
 		$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
 		$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
@@ -526,10 +526,14 @@ angular.module('starter.controllers', [])
 	}
 	});
 })
-.controller('ConfigAddCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state) {
+.controller('ConfigAddCtrl', function($scope,$rootScope, Registerservice, UserService,GroupService, $ionicPopup, $state) {
 	$scope.$on('$ionicView.loaded', function(e) {
 	$scope.data={}; //});
-			//console.log($scope.data);
+			console.log($scope.data);
+			
+			console.log($scope.data.group_name);
+		//=$rootScope.user_data.;
+		$scope.createuser = function(){
 			var users= $rootScope.user_data.users.length;
 			var contratados= $rootScope.user_data.suscription.users;
 			var id_legix= $rootScope.user_data.legix_id.split('-');
@@ -540,8 +544,6 @@ angular.module('starter.controllers', [])
 			console.log(contratados-1)
 			$scope.data.legix_id=id_legix+'-'+cero+(contratados-1).toString();
 			console.log($scope.data.legix_id);
-		//=$rootScope.user_data.;
-		$scope.createuser = function(){
 			if(users<contratados){
 				Registerservice.newUser($scope.data.legix_id, $scope.data.first_name, $scope.data.last_name, $scope.data.email, $scope.data.password, parent_id).success(function(data) {
 				$scope.user=data.user;
@@ -586,7 +588,64 @@ angular.module('starter.controllers', [])
 			}
 	}
 	$scope.creategroup = function(){
-				GroupService.newgroup($scope.data.group_name, $scope.data.temas,$scope.data.usuarios, $scope.data.group_id).success(function(data) {
+			console.log($scope.data);
+			console.log($scope.data.nombregrupo+' '+angular.isUndefined($scope.data.temas)+' '+angular.isUndefined($scope.data.usuarios))
+	if($scope.data.nombregrupo && !angular.isUndefined($scope.data.temas) && !angular.isUndefined($scope.data.usuarios)){
+			console.log($scope.data.nombregrupo+' '+angular.isUndefined($scope.data.temas)+' '+angular.isUndefined($scope.data.usuarios))
+	
+		GroupService.newgroup($scope.data.nombregrupo, $scope.data.temas,$scope.data.usuarios, $scope.data.group_id).success(function(data) {
+				 if (data.message=='Actualizado') {
+					UserService.datauser().success(function(response){
+								window.localStorage.setItem('user',JSON.stringify(response));
+								 $rootScope.user_data=response;
+								 $rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
+							})
+					var alertPopup = $ionicPopup.alert({
+							title: 'Grupo creado con éxito!',
+							//template: "Selecciona una imagen de tu galería o directo de la cámara", //'¡Por favor revisa tu correo y/o contraseña!',
+							buttons:[{
+								text: 'Aceptar',
+								type: 'button-positive',
+								onTap: function(e) {
+									$state.go('config_groups');
+								}
+								}]	
+							});
+				 }else{
+					var alertPopup = $ionicPopup.alert({
+					title: 'Error de conexion',
+					template: '¡Por favor intenta mas tarde!', //'¡Por favor revisa tu correo y/o contraseña!',
+					okText: 'Aceptar'
+					});
+				 }
+			}).error(function(data) {
+				console.log(data)
+				var alertPopup = $ionicPopup.alert({
+					title: 'Error de conexión',
+					template: '¡Por favor intenta mas tarde!', //'¡Por favor revisa tu correo y/o contraseña!',
+					okText: 'Aceptar'
+				});
+			});
+		}else{
+			var alertPopup = $ionicPopup.alert({
+					title: 'Campos obligatorios',
+					template: 'Para crear tu grupo debes ingresar el nombre, seleccionar tema(s) y usuario(s)', //'¡Por favor revisa tu correo y/o contraseña!',
+					okText: 'Aceptar'
+				});
+		}
+	}
+	
+	});
+})
+.controller('ConfigAddGCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state) {
+	$scope.$on('$ionicView.loaded', function(e) {
+	$scope.data={}; //});
+			console.log($scope.data);
+	$scope.creategroup = function(){
+			console.log($scope.data.nombregrupo);
+		if($scope.data.nombregrupo!=""&&$scope.data.temas!=""&&$scope.data.usuarios!=""){
+			console.log($scope.data);
+				GroupService.newgroup($scope.data.nombregrupo, $scope.data.temas,$scope.data.usuarios, $scope.data.group_id).success(function(data) {
 				 if (data.message=="Actualizado") {
 					UserService.datauser().success(function(response){
 								window.localStorage.setItem('user',JSON.stringify(response));
@@ -619,9 +678,16 @@ angular.module('starter.controllers', [])
 					okText: 'Aceptar'
 				});
 			});
+		}else{
+			var alertPopup = $ionicPopup.alert({
+					title: 'Campos obligatorios',
+					template: 'Para crear tu grupo debes ingresar el nombre, seleccionar tema(s) y usuario(s)', //'¡Por favor revisa tu correo y/o contraseña!',
+					okText: 'Aceptar'
+				});
+		}
 	}
 	
-});
+	});
 });
 /*
 .controller('UsuariosCtrl', function($scope, Chats) {

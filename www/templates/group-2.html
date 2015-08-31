@@ -23,7 +23,7 @@
             <li>
                 <label class="item item-input item-stacked-label">
                     <span class="input-label">Nombre del grupo</span>
-                    <input type="email" placeholder="Grupo">
+                    <input type="text" placeholder="Grupo" ng-model="data.nombregrupo">
                 </label>
             </li>
         </ul>
@@ -44,25 +44,9 @@
                         <li class="item li-parent" ng-repeat="tema in user_data.temas">
                             <div class="list-header item item-checkbox">
                                 <label class="checkbox">
-                                   <input type="checkbox">
+                                   <input type="checkbox" ng-model="data.temas[$index]" ng-true-value="'{{tema.origen_id}}:{{tema.subject_id}}'" >
                                 </label>
                                 {{tema.origen}} | {{tema.tema}}
-                            </div>
-                        </li>
-                        <li class="item li-parent">
-                            <div class="list-header item item-checkbox">
-                                <label class="checkbox">
-                                   <input type="checkbox">
-                                </label>
-                                Medio Ambiente
-                            </div>
-                        </li>
-                        <li class="item li-parent">
-                            <div class="list-header item item-checkbox">
-                                <label class="checkbox">
-                                   <input type="checkbox">
-                                </label>
-                                Negocios
                             </div>
                         </li>
                     </ul>
@@ -79,7 +63,7 @@
                         <li class="item li-parent" ng-repeat="user in user_data.users">
                             <div class="list-header item item-checkbox">
                                 <label class="checkbox">
-                                   <input type="checkbox">
+                                   <input type="checkbox" ng-model="data.usuarios[$index]" ng-true-value="{{user.id}}">
                                 </label>
                                 {{user.first_name}} {{user.last_name}}
                             </div>
@@ -92,7 +76,7 @@
         </div>
             
         <div class="list-actions list-actions-border clearfix">
-            <button class="button button-outline button-positive" type="submit">Crear</button>
+            <button class="button button-outline button-positive" type="submit" ng-click="creategroup()">Crear</button>
             <button class="button button-outline button-positive" onclick="window.location.href='#/configuracion'">Crear después</button>
         </div>
         </form>

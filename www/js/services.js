@@ -13,7 +13,7 @@ angular.module('starter.services', ['ngCookies'])
 			
             var promise = deferred.promise;
 
-		$http.post(url+'/api/simple_content',{'email':name,'password': pw})
+		$http.post(url+'/api/simple_content',{'id':id})
 		
 				.success(function(data, status, headers, config){
 					 if (data) {
@@ -277,7 +277,7 @@ angular.module('starter.services', ['ngCookies'])
 		$http.post(url+'/api/update_group',{'group_name': group_name, 'temas': temas,'usuarios': usuarios, 'group_id': group_id})
 				.success(function(data, status, headers, config){
 				console.log(data);
-					 if (data=='"Actualizado"') {
+					 if (data.message=='Actualizado') {
 						deferred.resolve(data);
 					} else {
 						deferred.reject(data);
