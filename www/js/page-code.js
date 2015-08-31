@@ -70,6 +70,8 @@ $( document ).ready(function() {
 						$('.feeds[data-id="'+feed_id+'"]').removeClass("feed_noread");
 						$(this).children('i').toggleClass('ion-ios-eye-outline');
 						$(this).children('i').toggleClass('ion-ios-eye');
+						var num= $(".nof_read").data("read");
+						$(".nof_read").html("").html("No leídos("+(parseInt(num)-1)+")")
 					}else if(resp.message="error")
 						console.log("Fallo de conexión con la base de datos");
 				});
@@ -749,7 +751,7 @@ $( document ).ready(function() {
 											$('.feed[data-id="'+feed_id+'"]').find('div.item-header').find('a.read').children('i').toggleClass('ion-ios-eye-outline');
 											$('.feed[data-id="'+feed_id+'"]').find('div.item-header').find('a.read').children('i').toggleClass('ion-ios-eye');
 											//if(feeds_noleidos==1) 
-												$(".nof_read").html('').html("No leídos("+feeds_noleidos-1+")");
+												$(".nof_read").html('').html("No leídos("+(parseInt(feeds_noleidos)-1)+")");
 											
 
 										}else if(resp.message="error")
