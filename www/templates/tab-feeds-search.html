@@ -55,13 +55,13 @@
                 <a class="tab-item" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="#" onclick="return false;">
                     <i class="icon sprite icon-message"></i>
                 </a>
-                <a class="tab-item" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="#">
-                    <i class="icon sprite icon-mark"></i>
+                <a class="tab-item show-follow"   ng-class="{'active' : feed.follow.length>0,'':feed.follow.length==0}" href="#">
+                    <i class="icon sprite icon-mark" ng-class="{'active' : feed.follow.length>0,'':feed.follow.length==0}"></i>
                 </a>
-                <a class="tab-item show-share" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="#">
+                <a class="tab-item show-share" href="#">
                     <i class="icon sprite icon-share"></i>
                 </a>
-               <a class="tab-item btn-favorite" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="#"  onclick="return false;">
+                <a class="tab-item btn-favorite"  href="#" ng-class="{'active' : feed.favfolder.length>0,'':feed.favfolder.length==0}" onclick="return false;">
                     <i class="icon sprite icon-favorite" ng-class="{'active' : feed.favfolder.length>0,'':feed.favfolder.length==0}"></i>
                 </a>
                 <a class="tab-item" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="#">

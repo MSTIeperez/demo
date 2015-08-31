@@ -271,12 +271,18 @@ angular.module('starter.controllers', [])
 			$state.go('tab.configfeeds');
 		$scope.temas = user.temas;
 		 var noread=0;
+		 var follow="";
+		 var asuntos_arr=[]
 		// Feeds.all(-1,'send_data','','',$scope.data.origin_id, $scope.data.theme_id,'').success(function(data){
 		$scope.changeLocation= Feeds.all(-1,'send_data','','','', $state.params.origin_id, $state.params.theme_id,'').success(function(data){
 			angular.forEach(data.feeds, function(val, key){
 				data.feeds[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';
+				angular.forEach(val.follow, function(valor,index){
+					asuntos_arr.push(valor.subject_id);
+				})
 				if(val.read==0)
 					noread++;
+				data.feeds[key].asuntos_str =asuntos_arr.join(",");
 			});
 			$scope.feeds = data.feeds;
 			$scope.noread = noread;

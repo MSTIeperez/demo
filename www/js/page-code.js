@@ -68,6 +68,7 @@ $( document ).ready(function() {
 						$('.feeds[data-id="'+feed_id+'"]').addClass("feed_read");
 						$('.feeds[data-id="'+feed_id+'"]').hide();
 						$('.feeds[data-id="'+feed_id+'"]').removeClass("feed_noread");
+						$(this).children('i').removeAttr('ng-class');
 						$(this).children('i').toggleClass('ion-ios-eye-outline');
 						$(this).children('i').toggleClass('ion-ios-eye');
 						var num= $(".nof_read").data("read");
@@ -207,7 +208,7 @@ $( document ).ready(function() {
 			 var asuntos 		= $(this).parents(".feeds").find("input.asunto_name").val();
 			 var id 			= $(this).parents(".feeds").data("id");
 			 var follow 		= $(this).parents(".feeds").data("follow");
-			 var follow_ids_str	= $(this).parents("article.feed").data("followids") + "";
+			 var follow_ids_str	= $(this).parents(".feeds").data("followids") + "";
 			 var fw_active 		= "";
 			 var asuntos_array 	= [];
 			 var follow_ids_arr = [];
@@ -231,6 +232,7 @@ $( document ).ready(function() {
 			 for( i = 0; i < asuntos.length; i++ ){
 
 			 	var active_class = "";
+			 	var check = "";
 
 				asuntos_array 		= asuntos[i].split(":");
 				asuntos_array[0] 	= asuntos_array[0].trim();
@@ -238,18 +240,23 @@ $( document ).ready(function() {
 				console.log( asuntos_array );
 				console.log( follow_ids_arr );
 
-			 	if( $.inArray( asuntos_array[0], follow_ids_arr ) >= 0 ) active_class = "active";
-			 		else active_class = "";
+			 	if( $.inArray( asuntos_array[0], follow_ids_arr ) >= 0 ){ active_class = "selected";  check="checked='checked'";}
+			 		else{ active_class = ""; check="";}
 
-				code += '<h2 class="' + active_class + ' follow_'+asuntos_array[0]+'" data-id="'+asuntos_array[0]+'">'+asuntos_array[1]+'<i class="fa fa-check"></i></h2>';
+				code+= '<li class="category-element item item-avatar item-icon-left item-button-right list_follow '+ active_class +'"  data-id="'+asuntos_array[0]+'" >'+
+								'<input class="btn-invisible follow_add" type="checkbox"  '+check+' data-id="'+asuntos_array[0]+'" >'+
+								'<!--i class="sprite2x icon icon-folder"></i-->'+
+								'<h2>'+asuntos_array[1]+'</h2>'
+							'<a class="button button-outline button-positive btn-delete" href="#">Eliminar</a>'+
+							'</li>';
 
 			 }
 
-			 $(".select_subject").find(".my_themes").find(".theme_fav").html("");
-			 $(".select_subject").find(".my_themes").find(".theme_fav").append(code);
+			// $(".select_subject").find(".my_themes").find(".theme_fav").html("");
+			 $("#follow_asunto").append(code);
 
-			$('.select_subject').find("form").find("input").val(id);
-			$('.select_subject').lightbox_me();
+			//$('.select_subject').find("form").find("input").val(id);
+			//$('.select_subject').lightbox_me();
 
             $( '.lightbox-follow' ).addClass( 'active' );
 
@@ -690,7 +697,7 @@ $( document ).ready(function() {
 			var folder_to_remove 	= [];
 
 			var $obj 		= $(this);
-			var feed_id 	= $("input.feed_id").val();
+			var feed_id 	= $obj.parents("form").find("input.feed_id").val();
 			
 			$(".folder_add").each(function(){
 				if( $( this ).attr("checked") ){
@@ -774,6 +781,60 @@ $( document ).ready(function() {
 						}
                     },
             });
+				
+		});
+		$('body').delegate('.add_to_follow','click',function(e){
+			e.preventDefault();
+
+			var asunto_id 	= [];
+			var subjects_to_delete 	= [];
+			var $obj 		= $(this);
+			var feed_id 	= $obj.parents("form").find("input").val();
+
+			$(".follow_add").each(function(){
+				if( $( this ).attr("checked") )
+					asunto_id.push( $(this).data('id') );
+				else
+					subjects_to_delete.push( $(this).data('id') );
+			});
+
+			//if(asunto_id.length > 0){
+
+						$.ajax({
+	                        type: "POST",
+	                        url: url+'/api/add_follow',
+	                        data: {send_data:"send_data", subject_id:asunto_id, feed_id:feed_id, subjects_to_delete: subjects_to_delete},
+	                        error: function(){
+								console.log("no se recibieron datos");
+								$( '.lightbox-follow' ).toggleClass( 'active' );
+	                        },
+	                        success: function(response){
+
+	                               // $("body").css("cursor", "default");
+	                               
+	                                var resp = $.parseJSON( response );
+									console.log(resp);
+
+	                                if( resp.message="feed_guardado" ){
+										$( '.lightbox-follow' ).toggleClass( 'active' );
+										$obj.addClass("active");
+										$.get(url+'/api/user_data').error(function(){
+										console.log('error de conexión');
+										}).success(function(response){
+											window.localStorage.setItem('user',response);
+										});
+									}else{
+
+										$(".msg").html('').html("Ocurrió un error, intenta mas tarde").css('color', 'red').show();
+											setTimeout(function(){
+												$(".msg").hide();
+											}, 4000);
+
+									}
+								
+	                            }
+	                    });
+	               //}
 				
 		});
 			

@@ -19,8 +19,8 @@
             <a  class="reads" data-class="feed_read" href="#" onclick="return false;" >Leídos</a>
         </div>
         <!-- BEGIN: card -->
-        <ion-item class="list card feeds" data-id="{{feed.id}}" data-follow="feed.asunto_str" ng-repeat="feed in feeds" ng-class="{'feed_noread': feed.read==0, 'feed_read': feed.read==1}" ng-show="feed.read==0">
-			<!--input type="hidden" class="asunto_name" value="{{feed.asunto_name}}" /-->
+        <ion-item class="list card feeds" data-id="{{feed.id}}" data-followids="{{feed.asuntos_str}}" data-follow="{{feed.follow.length}}" ng-repeat="feed in feeds" ng-class="{'feed_noread': feed.read==0, 'feed_read': feed.read==1}" ng-show="feed.read==0">
+			<input type="hidden" class="asunto_name" value="{{feed.asunto_name}}" />
             <div class="item item-header item-thumbnail-left">
                 <img class="small-image" ng-src="http://legixapp.abardev.net{{ feed.src_img }}">
                 <h2>{{ feed.title_origin }}</h2>
@@ -51,19 +51,19 @@
             </div>
 
             <div class="item tabs tabs-icon-only tabs-light tabs-secondary">
-				<a class="tab-item" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="#" onclick="return false;">
+				<a class="tab-item" href="#" onclick="return false;">
                     <i class="icon sprite icon-message"></i>
                 </a>
-                <a class="tab-item show-follow" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="#">
-                    <i class="icon sprite icon-mark"></i>
+                <a class="tab-item show-follow"   ng-class="{'active' : feed.follow.length>0,'':feed.follow.length==0}" href="#">
+                    <i class="icon sprite icon-mark" ng-class="{'active' : feed.follow.length>0,'':feed.follow.length==0}"></i>
                 </a>
-                <a class="tab-item show-share" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="#">
+                <a class="tab-item show-share" href="#">
                     <i class="icon sprite icon-share"></i>
                 </a>
-                <a class="tab-item btn-favorite" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="#"  onclick="return false;">
+                <a class="tab-item btn-favorite"  href="#" ng-class="{'active' : feed.favfolder.length>0,'':feed.favfolder.length==0}" onclick="return false;">
                     <i class="icon sprite icon-favorite" ng-class="{'active' : feed.favfolder.length>0,'':feed.favfolder.length==0}"></i>
                 </a>
-                <a class="tab-item" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="#">
+                <a class="tab-item"  href="#">
                     <i class="icon sprite icon-print"></i>
                 </a>
             </div>
@@ -105,7 +105,7 @@
         <a class="btn-add-folder" href="#">Agregar archivero favorito</a>
     </div>
     <div class="lightbox-favorited-actions clearfix">
-        <button class="button button-outline button-positive add_to_favfolder" type="submit" ng-click="addfeedfolder()">Aceptar</button>
+        <button class="button button-outline button-positive add_to_favfolder" type="submit" ng-click="">Aceptar</button>
         <a class="close-lightbox" href="#">Cancelar</a>
     </div>
     </form>
@@ -117,22 +117,16 @@
         <h4>Selecciona un asunto a seguir</h4>
     </div>
     <div class="lightbox-favorited-content">
-        <div class="list has-excerpt favorite_folders"> 
+        <div class="list has-excerpt favorite_folders" id="follow_asunto"> 
             
-            <li class="category-element item item-avatar item-icon-left item-button-right list_follow" ng-repeat="asunto in user_data.follow" data-id="{{asunto.subject_id}}" >
-                <input class="btn-invisible folder_add" type="checkbox" ng-true-value="'{{asunto.subject_id}}'" data-id="{{asunto.subject_id}}" >
-                <!--i class="sprite2x icon icon-folder">{{folder.total}}</i-->
-                <h2>{{folder.title}}</h2>
-                <a class="button button-outline button-positive btn-delete" href="#">Eliminar</a>
-            </li>     
 			<input class="feed_id" type="hidden" value="" >
         </div>
     </div>
-    <div class="lightbox-favorited-add">
+    <!--div class="lightbox-favorited-add">
         <a class="btn-add-folder" href="#">Agregar archivero favorito</a>
-    </div>
+    </div-->
     <div class="lightbox-favorited-actions clearfix">
-        <button class="button button-outline button-positive add_to_favfolder" type="submit" ng-click="addfeedfolder()">Aceptar</button>
+        <button class="button button-outline button-positive add_to_follow" type="submit" ng-click="">Aceptar</button>
         <a class="close-lightbox" href="#">Cancelar</a>
     </div>
     </form>

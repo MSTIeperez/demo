@@ -147,25 +147,19 @@ a {
 .icon-folder {
     background-position: -30px -300px !important;
 }
-a.actived > i,
-.icon-message:active {
+a.actived > i.icon-message, .icon-message:active, i.icon-message.active {
     background-position: -30px -180px !important;
 }
-a.active > i,
-.icon-mark:active {
+a.actived > i.icon-mark, .icon-mark:active, i.icon-mark.active {
     background-position: -90px -180px !important;
 }
-a.active > i,
-.icon-share:active {
+a.actived > i.icon-share,.icon-share:active, i.icon-share.active {
     background-position: -150px -180px !important;
 }
-a.active > i,
-.icon-favorite:active,
-.icon-favorite.active {
+a.actived > i.icon-favorite, .icon-favorite:active, i.icon-favorite.active {
     background-position: -210px -180px !important;
 }
-a.active > i,
-.icon-print:active {
+a.actived > i.icon-print, .icon-print:active, i.icon-print.active {
     background-position: -270px -180px !important;
 }
 .icon-logo {
