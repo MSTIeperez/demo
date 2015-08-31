@@ -151,20 +151,20 @@ a.actived > i,
 .icon-message:active {
     background-position: -30px -180px !important;
 }
-a.actived > i,
+a.active > i,
 .icon-mark:active {
     background-position: -90px -180px !important;
 }
-a.actived > i,
+a.active > i,
 .icon-share:active {
     background-position: -150px -180px !important;
 }
-a.actived > i,
+a.active > i,
 .icon-favorite:active,
 .icon-favorite.active {
     background-position: -210px -180px !important;
 }
-a.actived > i,
+a.active > i,
 .icon-print:active {
     background-position: -270px -180px !important;
 }
