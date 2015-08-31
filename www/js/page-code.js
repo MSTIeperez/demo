@@ -198,6 +198,54 @@ $( document ).ready(function() {
       
         e.preventDefault(); 
 
+			 var code 			= "";
+			 var asuntos 		= $(this).parents(".feeds").find("input.asunto_name").val();
+			 var id 			= $(this).parents(".feeds").data("id");
+			 var follow 		= $(this).parents(".feeds").data("follow");
+			 var follow_ids_str	= $(this).parents("article.feed").data("followids") + "";
+			 var fw_active 		= "";
+			 var asuntos_array 	= [];
+			 var follow_ids_arr = [];
+
+			 console.log( follow_ids_str );
+
+			 if( follow_ids_str.length > 0 ){
+
+			 	follow_ids_arr = follow_ids_str.split(",");
+			 	if( follow_ids_arr.length == 0 ) follow_ids_arr.push( follow_ids_str );
+
+			 } 
+
+			 asuntos = asuntos.split(",");
+
+			 if( $(this).hasClass("legix") ) return false;
+
+			 if( follow > 0 ) fw_active = "active";
+			 	else fw_active = "";
+			
+			 for( i = 0; i < asuntos.length; i++ ){
+
+			 	var active_class = "";
+
+				asuntos_array 		= asuntos[i].split(":");
+				asuntos_array[0] 	= asuntos_array[0].trim();
+
+				console.log( asuntos_array );
+				console.log( follow_ids_arr );
+
+			 	if( $.inArray( asuntos_array[0], follow_ids_arr ) >= 0 ) active_class = "active";
+			 		else active_class = "";
+
+				code += '<h2 class="' + active_class + ' follow_'+asuntos_array[0]+'" data-id="'+asuntos_array[0]+'">'+asuntos_array[1]+'<i class="fa fa-check"></i></h2>';
+
+			 }
+
+			 $(".select_subject").find(".my_themes").find(".theme_fav").html("");
+			 $(".select_subject").find(".my_themes").find(".theme_fav").append(code);
+
+			$('.select_subject').find("form").find("input").val(id);
+			$('.select_subject').lightbox_me();
+
             $( '.lightbox-follow' ).addClass( 'active' );
 
         return false;
@@ -700,7 +748,8 @@ $( document ).ready(function() {
 											$('.feed[data-id="'+feed_id+'"]').hide();
 											$('.feed[data-id="'+feed_id+'"]').find('div.item-header').find('a.read').children('i').toggleClass('ion-ios-eye-outline');
 											$('.feed[data-id="'+feed_id+'"]').find('div.item-header').find('a.read').children('i').toggleClass('ion-ios-eye');
-											if(feeds_noleidos==1) $(".nof_read").html('').htm(feeds_noleidos-1);
+											//if(feeds_noleidos==1) 
+												$(".nof_read").html('').html("No leídos("+feeds_noleidos-1+")");
 											
 
 										}else if(resp.message="error")
