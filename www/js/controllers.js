@@ -240,11 +240,15 @@ angular.module('starter.controllers', [])
 	
 	$scope.$on('$ionicView.loaded', function(e) { console.log(Auth.isLoggedIn())
 		if(Auth.isLoggedIn() && window.localStorage.getItem('user')!=null ){
+			$scope.flag=true;
 		$scope.load = Feeds_all.all(-1).success(function(data){
 			angular.forEach(data.feeds, function(val, key){
-				data.feeds[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';
-					
+				data.feeds[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';	
 			});
+			if(data.feeds.length==0)
+				$scope.flag=false;
+			else
+				$scope.flag="no_feeds";
 			$scope.feeds = data.feeds;
 			
 		}).error(function(){
@@ -273,6 +277,7 @@ angular.module('starter.controllers', [])
 		 var noread=0;
 		 var follow="";
 		 var asuntos_arr=[]
+		 $scope.flag=true;
 		// Feeds.all(-1,'send_data','','',$scope.data.origin_id, $scope.data.theme_id,'').success(function(data){
 		$scope.changeLocation= Feeds.all(-1,'send_data','','','', $state.params.origin_id, $state.params.theme_id,'').success(function(data){
 			angular.forEach(data.feeds, function(val, key){
@@ -286,7 +291,10 @@ angular.module('starter.controllers', [])
 			});
 			$scope.feeds = data.feeds;
 			$scope.noread = noread;
-		
+			if(data.feeds.length==0)
+				$scope.flag="no_feeds";
+			else
+				$scope.flag=false;
 		});
 		$scope.tema_name=$state.params.name;
 		
@@ -312,6 +320,7 @@ angular.module('starter.controllers', [])
 		asuntos= asuntos.toString()
 		console.log(asuntos);
 		var noread=0;
+		$scope.flag=true;
 		Follow.all(-1,'','send_data','',asuntos, $state.params.origin_id, $state.params.theme_id).success(function(data){
 			angular.forEach(data.feeds, function(val, key){
 				data.feeds[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';
@@ -320,6 +329,10 @@ angular.module('starter.controllers', [])
 			});
 			$scope.feeds = data.feeds;
 			$scope.noread = noread;
+			if(data.feeds.length==0)
+				$scope.flag="no_feeds";
+			else
+				$scope.flag=false;
 		});
 		$scope.tema_name=$state.params.name;
 		$scope.remove = function(feed) {
@@ -333,17 +346,19 @@ angular.module('starter.controllers', [])
 	$scope.$on('$ionicView.loaded', function(e) {
 		 if(Auth.isLoggedIn() && window.localStorage.getItem('user')!=null ){
 		$scope.grupos=$rootScope.user_data.grupos;
+		console.log($scope.grupos);
 		if($state.params.id){
 			var grupo=[];
 			angular.forEach($scope.grupos, function(val,key){
-				if($state.params.id==val.id)
-				grupo.push($scope.grupos[key])
-				grupo=grupo[0];
+				if($state.params.id==val.id){
+				grupo.push(val);
+				grupo=grupo[0];}
 			});
 			console.log(grupo);
 			$scope.group=grupo;
 			$scope.tema_name=$state.params.name;
 			var noread=0;
+			$scope.flag=true;
 			Feeds.all(-1,'send_data','','','', $state.params.origin_id, $state.params.theme_id,'').success(function(data){
 				angular.forEach(data.feeds, function(val, key){
 					data.feeds[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';
@@ -352,6 +367,10 @@ angular.module('starter.controllers', [])
 				});
 				$scope.feeds = data.feeds;
 				$scope.noread = noread;
+				if(data.feeds.length==0)
+					$scope.flag="no_feeds";
+				else
+					$scope.flag=false;
 			});
 		}
 		$scope.remove = function(feed) {
@@ -601,58 +620,6 @@ angular.module('starter.controllers', [])
 	
 		GroupService.newgroup($scope.data.nombregrupo, $scope.data.temas,$scope.data.usuarios, $scope.data.group_id).success(function(data) {
 				 if (data.message=='Actualizado') {
-					UserService.datauser().success(function(response){
-								window.localStorage.setItem('user',JSON.stringify(response));
-								 $rootScope.user_data=response;
-								 $rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
-							})
-					var alertPopup = $ionicPopup.alert({
-							title: 'Grupo creado con éxito!',
-							//template: "Selecciona una imagen de tu galería o directo de la cámara", //'¡Por favor revisa tu correo y/o contraseña!',
-							buttons:[{
-								text: 'Aceptar',
-								type: 'button-positive',
-								onTap: function(e) {
-									$state.go('config_groups');
-								}
-								}]	
-							});
-				 }else{
-					var alertPopup = $ionicPopup.alert({
-					title: 'Error de conexion',
-					template: '¡Por favor intenta mas tarde!', //'¡Por favor revisa tu correo y/o contraseña!',
-					okText: 'Aceptar'
-					});
-				 }
-			}).error(function(data) {
-				console.log(data)
-				var alertPopup = $ionicPopup.alert({
-					title: 'Error de conexión',
-					template: '¡Por favor intenta mas tarde!', //'¡Por favor revisa tu correo y/o contraseña!',
-					okText: 'Aceptar'
-				});
-			});
-		}else{
-			var alertPopup = $ionicPopup.alert({
-					title: 'Campos obligatorios',
-					template: 'Para crear tu grupo debes ingresar el nombre, seleccionar tema(s) y usuario(s)', //'¡Por favor revisa tu correo y/o contraseña!',
-					okText: 'Aceptar'
-				});
-		}
-	}
-	
-	});
-})
-.controller('ConfigAddGCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state) {
-	$scope.$on('$ionicView.loaded', function(e) {
-	$scope.data={}; //});
-			console.log($scope.data);
-	$scope.creategroup = function(){
-			console.log($scope.data.nombregrupo);
-		if($scope.data.nombregrupo!=""&&$scope.data.temas!=""&&$scope.data.usuarios!=""){
-			console.log($scope.data);
-				GroupService.newgroup($scope.data.nombregrupo, $scope.data.temas,$scope.data.usuarios, $scope.data.group_id).success(function(data) {
-				 if (data.message=="Actualizado") {
 					UserService.datauser().success(function(response){
 								window.localStorage.setItem('user',JSON.stringify(response));
 								 $rootScope.user_data=response;

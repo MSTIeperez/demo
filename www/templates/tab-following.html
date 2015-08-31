@@ -18,6 +18,12 @@
             <a class="reads active nof_read" data-class="feed_noread" href="#" onclick="return false;">No leídos ({{noread}})</a>
             <a  class="reads" data-class="feed_read" href="#" onclick="return false;">Leídos</a>
         </div>
+		<div class="list-card"   ng-switch="flag" ng-show="flag" ng-hide="flag==false">
+            <div class="item item-header item-empty">
+                <h2 ng-switch-when="true">Cargando Feeds...</h2>
+                <h2 ng-switch-when="no_feeds">No hay Feeds en este asunto.</h2>
+            </div>
+        </div >
          <!-- BEGIN: card -->
         <ion-item class="list card feeds" data-id="{{feed.id}}" ng-repeat="feed in feeds" ng-class="{'feed_noread': feed.read==0, 'feed_read': feed.read==1}" ng-show="feed.read==0">
 
