@@ -19,15 +19,15 @@
             <a  class="reads" data-class="feed_read" href="#" onclick="return false;">Leídos</a>
         </div>
          <!-- BEGIN: card -->
-        <ion-item class="list card feeds" data-id="{{feed.id}}" ng-repeat="feed in feeds" ng-class="{feed_noread: feed.read==0, 'feed_read': feed.read==1}" ng-show="feed.read==0">
+        <ion-item class="list card feeds" data-id="{{feed.id}}" ng-repeat="feed in feeds" ng-class="{'feed_noread': feed.read==0, 'feed_read': feed.read==1}" ng-show="feed.read==0">
 
             <div class="item item-header item-thumbnail-left">
                 <img class="small-image" ng-src="http://legixapp.abardev.net{{ feed.src_img }}">
                 <h2>{{ feed.title_source }}</h2>
                 <h3>{{ feed.title_origin }}</h3>
                 <p>{{ feed.date }}</p>
-				<a class="read" href="#"><i class="ion-ios-eye-outline"></i></a>
-            </div>
+				<a class="read"  ng-class="{'': feed.read==0, 'active': feed.read==1}" href="#"><i class="" ng-class="{'ion-ios-eye-outline': feed.read==0, 'ion-ios-eye': feed.read==1}"></i></a>
+          </div>
 
             <div class="item item-body">
                 <p ng-bind-html="feed.content"></p>
