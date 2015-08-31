@@ -408,6 +408,10 @@ a.actived > i,
     padding: 16px !important;
     text-align: center;
 }
+.item-empty h2,
+.item-empty p {
+    white-space: normal;
+}
 .item-header {
     padding-bottom: 8px;
     position: relative;
@@ -488,6 +492,11 @@ a.actived > i,
     margin-left: 10px;
     padding: 10px;
     position: relative;
+}
+.comments-list {
+    background-color: #FFF;
+    position: relative;
+    z-index: 1;
 }
 .comment {
     display: none;
