@@ -214,6 +214,7 @@ angular.module('starter.controllers', [])
 		$scope.busqueda=$state.params.busqueda;
 		if($state.params.busqueda!=""){
 			var noread=0;
+			$scope.flag=true;
 		Search.all(-1,$state.params.busqueda).success(function(data){
 			angular.forEach(data.feeds, function(val, key){
 				data.feeds[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';
@@ -222,7 +223,10 @@ angular.module('starter.controllers', [])
 			});
 			$scope.feeds = data.feeds;
 			$scope.noread = noread;
-		
+			if(data.feeds.length==0)
+				$scope.flag="no_feeds";
+			else
+				$scope.flag=false;
 		
 		}).error(function(){
 			$scope.feeds = "";
@@ -393,6 +397,7 @@ angular.module('starter.controllers', [])
 	console.log("favoritos: "+fav_feeds);
 	$scope.favfolder=$state.params.favfolder?$state.params.favfolder:'';
 	$scope.flag=true;
+	var noread=0;
 	var flag=0;
 	$scope.folder_name=$state.params.foldername?$state.params.foldername:'Feeds Favoritos';
 		if($state.params.favfolder){
@@ -405,6 +410,8 @@ angular.module('starter.controllers', [])
 							fav_feeds.push(dato.folder_id);
 						});
 						data.feeds[key].content=val.content+' <a href="'+val.url+'" target="_blank"> '+val.url+'</a>';
+						if(val.read==0)
+							noread++;
 						if(fav_feeds.indexOf($state.params.favfolder)!=-1){
 							data.feeds[key].folder=true;
 							$scope.flag=false;
@@ -415,6 +422,7 @@ angular.module('starter.controllers', [])
 				if(data.feeds.length==(flag))
 					$scope.flag="no_feeds";
 				$scope.feeds = data.feeds;
+				$scope.noread = noread;
 			});
 		}
 		$scope.remove = function(feed) {

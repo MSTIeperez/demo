@@ -15,8 +15,8 @@
     <ion-content class="padding has-subheader bg-color-1"> 
          <div class="seen-menu clearfix">
 		 
-            <a class="reads active nof_read" data-class="feed_noread" href="#" onclick="return false;">No leídos ({{noread}})</a>
-            <a  class="reads" data-class="feed_read" href="#" onclick="return false;">Leídos</a>
+            <a class="reads  nof_read" ng-class="{'active':noread>0, ' ':noread==0}" data-class="feed_noread" href="#" onclick="return false;" data-read="{{noread}}">No leídos ({{noread}})</a> 
+            <a  class="reads" ng-class="{'active':noread==0, ' ':noread>0}"  data-class="feed_read" href="#" onclick="return false;" >Leídos</a>
         </div>
 		<div class="list-card"   ng-switch="flag" ng-show="flag" ng-hide="flag==false">
             <div class="item item-header item-empty">
@@ -25,9 +25,8 @@
             </div>
         </div >
          <!-- BEGIN: card -->
-        <ion-item class="list card feeds" data-id="{{feed.id}}" ng-repeat="feed in feeds" ng-class="{'feed_noread': feed.read==0, 'feed_read': feed.read==1}" ng-show="feed.read==0">
-
-            <div class="item item-header item-thumbnail-left">
+        <ion-item class="list card feeds" data-id="{{feed.id}}" data-followids="{{feed.asuntos_str}}" data-follow="{{feed.follow.length}}" ng-repeat="feed in feeds" ng-class="{'feed_noread': feed.read==0, 'feed_read': feed.read==1}" ng-show="(feed.read==0&&noread!=0)||(feed.read==1&&noread==0)">
+		    <div class="item item-header item-thumbnail-left">
                 <img class="small-image" ng-src="http://legixapp.abardev.net{{ feed.src_img }}">
                 <h2>{{ feed.title_source }}</h2>
                 <h3>{{ feed.title_origin }}</h3>
