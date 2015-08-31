@@ -65,16 +65,9 @@ $( document ).ready(function() {
 				$.post(url+'api/feeds_load',{read:'already',feed_id:feed_id}, function(response){
 					 resp=$.parseJSON(response);
 					if(resp.message="feed_leido"){
-						//$obj.remove();
-					//	html= '<article class="feed" data-id="'+feed_id+'">';
-						//html+= $('.feed[data-id="'+feed_id+'"]').html();
-					//	html +='</article>';
 						$('.feeds[data-id="'+feed_id+'"]').addClass("feed_read");
 						$('.feeds[data-id="'+feed_id+'"]').hide();
 						$('.feeds[data-id="'+feed_id+'"]').removeClass("feed_noread");
-					//	if(feeds_noleidos==1) $(".no_leidos").hide();
-					//	if(feeds_leidos==0) $(".leidos").show();
-					//	$(".leidos").after(html);	
 						$(this).children('i').toggleClass('ion-ios-eye-outline');
 						$(this).children('i').toggleClass('ion-ios-eye');
 					}else if(resp.message="error")
@@ -508,6 +501,86 @@ $( document ).ready(function() {
 						window.location="#/tab/feeds/busqueda/"+text;
 			}
 		});
+/*---------------------------------------functions bar------------------------------------*/
+		
+		$("body").delegate(".add_comment", "keypress", function(e){
+					if(e.keyCode==13){	
+					e.preventDefault();
+					var comment = $(this).val().trim();
+					var feed_id = $(this).parents(".feeds").data("id");
+					var num_comments =$(this).parents(".feeds").find('div.item-body').find('div.item-comments').find('a.show-comments').find("span.comments-count").html();
+					var $obj = $(this);
+					var href='';
+					console.log(comment);
+					console.log(feed_id);
+					console.log(num_comments);
+					if(comment.length > 0){
+						$.post(url+'/api/add_comment', {'send_data':'send_data', 'comment': comment, 'feed_id':feed_id})
+						.error(function(data){
+							console.log("no se recibieron datos");
+							$obj.val( "" );
+						}).success(function(response){
+								var resp = $.parseJSON( response );
+								console.log(resp);
+								if( resp.message="comentario guardado" ){
+									$obj.val( "" );
+									$obj.parents(".feeds").find('div.item-body').find('div.item-comments').show().removeClass("ng-hide");
+									//$obj.parents(".comments").find("p.comment.active.show").removeClass( "active show" );
+									var code = '<li class="comment last-comment">'+
+															'<h3 class="ng-binding">'+resp.name.trim()+'</h3>'+
+															'<p class="ng-binding"> '+resp.comment.trim()+'</p>'+
+															'<p class="date ng-binding">'+resp.date+'</p>'+
+														'</li>';
+								$obj.parents(".feeds").find('div.item-body').find('div.item-comments').find("ul.comments-list").append( code );
+							   }
+								if(!$(this).parents(".feeds").find('div.item-body').find('div.item-comments').find('a.show-comments').is(':visible')){
+									if((num_comments.length+2)>2) 
+										$(this).parents(".feeds").find('div.item-body').find('div.item-comments').find('a.show-comments').show().removeClass("ng-hide").find("span.comments-count").html("").html("Ocultar "+(num_comments.length)+" comentarios previos");	
+								}						
+						});
+	                }else
+						console.log("llena el campo para mandar tu comentario");
+				}
+				});
+			$("body").delegate(".add_comment_btn", "click", function(e){
+					e.preventDefault();
+					var input= $(this).parent().find('label.item-input-wrapper').find('input');
+					var comment = input.val().trim();
+					var feed_id = $(this).parents(".feeds").data("id");
+					var num_comments =$(this).parents(".feeds").find('div.item-body').find('div.item-comments').find('a.show-comments').find("span.comments-count").html();
+					var $obj = $(this);
+					var href='';
+					console.log(comment);
+					console.log(feed_id);
+					console.log(num_comments);
+					if(comment.length > 0){
+						$.post(url+'/api/add_comment', {'send_data':'send_data', 'comment': comment, 'feed_id':feed_id})
+						.error(function(data){
+							console.log("no se recibieron datos");
+							input.val( "" );
+						}).success(function(response){
+								var resp = $.parseJSON( response );
+								console.log(resp);
+								if( resp.message="comentario guardado" ){
+									input.val( "" );
+									$obj.parents(".feeds").find('div.item-body').find('div.item-comments').show().removeClass("ng-hide");
+									//$obj.parents(".comments").find("p.comment.active.show").removeClass( "active show" );
+									var code = '<li class="comment last-comment">'+
+															'<h3 class="ng-binding">'+resp.name.trim()+'</h3>'+
+															'<p class="ng-binding"> '+resp.comment.trim()+'</p>'+
+															'<p class="date ng-binding">'+resp.date+'</p>'+
+														'</li>';
+								$obj.parents(".feeds").find('div.item-body').find('div.item-comments').find("ul.comments-list").append( code );
+							   }
+								if(!$(this).parents(".feeds").find('div.item-body').find('div.item-comments').find('a.show-comments').is(':visible')){
+									if((num_comments.length+2)>2) 
+										$(this).parents(".feeds").find('div.item-body').find('div.item-comments').find('a.show-comments').show().removeClass("ng-hide").find("span.comments-count").html("").html("Ocultar "+(num_comments.length)+" comentarios previos");	
+								}						
+						});
+	                }else
+						console.log("llena el campo para mandar tu comentario");
+			
+				});
 			
 });
  }, 1000);

@@ -53,7 +53,7 @@
             </div>
 
             <div class="item tabs tabs-icon-only tabs-light tabs-secondary">
-                <a class="tab-item" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="#">
+                <a class="tab-item" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="#" onclick="return false;">
                     <i class="icon sprite icon-message"></i>
                 </a>
                 <a class="tab-item" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="#">
@@ -72,9 +72,9 @@
             <div class="list input-comment">
                 <div class="item item-input-inset">
                     <label class="item-input-wrapper">
-                        <input type="text" placeholder="Escribe un comentario...">
+                        <input type="text" class="add_comment" placeholder="Escribe un comentario...">
                     </label>
-                    <button class="button button-small">
+                    <button class="button button-small add_comment_btn" >
                         Enviar
                     </button>
                 </div>
