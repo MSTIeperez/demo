@@ -32,7 +32,8 @@ $( document ).ready(function() {
 				if($('.notification > i > span').length == 0) {
 					if(response.total>0)
 						$('.notification > i').append('<span class="not-count">'+response.total+'</span>');
-				}
+				}else
+					$(".not-count").html("").html(response.total);
 			//}, 500);
 			});
     }
@@ -170,6 +171,7 @@ $( document ).ready(function() {
 				$("li.list_folder").each(function(){
 					
 											$(this).removeClass("selected");	
+											$(this).removeClass("already");	
 											$(this).children('input').removeAttr("checked");	
 								});	console.log(id); 
 			if(id > 0){
@@ -189,6 +191,7 @@ $( document ).ready(function() {
 								$("li.list_folder").each(function(){
 										if($(this).data("id")==resp.folder_id[i]){
 											$(this).addClass("selected");	
+											$(this).addClass("already");	
 										$(this).children('input').attr('checked','checked');	}
 								});
 							}
@@ -428,6 +431,7 @@ $( document ).ready(function() {
 								
 									console.log('error de conexión');
 								}).success(function(response){
+									console.log('usuario-actualizado');
 									window.localStorage.setItem('user',response);
 								});
 								$("li[data-id="+data.id+"]").find('h2').html('').html(data.title);
@@ -466,6 +470,7 @@ $( document ).ready(function() {
 									console.log('error de conexión');
 								}).success(function(response){
 									window.localStorage.setItem('user',response);
+									console.log('usuario-actualizado');
 									response=$.parseJSON(response)
 									count_folder=response.favfolder.length;
 									console.log(count_folder);
@@ -513,7 +518,7 @@ $( document ).ready(function() {
 								$.get(url+'/api/user_data').error(function(){
 									console.log('error de conexión');
 								}).success(function(response){
-									
+									console.log('usuario-actualizado');
 									window.localStorage.setItem('user',response);
 								});
 								var favfolder 	= '<li class="category-element item item-avatar item-icon-left item-button-right" data-id="'+data.id+'">'+
@@ -591,6 +596,7 @@ $( document ).ready(function() {
 						$.get(url+'/api/user_data').error(function(){
 										console.log('error de conexión');
 								}).success(function(response){
+									console.log('usuario-actualizado');
 									window.localStorage.setItem('user',response);
 								});
 						console.log(data);
@@ -725,21 +731,26 @@ $( document ).ready(function() {
 						console.log(resp);
 
                         if( resp.message="feed_guardado" ){
-							/*$("li.list_folder").each(function(){
-								if($(this).hasClass("selected")){
+							$("li.list_folder").each(function(){
+								if($(this).hasClass("selected")&&!$(this).hasClass("already")){
 									var num= $(this).find('i').html();
 									$(this).find('i').html("").html(parseInt(num)+1);
-								}else{
+								}else if(!$(this).hasClass("selected")&&$(this).hasClass("already")){
 									var num= $(this).find('i').html();
-									$(this).find('i').html("").html(parseInt(num)-1);
+									if((parseInt(num)-1)<0)
+										$(this).find('i').html("").html('0');
+									else
+										$(this).find('i').html("").html(parseInt(num)-1);
 								}
-								});*/
+								});
+							if( folder_to_add.length > 0 )
+								$('.feeds[data-id="'+feed_id+'"]').find('div.tabs-icon-only').find('a').children('i').addClass('active');	
+							else
+								$('.feeds[data-id="'+feed_id+'"]').find('div.tabs-icon-only').find('a').children('i').removeClass('active');	
+							
                         	$( '.lightbox-favorited' ).toggleClass( 'active' );
 
-							if( folder_to_add.length > 0 )
-								$( this ).children( 'i' ).toggleClass( 'active' );
-							else
-								$( this ).children( 'i' ).removeClass( 'active' );
+						
 
 							//Pasa a leidos los agregados a favoritos <<< Sólo si está en no leídos >>>
 							var read = $('.feeds[data-id="' + feed_id + '"]').hasClass("feed_read");
@@ -768,11 +779,7 @@ $( document ).ready(function() {
 											console.log("Fallo de conexión con la base de datos");
 								});
 							}
-						$.get(url+'/api/user_data').error(function(){
-										console.log('error de conexión');
-								}).success(function(response){
-									window.localStorage.setItem('user',response);
-								});
+						
 						}else{
 							$(".msg").html('').html("Ocurrió un error, intenta mas tarde").css('color', 'red').show();
 								setTimeout(function(){
@@ -780,7 +787,16 @@ $( document ).ready(function() {
 								}, 4000);
 						}
                     },
-            });
+					
+            }).done(function(){
+						
+						$.get(url+'/api/user_data').error(function(){
+										console.log('error de conexión');
+								}).success(function(response){
+									console.log('usuario-actualizado');
+									window.localStorage.setItem('user',response);
+								});
+					});
 				
 		});
 		$('body').delegate('.add_to_follow','click',function(e){
@@ -821,6 +837,7 @@ $( document ).ready(function() {
 										$.get(url+'/api/user_data').error(function(){
 										console.log('error de conexión');
 										}).success(function(response){
+											console.log('usuario-actualizado');
 											window.localStorage.setItem('user',response);
 										});
 									}else{

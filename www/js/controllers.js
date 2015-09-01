@@ -2,7 +2,7 @@ angular.module('starter.controllers', [])
 
 .controller('MainCtrl', function($scope,$cookies,$cookieStore, $rootScope, Auth ){
 	var url ='http://legixapp.abardev.net';
-	$scope.$on('$ionicView.enter', function(e) {
+	$scope.$on('$ionicView.loaded', function(e) {
 		if(window.localStorage.getItem('user')&&window.localStorage.getItem('user').length>4){
 		$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
 		$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
@@ -383,7 +383,7 @@ angular.module('starter.controllers', [])
 	} else $state.go('login');
 	});  
 })
-.controller('FavoritesCtrl', function($scope, Feeds, $rootScope, $state) {
+.controller('FavoritesCtrl', function($scope, Search, $rootScope, $state) {
 	
 	
 	$scope.$on('$ionicView.loaded', function(e) {
@@ -391,17 +391,16 @@ angular.module('starter.controllers', [])
 	//$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
 	//$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
 	$scope.favorites=$rootScope.user_data?$rootScope.user_data.favfolder:"0,0";
-	angular.forEach($scope.favorites, function(val, key){
-			fav_feeds.push(val.id);
-		});
-	console.log("favoritos: "+fav_feeds);
+	var feedsfav=$rootScope.user_data?$rootScope.user_data.favfeeds:"";
+
+	console.log("favoritos: "+feedsfav);
 	$scope.favfolder=$state.params.favfolder?$state.params.favfolder:'';
 	$scope.flag=true;
 	var noread=0;
 	var flag=0;
 	$scope.folder_name=$state.params.foldername?$state.params.foldername:'Feeds Favoritos';
 		if($state.params.favfolder){
-			Feeds.all(-1,'','', 'send_data','','','','',fav_feeds).success(function(data){
+			Search.all(-1,'','','', 'send_data','','','','',feedsfav).success(function(data){
 					console.log(data)
 					//$rootScope.user_data= window.localStorage.setItem('user',JSON.stringify(data.user_data));
 					angular.forEach(data.feeds, function(val, key){
@@ -426,7 +425,7 @@ angular.module('starter.controllers', [])
 			});
 		}
 		$scope.remove = function(feed) {
-			Feeds.remove(feed);
+			Search.remove(feed);
 		}
 	});  
 	$scope.update_folder=function(){
