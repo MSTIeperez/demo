@@ -27,7 +27,8 @@
         </div >
         <!-- BEGIN: card -->
         <ion-item class="list card feeds" data-id="{{feed.id}}" data-followids="{{feed.asuntos_str}}" data-follow="{{feed.follow.length}}" ng-repeat="feed in feeds" ng-class="{'feed_noread': feed.read==0, 'feed_read': feed.read==1}" ng-show="(feed.read==0&&noread!=0)||(feed.read==1&&noread==0)">
-		
+		<input type="hidden" class="asunto_name" value="{{feed.asunto_name}}" />
+           
             <div class="item item-header item-thumbnail-left">
                 <img class="small-image" ng-src="http://legixapp.abardev.net{{ feed.src_img }}">
                 <h2>{{ feed.title_origin }}</h2>

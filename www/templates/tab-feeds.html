@@ -16,7 +16,8 @@
         
         <!-- BEGIN: card -->
         <ion-item class="list card " data-id="{{feed.id}}" ng-repeat="feed in feeds">
-
+			<input type="hidden" class="asunto_name" value="{{feed.asunto_name}}" />
+           
             <div class="item item-header item-thumbnail-left">
                 <img class="small-image" ng-src="http://legixapp.abardev.net{{ feed.src_img }}">
                 <h2>{{ feed.title_origin }}</h2>
