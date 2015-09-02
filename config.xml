@@ -41,6 +41,7 @@
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.vibration" />
+	<gap:plugin name="nl.x-services.plugins.socialsharing" source="plugins.cordova.io" />
 	<gap:plugin name="io.github.pwlin.cordova.plugins.fileopener2" version="1.0.11" />
     <icon src="icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
@@ -67,6 +68,10 @@
     <gap:splash gap:platform="ios" height="1024" src="www/res/screen/ios/splasscreen.jpg" width="768" />
     <gap:splash gap:platform="ios" height="768" src="www/res/screen/ios/splasscreen.jpg" width="1024" />
     <gap:splash gap:platform="winphone" src="www/res/screen/windows-phone/splasscreen.jpg" />
+	<feature name="SocialSharing">
+		<param name="android-package" value="nl.xservices.plugins.SocialSharing" />
+		<param name="ios-package" value="SocialSharing" />
+	</feature> 
     <access origin="*" launch-external="yes" />
     <plugin name="cordova-plugin-whitelist" version="1" />
     <allow-intent href="http://*/*" />
