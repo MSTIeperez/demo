@@ -177,13 +177,13 @@
         </div>
     </div>
     
-    <div class="share">
+    <div class="share" ng-controller="ShareCtrl">
         <ul class="share-list">
             <li><h2>Compartir</h2></li>
-            <li><a href="#" onclick="window.plugins.socialsharing.shareViaFacebook('Message only')"><i class="icon ion-social-facebook"></i><span>Facebook</span></a></li>
-            <li><a href="#" onclick="window.plugins.socialsharing.shareViaTwitter('Message only')"><i class="icon ion-social-twitter"></i><span>Twitter</span></a></li>
+            <li><a href="#" onclick="shareFb()"><i class="icon ion-social-facebook"></i><span>Facebook</span></a></li>
+            <li><a href="#" onclick="shareTw()"><i class="icon ion-social-twitter"></i><span>Twitter</span></a></li>
             <li><a class="show-lightbox-share" href="#"><i class="icon ion-email"></i><span>E-mail</span></a></li>
-            <li><a href="#" onclick="window.plugins.socialsharing.share('Message only')"><i class="icon ion-android-chat"></i><span>Mensaje</span></a></li>
+            <li><a href="#" onclick="share()"><i class="icon ion-android-chat"></i><span>Mensaje</span></a></li>
             <li><a class="close-lightbox" href="#">Cancelar</a></li>
         </ul>
     </div>
