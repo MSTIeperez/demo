@@ -734,13 +734,42 @@ $( document ).ready(function() {
 							$("li.list_folder").each(function(){
 								if($(this).hasClass("selected")&&!$(this).hasClass("already")){
 									var num= $(this).find('i').html();
+									var id=$(this).data('id');
 									$(this).find('i').html("").html(parseInt(num)+1);
+									$.get(url+'/api/user_data').error(function(){
+								
+										console.log('error de conexión');
+									}).success(function(response){
+										console.log('usuario-actualizado');
+										window.localStorage.setItem('user',response);
+									});
+									/*var user= window.localStorage.getItem('user');
+									user=$.parseJSON(user);
+					
+									$.each(user.favfolder,function(index,val){
+										
+										if(id==val.id)
+											user.favfolder[index].total=parseInt(val.total)+1;
+									});
+									window.localStorage.setItem('user',JSON.stringify(user));
+								*/
 								}else if(!$(this).hasClass("selected")&&$(this).hasClass("already")){
+									var id=$(this).data('id');
+									var user= window.localStorage.getItem('user');
+									user=$.parseJSON(user);
+									
 									var num= $(this).find('i').html();
 									if((parseInt(num)-1)<0)
 										$(this).find('i').html("").html('0');
-									else
+									else{
 										$(this).find('i').html("").html(parseInt(num)-1);
+										$.each(user.favfolder,function(index,val){
+											console.log(id==val.id);
+											if(id==val.id)
+												user.favfolder[index].total=parseInt(val.total)-1;
+										});
+										window.localStorage.setItem('user',JSON.stringify(user));
+									}
 								}
 								});
 							if( folder_to_add.length > 0 )
@@ -772,7 +801,7 @@ $( document ).ready(function() {
 											$('.feeds[data-id="'+feed_id+'"]').find('div.item-header').find('a.read').children('i').toggleClass('ion-ios-eye-outline');
 											$('.feeds[data-id="'+feed_id+'"]').find('div.item-header').find('a.read').children('i').toggleClass('ion-ios-eye');
 											//if(feeds_noleidos==1) 
-												$(".nof_read").html('').html("No leídos("+(parseInt(feeds_noleidos)-1)+")");
+											//	$(".nof_read").html('').html("No leídos("+(parseInt(feeds_noleidos)-1)+")");
 											
 
 										}else if(resp.message="error")
@@ -788,15 +817,17 @@ $( document ).ready(function() {
 						}
                     },
 					
-            }).done(function(){
-						
-						$.get(url+'/api/user_data').error(function(){
+            });/*.done(function(){
+						setTimeout(function(){
+							$.get(url+'/api/user_data').error(function(){
 										console.log('error de conexión');
 								}).success(function(response){
 									console.log('usuario-actualizado');
 									window.localStorage.setItem('user',response);
 								});
-					});
+					
+						},600);
+						});*/
 				
 		});
 		$('body').delegate('.add_to_follow','click',function(e){

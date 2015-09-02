@@ -165,9 +165,9 @@ angular.module('starter.controllers', [])
   //
 .controller('ConfigfeedCtrl', function($scope, Themes, $rootScope) {
    	$scope.data={};
-	$scope.$on('$ionicView.loaded', function(e) {
-		$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
-		$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
+	$scope.$on('$ionicView.beforeEnter', function(e) {
+		//$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
+		//$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
 		/*Themes.all().success(function(data){
 				$scope.themes = data;
 			});*/ var temas_id=[]
@@ -386,7 +386,7 @@ angular.module('starter.controllers', [])
 .controller('FavoritesCtrl', function($scope, Search, $rootScope, $state) {
 	
 	
-	$scope.$on('$ionicView.loaded', function(e) {
+	$scope.$on('$ionicView.beforeEnter', function(e) {
 	var fav_feeds = [];
 	//$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
 	//$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
