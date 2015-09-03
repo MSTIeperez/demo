@@ -220,7 +220,7 @@ angular.module('starter.controllers', [])
 			$scope.flag=true;
 		Search.all(-1,$state.params.busqueda).success(function(data){
 			angular.forEach(data.feeds, function(val, key){
-				data.feeds[key].content=val.content+' <a href="#" onclick="window.open("'+val.url+'", "_system", "location=no"); return false;"> '+val.url+'</a>';
+				data.feeds[key].content=val.content+' <a href="#" onclick="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
 				data.feeds[key].content=$sce.trustAsHtml(data.feeds[key].content);
 				if(val.read==0)
 					noread++;
@@ -251,7 +251,7 @@ angular.module('starter.controllers', [])
 			$scope.flag=true;
 		$scope.load = Feeds_all.all(-1).success(function(data){
 			angular.forEach(data.feeds, function(val, key){
-				data.feeds[key].content=val.content+' <a href="#" onclick="window.open("'+val.url+'", "_system", "location=no"); return false;"> '+val.url+'</a>';
+				data.feeds[key].content=val.content+' <a href="#" onclick="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
 				data.feeds[key].content=$sce.trustAsHtml(data.feeds[key].content);
 			});
 			if(data.feeds.length==0)
@@ -290,7 +290,7 @@ angular.module('starter.controllers', [])
 		// Feeds.all(-1,'send_data','','',$scope.data.origin_id, $scope.data.theme_id,'').success(function(data){
 		$scope.changeLocation= Feeds.all(-1,'send_data','','','', $state.params.origin_id, $state.params.theme_id,'').success(function(data){
 			angular.forEach(data.feeds, function(val, key){
-				data.feeds[key].content=val.content+' <a href="#" onclick="window.open("'+val.url+'", "_system", "location=no"); return false;"> '+val.url+'</a>';
+				data.feeds[key].content=val.content+' <a href="#" onclick="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
 				data.feeds[key].content=$sce.trustAsHtml(data.feeds[key].content);
 				angular.forEach(val.follow, function(valor,index){
 					asuntos_arr.push(valor.subject_id);
@@ -333,7 +333,7 @@ angular.module('starter.controllers', [])
 		$scope.flag=true;
 		Follow.all(-1,'','send_data','',asuntos, $state.params.origin_id, $state.params.theme_id).success(function(data){
 			angular.forEach(data.feeds, function(val, key){
-				data.feeds[key].content=val.content+' <a href="#" onclick="window.open("'+val.url+'", "_system", "location=no"); return false;"> '+val.url+'</a>';
+				data.feeds[key].content=val.content+ ' <a href="#" onclick="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
 				data.feeds[key].content=$sce.trustAsHtml(data.feeds[key].content);
 				if(val.read==0)
 					noread++;
@@ -372,7 +372,7 @@ angular.module('starter.controllers', [])
 			$scope.flag=true;
 			Feeds.all(-1,'send_data','','','', $state.params.origin_id, $state.params.theme_id,'').success(function(data){
 				angular.forEach(data.feeds, function(val, key){
-					data.feeds[key].content=val.content+' <a href="#" onclick="window.open("'+val.url+'", "_system", "location=no"); return false;"> '+val.url+'</a>';
+					data.feeds[key].content=val.content+' <a href="#" onclick="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
 					data.feeds[key].content=$sce.trustAsHtml(data.feeds[key].content);
 					if(val.read==0)
 						noread++;
@@ -416,7 +416,7 @@ angular.module('starter.controllers', [])
 						angular.forEach(val.favfolder, function(dato, index){
 							fav_feeds.push(dato.folder_id);
 						});
-						data.feeds[key].content=val.content+' <a href="#" onclick="window.open("'+val.url+'", "_system", "location=no"); return false;"> '+val.url+'</a>';
+						data.feeds[key].content=val.content+' <a href="#" onclick="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
 						data.feeds[key].content=$sce.trustAsHtml(data.feeds[key].content);
 						if(val.read==0)
 							noread++;
