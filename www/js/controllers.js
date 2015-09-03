@@ -687,7 +687,7 @@ angular.module('starter.controllers', [])
 			
 			var url = url_file;
 			 $ionicLoading.show({
-		  template: 'Loading...'
+		  template: 'Descargando...'
 		});
 		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
 			fs.root.getDirectory(
@@ -697,7 +697,7 @@ angular.module('starter.controllers', [])
 				},
 				function(dirEntry) {
 					dirEntry.getFile(
-						url_file.substr(download_link.lastIndexOf('/') + 1), 
+						url_file.substr(url_file.lastIndexOf('/') + 1), 
 						{
 							create: true, 
 							exclusive: false
@@ -716,7 +716,7 @@ angular.module('starter.controllers', [])
 								},
 								function(error) {
 									$ionicLoading.hide();
-									console.log("Download Error Source -> " + error.source);
+									console.log("Error de descarga -> " + error.source);
 								},
 								false,
 								null
