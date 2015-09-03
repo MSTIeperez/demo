@@ -23,6 +23,8 @@
     <preference name="disable-cursor" value="false" />
     <preference name="android-minSdkVersion" value="7" />
     <preference name="android-installLocation" value="auto" />
+	<preference name="SplashScreen" value="foo" />
+	<preference name="SplashScreenDelay" value="10000" />
     <gap:plugin name="org.apache.cordova.battery-status" />
     <gap:plugin name="org.apache.cordova.camera" />
     <gap:plugin name="org.apache.cordova.media-capture" />
@@ -57,17 +59,17 @@
     <icon gap:platform="webos" src="www/res/icon/webos/icon-64.png" />
     <icon gap:platform="winphone" src="www/res/icon/windows-phone/icon-48.png" />
     <icon gap:platform="winphone" gap:role="background" src="www/res/icon/windows-phone/icon-173-tile.png" />
-    <gap:splash gap:platform="android" gap:qualifier="port-ldpi" src="www/res/screen/android/splasscreen.jpg" />
-    <gap:splash gap:platform="android" gap:qualifier="port-mdpi" src="www/res/screen/android/splasscreen.jpg" />
-    <gap:splash gap:platform="android" gap:qualifier="port-hdpi" src="www/res/screen/android/splasscreen.jpg" />
-    <gap:splash gap:platform="android" gap:qualifier="port-xhdpi" src="www/res/screen/android/splasscreen.jpg" />
+    <gap:splash gap:platform="android" gap:qualifier="port-ldpi" src="www/res/screen/android/splasscreen.png" />
+    <gap:splash gap:platform="android" gap:qualifier="port-mdpi" src="www/res/screen/android/splasscreen.png" />
+    <gap:splash gap:platform="android" gap:qualifier="port-hdpi" src="www/res/screen/android/splasscreen.png" />
+    <gap:splash gap:platform="android" gap:qualifier="port-xhdpi" src="www/res/screen/android/splasscreen.png" />
     <gap:splash gap:platform="blackberry" src="www/res/screen/blackberry/screen-225.png" />
-    <gap:splash gap:platform="ios" height="480" src="www/res/screen/ios/splasscreen.jpg" width="320" />
-    <gap:splash gap:platform="ios" height="960" src="www/res/screen/ios/splasscreen.jpg" width="640" />
-    <gap:splash gap:platform="ios" height="1136" src="www/res/screen/ios/splasscreen.jpg" width="640" />
-    <gap:splash gap:platform="ios" height="1024" src="www/res/screen/ios/splasscreen.jpg" width="768" />
-    <gap:splash gap:platform="ios" height="768" src="www/res/screen/ios/splasscreen.jpg" width="1024" />
-    <gap:splash gap:platform="winphone" src="www/res/screen/windows-phone/splasscreen.jpg" />
+    <gap:splash gap:platform="ios" height="480" src="www/res/screen/ios/splasscreen.png" width="320" />
+    <gap:splash gap:platform="ios" height="960" src="www/res/screen/ios/splasscreen.png" width="640" />
+    <gap:splash gap:platform="ios" height="1136" src="www/res/screen/ios/splasscreen.png" width="640" />
+    <gap:splash gap:platform="ios" height="1024" src="www/res/screen/ios/splasscreen.png" width="768" />
+    <gap:splash gap:platform="ios" height="768" src="www/res/screen/ios/splasscreen.png" width="1024" />
+    <gap:splash gap:platform="winphone" src="www/res/screen/windows-phone/splasscreen.png" />
 	<feature name="SocialSharing">
 		<param name="android-package" value="nl.xservices.plugins.SocialSharing" />
 		<param name="ios-package" value="SocialSharing" />
