@@ -207,7 +207,7 @@ angular.module('starter.controllers', [])
 		}
 	});  
 })
-.controller('SearchCtrl', function($scope, Search, Auth,$stateParams, $state) {
+.controller('SearchCtrl', function($scope, Search, Auth,$stateParams, $state,$sce) {
 	
 	$scope.data={}
 	
@@ -242,7 +242,7 @@ angular.module('starter.controllers', [])
 		} else $state.go('login');
 	});  
 })
-.controller('FeedsCtrl', function($scope, Feeds_all, Auth, $state) {
+.controller('FeedsCtrl', function($scope, Feeds_all, Auth, $state, $sce) {
 	
 	$scope.data={}
 	
@@ -316,7 +316,7 @@ angular.module('starter.controllers', [])
 	
 })
 
-.controller('FollowingCtrl', function($scope, Follow, UserService, $rootScope, Auth, $stateParams, $state) {
+.controller('FollowingCtrl', function($scope, Follow, UserService, $rootScope, Auth, $stateParams, $state, $sce) {
 
 	$scope.$on('$ionicView.afterEnter', function(e) {
 		 if(Auth.isLoggedIn() && window.localStorage.getItem('user')!=null ){
@@ -352,7 +352,7 @@ angular.module('starter.controllers', [])
 		} else $state.go('login');
 	});  
 })
-.controller('GroupsCtrl', function($scope, Feeds, $rootScope, Auth, $stateParams, $state) {
+.controller('GroupsCtrl', function($scope, Feeds, $rootScope, Auth, $stateParams, $state, $sce) {
 
 	$scope.$on('$ionicView.loaded', function(e) {
 		 if(Auth.isLoggedIn() && window.localStorage.getItem('user')!=null ){
@@ -391,7 +391,7 @@ angular.module('starter.controllers', [])
 	} else $state.go('login');
 	});  
 })
-.controller('FavoritesCtrl', function($scope, Search, $rootScope, $state) {
+.controller('FavoritesCtrl', function($scope, Search, $rootScope, $state, $sce) {
 	
 	
 	$scope.$on('$ionicView.beforeEnter', function(e) {
@@ -679,32 +679,62 @@ angular.module('starter.controllers', [])
 })
 .controller('FunctionsCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state) {
 })
-.controller('DownloadfilesCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state, $cordovaFileTransfer) {
+.controller('DownloadfilesCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state, $ionicLoading) {
 	//$scope.$on('$ionicView.loaded', function(e) {
 	$scope.data={}; //});
 			console.log("data: "+$scope.data);
 	$scope.download = function(url_file){
 			
-			document.addEventListener('deviceready', function (url_file) {
-
 			var url = url_file;
-			console.log('url del archivo: ', url);
-			var targetPath = cordova.file.documentsDirectory + "testImage.png";
-			var trustHosts = true
-			var options = {};
+			 $ionicLoading.show({
+		  template: 'Loading...'
+		});
+		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
+			fs.root.getDirectory(
+				"LegixApp",
+				{
+					create: true
+				},
+				function(dirEntry) {
+					dirEntry.getFile(
+						url_file.substr(download_link.lastIndexOf('/') + 1), 
+						{
+							create: true, 
+							exclusive: false
+						}, 
+						function gotFileEntry(fe) {
+							var p = fe.toURL();
+							fe.remove();
+							ft = new FileTransfer();
+							ft.download(
+								encodeURI(url_file),
+								p,
+								function(entry) {
+									$ionicLoading.hide();
+									console.log("archivo-descargado")
+									//$scope.imgFile = entry.toURL();
+								},
+								function(error) {
+									$ionicLoading.hide();
+									console.log("Download Error Source -> " + error.source);
+								},
+								false,
+								null
+							);
+						}, 
+						function() {
+							$ionicLoading.hide();
+							console.log("Get file failed");
+						}
+					);
+				}
+			);
+		},
+		function() {
+			$ionicLoading.hide();
+			console.log("Request for filesystem failed");
+		});
 
-			$cordovaFileTransfer.download(url, targetPath, options, trustHosts)
-			  .then(function(result) {
-				// Success!
-			  }, function(err) {
-				// Error
-			  }, function (progress) {
-				$timeout(function () {
-				  $scope.downloadProgress = (progress.loaded / progress.total) * 100;
-				})
-			  });
-
-		   }, false);  
 	}
 	
 	//});
