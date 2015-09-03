@@ -679,25 +679,32 @@ angular.module('starter.controllers', [])
 })
 .controller('FunctionsCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state) {
 })
-.controller('DownloadfilesCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state) {
+.controller('DownloadfilesCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state, $cordovaFileTransfer) {
 	//$scope.$on('$ionicView.loaded', function(e) {
 	$scope.data={}; //});
 			console.log("data: "+$scope.data);
-	$scope.download = function(url){
-			console.log('url del archivo: ', url);
-			var remoteFile = url;
-        var localFileName = remoteFile.substring(remoteFile.lastIndexOf('/')+1);
-        
+	$scope.download = function(url_file){
+			
+			document.addEventListener('deviceready', function (url_file) {
 
-                var ft = new FileTransfer();
-                ft.download(remoteFile,
-                    localFileName, function(entry) {
-                        console.log("archivo-descargado");
-                    }, function(error){
-							console.log("error de descarga");
-					}
-					);
-           
+			var url = url_file;
+			console.log('url del archivo: ', url);
+			var targetPath = cordova.file.documentsDirectory + "testImage.png";
+			var trustHosts = true
+			var options = {};
+
+			$cordovaFileTransfer.download(url, targetPath, options, trustHosts)
+			  .then(function(result) {
+				// Success!
+			  }, function(err) {
+				// Error
+			  }, function (progress) {
+				$timeout(function () {
+				  $scope.downloadProgress = (progress.loaded / progress.total) * 100;
+				})
+			  });
+
+		   }, false);  
 	}
 	
 	//});
