@@ -678,53 +678,14 @@ angular.module('starter.controllers', [])
 	});
 })
 .controller('FunctionsCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state) {
+})
+.controller('DownloadfilesCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state) {
 	//$scope.$on('$ionicView.loaded', function(e) {
 	$scope.data={}; //});
 			console.log("data: "+$scope.data);
-	$scope.addfeedfolder = function(){
-			console.log($scope.data.favolder);
-		/*if($scope.data.nombregrupo!=""&&$scope.data.temas!=""&&$scope.data.usuarios!=""){
-			console.log($scope.data);
-				GroupService.newgroup($scope.data.nombregrupo, $scope.data.temas,$scope.data.usuarios, $scope.data.group_id).success(function(data) {
-				 if (data.message=="Actualizado") {
-					UserService.datauser().success(function(response){
-								window.localStorage.setItem('user',JSON.stringify(response));
-								 $rootScope.user_data=response;
-								 $rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
-							})
-					var alertPopup = $ionicPopup.alert({
-							title: 'Grupo creado con éxito!',
-							//template: "Selecciona una imagen de tu galería o directo de la cámara", //'¡Por favor revisa tu correo y/o contraseña!',
-							buttons:[{
-								text: 'Aceptar',
-								type: 'button-positive',
-								onTap: function(e) {
-									$state.go('config_groups');
-								}
-								}]	
-							});
-				 }else{
-					var alertPopup = $ionicPopup.alert({
-					title: 'Error de conexion',
-					template: '¡Por favor intenta mas tarde!', //'¡Por favor revisa tu correo y/o contraseña!',
-					okText: 'Aceptar'
-					});
-				 }
-			}).error(function(data) {
-				console.log(data)
-				var alertPopup = $ionicPopup.alert({
-					title: 'Error de conexión',
-					template: '¡Por favor intenta mas tarde!', //'¡Por favor revisa tu correo y/o contraseña!',
-					okText: 'Aceptar'
-				});
-			});
-		}else{
-			var alertPopup = $ionicPopup.alert({
-					title: 'Campos obligatorios',
-					template: 'Para crear tu grupo debes ingresar el nombre, seleccionar tema(s) y usuario(s)', //'¡Por favor revisa tu correo y/o contraseña!',
-					okText: 'Aceptar'
-				});
-		}*/
+	$scope.download = function(url){
+			console.log('url del archivo: ', url);
+	
 	}
 	
 	//});
