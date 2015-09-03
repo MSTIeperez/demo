@@ -34,10 +34,44 @@
 	 <script src="js/load_picture.js" type="text/javascript"></script>
     <!--<script src="js/favorites.js"></script>-->
 
-	
+	 
+  <script type="text/javascript" charset="utf-8">       
+	var store;
+    function init(){
+        document.addEventListener("deviceready", ready, true);     
+		store = cordova.file.dataDirectory;
+    }
+    
+    function ready() {
+        console.log("LegixApp Listo!");
+    }
+    
+    function download(downloadurl) {
+        var remoteFile = downloadurl;
+        var localFileName = remoteFile.substring(remoteFile.lastIndexOf('/')+1);
+        
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+            fileSystem.root.getFile(localFileName, {create: true, exclusive: false}, function(fileEntry) {
+                var localPath = fileEntry.fullPath;
+                //if (device.platform === "Android" && localPath.indexOf("file://") === 0) {
+                    localPath = localPath.substring(7);
+               // }
+                var ft = new FileTransfer();
+                ft.download(remoteFile,
+                    localPath, function(entry) {
+                        console.log("archivo-descargado");
+                    }, fail);
+            }, fail);
+        }, fail);
+    }
+    
+    function fail(error) {
+        console.log(error.code);
+    }
+  </script>
 </head>
     
-<body ng-app="starter" ng-controller="MainCtrl" animation="slide-left-right" >
+<body ng-app="starter" ng-controller="MainCtrl" animation="slide-left-right" on-load="init()">
    
    
     <ion-side-menus >
