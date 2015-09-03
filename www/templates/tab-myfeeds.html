@@ -40,7 +40,7 @@
                 <div class="item-attachments" ng-controller="DownloadfilesCtrl">
                     <a ng-repeat="docs in feed.docs" href="#" ng-click="download('http://legixapp.abardev.net{{ docs.src_file }}')" download="{{docs.file}}">
                         <i class="icon ion-android-attach"></i>
-                        {{docs.file}} {{downloadProgress}}
+                        {{docs.file}} 
                     </a>
                 </div>
                 <div   ng-hide="{{feed.comments.length<1}}"class="item-comments">
