@@ -685,7 +685,22 @@ angular.module('starter.controllers', [])
 			console.log("data: "+$scope.data);
 	$scope.download = function(url){
 			console.log('url del archivo: ', url);
-	
+			var remoteFile = downloadurl;
+        var localFileName = remoteFile.substring(remoteFile.lastIndexOf('/')+1);
+        
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+            fileSystem.root.getFile(localFileName, {create: true, exclusive: false}, function(fileEntry) {
+                var localPath = fileEntry.fullPath;
+                //if (device.platform === "Android" && localPath.indexOf("file://") === 0) {
+                    localPath = localPath.substring(7);
+               // }
+                var ft = new FileTransfer();
+                ft.download(remoteFile,
+                    localPath, function(entry) {
+                        console.log("archivo-descargado");
+                    }, fail);
+            }, fail);
+        }, fail);
 	}
 	
 	//});
