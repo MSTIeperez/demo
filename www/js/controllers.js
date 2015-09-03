@@ -685,7 +685,7 @@ angular.module('starter.controllers', [])
 			console.log("data: "+$scope.data);
 	$scope.download = function(url){
 			console.log('url del archivo: ', url);
-			var remoteFile = downloadurl;
+			var remoteFile = url;
         var localFileName = remoteFile.substring(remoteFile.lastIndexOf('/')+1);
         
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
