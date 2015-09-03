@@ -1,7 +1,10 @@
+var url ='';
+//console.log(window.location.hostname);
+if(window.location.hostname=="")
+	url='http://legixapp.abardev.net';
 angular.module('starter.controllers', [])
 
 .controller('MainCtrl', function($scope,$cookies,$cookieStore, $rootScope, Auth ){
-	var url ='http://legixapp.abardev.net';
 	$scope.$on('$ionicView.loaded', function(e) {
 		if(window.localStorage.getItem('user')&&window.localStorage.getItem('user').length>4){
 		$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
@@ -434,7 +437,6 @@ angular.module('starter.controllers', [])
 })
 
 .controller('PerfilCtrl', function($scope,$rootScope, UpdateService, $ionicPopup, $state, Auth, LoadImage, UserService) {
-	var url ='http://legixapp.abardev.net';
 	$scope.$on('$ionicView.loaded', function(e) {
 		$scope.data={};
 		$scope.photo= function(){
