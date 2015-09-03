@@ -1,4 +1,4 @@
-var cordova = require(['cordova'],function(cordova){});
+var cordova = require('cordova');
 
 function SocialSharing() {
 }
