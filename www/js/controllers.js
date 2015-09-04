@@ -690,11 +690,15 @@ angular.module('starter.controllers', [])
 		  template: 'Descargando Archivo...'
 		});
 		var plataforma =ionic.Platform.platform();
+		var target ="";
 		console.log(plataforma);
-		if(plataforma=="android"){
+		if(plataforma=="android")
+			target="LegixApp";
+		else
+			target="Books"
 		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
 			fs.root.getDirectory(
-				"LegixApp",
+				target,
 					{create: true},
 				function(dirEntry) {
 					dirEntry.getFile(
@@ -748,39 +752,6 @@ angular.module('starter.controllers', [])
 			$ionicLoading.hide();
 			console.log("Request for filesystem failed");
 		});
-	}else{
-		ft = new FileTransfer();
-							ft.download(
-								encodeURI(url_file),
-								'var/mobile/media/books/'+url_file.substr(url_file.lastIndexOf('/') + 1),
-								function(entry) {
-									console.log("archivo-descargado en: ",entry.toURL())
-									 $ionicLoading.show({
-									  template: 'El archivo se descargó con éxito en la carpeta LegixApp...'
-									});
-									$timeout(function () {
-									  $ionicLoading.hide('slow');
-										
-									}, 2000);
-									
-									//$scope.imgFile = entry.toURL();
-								},
-								function(error) {
-									console.log("Error de descarga -> " + error.source);
-									console.log("download error target " + error.target);
-									console.log("upload error code" + error.code);
-									$ionicLoading.show({
-									  template: 'Ocurrió un errror en la descarga...'
-									});
-									$timeout(function () {
-									  $ionicLoading.hide('slow');
-										
-									}, 2000);
-								},
-								false,
-								null
-							);
-	}
 
 	}
 	
