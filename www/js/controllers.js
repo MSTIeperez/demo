@@ -767,6 +767,8 @@ angular.module('starter.controllers', [])
 								},
 								function(error) {
 									console.log("Error de descarga -> " + error.source);
+									console.log("download error target " + error.target);
+									console.log("upload error code" + error.code);
 									$ionicLoading.show({
 									  template: 'Ocurrió un errror en la descarga...'
 									});
