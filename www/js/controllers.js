@@ -679,7 +679,7 @@ angular.module('starter.controllers', [])
 })
 .controller('FunctionsCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state) {
 })
-.controller('DownloadfilesCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state, $ionicLoading) {
+.controller('DownloadfilesCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state, $ionicLoading,$timeout) {
 	//$scope.$on('$ionicView.loaded', function(e) {
 	$scope.data={}; //});
 			console.log("data: "+$scope.data);
