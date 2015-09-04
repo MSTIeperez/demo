@@ -748,9 +748,9 @@ angular.module('starter.controllers', [])
 			$ionicLoading.hide();
 			console.log("Request for filesystem failed");
 		});
-		}
-	}else
-		window.open(url_file, '_blank', 'location=no,toolbar=yes,closebuttoncaption=Close PDF,enableViewportScale=yes');
+		}else
+			window.open(url_file, '_blank', 'location=no,toolbar=yes,closebuttoncaption=Close PDF,enableViewportScale=yes');
+	}
 	
 	//});
 });
