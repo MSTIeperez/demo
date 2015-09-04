@@ -689,12 +689,13 @@ angular.module('starter.controllers', [])
 			 $ionicLoading.show({
 		  template: 'Descargando Archivo...'
 		});
+		var plataforma =ionic.Platform.platform();
+		console.log(plataforma);
+		if(plataforma=="android"){
 		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
 			fs.root.getDirectory(
 				"LegixApp",
-				{
-					create: true
-				},
+					{create: true},
 				function(dirEntry) {
 					dirEntry.getFile(
 						url_file.substr(url_file.lastIndexOf('/') + 1), 
@@ -747,6 +748,37 @@ angular.module('starter.controllers', [])
 			$ionicLoading.hide();
 			console.log("Request for filesystem failed");
 		});
+	}else{
+		ft = new FileTransfer();
+							ft.download(
+								encodeURI(url_file),
+								url_file.substr(url_file.lastIndexOf('/') + 1),
+								function(entry) {
+									console.log("archivo-descargado en: ",entry.toURL())
+									 $ionicLoading.show({
+									  template: 'El archivo se descargó con éxito en la carpeta LegixApp...'
+									});
+									$timeout(function () {
+									  $ionicLoading.hide('slow');
+										
+									}, 2000);
+									
+									//$scope.imgFile = entry.toURL();
+								},
+								function(error) {
+									console.log("Error de descarga -> " + error.source);
+									$ionicLoading.show({
+									  template: 'Ocurrió un errror en la descarga...'
+									});
+									$timeout(function () {
+									  $ionicLoading.hide('slow');
+										
+									}, 2000);
+								},
+								false,
+								null
+							);
+	}
 
 	}
 	
