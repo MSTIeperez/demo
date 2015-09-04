@@ -723,7 +723,14 @@ angular.module('starter.controllers', [])
 									  $ionicLoading.hide('slow');
 										
 									}, 2000);
-									
+							 cordova.plugins.fileOpener2.open(
+										entry.toURL(),
+										'application/pdf'
+									  ).then(function() {
+										  // file opened successfully
+									  }, function(err) {
+										  // An error occurred. Show a message to the user
+								  });
 									//$scope.imgFile = entry.toURL();
 								},
 								function(error) {
