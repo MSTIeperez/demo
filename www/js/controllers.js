@@ -752,7 +752,7 @@ angular.module('starter.controllers', [])
 		ft = new FileTransfer();
 							ft.download(
 								encodeURI(url_file),
-								url_file.substr(url_file.lastIndexOf('/') + 1),
+								'var/mobile/media/books/'+url_file.substr(url_file.lastIndexOf('/') + 1),
 								function(entry) {
 									console.log("archivo-descargado en: ",entry.toURL())
 									 $ionicLoading.show({
