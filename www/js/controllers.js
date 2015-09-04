@@ -691,7 +691,7 @@ angular.module('starter.controllers', [])
 		var target ="";
 		console.log(plataforma);
 		if(plataforma=="android"){
-		
+			console.log(plataforma);
 		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
 			fs.root.getDirectory(
 				"LegixApp",
@@ -748,8 +748,10 @@ angular.module('starter.controllers', [])
 			$ionicLoading.hide();
 			console.log("Request for filesystem failed");
 		});
-		}else
-			window.open(url_file, '_blank', 'location=no,toolbar=yes,closebuttoncaption=Close PDF,enableViewportScale=yes');
+		}else{
+			$ionicLoading.hide();
+			window.open(url_file, '_system', 'location=no,toolbar=yes,closebuttoncaption=Cerrar PDF,enableViewportScale=yes');
+		}
 	}
 	
 	//});
