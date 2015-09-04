@@ -715,7 +715,7 @@ angular.module('starter.controllers', [])
 								encodeURI(url_file),
 								p,
 								function(entry) {
-									console.log("archivo-descargado en: "+entry.toURL())
+									console.log("archivo-descargado en: ",entry.toURL())
 									 $ionicLoading.show({
 									  template: 'El archivo se descargó con éxito en la carpeta LegixApp...'
 									});
@@ -723,14 +723,7 @@ angular.module('starter.controllers', [])
 									  $ionicLoading.hide('slow');
 										
 									}, 2000);
-							 window.cordova.plugins.fileOpener2.open(
-										entry.toURL(),
-										'application/pdf'
-									  ).then(function() {
-										  // file opened successfully
-									  }, function(err) {
-										  // An error occurred. Show a message to the user
-								  });
+									
 									//$scope.imgFile = entry.toURL();
 								},
 								function(error) {
