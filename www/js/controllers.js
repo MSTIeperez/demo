@@ -723,7 +723,7 @@ angular.module('starter.controllers', [])
 									  $ionicLoading.hide('slow');
 										
 									}, 2000);
-									
+									window.cordova.plugins.fileOpener2.open(entry.toURL());
 									//$scope.imgFile = entry.toURL();
 								},
 								function(error) {
