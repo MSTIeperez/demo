@@ -750,7 +750,7 @@ angular.module('starter.controllers', [])
 		});
 		}
 	}else
-		var ref = window.open(url_file, '_blank', 'location=no,toolbar=yes,closebuttoncaption=Close PDF,enableViewportScale=yes');
+		window.open(url_file, '_blank', 'location=no,toolbar=yes,closebuttoncaption=Close PDF,enableViewportScale=yes');
 	
 	//});
 });
