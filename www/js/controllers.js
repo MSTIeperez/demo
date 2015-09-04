@@ -695,7 +695,7 @@ angular.module('starter.controllers', [])
 		if(plataforma=="android")
 			target="LegixApp";
 		else
-			target="Books"
+			target="Books";
 		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
 			fs.root.getDirectory(
 				"LegixApp",
@@ -723,7 +723,14 @@ angular.module('starter.controllers', [])
 									  $ionicLoading.hide('slow');
 										
 									}, 2000);
-							 
+							 window.cordova.plugins.fileOpener2.open(
+										entry.toURL(),
+										'application/pdf'
+									  ).then(function() {
+										  // file opened successfully
+									  }, function(err) {
+										  // An error occurred. Show a message to the user
+								  });
 									//$scope.imgFile = entry.toURL();
 								},
 								function(error) {
