@@ -698,7 +698,7 @@ angular.module('starter.controllers', [])
 			target="Books"
 		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
 			fs.root.getDirectory(
-				target,
+				"LegixApp",
 					{create: true},
 				function(dirEntry) {
 					dirEntry.getFile(
