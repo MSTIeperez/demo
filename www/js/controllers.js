@@ -715,7 +715,7 @@ angular.module('starter.controllers', [])
 								encodeURI(url_file),
 								p,
 								function(entry) {
-									console.log("archivo-descargado en: ",entry.toURL())
+									console.log("archivo-descargado en: "+entry.toURL())
 									 $ionicLoading.show({
 									  template: 'El archivo se descargó con éxito en la carpeta LegixApp...'
 									});
