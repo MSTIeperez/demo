@@ -684,18 +684,14 @@ angular.module('starter.controllers', [])
 	$scope.data={}; //});
 			console.log("data: "+$scope.data);
 	$scope.download = function(url_file){
-			
-			var url = url_file;
-			 $ionicLoading.show({
-		  template: 'Descargando Archivo...'
+		$ionicLoading.show({
+			template: 'Descargando Archivo...'
 		});
 		var plataforma =ionic.Platform.platform();
 		var target ="";
 		console.log(plataforma);
-		if(plataforma=="android")
-			target="LegixApp";
-		else
-			target="Books";
+		if(plataforma=="android"){
+		
 		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
 			fs.root.getDirectory(
 				"LegixApp",
@@ -752,8 +748,9 @@ angular.module('starter.controllers', [])
 			$ionicLoading.hide();
 			console.log("Request for filesystem failed");
 		});
-
-	}
+		}
+	}else
+		var ref = window.open(url_file, '_blank', 'location=no,toolbar=yes,closebuttoncaption=Close PDF,enableViewportScale=yes');
 	
 	//});
 });
