@@ -751,8 +751,8 @@ angular.module('starter.controllers', [])
 		});
 		}else{
 			$ionicLoading.hide();
-			window.cordova.plugins.fileOpener2.open(url_file);
-			//window.open(url_file, '_system', 'location=no,toolbar=yes,closebuttoncaption=Cerrar PDF,enableViewportScale=yes');
+			//window.cordova.plugins.fileOpener2.open(url_file);
+			window.open(url_file, '_blank', 'location=no,toolbar=yes,closebuttoncaption=Cerrar PDF,enableViewportScale=yes');
 		}
 	}
 	
