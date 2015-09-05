@@ -719,7 +719,8 @@ angular.module('starter.controllers', [])
 									  $ionicLoading.hide('slow');
 										
 									}, 2000);
-									window.cordova.plugins.fileOpener2.open(entry.toURL());
+									//window.cordova.plugins.fileOpener2.open(entry.toURL());
+									//window.open(entry.toURL(), '_system', 'location=no,toolbar=yes,closebuttoncaption=Cerrar PDF,enableViewportScale=yes');
 									//$scope.imgFile = entry.toURL();
 								},
 								function(error) {
@@ -750,7 +751,8 @@ angular.module('starter.controllers', [])
 		});
 		}else{
 			$ionicLoading.hide();
-			window.open(url_file, '_system', 'location=no,toolbar=yes,closebuttoncaption=Cerrar PDF,enableViewportScale=yes');
+			window.cordova.plugins.fileOpener2.open(url_file);
+			//window.open(url_file, '_system', 'location=no,toolbar=yes,closebuttoncaption=Cerrar PDF,enableViewportScale=yes');
 		}
 	}
 	
