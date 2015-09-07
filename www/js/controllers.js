@@ -762,9 +762,9 @@ angular.module('starter.controllers', [])
 		console.log(printerAvail);
 		var page="";
 		if(printerAvail){
-			page=$('.feeds[data-id="'+feed_id+'"]').html();
-			
-			$cordovaPrinter.print(page, { landscape:false }, function () {
+			page=$('.feeds[data-id="'+feed_id+'"]').find("div.item-header").html();
+			page+=$('.feeds[data-id="'+feed_id+'"]').find("div.item-body").html();
+			$cordovaPrinter.print(page, {name:"index.html", landscape:true }, function () {
 					var alertPopup = $ionicPopup.alert({
 							title: 'Impresión correcta',
 							template: "¡Tu archivo se envió a la impresora elegida!", //'¡Por favor revisa tu correo y/o contraseña!',
