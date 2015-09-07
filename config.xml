@@ -45,6 +45,7 @@
     <gap:plugin name="org.apache.cordova.vibration" />
 	<gap:plugin name="nl.x-services.plugins.socialsharing" source="plugins.cordova.io" />
 	<gap:plugin name="io.github.pwlin.cordova.plugins.fileopener2" version="1.0.11" />
+	<gap:plugin name="com.badrit.printplugin" version="0.1.0" />
     <icon src="icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
     <icon gap:platform="android" gap:qualifier="mdpi" src="www/res/icon/android/icon-48-mdpi.png" />

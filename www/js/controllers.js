@@ -678,12 +678,11 @@ angular.module('starter.controllers', [])
 	
 	});
 })
-.controller('FunctionsCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state) {
-})
-.controller('DownloadfilesCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state, $ionicLoading,$timeout) {
+
+.controller('FunctionCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state, $ionicLoading,$timeout) {
 	//$scope.$on('$ionicView.loaded', function(e) {
-	$scope.data={}; //});
-			console.log("data: "+$scope.data);
+	$scope.data={}; 
+			
 	$scope.download = function(url_file){
 		$ionicLoading.show({
 			template: 'Descargando Archivo...'
@@ -753,10 +752,13 @@ angular.module('starter.controllers', [])
 		}else{
 			$ionicLoading.hide();
 			var ext= angular.uppercase(url_file.substr(url_file.lastIndexOf('.') + 1));
-			window.cordova.plugins.fileOpener2.open(url_file);
-			//window.open(url_file, '_system', 'location=no,toolbar=yes,closebuttoncaption=Cerrar '+ext+',enableViewportScale=yes');
+			//window.cordova.plugins.fileOpener2.open(url_file);
+			window.open(url_file, '_system', 'location=no,toolbar=yes,closebuttoncaption=Cerrar '+ext+',enableViewportScale=yes');
 			//window.open(url_file, '_blank', 'location=no,toolbar=yes,closebuttoncaption=Cerrar '+ext+',enableViewportScale=yes');
 		}
+	}
+	$scope.print=function(){
+		var printerAvail = $cordovaPrinter.isAvailable();
 	}
 	
 	//});
