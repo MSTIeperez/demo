@@ -119,10 +119,10 @@ angular.module('starter.services', ['ngCookies'])
             var deferred = $q.defer();
 			
             var promise = deferred.promise;
-		$http.post(url+'/api/create',{'legix_id':legix_id,'first_name':first_name, 'last_name':last_name, 'email':email,'password': pw, 'parent_id':parent_id})
+		$http.post(url+'/api/create_front',{'legix_id':legix_id,'first_name':first_name, 'last_name':last_name, 'email':email,'password': pw, 'parent_id':parent_id})
 				.success(function(data, status, headers, config){
 				console.log(data);
-					 if (data.message=="Creada") {
+					 if (data.action=="modify" || data.action=="create") {
 						deferred.resolve(data);
 					} else {
 						deferred.reject(data);

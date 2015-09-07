@@ -108,11 +108,11 @@ angular.module('starter.controllers', [])
 	$scope.data={};
 	$scope.register = function(){
 
-	  if($scope.data.terms==true){
-		  
+	  if($scope.data.terms==true){ console.log($scope.data.first_name+' - '+ $scope.data.last_name);
+		  if((!angular.isUndefined($scope.data.first_name) && !angular.isUndefined($scope.data.last_name)) && ( $scope.data.first_name!="" && $scope.data.last_name!="")){
         Registerservice.newUser($scope.data.legix_id, $scope.data.first_name, $scope.data.last_name, $scope.data.email, $scope.data.password).success(function(data) {
 			$scope.user=data.user;
-			 if (data.message=="Creada") {
+			 if (data.action=="create"|| data.action=="modify") {
 				    LoginService.loginUser($scope.data.email, $scope.data.password).success(function(data) {
 						$scope.user=data.user;
 						 if (data.message=="logged") {
@@ -138,19 +138,26 @@ angular.module('starter.controllers', [])
 					});
 			 }else{
 				var alertPopup = $ionicPopup.alert({
-                title: 'Error de conexion',
-                template: '¡Por favor intenta mas tarde!', //'¡Por favor revisa tu correo y/o contraseña!',
+                title: 'Error al realizar el registro',
+                template: data.message, //'¡Por favor revisa tu correo y/o contraseña!',
 				okText: 'Aceptar'
             });
 			 }
         }).error(function(data) {
 			console.log(data)
             var alertPopup = $ionicPopup.alert({
-                title: 'Error al iniciar sesión',
+                title: 'Registro',
                 template: data.message, //'¡Por favor revisa tu correo y/o contraseña!',
 				okText: 'Aceptar'
             });
         });
+		  }else{
+			  var alertPopup = $ionicPopup.alert({
+                title: 'Registro',
+                template: 'Ingresa Nombre completo y Apellidos', //'¡Por favor revisa tu correo y/o contraseña!',
+				okText: 'Aceptar'
+            });
+		  }
 	  }else{
 		  var alertPopup = $ionicPopup.alert({
                 title: 'Registro',
