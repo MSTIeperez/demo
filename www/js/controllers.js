@@ -679,7 +679,7 @@ angular.module('starter.controllers', [])
 	});
 })
 
-.controller('FunctionCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state, $ionicLoading,$timeout) {
+.controller('FunctionCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state, $ionicLoading,$timeout, $cordovaPrinter) {
 	//$scope.$on('$ionicView.loaded', function(e) {
 	$scope.data={}; 
 			
@@ -758,7 +758,8 @@ angular.module('starter.controllers', [])
 		}
 	}
 	$scope.print=function(){
-		var printerAvail = window.cordova.plugins.printer.isAvailable();
+		var printerAvail = $cordovaPrinter.isAvailable();
+		console.log(printerAvail);
 	}
 	
 	//});
