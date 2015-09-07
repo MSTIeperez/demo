@@ -757,9 +757,39 @@ angular.module('starter.controllers', [])
 			//window.open(url_file, '_blank', 'location=no,toolbar=yes,closebuttoncaption=Cerrar '+ext+',enableViewportScale=yes');
 		}
 	}
-	$scope.print=function(){
+	$scope.print=function(feed_id){
 		var printerAvail = $cordovaPrinter.isAvailable();
 		console.log(printerAvail);
+		var page="";
+		if(printerAvail){
+			page=$('.feeds[data-id="'+feed_id+'"]').html();
+			
+			$cordovaPrinter.print(page, { landscape:false }, function () {
+					var alertPopup = $ionicPopup.alert({
+							title: 'Impresión correcta',
+							template: "¡Tu archivo se envió a la impresora elegida!", //'¡Por favor revisa tu correo y/o contraseña!',
+							buttons:[{
+								text: 'Aceptar',
+								type: 'button-positive',
+								onTap: function(e) {
+									//$state.go('config_groups');
+								}
+								}]	
+							});
+			});
+		}else{
+			var alertPopup = $ionicPopup.alert({
+							title: 'Servicio de impresión No disponible!',
+							template: "¡No se encontró una impresora o tu dispositivo no es compatible!", //'¡Por favor revisa tu correo y/o contraseña!',
+							buttons:[{
+								text: 'Aceptar',
+								type: 'button-positive',
+								onTap: function(e) {
+									//$state.go('config_groups');
+								}
+								}]	
+							});
+		}
 	}
 	
 	//});

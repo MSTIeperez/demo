@@ -67,9 +67,9 @@
                     <i class="icon sprite icon-share"></i>
                 </a>
                 <a class="tab-item btn-favorite"  href="#" ng-class="{'active' : feed.favfolder.length>0,'':feed.favfolder.length==0}" onclick="return false;">
-                    <i class="icon sprite icon-favorite" ng-class="{'active' : feed.favfolder.length>0,'':feed.favfolder.length==0}"></i>
+                    <i class="icon sprite icon-favorite" ng-class="{'active' : feed.favfolder.length>0,'':feed.favfolder.length==0}"></i> $('.feeds[data-id="'+feed_id+'"]')
                 </a>
-                <a class="tab-item"  href="#" ng-controller="FunctionCtrl" ng-click="print()">
+                <a class="tab-item"  href="#" ng-controller="FunctionCtrl" ng-click="print({{feed.id}})" >
                     <i class="icon sprite icon-print"></i>
                 </a>
             </div>
