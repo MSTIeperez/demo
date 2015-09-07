@@ -758,7 +758,7 @@ angular.module('starter.controllers', [])
 		}
 	}
 	$scope.print=function(){
-		var printerAvail = $cordovaPrinter.isAvailable();
+		var printerAvail = window.cordova.plugins.printer.isAvailable();
 	}
 	
 	//});
