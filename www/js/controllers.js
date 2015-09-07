@@ -753,8 +753,8 @@ angular.module('starter.controllers', [])
 		}else{
 			$ionicLoading.hide();
 			var ext= angular.uppercase(url_file.substr(url_file.lastIndexOf('.') + 1));
-			//window.cordova.plugins.fileOpener2.open(url_file);
-			window.open(url_file, '_system', 'location=no,toolbar=yes,closebuttoncaption=Cerrar '+ext+',enableViewportScale=yes');
+			window.cordova.plugins.fileOpener2.open(url_file);
+			//window.open(url_file, '_system', 'location=no,toolbar=yes,closebuttoncaption=Cerrar '+ext+',enableViewportScale=yes');
 			//window.open(url_file, '_blank', 'location=no,toolbar=yes,closebuttoncaption=Cerrar '+ext+',enableViewportScale=yes');
 		}
 	}
