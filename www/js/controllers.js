@@ -475,8 +475,9 @@ angular.module('starter.controllers', [])
 			console.log($scope.data);
 			UpdateService.updateUser($scope.data.first_name, $scope.data.last_name, $scope.data.alias, $scope.data.password, $scope.data.thumbnail, $scope.data.archivos)
 				.success(function(data){
-					console.log(data)
-					if(data=='"actualizado"'){
+					console.log(data);
+					
+					if(data=='actualizado'){
 						UserService.datauser().success(function(response){
 							window.localStorage.setItem('user',JSON.stringify(response));
 							 $rootScope.user_data=response;
@@ -751,8 +752,10 @@ angular.module('starter.controllers', [])
 		});
 		}else{
 			$ionicLoading.hide();
+			var ext= angular.uppercase(url_file.substr(url_file.lastIndexOf('.') + 1));
 			//window.cordova.plugins.fileOpener2.open(url_file);
-			window.open(url_file, '_blank', 'location=no,toolbar=yes,closebuttoncaption=Cerrar PDF,enableViewportScale=yes');
+			window.open(url_file, '_system', 'location=no,toolbar=yes,closebuttoncaption=Cerrar '+ext+',enableViewportScale=yes');
+			//window.open(url_file, '_blank', 'location=no,toolbar=yes,closebuttoncaption=Cerrar '+ext+',enableViewportScale=yes');
 		}
 	}
 	

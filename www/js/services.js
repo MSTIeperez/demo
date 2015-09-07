@@ -245,8 +245,9 @@ angular.module('starter.services', ['ngCookies'])
 		$http.post(url+'/api/update_account',{'first_name':first_name, 'last_name':last_name, 'alias':alias,'password': pw, "thumbnail":thumbnail, 'archivos': archivos})
 		
 				.success(function(data, status, headers, config){
-				console.log(data);
-					 if (data=='"actualizado"') {
+				console.log($.parseJSON(data));
+				data=$.parseJSON(data);
+				if (data=='actualizado') {
 						deferred.resolve(data);
 					} else {
 						deferred.reject(data);
