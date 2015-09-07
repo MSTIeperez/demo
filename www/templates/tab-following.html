@@ -69,7 +69,7 @@
                 <a class="tab-item btn-favorite"  href="#" ng-class="{'active' : feed.favfolder.length>0,'':feed.favfolder.length==0}" onclick="return false;">
                     <i class="icon sprite icon-favorite" ng-class="{'active' : feed.favfolder.length>0,'':feed.favfolder.length==0}"></i>
                 </a>
-                <a class="tab-item" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="#" ng-controller="FunctionCtrl">
+                  <a class="tab-item"  href="#" ng-controller="FunctionCtrl" ng-click="print({{feed.id}})" >
                     <i class="icon sprite icon-print"></i>
                 </a>
             </div>
