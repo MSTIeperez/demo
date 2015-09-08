@@ -185,8 +185,9 @@ angular.module('starter.services', ['ngCookies'])
 		$http.post(url+'/api/configuration',{'user_configuration':'sent', 'grupos':grupos, 'usuarios':usuarios})
 		
 				.success(function(data, status, headers, config){
-			
-					 if (data.message="Eliminados") {
+					//data=$.parseJSON(data);
+					console.log(data);
+					 if (data.message=="Eliminados") {
 						deferred.resolve(data);
 						
 					} else {

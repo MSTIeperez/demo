@@ -55,7 +55,13 @@ angular.module('starter.controllers', [])
             var alertPopup = $ionicPopup.alert({
                 title: 'Error al iniciar sesión',
                 template: data.message, //'¡Por favor revisa tu correo y/o contraseña!',
-				okText: 'Aceptar'
+				buttons:[{
+						text: 'Aceptar',
+						type: 'button-positive',
+						onTap: function(e) {
+							
+						}
+					}]	
             });
         });
     }
@@ -534,10 +540,14 @@ angular.module('starter.controllers', [])
 })
 .controller('ConfigCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state) {
 	$scope.$on('$ionicView.loaded', function(e) {
-			$scope.data={}; 
+	$scope.data={}; });
 		$scope.removeuser= function(){
 		console.log($scope.data.user_id);
-		UserService.remove($scope.data.grupos,$scope.data.user_id).success(function(data) {
+		console.log($scope.data.grupo_id);
+		var texto="Usuario";
+		if ($scope.data.grupo_id!="" && !angular.isUndefined($scope.data.grupo_id))
+			var texto="Grupo";
+		UserService.remove($scope.data.grupo_id,$scope.data.user_id).success(function(data) {
 				//$scope.user=data.user;
 				 if (data.message=="Eliminados") {
 					UserService.datauser().success(function(response){
@@ -546,7 +556,7 @@ angular.module('starter.controllers', [])
 								 $rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
 							})
 					var alertPopup = $ionicPopup.alert({
-							title: '¡Usuario eliminado con éxito!',
+							title: '¡'+texto+' eliminado con éxito!',
 							//template: "Selecciona una imagen de tu galería o directo de la cámara", //'¡Por favor revisa tu correo y/o contraseña!',
 							buttons:[{
 								text: 'Aceptar',
@@ -572,9 +582,9 @@ angular.module('starter.controllers', [])
 				});
 			});
 	}
-	});
+	//});
 })
-.controller('ConfigAddCtrl', function($scope,$rootScope, Registerservice, UserService,GroupService, $ionicPopup, $state) {
+.controller('ConfigAddCtrl', function($scope,$rootScope, Registerservice, UserService,GroupService, $ionicPopup, $state, $stateParams) {
 	$scope.$on('$ionicView.loaded', function(e) {
 	$scope.data={}; //});
 			console.log($scope.data);
@@ -682,7 +692,67 @@ angular.module('starter.controllers', [])
 				});
 		}
 	}
+	if($state.params.group_id){
+		var grupo=[];
+		var group=$rootScope.user_data.grupos;
+		angular.forEach(group, function(val, key){
+			if($state.params.group_id==val.id)
+				grupo.push(val);
+		});
+		grupo=grupo[0];
+		$scope.grupo_id=$state.params.group_id;
+		$scope.data.nombregrupo=grupo.title;
+		$scope.data.temas=grupo.temas;
+		$scope.data.usuarios=grupo.users;
+		
+		$scope.updategroup = function(){
+			console.log($scope.data);
+			console.log($scope.data.nombregrupo+' '+angular.isUndefined($scope.data.temas)+' '+angular.isUndefined($scope.data.usuarios))
+	if($scope.data.nombregrupo && !angular.isUndefined($scope.data.temas) && !angular.isUndefined($scope.data.usuarios)){
+			console.log($scope.data.nombregrupo+' '+angular.isUndefined($scope.data.temas)+' '+angular.isUndefined($scope.data.usuarios))
 	
+		GroupService.newgroup($scope.data.nombregrupo, $scope.data.temas,$scope.data.usuarios, $scope.data.group_id).success(function(data) {
+				 if (data.message=='Actualizado') {
+					UserService.datauser().success(function(response){
+								window.localStorage.setItem('user',JSON.stringify(response));
+								 $rootScope.user_data=response;
+								 $rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
+							})
+					var alertPopup = $ionicPopup.alert({
+							title: 'Grupo creado con éxito!',
+							//template: "Selecciona una imagen de tu galería o directo de la cámara", //'¡Por favor revisa tu correo y/o contraseña!',
+							buttons:[{
+								text: 'Aceptar',
+								type: 'button-positive',
+								onTap: function(e) {
+									$state.go('config_groups');
+								}
+								}]	
+							});
+				 }else{
+					var alertPopup = $ionicPopup.alert({
+					title: 'Error de conexion',
+					template: '¡Por favor intenta mas tarde!', //'¡Por favor revisa tu correo y/o contraseña!',
+					okText: 'Aceptar'
+					});
+				 }
+			}).error(function(data) {
+				console.log(data)
+				var alertPopup = $ionicPopup.alert({
+					title: 'Error de conexión',
+					template: '¡Por favor intenta mas tarde!', //'¡Por favor revisa tu correo y/o contraseña!',
+					okText: 'Aceptar'
+				});
+			});
+		}else{
+			var alertPopup = $ionicPopup.alert({
+					title: 'Campos obligatorios',
+					template: 'Para crear tu grupo debes ingresar el nombre, seleccionar tema(s) y usuario(s)', //'¡Por favor revisa tu correo y/o contraseña!',
+					okText: 'Aceptar'
+				});
+		}
+	}	
+	}
 	});
 })
 

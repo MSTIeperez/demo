@@ -105,7 +105,7 @@ angular.module('starter', ['ionic','ngRoute','ngCordova', 'starter.controllers',
 		
     })
 		.state('config_groupsadd', {
-        url: '/configuracion/grupos/agregar',
+        url: '/configuracion/grupos/agregar/:group_id?',
         templateUrl: 'templates/group-2.html',
 		controller: 'ConfigAddCtrl'
 		

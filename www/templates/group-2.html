@@ -23,7 +23,7 @@
             <li>
                 <label class="item item-input item-stacked-label">
                     <span class="input-label">Nombre del grupo</span>
-                    <input type="text" placeholder="Grupo" ng-model="data.nombregrupo">
+                    <input type="text" placeholder="Grupo" ng-model="data.nombregrupo" ng-value="{{data.nombregrupo}}" >
                 </label>
             </li>
         </ul>
@@ -75,9 +75,13 @@
             </ul>
         </div>
             
-        <div class="list-actions list-actions-border clearfix">
+        <div class="list-actions list-actions-border clearfix" ng-hide="grupo_id">
             <button class="button button-outline button-positive" type="submit" ng-click="creategroup()">Crear</button>
             <button class="button button-outline button-positive" onclick="window.location.href='#/configuracion'">Crear después</button>
+        </div>
+        <div class="list-actions list-actions-border clearfix" ng-show="grupo_id">
+            <button class="button button-outline button-positive {{grupo_id}}" ng-controller="ConfigCtrl" ng-model="data.grupo_id=grupo_id"   ng-click="removeuser()">Eliminar</button>
+            <button class="button button-outline button-positive" type="submit" ng-click="creategroup()">Editar</button>
         </div>
         </form>
         

@@ -885,6 +885,13 @@ $( document ).ready(function() {
 	               //}
 				
 		});
+		$('body').delegate('.group_edit','click',function(e){
+			$(this).toggleClass("active");
+			if($(this).hasClass("active"))
+				$(this).parent().find("a.btn-edit").show();
+			else
+				$(this).parent().find("a.btn-edit").hide();
+		});
 			
 });
  }, 600);

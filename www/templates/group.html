@@ -27,10 +27,11 @@
                 <li class="item li-parent" ng-repeat="grupos in user_data.grupos">
 
                     <div class="list-header item item-checkbox item-icon-right">
-                        <label class="checkbox">
+                        <label class="checkbox group_edit" >
                            <input type="checkbox">
                         </label>
-                        {{grupos.title}}
+                        {{grupos.title}} 
+						<a style="z-index:4; margin: 0 57px; display:none;" class="button button-outline button-positive btn-edit" href="#/configuracion/grupos/agregar/{{grupos.id}}">Editar</a>
                         <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
                     </div>
                     <ul class="list-content">
@@ -81,7 +82,7 @@
         </div>
             
         <div class="list-actions list-actions-border clearfix">
-            <button class="button button-outline button-positive" onclick="window.location.href='#/configuracion/grupos/agregar'">Crear grupo</button>
+            <button class="button button-outline button-positive" onclick="window.location.href='#/configuracion/grupos/agregar/'">Crear grupo</button>
             <button class="button button-outline button-positive" onclick="window.location.href='#/configuracion'">Crear después</button>
         </div>
         </form>
