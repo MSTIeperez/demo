@@ -26,9 +26,9 @@ function onPhotoDataSuccess(imageURI) {
     var img_name = $('#image_name');
 	//alert(filename);
 	var newimg_name = $('#newimg');	
-	//img_name.attr('ng-init', '"data.thumbnail='"+filename+"'");
+	//img_name.attr('ng-model', '"data.thumbnail='"+filename+"'");
 	//img_name.attr('ng-value', filename);
-	newimg_name.attr('ng-init', "data.archivos='"+filename+"'");
+	newimg_name.attr('ng-model', "data.archivos='"+filename+"'");
 	newimg_name.attr('ng-value', filename);
     
    // cameraImage.style.display = 'block';
@@ -54,9 +54,9 @@ function onPhotoURISuccess(imageURI) {
 	//alert(filename);
     var img_name = $('#image_name');
     var newimg_name = $('#newimg');
-	//img_name.attr('ng-init', '"data.thumbnail='"+filename+"'");
+	//img_name.attr('ng-model', '"data.thumbnail='"+filename+"'");
 	//img_name.attr('ng-value', filename);
-	newimg_name.attr('ng-init', "data.archivos='"+filename+"'");
+	newimg_name.attr('ng-model', "data.archivos='"+filename+"'");
 	newimg_name.attr('ng-value', filename);
     // Unhide image elements
     //
