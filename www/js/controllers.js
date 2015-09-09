@@ -4,8 +4,12 @@ if(window.location.hostname=="")
 	url='http://legixapp.abardev.net';
 angular.module('starter.controllers', [])
 
-.controller('MainCtrl', function($scope,$cookies,$cookieStore, $rootScope, Auth ){
+.controller('MainCtrl', function($scope,$cookies,$cookieStore, $rootScope, Auth, UserService ){
 	$scope.$on('$ionicView.loaded', function(e) {
+		console.log("cargado...");
+		UserService.datauser().success(function(response){
+								window.localStorage.setItem('user',JSON.stringify(response));
+							})
 		if(window.localStorage.getItem('user')&&window.localStorage.getItem('user').length>4){
 		$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
 		$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
@@ -539,8 +543,8 @@ angular.module('starter.controllers', [])
 });
 })
 .controller('ConfigCtrl', function($scope,$rootScope, Registerservice, UserService, $ionicPopup, $state) {
-	$scope.$on('$ionicView.loaded', function(e) {
-	$scope.data={}; });
+	//$scope.$on('$ionicView.loaded', function(e) {
+	//$scope.data={}; });
 		$scope.removeuser= function(){
 		console.log($scope.data.user_id);
 		console.log($scope.data.grupo_id);
@@ -702,7 +706,7 @@ angular.module('starter.controllers', [])
 				grupo.push(val);
 		});
 		grupo=grupo[0];
-		$scope.grupo_id=$state.params.group_id;
+		$scope.group_id=$state.params.group_id;
 		$scope.data.nombregrupo=grupo.title;
 		angular.forEach(grupo.temas, function(val, key){
 				temas.push(val.origen_id+':'+val.subject_id);
@@ -712,7 +716,8 @@ angular.module('starter.controllers', [])
 		});
 		$scope.data.themas=temas;
 		$scope.data.usuarios=usuarios;
-		console.log($scope.grupo_id)
+		console.log($scope.data.nombregrupo)
+		console.log($scope.group_id)
 		console.log(temas)
 		console.log(usuarios)
 		$scope.updategroup = function(){
@@ -762,6 +767,7 @@ angular.module('starter.controllers', [])
 				});
 		}
 	}	
+
 	}
 	});
 })

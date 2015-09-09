@@ -75,12 +75,12 @@
             </ul>
         </div>
             
-        <div class="list-actions list-actions-border clearfix" ng-hide="grupo_id">
+        <div class="list-actions list-actions-border clearfix" ng-hide="group_id">
             <button class="button button-outline button-positive" type="submit" ng-click="creategroup()">Crear</button>
             <button class="button button-outline button-positive" onclick="window.location.href='#/configuracion'">Crear después</button>
         </div>
-        <div class="list-actions list-actions-border clearfix" ng-show="grupo_id">
-            <button class="button button-outline button-positive" ng-controller="ConfigCtrl" ng-model="data.grupo_id"   ng-click="removeuser()" ng-init="data.grupo_id=grupo_id">Eliminar</button>
+        <div class="list-actions list-actions-border clearfix" ng-show="group_id">
+            <button class="button button-outline button-positive" ng-controller="ConfigCtrl"  ng-model="data.grupo_id=group_id"   ng-click="removeuser()" >Eliminar</button>
             <button class="button button-outline button-positive" type="submit" ng-click="updategroup()">Editar</button>
         </div>
         </form>
