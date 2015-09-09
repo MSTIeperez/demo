@@ -647,11 +647,11 @@ angular.module('starter.controllers', [])
 	}
 	$scope.creategroup = function(){
 			console.log($scope.data);
-			console.log($scope.data.nombregrupo+' '+angular.isUndefined($scope.data.temas)+' '+angular.isUndefined($scope.data.usuarios))
-	if($scope.data.nombregrupo && !angular.isUndefined($scope.data.temas) && !angular.isUndefined($scope.data.usuarios)){
-			console.log($scope.data.nombregrupo+' '+angular.isUndefined($scope.data.temas)+' '+angular.isUndefined($scope.data.usuarios))
+			console.log($scope.data.nombregrupo+' '+angular.isUndefined($scope.data.themas)+' '+angular.isUndefined($scope.data.usuarios))
+	if($scope.data.nombregrupo && !angular.isUndefined($scope.data.themas) && !angular.isUndefined($scope.data.usuarios)){
+			console.log($scope.data.nombregrupo+' '+angular.isUndefined($scope.data.themas)+' '+angular.isUndefined($scope.data.usuarios))
 	
-		GroupService.newgroup($scope.data.nombregrupo, $scope.data.temas,$scope.data.usuarios, $scope.data.group_id).success(function(data) {
+		GroupService.newgroup($scope.data.nombregrupo, $scope.data.themas,$scope.data.usuarios, $scope.data.group_id).success(function(data) {
 				 if (data.message=='Actualizado') {
 					UserService.datauser().success(function(response){
 								window.localStorage.setItem('user',JSON.stringify(response));
@@ -710,18 +710,18 @@ angular.module('starter.controllers', [])
 		angular.forEach(grupo.users, function(val, key){
 				usuarios.push(val.user_id);
 		});
-		$scope.theme=temas;
-		$scope.usuarios=usuarios;
+		$scope.data.themas=temas;
+		$scope.data.usuarios=usuarios;
 		console.log($scope.grupo_id)
 		console.log(temas)
 		console.log(usuarios)
 		$scope.updategroup = function(){
 			console.log($scope.data);
-			console.log($scope.data.nombregrupo+' '+angular.isUndefined($scope.data.temas)+' '+angular.isUndefined($scope.data.usuarios)+' '+$state.params.group_id)
-	if($scope.data.nombregrupo && !angular.isUndefined($scope.data.temas) && !angular.isUndefined($scope.data.usuarios)){
-			console.log($scope.data.nombregrupo+' '+angular.isUndefined($scope.data.temas)+' '+angular.isUndefined($scope.data.usuarios)+' '+$state.params.group_id)
+			console.log($scope.data.nombregrupo+' '+angular.isUndefined($scope.data.themas)+' '+angular.isUndefined($scope.data.usuarios)+' '+$state.params.group_id)
+	if($scope.data.nombregrupo && !angular.isUndefined($scope.data.themas) && !angular.isUndefined($scope.data.usuarios)){
+			console.log($scope.data.nombregrupo+' '+angular.isUndefined($scope.data.themas)+' '+angular.isUndefined($scope.data.usuarios)+' '+$state.params.group_id)
 	
-		GroupService.updategroup($scope.data.nombregrupo, $scope.data.temas,$scope.data.usuarios, $state.params.group_id).success(function(data) {
+		GroupService.updategroup($scope.data.nombregrupo, $scope.data.themas,$scope.data.usuarios, $state.params.group_id).success(function(data) {
 				 if (data.status==true) {
 					UserService.datauser().success(function(response){
 								window.localStorage.setItem('user',JSON.stringify(response));
