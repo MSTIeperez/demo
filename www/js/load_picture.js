@@ -25,8 +25,10 @@ function onPhotoDataSuccess(imageURI) {
 	var filename= imageURI.substr(imageURI.lastIndexOf('/') + 1);
     var img_name = $('#image_name');
 	//alert(filename);
-	var newimg_name = $('#newimg');
-	img_name.attr('ng-value', filename);
+	var newimg_name = $('#newimg');	
+	//img_name.attr('ng-init', 'data.thumbnail="'+filename+'"');
+	//img_name.attr('ng-value', filename);
+	newimg_name.attr('ng-init', 'data.thumbnail="'+filename+'"');
 	newimg_name.attr('ng-value', filename);
     
    // cameraImage.style.display = 'block';
@@ -52,7 +54,9 @@ function onPhotoURISuccess(imageURI) {
 	//alert(filename);
     var img_name = $('#image_name');
     var newimg_name = $('#newimg');
-	img_name.attr('ng-value', filename);
+	//img_name.attr('ng-init', 'data.thumbnail="'+filename+'"');
+	//img_name.attr('ng-value', filename);
+	newimg_name.attr('ng-init', 'data.thumbnail="'+filename+'"');
 	newimg_name.attr('ng-value', filename);
     // Unhide image elements
     //
@@ -70,9 +74,9 @@ function onPhotoURISuccess(imageURI) {
 function capturePhoto() {
     // Take picture using device camera and retrieve image as base64-encoded string
     navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
-        quality: 30,
-        targetWidth: 600,
-        targetHeight: 600,
+        quality: 100,
+        targetWidth: 2600,
+        targetHeight: 1600,
         destinationType: destinationType.FILE_URI,
         saveToPhotoAlbum: true
     });
@@ -83,7 +87,7 @@ function capturePhoto() {
 function getPhoto(source) {
     // Retrieve image file location from specified source
     navigator.camera.getPicture(onPhotoURISuccess, onFail, {
-        quality: 30,
+        quality: 100,
         targetWidth: 2600,
         targetHeight: 1600,
         destinationType: destinationType.FILE_URI,

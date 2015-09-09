@@ -462,31 +462,6 @@ angular.module('starter.controllers', [])
 .controller('PerfilCtrl', function($scope,$rootScope, UpdateService, $ionicPopup, $state, Auth, LoadImage, UserService) {
 	$scope.$on('$ionicView.loaded', function(e) {
 		$scope.data={};
-		$scope.photo= function(){
-				var alertPopup = $ionicPopup.alert({
-					title: 'Cambiar imagen de Perfil',
-					//template: "Selecciona una imagen de tu galería o directo de la cámara", //'¡Por favor revisa tu correo y/o contraseña!',
-					buttons:[{
-						text:'Capturar Foto',
-						type:'button-positive',
-						onTap: function(e){
-							capturePhoto();
-							}
-						},{
-						text: 'De la galería',
-						type: 'button-positive',
-						onTap: function(e) {
-							getPhoto(pictureSource.PHOTOLIBRARY);
-						 }
-						},{
-						text: 'Aceptar',
-						type: 'button-positive',
-						onTap: function(e) {
-							
-						}
-					}]	
-				});
-		}
 		
 		$scope.update = function(){
 			console.log($scope.data);
