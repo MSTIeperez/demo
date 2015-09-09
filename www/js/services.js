@@ -297,6 +297,32 @@ angular.module('starter.services', ['ngCookies'])
                 return promise;
             }
             return promise;
+        },
+		updategroup: function(group_name,temas,usuarios,group_id) {
+            var deferred = $q.defer();
+			
+            var promise = deferred.promise;
+		$http.post(url+'/api/group/update',{'group_name': group_name, 'temas': temas,'usuarios': usuarios, 'group_id': parseInt(group_id)})
+				.success(function(data, status, headers, config){
+				console.log(data);
+					 if (data.status==true) {
+						deferred.resolve(data);
+					} else {
+						deferred.reject(data);
+					}
+				})
+				.error(function (data){
+					deferred.reject(data);
+				});
+	         promise.success = function(fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function(fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+            return promise;
         }
 	}	
 })

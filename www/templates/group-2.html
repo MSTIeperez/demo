@@ -43,8 +43,8 @@
                     <ul class="list-content">
                         <li class="item li-parent" ng-repeat="tema in user_data.temas">
                             <div class="list-header item item-checkbox">
-                                <label class="checkbox">
-                                   <input type="checkbox" ng-model="data.temas[$index]" ng-true-value="'{{tema.origen_id}}:{{tema.subject_id}}'" >
+                                <label class="checkbox" ng-class="{'active':(theme.indexOf('{{tema.origen_id}}:{{tema.subject_id}}') > -1)}">
+                                   <input type="checkbox" ng-model="data.temas[$index]"ng-checked="theme.indexOf('{{tema.origen_id}}:{{tema.subject_id}}') > -1"   ng-true-value="'{{tema.origen_id}}:{{tema.subject_id}}'"  ><!--ng-init="data.temas[$index]=((theme.indexOf('{{tema.origen_id}}:{{tema.subject_id}}') > -1)?'{{tema.origen_id}}:{{tema.subject_id}}':'')"-->
                                 </label>
                                 {{tema.origen}} | {{tema.tema}}
                             </div>
@@ -63,7 +63,7 @@
                         <li class="item li-parent" ng-repeat="user in user_data.users">
                             <div class="list-header item item-checkbox">
                                 <label class="checkbox">
-                                   <input type="checkbox" ng-model="data.usuarios[$index]" ng-true-value="{{user.id}}">
+                                   <input type="checkbox" ng-model="data.usuarios[$index]" ng-true-value="{{user.id}}" ng-checked="usuarios.indexOf('{{user.id}}') > -1" ng-init="data.usuarios[$index]=(usuarios.indexOf('{{user.id}}') > -1)?'{{user.id}}':''">
                                 </label>
                                 {{user.first_name}} {{user.last_name}}
                             </div>
@@ -80,8 +80,8 @@
             <button class="button button-outline button-positive" onclick="window.location.href='#/configuracion'">Crear después</button>
         </div>
         <div class="list-actions list-actions-border clearfix" ng-show="grupo_id">
-            <button class="button button-outline button-positive {{grupo_id}}" ng-controller="ConfigCtrl" ng-model="data.grupo_id=grupo_id"   ng-click="removeuser()">Eliminar</button>
-            <button class="button button-outline button-positive" type="submit" ng-click="creategroup()">Editar</button>
+            <button class="button button-outline button-positive" ng-controller="ConfigCtrl" ng-model="data.grupo_id"   ng-click="removeuser()" ng-init="data.grupo_id=grupo_id">Eliminar</button>
+            <button class="button button-outline button-positive" type="submit" ng-click="updategroup()">Editar</button>
         </div>
         </form>
         
