@@ -103,6 +103,8 @@ function upload() {
     var options = new FileUploadOptions();
     options.fileKey = "file";
     options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+	if((options.fileName.lastIndexOf('?'))>-1)
+		options.fileName=options.fileName.substr(options.fileName.lastIndexOf('?')+1)+".jpg";
     options.mimeType = "image/jpeg";
     var params = new Object();
     options.params = params;
