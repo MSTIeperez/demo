@@ -75,6 +75,10 @@
 		<param name="android-package" value="nl.xservices.plugins.SocialSharing" />
 		<param name="ios-package" value="SocialSharing" />
 	</feature> 
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.SplashScreen" />
+        <param name="ios-package" value="CDVSplashScreen" />
+    </feature>
     <access origin="*" launch-external="yes" />
     <plugin name="cordova-plugin-whitelist" version="1" />
     <allow-intent href="http://*/*" />
