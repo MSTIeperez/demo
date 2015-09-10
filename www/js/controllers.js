@@ -584,7 +584,8 @@ angular.module('starter.controllers', [])
 			$scope.data.legix_id=id_legix+'-'+cero+(contratados-1).toString();
 			console.log($scope.data.legix_id);
 			if(users<contratados){
-				Registerservice.newUser($scope.data.legix_id, $scope.data.first_name, $scope.data.last_name, $scope.data.email, $scope.data.password, parent_id).success(function(data) {
+				var child="true";
+				Registerservice.newUser($scope.data.legix_id, $scope.data.first_name, $scope.data.last_name, $scope.data.email, $scope.data.password, parent_id,child).success(function(data) {
 				$scope.user=data.user;
 				 if (data.message=="Creada") {
 					UserService.datauser().success(function(response){

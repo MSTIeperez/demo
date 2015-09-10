@@ -115,14 +115,16 @@ angular.module('starter.services', ['ngCookies'])
 .service('Registerservice', function($http, $q) {
 	var user_data={};
     return {
-        newUser: function(legix_id, first_name,last_name, email, pw, parent_id) {
+        newUser: function(legix_id, first_name,last_name, email, pw, parent_id,child) {
             var deferred = $q.defer();
-			
             var promise = deferred.promise;
-		$http.post(url+'/api/create_front',{'legix_id':legix_id,'first_name':first_name, 'last_name':last_name, 'email':email,'password': pw, 'parent_id':parent_id})
+            var api="create_front";
+            if(child=="true")
+              api='create';
+		$http.post(url+'/api/'+api,{'legix_id':legix_id,'first_name':first_name, 'last_name':last_name, 'email':email,'password': pw, 'parent_id':parent_id})
 				.success(function(data, status, headers, config){
 				console.log(data);
-					 if (data.action=="modify" || data.action=="create") {
+					 if (data.action=="modify" || data.action=="create"|| data.message=="Creada") {
 						deferred.resolve(data);
 					} else {
 						deferred.reject(data);
