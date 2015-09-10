@@ -29,7 +29,8 @@ function onPhotoDataSuccess(imageURI) {
 	//img_name.attr('ng-model', '"data.thumbnail='"+filename+"'");
 	//img_name.attr('ng-value', filename);
 	newimg_name.attr('ng-model', "data.archivos='"+filename+"'");
-	newimg_name.attr('ng-value', filename);
+    newimg_name.attr('ng-value', filename);
+	newimg_name.val(filename);
     
    // cameraImage.style.display = 'block';
     // Show the captured photo
@@ -58,6 +59,7 @@ function onPhotoURISuccess(imageURI) {
 	//img_name.attr('ng-value', filename);
 	newimg_name.attr('ng-model', "data.archivos='"+filename+"'");
 	newimg_name.attr('ng-value', filename);
+    newimg_name.val(filename);
     // Unhide image elements
     //
     //galleryImage.style.display = 'block';
