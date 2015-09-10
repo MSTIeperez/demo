@@ -464,7 +464,7 @@ angular.module('starter.controllers', [])
 		$scope.data={};
 		
 		$scope.update = function(){
-			$scope.data.archivos="'"+$("#newimg").val()+"'";
+			$scope.data.archivos=$("#newimg").val();
 
 			console.log($scope.data);
 			UpdateService.updateUser($scope.data.first_name, $scope.data.last_name, $scope.data.alias, $scope.data.password, $scope.data.thumbnail, $scope.data.archivos)
