@@ -8,7 +8,7 @@
         PhoneGap Team
     </author>
     <content src="index.html" />
-    <application android:name="my.package.namespace.App"></application>
+
     <preference name="permissions" value="none" />
     <preference name="orientation" value="default" />
     <preference name="target-device" value="universal" />
@@ -76,6 +76,7 @@
     <gap:splash gap:platform="ios" height="1024" src="res/screen/ios/splashscreen.png" width="768" />
     <gap:splash gap:platform="ios" height="768" src="res/screen/ios/splashscreen.png" width="1024" />
     <gap:splash gap:platform="winphone" src="res/screen/windows-phone/splashscreen.png" />
+
 	<feature name="SocialSharing">
 		<param name="android-package" value="nl.xservices.plugins.SocialSharing" />
 		<param name="ios-package" value="SocialSharing" />
@@ -98,6 +99,7 @@
     <allow-intent href="geo:*" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <application name="my.package.namespace.App"></application>
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
