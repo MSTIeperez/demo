@@ -47,8 +47,14 @@
 	<gap:plugin name="nl.x-services.plugins.socialsharing" source="plugins.cordova.io" />
 	<gap:plugin name="io.github.pwlin.cordova.plugins.fileopener2" version="1.0.11" />
 	<gap:plugin name="de.appplant.cordova.plugin.printer" version="0.7.1" />
-    
-    
+    <gap:plugin name="com.medlei.pushplugin" version="0.1.2">
+        <param name="APP_ID" value="psoFy4hpOEHy7mgg3L4tCAyDeJuCRwpOXHH8xVtp" />
+        <param name="CLIENT_KEY" value="Efa1wjc3W9xk7QhAzpL9uVJib30p3aoRn6LFEy7u" />
+    </gap:plugin>
+    <gap:plugin name="com.parse.cordova.core.pushplugin">
+        <param name="APP_ID" value="psoFy4hpOEHy7mgg3L4tCAyDeJuCRwpOXHH8xVtp" />
+        <param name="CLIENT_KEY" value="Efa1wjc3W9xk7QhAzpL9uVJib30p3aoRn6LFEy7u" />
+    </gap:plugin>
     <icon src="icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
     <icon gap:platform="android" gap:qualifier="mdpi" src="www/res/icon/android/icon-48-mdpi.png" />
@@ -97,18 +103,10 @@
     <allow-intent href="geo:*" />
     <platform name="android">
         <allow-intent href="market:*" />
-        <gap:plugin name="com.parse.cordova.core.pushplugin">
-            <param name="APP_ID" value="psoFy4hpOEHy7mgg3L4tCAyDeJuCRwpOXHH8xVtp" />
-            <param name="CLIENT_KEY" value="Efa1wjc3W9xk7QhAzpL9uVJib30p3aoRn6LFEy7u" />
-         </gap:plugin>
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
-        <gap:plugin name="com.medlei.pushplugin" version="0.1.2">
-            <param name="APP_ID" value="psoFy4hpOEHy7mgg3L4tCAyDeJuCRwpOXHH8xVtp" />
-            <param name="CLIENT_KEY" value="Efa1wjc3W9xk7QhAzpL9uVJib30p3aoRn6LFEy7u" />
-        </gap:plugin>
     </platform>
     <engine name="ios" spec="^3.8.0" />
     <engine name="android" spec="^4.1.1" />
