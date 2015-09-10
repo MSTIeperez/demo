@@ -51,6 +51,7 @@
         <param name="APP_ID" value="psoFy4hpOEHy7mgg3L4tCAyDeJuCRwpOXHH8xVtp" />
         <param name="CLIENT_KEY" value="Efa1wjc3W9xk7QhAzpL9uVJib30p3aoRn6LFEy7u" />
     </gap:plugin>
+    <gap:plugin name="com.parse.cordova.core.pushplugin">
     <icon src="icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
     <icon gap:platform="android" gap:qualifier="mdpi" src="www/res/icon/android/icon-48-mdpi.png" />
@@ -87,7 +88,7 @@
     </feature>
     <feature name="PushPlugin">
         <param name="ios-package" value="CDVPushPlugin" />
-        <param name="android-package" value="com.medlei.pushplugin" />
+        <param name="android-package" value="com.parse.cordova.core.pushplugin" />
     </feature>
     <access origin="*" launch-external="yes" />
     <plugin name="cordova-plugin-whitelist" version="1" />
@@ -99,7 +100,7 @@
     <allow-intent href="geo:*" />
     <platform name="android">
         <allow-intent href="market:*" />
-        <application name="my.package.namespace.App"></application>
+        
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
