@@ -85,7 +85,8 @@
     </feature>
     <feature name="PushPlugin">
         <param name="ios-package" value="CDVPushPlugin" />
-     </feature>
+        <param name="android-package" value="com.medlei.pushplugin" />
+    </feature>
     <access origin="*" launch-external="yes" />
     <plugin name="cordova-plugin-whitelist" version="1" />
     <allow-intent href="http://*/*" />
