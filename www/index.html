@@ -43,7 +43,7 @@
     var appId='psoFy4hpOEHy7mgg3L4tCAyDeJuCRwpOXHH8xVtp';
     var clientKey='Efa1wjc3W9xk7QhAzpL9uVJib30p3aoRn6LFEy7u';
    // var parsePlugin=window.plugins.pushNotification;
-    parsePlugin.initialize(appId, clientKey, function() {
+  /*  parsePlugin.initialize(appId, clientKey, function() {
         alert('success');
     }, function(e) {
         alert('error');
@@ -72,7 +72,40 @@
     }, function(e) {
         alert('error');
     });
-    }
+    }*/
+    document.addEventListener("deviceready", function(){
+
+    window.parsepushnotification.setUp(appId, clientKey);
+
+    //registerAsPushNotificationClient callback (called after setUp)
+    window.parsepushnotification.onRegisterAsPushNotificationClientSucceeded = function() {
+        alert('onRegisterAsPushNotificationClientSucceeded');
+    };
+    window.parsepushnotification.onRegisterAsPushNotificationClientFailed = function() {
+        alert('onRegisterAsPushNotificationClientFailed');
+    };
+
+    //subscribe callback
+    window.parsepushnotification.onSubscribeToChannelSucceeded = function() {
+        alert('onSubscribeToChannelSucceeded');
+    };
+    window.parsepushnotification.onSubscribeToChannelFailed = function() {
+        alert('onSubscribeToChannelFailed');
+    };  
+    //unsubscribe callback
+    window.parsepushnotification.onUnsubscribeSucceeded = function() {
+        alert('onUnsubscribeSucceeded');
+    };
+    window.parsepushnotification.onUnsubscribeFailed = function() {
+        alert('onUnsubscribeFailed');
+    };  
+    }, false);
+
+    //
+    window.parsepushnotification.subscribeToChannel('Game');//parameter: channel
+
+    //
+    window.parsepushnotification.unsubscribe('Game');//parameter: channel
    
 
     </script>
