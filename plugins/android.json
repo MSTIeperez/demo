@@ -23,10 +23,10 @@
     },
     "installed_plugins": {
         "com.ionic.keyboard": {
-            "PACKAGE_NAME": "com.phonegap.legix1"
+            "PACKAGE_NAME": "com.abargon.Legix"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.phonegap.legix1"
+            "PACKAGE_NAME": "com.abargon.Legix"
         }
     },
     "dependent_plugins": {}
