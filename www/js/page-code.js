@@ -112,12 +112,13 @@ $( document ).ready(function() {
     $( 'body' ).on( 'click', '.show-share', function() {
         $( '.share' ).addClass( 'active' );
         var img= $(this).parents('.feeds').find("div.item-header").find("img.small-image").attr('src');
+        var feed_date= $(this).parents('.feeds').find("div.item-header").find("p").text();
         var content= $(this).parents('.feeds').find("div.item-body").find("p.content-feed").text();
         console.log(img)
         console.log(content)
         $('.social-fb').attr('onclick',"window.plugins.socialsharing.shareViaFacebook(null,null,'"+img+"','"+url+"')");
-        $('.social-tw').attr('onclick',"window.plugins.socialsharing.shareViaTwitter(null,'"+content+"','"+img+"',null)");
-        $('.social-more').attr('onclick',"window.plugins.socialsharing.share(null,'"+content+"',null,null)");
+        $('.social-tw').attr('onclick',"window.plugins.socialsharing.shareViaTwitter('"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx',null,null,'"+url+"')");
+        $('.social-more').attr('onclick',"window.plugins.socialsharing.share('"+content+" - "+feed_date+"- CREDITO: Legix Feed - www.legixfeed.com.mx',null,null,null)");
 
         return false;
     });
