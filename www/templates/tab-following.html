@@ -38,7 +38,7 @@
             <div class="item item-body">
                 <p ng-bind-html="feed.content"></p>
                  <div class="item-attachments" ng-controller="FunctionCtrl">
-                    <a ng-repeat="docs in feed.docs" href="#" ng-click="download('http://legixapp.abardev.net{{ docs.src_file }}')" download="{{docs.file}}">
+                    <a ng-repeat="docs in feed.docs" href="#" ng-value="http://legixapp.abardev.net{{docs.src_file}}" ng-click="download('http://legixapp.abardev.net{{ docs.src_file }}')" download="{{docs.file}}">
                         <i class="icon ion-android-attach"></i>
                         {{docs.file}}
                     </a>

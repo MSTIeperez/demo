@@ -137,15 +137,27 @@ $( document ).ready(function() {
         var feed_date= $(this).parents('.feeds').find("div.item-header").find("p").text().trim();
         var content= $(this).parents('.feeds').find("div.item-body").find("p.content-feed").text().trim();
         var file="";
+        var download="";
         $(this).parents('.feeds').find("div.item-body").find("div.item-attachments").find("a").each(function(){
             file+=$(this).text().trim()+", ";
+            download+=$(this).attr("ng-value");
         });
         console.log(img)
         console.log(content)
         console.log(file)
-        $('.social-fb').attr('onclick',"window.plugins.socialsharing.shareViaFacebook(null,'"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx','"+img+"')");
+        $('.social-fb').attr('onclick',"window.plugins.socialsharing.shareViaFacebook(null,'"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx',null,'"+url+"')");
         $('.social-tw').attr('onclick',"window.plugins.socialsharing.shareViaTwitter('"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx',null,'"+url+"')");
         $('.social-more').attr('onclick',"window.plugins.socialsharing.share('"+content+" - "+feed_date+"- CREDITO: Legix Feed - www.legixfeed.com.mx')");
+        $('.social-email').attr('onclick',"window.plugins.socialsharing.shareViaEmail(
+          '"+origen+"\n\n"+content+"\n\nCREDITO: Legix Feed - www.legixfeed.com.mx', "+// can contain HTML tags, but support on Android is rather limited:  http://stackoverflow.com/questions/15136480/how-to-send-html-content-with-image-through-android-default-email-client
+          "'Legix Feed-'"+feed_date+"',
+          null,"+ // TO: must be null or an array
+          "null,"+ // CC: must be null or an array
+          "null,"+ // BCC: must be null or an array
+          "'"+download+"',"+ // FILES: can be null, a string, or an array
+          "onSuccess,"+ // called when sharing worked, but also when the user cancelled sharing via email (I've found no way to detect the difference)
+          "onError"+ // called when sh*t hits the fan
+        ")");
         $('.subject').attr("placeholder",'Legix Feed-'+feed_date);
         $('.txt-content').html("").html(origen+"\n\n"+content);
         $('input[name=attachment]').val(file);
