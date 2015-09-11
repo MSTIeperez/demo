@@ -43,6 +43,25 @@ $( document ).ready(function() {
 		
     });
     
+    // Resize imagen perfil
+    function resizeImage( elemento ) {
+        var imageHeight = $( elemento ).height();
+        var imageWidth = $( elemento ).width();
+        
+        if( imageHeight > imageWidth ) {
+            $( elemento ).css( 'width', '100%' );
+            $( elemento ).css( 'height', 'auto' );
+        } else if( imageHeight < imageWidth ) {
+            $( elemento ).css( 'width', 'auto' );
+            $( elemento ).css( 'height', '100%' );
+        } else {
+            $( elemento ).css( 'width', '100%' );
+            $( elemento ).css( 'height', '100%' );
+        }
+    }
+    
+    resizeImage( '.circle-picture img' );
+    
     // Mostrar grupo
     $('body').on('click', '#show-all', function() {
         $('.image-list').toggleClass('active');
