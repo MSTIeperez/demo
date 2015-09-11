@@ -112,12 +112,12 @@ $( document ).ready(function() {
     $( 'body' ).on( 'click', '.show-share', function() {
         $( '.share' ).addClass( 'active' );
         var img= $(this).parents('.feeds').find("div.item-header").find("img.small-image").attr('src');
-        var content= $(this).parents('.feeds').find("div.item-body").find("p.content-feed").html();
+        var content= $(this).parents('.feeds').find("div.item-body").find("p.content-feed").text();
         console.log(img)
         console.log(content)
-        $('.social-fb').attr('onclick',"window.plugins.socialsharing.shareViaFacebook('','','"+img+"')");
-        $('.social-tw').attr('onclick',"window.plugins.socialsharing.shareViaTwitter("+content+")");
-        $('.social-more').attr('onclick',"window.plugins.socialsharing.share("+content+")");
+        $('.social-fb').attr('onclick',"window.plugins.socialsharing.shareViaFacebook('','','"+img+"',"+url+")");
+        $('.social-tw').attr('onclick',"window.plugins.socialsharing.shareViaTwitter('"+content+"'')");
+        $('.social-more').attr('onclick',"window.plugins.socialsharing.share('"+content+"'')");
 
         return false;
     });
