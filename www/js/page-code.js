@@ -115,7 +115,7 @@ $( document ).ready(function() {
         var content= $(this).parents('.feeds').find("div.item-body").find("p.content-feed").text();
         console.log(img)
         console.log(content)
-        $('.social-fb').attr('onclick',"window.plugins.socialsharing.shareViaFacebook('','','"+img+"',"+url+")");
+        $('.social-fb').attr('onclick',"window.plugins.socialsharing.shareViaFacebook('','','"+img+"','"+url+"')");
         $('.social-tw').attr('onclick',"window.plugins.socialsharing.shareViaTwitter('"+content+"'')");
         $('.social-more').attr('onclick',"window.plugins.socialsharing.share('"+content+"'')");
 
