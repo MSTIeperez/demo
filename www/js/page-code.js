@@ -124,9 +124,9 @@ $( document ).ready(function() {
         console.log(img)
         console.log(content)
         console.log(file)
-        $('.social-fb').attr('onclick',"window.plugins.socialsharing.shareViaFacebook(null,null,'"+img+"','"+url+"')");
-        $('.social-tw').attr('onclick',"window.plugins.socialsharing.shareViaTwitter('"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx',null,null,'"+url+"')");
-        $('.social-more').attr('onclick',"window.plugins.socialsharing.share('"+content+" - "+feed_date+"- CREDITO: Legix Feed - www.legixfeed.com.mx',null,null,null)");
+        $('.social-fb').attr('onclick',"window.plugins.socialsharing.shareViaFacebook(null,'"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx','"+img+"')");
+        $('.social-tw').attr('onclick',"window.plugins.socialsharing.shareViaTwitter('"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx',null,'"+url+"')");
+        $('.social-more').attr('onclick',"window.plugins.socialsharing.share(null,'"+content+" - "+feed_date+"- CREDITO: Legix Feed - www.legixfeed.com.mx')");
         $('.subject').attr("placeholder",'Legix Feed-'+feed_date);
         $('.txt-content').html("").html(origen+"\n\n"+content);
         $('input[name=attachment]').val(file);
