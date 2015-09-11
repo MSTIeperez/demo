@@ -48,8 +48,8 @@
 	<gap:plugin name="io.github.pwlin.cordova.plugins.fileopener2" version="1.0.11" />
 	<gap:plugin name="de.appplant.cordova.plugin.printer" version="0.7.1" />
     
-    <!--gap:plugin name="com.medlei.pushplugin" version="0.1.2"-->
-    <gap:plugin name="com.parse.cordova.core.pushplugin" >
+    <gap:plugin name="com.medlei.pushplugin" version="0.1.2">
+    <!--gap:plugin name="com.parse.cordova.core.pushplugin" -->
         <param name="APP_ID" value="psoFy4hpOEHy7mgg3L4tCAyDeJuCRwpOXHH8xVtp" />
         <param name="CLIENT_KEY" value="Efa1wjc3W9xk7QhAzpL9uVJib30p3aoRn6LFEy7u" />
     </gap:plugin>
