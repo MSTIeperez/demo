@@ -7,13 +7,15 @@ angular.module('starter.controllers', [])
 .controller('MainCtrl', function($scope,$cookies,$cookieStore, $rootScope, Auth, UserService ){
 	$scope.$on('$ionicView.loaded', function(e) {
 		console.log("cargado...");
+		
+		if(window.localStorage.getItem('user')&&window.localStorage.getItem('user').length>4){
 		UserService.datauser().success(function(response){
 								window.localStorage.setItem('user',JSON.stringify(response));
-							})
-		if(window.localStorage.getItem('user')&&window.localStorage.getItem('user').length>4){
+							})			
 		$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
 		$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
-		}
+		}else $rootScope.user_data={};
+		
 	});  
 })
 .controller('SimpleCtrl', function($scope, $location, ContentService) {
