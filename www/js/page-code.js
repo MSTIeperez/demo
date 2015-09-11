@@ -145,7 +145,7 @@ $( document ).ready(function() {
         console.log(img)
         console.log(content)
         console.log(file)
-        $('.social-fb').attr('onclick',"window.plugins.socialsharing.shareViaFacebook(null,'"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx',null,'"+url+"')");
+        $('.social-fb').attr('onclick',"window.plugins.socialsharing.shareViaFacebook('mensaje',null,'"+img+"')");
         $('.social-tw').attr('onclick',"window.plugins.socialsharing.shareViaTwitter('"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx',null,'"+url+"')");
         $('.social-more').attr('onclick',"window.plugins.socialsharing.share('"+content+" - "+feed_date+"- CREDITO: Legix Feed - www.legixfeed.com.mx')");
         $('.social-email').attr('onclick',"window.plugins.socialsharing.shareViaEmail("+
