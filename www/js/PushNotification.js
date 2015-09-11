@@ -1,4 +1,4 @@
-var parsePlugin = {
+cordova.define("com.medlei.pushplugin.ParsePlugin", function(require, exports, module) {var parsePlugin = {
     initialize: function(appId, clientKey, successCallback, errorCallback) {
         cordova.exec(
             successCallback,
@@ -60,3 +60,4 @@ var parsePlugin = {
     }
 };
 module.exports = parsePlugin;
+});
