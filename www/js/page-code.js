@@ -137,10 +137,10 @@ $( document ).ready(function() {
         var feed_date= $(this).parents('.feeds').find("div.item-header").find("p").text().trim();
         var content= $(this).parents('.feeds').find("div.item-body").find("p.content-feed").text().trim();
         var file="";
-        var download="";
+        var download=[];
         $(this).parents('.feeds').find("div.item-body").find("div.item-attachments").find("a").each(function(){
             file+=$(this).text().trim()+", ";
-            download+=$(this).attr("ng-value");
+            download.push($(this).attr("ng-value"));
         });
         console.log(img)
         console.log(content)
@@ -154,7 +154,7 @@ $( document ).ready(function() {
           "null,"+ // TO: must be null or an array
           "null,"+ // CC: must be null or an array
           "null,"+ // BCC: must be null or an array
-          download+","+ // FILES: can be null, a string, or an array
+          download+ // FILES: can be null, a string, or an array
         ")");
         $('.subject').attr("placeholder",'Legix Feed-'+feed_date);
         $('.txt-content').html("").html(origen+"\n\n"+content);
