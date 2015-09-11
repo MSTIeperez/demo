@@ -90,7 +90,8 @@
     </feature>
     <feature name="PushPlugin">
         <param name="ios-package" value="CDVPushPlugin" />
-        <param name="android-package" value="com.plugin.gcm.PushPlugin" />
+        <!--param name="android-package" value="com.plugin.gcm.PushPlugin" /-->
+        <param name="android-package" value="com.medlei.pushplugin" />
     </feature>
     <access origin="*" launch-external="yes" />
     <plugin name="cordova-plugin-whitelist" version="1" />
