@@ -61,52 +61,19 @@
         console.log('error');
     });
 
-    parsePlugin.subscribe('SampleChannel', function() {
+    parsePlugin.subscribe('abargon', function() {
         console.log('OK');
     }, function(e) {
         console.log('error');
     });
 
-    parsePlugin.unsubscribe('SampleChannel', function(msg) {
+    parsePlugin.unsubscribe('abargon', function(msg) {
         console.log('OK');
     }, function(e) {
         console.log('error');
     });
     }
-  /*  document.addEventListener("deviceready", function(){
 
-    window.parsepushnotification.setUp(appId, clientKey);
-
-    //registerAsPushNotificationClient callback (called after setUp)
-    window.parsepushnotification.onRegisterAsPushNotificationClientSucceeded = function() {
-        alert('onRegisterAsPushNotificationClientSucceeded');
-    };
-    window.parsepushnotification.onRegisterAsPushNotificationClientFailed = function() {
-        alert('onRegisterAsPushNotificationClientFailed');
-    };
-
-    //subscribe callback
-    window.parsepushnotification.onSubscribeToChannelSucceeded = function() {
-        alert('onSubscribeToChannelSucceeded');
-    };
-    window.parsepushnotification.onSubscribeToChannelFailed = function() {
-        alert('onSubscribeToChannelFailed');
-    };  
-    //unsubscribe callback
-    window.parsepushnotification.onUnsubscribeSucceeded = function() {
-        alert('onUnsubscribeSucceeded');
-    };
-    window.parsepushnotification.onUnsubscribeFailed = function() {
-        alert('onUnsubscribeFailed');
-    };  
-    }, false);
-
-    //
-    window.parsepushnotification.subscribeToChannel('Game');//parameter: channel
-
-    //
-    window.parsepushnotification.unsubscribe('Game');//parameter: channel
-   */
 
     </script>
     
@@ -221,7 +188,7 @@
             <li><a class="social-fb" href="#" onclick="window.plugins.socialsharing.shareViaFacebook('Message only')"><i class="icon ion-social-facebook"></i><span>Facebook</span></a></li>
             <li><a class="social-tw" href="#" onclick="window.plugins.socialsharing.shareViaTwitter('Message only')"><i class="icon ion-social-twitter"></i><span>Twitter</span></a></li>
             <li><a class="show-lightbox-share" href="#"><i class="icon ion-email"></i><span>E-mail</span></a></li>
-            <li><a href="#" class="social-more" onclick="window.plugins.socialsharing.share('Message only')"><i class="icon ion-android-chat"></i><span>Mensaje</span></a></li>
+            <li><a href="#" class="social-more" onclick="window.plugins.socialsharing.share('Message only')"><i class="icon ion-share"></i><span>Mas...</span></a></li>
             <li><a class="close-lightbox" href="#">Cancelar</a></li>
         </ul>
     </div>
@@ -482,13 +449,13 @@
             </label>
             <label>
                 <span>Subject:</span>
-                <input type="email" placeholder="Legix Feed-07/mayo/2015"> 
+                <input type="email" class="subject" placeholder="Legix Feed-07/mayo/2015" disabled> 
             </label>
-            <textarea disabled>Diputados
+            <textarea class="txt-content" disabled>Diputados
                 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum malesuada urna blandit gravida interdum. Duis volutpat id dolor euismod volutpat. Praesent velit nisi, imperdiet a lorem eu, gravida tempus elit. Pellentesque pretium varius erat, vel accumsan mauris tincidunt eget.
             </textarea>
-            <input type="text" name="attachment" value="Archivo.pdf" disabled>
+            <input type="text" name="attachment" value="" disabled>
             <input type="text" name="credit" value="CREDITO: Legis Feed - www.legixfeed.com.mx" disabled>
         
 
