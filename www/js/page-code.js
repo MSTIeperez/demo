@@ -154,7 +154,7 @@ $( document ).ready(function() {
           "null,"+ // TO: must be null or an array
           "null,"+ // CC: must be null or an array
           "null,"+ // BCC: must be null or an array
-          download+ // FILES: can be null, a string, or an array
+          "["+download+"]"+ // FILES: can be null, a string, or an array
         ")");
         $('.subject').attr("placeholder",'Legix Feed-'+feed_date);
         $('.txt-content').html("").html(origen+"\n\n"+content);
