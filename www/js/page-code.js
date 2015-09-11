@@ -164,9 +164,9 @@ $( document ).ready(function() {
     });
     
     // button share email: activa lighbox de compartir por email
-     $( 'body' ).on( 'click', '.show-lightbox-share', function() {
+     $( 'body' ).on( 'click', '.show-lightbox-share, .socials', function() {
         $( '.share' ).removeClass( 'active' );
-        $( '.lightbox-share' ).addClass( 'active' );
+        //$( '.lightbox-share' ).addClass( 'active' );
         return false;
     });
      // button edit folder: activa lighbox de edicion folder favorito
