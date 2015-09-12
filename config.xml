@@ -24,7 +24,7 @@
     <preference name="disable-cursor" value="false" />
     <preference name="android-minSdkVersion" value="7" />
     <preference name="android-installLocation" value="auto" />
-	<preference name="SplashScreen" value="splash" />
+	<preference name="SplashScreen" value="splashscreen" />
 	<preference name="SplashScreenDelay" value="3000" />
     <gap:plugin name="org.apache.cordova.battery-status" />
     <gap:plugin name="org.apache.cordova.camera" />
