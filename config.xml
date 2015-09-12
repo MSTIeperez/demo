@@ -70,10 +70,10 @@
     <icon gap:platform="winphone" src="res/icon/windows-phone/icon-48.png" />
     <icon gap:platform="winphone" gap:role="background" src="res/icon/windows-phone/icon-173-tile.png" />
     
-    <gap:splash gap:platform="android" gap:qualifier="port-ldpi" src="res/screen/android/small(ldpi).png" />
-    <gap:splash gap:platform="android" gap:qualifier="port-mdpi" src="res/screen/android/medium(mdpi).png" />
-    <gap:splash gap:platform="android" gap:qualifier="port-hdpi" src="res/screen/android/large(hdpi).png" />
-    <gap:splash gap:platform="android" gap:qualifier="port-xhdpi" src="res/screen/android/xlarge(xhdpi).png" />
+    <gap:splash gap:platform="android" gap:qualifier="port-ldpi" src="res/screen/android/splash.png" />
+    <gap:splash gap:platform="android" gap:qualifier="port-mdpi" src="res/screen/android/splash.png" />
+    <gap:splash gap:platform="android" gap:qualifier="port-hdpi" src="res/screen/android/splash.png" />
+    <gap:splash gap:platform="android" gap:qualifier="port-xhdpi" src="res/screen/android/splash.png" />
 
     <gap:splash gap:platform="ios" height="480" src="res/screen/ios/Default~iphone.png" width="320" />
     <gap:splash gap:platform="ios" height="960" src="res/screen/ios/Default@2x~iphone.png" width="640" />
