@@ -14,7 +14,8 @@ angular.module('starter.controllers', [])
 							})			
 		$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
 		$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
-		}else $rootScope.user_data={};
+		$rootScope.sidemenuenabled=true;
+		}else $rootScope.sidemenuenabled=false;
 		
 	});  
 })
@@ -36,6 +37,7 @@ angular.module('starter.controllers', [])
 	$scope.logout = function() {
 		Auth.logout();
 		$state.go("login");
+		$rootScope.sidemenuenabled=false;
 	};
     $scope.login = function() {
 		  console.log("LOGIN user: " + $scope.data.username + " - PW: ********");
