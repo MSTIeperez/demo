@@ -30,7 +30,7 @@ angular.module('starter.controllers', [])
 		})
 	});
 })
-.controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state, Auth, $rootScope) {
+.controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state, Auth, $rootScope, $ionicSideMenuDelegate) {
     $scope.$on('$ionicView.loaded', function(e) {
 	$scope.data = {};
 	});
@@ -38,6 +38,7 @@ angular.module('starter.controllers', [])
 		Auth.logout();
 		$state.go("login");
 		$rootScope.sidemenuenabled=false;
+		$ionicSideMenuDelegate.toggleLeft();
 	};
     $scope.login = function() {
 		  console.log("LOGIN user: " + $scope.data.username + " - PW: ********");
