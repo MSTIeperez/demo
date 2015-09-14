@@ -190,7 +190,7 @@ angular.module('starter.controllers', [])
   //
 .controller('ConfigfeedCtrl', function($scope, Themes, $rootScope) {
    	$scope.data={};
-	$scope.$on('$ionicView.beforeEnter', function(e) {
+	$scope.$on('$ionicView.loaded', function(e) {
 		//$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
 		//$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
 		/*Themes.all().success(function(data){
@@ -208,16 +208,17 @@ angular.module('starter.controllers', [])
 				temas_id.push(parseInt(val));
 			});
 			Themes.all().success(function(data){
-				var themas=[];
 				angular.forEach(data, function(dato,key){
-				angular.forEach(dato.tema, function(val,index){
-					//console.log("ids"+val.id)
-					if(temas_id.indexOf(val.id)!=-1)
-						dato.tema.splice(index,1);
-					$scope.themes = data;
+					angular.forEach(dato.tema, function(val,index){
+						if(temas_id.indexOf(parseInt(val.id))!=-1)
+							dato.tema.splice(index,1);
+						if(index==1){
+						if(temas_id.indexOf(parseInt(dato.tema[0].id))!=-1)
+							dato.tema.splice(0,1);
+					}
+					});
 				});
-				});
-				
+				$scope.themes = data;
 				
 			});
 		}
