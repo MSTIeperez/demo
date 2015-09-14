@@ -2,7 +2,7 @@
     <div class="bar bar-header item-input-inset bar-dark">
         <label class="item-input-wrapper">
             <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="search" placeholder="Buscar">
+            <input type="search" ng-model="themesearch" placeholder="Buscar">
         </label>
         <button class="button button-clear">
             Cancelar
@@ -26,7 +26,7 @@
         <ul class="list list-style">
                 
             <!-- BEGIN: list-->
-            <li class="item li-master" ng-repeat="temas in themes track by $id(temas)" >
+            <li class="item li-master" ng-repeat="temas in themes |filter:themesearch"> <!-- track by $id(temas)" -->
 
                 <div class="list-header">
                     <a class="list-expand item-icon-right" href="#">
