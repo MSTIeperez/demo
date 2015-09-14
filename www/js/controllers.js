@@ -4,7 +4,7 @@ if(window.location.hostname=="")
 	url='http://legixapp.abardev.net';
 angular.module('starter.controllers', [])
 
-.controller('MainCtrl', function($scope,$cookies,$cookieStore, $rootScope, Auth, UserService ){
+.controller('MainCtrl', function($scope,$cookies,$cookieStore, $rootScope, Auth, UserService,$ionicSideMenuDelegate ){
 	$scope.$on('$ionicView.loaded', function(e) {
 		console.log("cargado...");
 		
@@ -124,7 +124,7 @@ angular.module('starter.controllers', [])
 		});
 	}
 })
-.controller('RegistroCtrl', function($scope, Registerservice, LoginService, $ionicPopup, $state, Auth) {
+.controller('RegistroCtrl', function($scope, Registerservice, LoginService, $ionicPopup, $state, Auth, $ionicSideMenuDelegate) {
 	$scope.data={};
 	$scope.register = function(){
 
