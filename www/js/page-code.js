@@ -940,7 +940,10 @@ $( document ).ready(function() {
 				$(this).parent().find("a.btn-edit").show();
 			else
 				$(this).parent().find("a.btn-edit").hide();
-		});
+        });
+		$('body').delegate('.themesearch-clear','click',function(e){
+            $("#theme-search").val("");
+        });
 			
 });
  }, 600);

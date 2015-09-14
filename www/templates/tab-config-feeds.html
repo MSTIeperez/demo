@@ -2,9 +2,9 @@
     <div class="bar bar-header item-input-inset bar-dark">
         <label class="item-input-wrapper">
             <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="search" ng-model="themesearch" placeholder="Buscar">
+            <input type="search" id="theme-search" ng-model="themesearch" placeholder="Buscar">
         </label>
-        <button class="button button-clear">
+        <button class="button button-clear themesearch-clear" ng-click="themesearch=''" >
             Cancelar
         </button>
     </div>
