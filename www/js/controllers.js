@@ -15,7 +15,10 @@ angular.module('starter.controllers', [])
 		$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
 		$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
 		$rootScope.sidemenuenabled=true;
-		}else $rootScope.sidemenuenabled=false;
+		}else{
+			$rootScope.sidemenuenabled=false;
+			$ionicSideMenuDelegate.toggleLeft();
+		} 
 		
 	});  
 })
@@ -57,6 +60,8 @@ angular.module('starter.controllers', [])
 				 $scope.logout = function() {
 					Auth.logout();
 					$state.go("login");
+					$rootScope.sidemenuenabled=false;
+					$ionicSideMenuDelegate.toggleLeft();
 				};
 			 }
         }).error(function(data) {
@@ -142,6 +147,8 @@ angular.module('starter.controllers', [])
 							 $scope.logout = function() {
 								Auth.logout();
 								$state.go("login");
+								$rootScope.sidemenuenabled=false;
+								$ionicSideMenuDelegate.toggleLeft();
 							};
 						 }
 					}).error(function(data) {
@@ -149,6 +156,8 @@ angular.module('starter.controllers', [])
 						$scope.logout = function() {
 								Auth.logout();
 								$state.go("login");
+								$rootScope.sidemenuenabled=false;
+								$ionicSideMenuDelegate.toggleLeft();
 						};
 					});
 			 }else{
