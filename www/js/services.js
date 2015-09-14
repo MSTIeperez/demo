@@ -591,6 +591,31 @@ angular.module('starter.services', ['ngCookies'])
         }
       }
       return null;
+    },
+    add: function(temas_id){
+      var deferred = $q.defer();
+      var promise = deferred.promise;
+      $http.post(url+'/api/update_temas', {'temas_id':temas_id})
+        .success(function(data){
+          deferred.resolve(data);
+          if(data.message=="el usuario no esta registrado"){
+              deferred.reject(data);
+              Auth.logout();
+              $state.go("login");
+          }
+        })
+        .error(function (data){
+          deferred.reject(data);
+        });
+      promise.success = function(fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function(fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+            return promise;
     }
   }
 	}

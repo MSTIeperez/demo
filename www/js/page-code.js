@@ -598,7 +598,7 @@ $( document ).ready(function() {
 				}
 				
 			});
-			$('body').on('click','.ok_temas',function(e){ 
+			$('body').on('click','.ok_temass',function(e){ 
 				var temas_name=[]
 				var topics = $("#count_tema").data("topic");
 				var temas = $("#count_tema").data("temas");

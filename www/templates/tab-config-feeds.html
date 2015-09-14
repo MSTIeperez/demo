@@ -21,7 +21,7 @@
                 Elige los temas que te interesa seguir, y que quieres que Legix te notifique:{{alreadytemas}}
             </p>
         </div>
-        <input type="hidden" id="count_tema" data-topic="{{user_data.topics}}" data-temas="{{user_data.temas.length}}"/>
+        <input type="text" id="count_tema" data-topic="{{user_data.topics}}" data-temas="{{user_data.temas.length}}" style="display:none;"/>
         <form >
         <ul class="list list-style">
                 
@@ -38,7 +38,7 @@
                     <li class="item li-parent" ng-repeat="tema in temas.tema">
                         <div class="list-header item item-checkbox item-icon-right">
                             <label class="checkbox">
-                               <input type="checkbox" class="tema_id" ng-value="tema.id" data-name="{{tema.name}}">
+                               <input type="checkbox" class="tema_id" ng-model="data.tema_id[$index]" ng-true-value="'{{tema.id}}:{{tema.name}}'" ng-value="tema.id" data-name="{{tema.name}}">
                             </label>
                             {{tema.name}}
                             <a class="icon list-expand" href=""><i ng-hide="tema.comision.length<1" class="icon ion-arrow-down-b"></i></a>
@@ -65,7 +65,7 @@
         </ul>
             
         <div class="list-actions padding clearfix">
-            <button class="button button-outline button-positive show-warning ok_temas" type="">Siguiente</button>
+            <button class="button button-outline button-positive show-warnings ok_temas" type="" ng-click="update_temas()">Siguiente</button>
             <a class="btn-next" href="#/tab/feeds">Agregar mis temas despues</a>
         </div>
         </form>

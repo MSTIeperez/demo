@@ -197,9 +197,10 @@ angular.module('starter.controllers', [])
   // To listen for when this page is active (for example, to refresh data),
   // listen for the $ionicView.enter event:
   //
-.controller('ConfigfeedCtrl', function($scope, Themes, $rootScope) {
-   	$scope.data={};
+.controller('ConfigfeedCtrl', function($scope, Themes, $rootScope,$ionicPopup, $state) {
+   	
 	$scope.$on('$ionicView.loaded', function(e) {
+		$scope.data={};
 		//$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
 		//$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
 		/*Themes.all().success(function(data){
@@ -232,7 +233,110 @@ angular.module('starter.controllers', [])
 			});
 		}
 		$scope.update_temas= function(){
-			console.log($scope.data.subject_id);
+			var name_tema="";
+			var tema_id=[];
+			var topics = $("#count_tema").data("topic");
+			var temas = $("#count_tema").data("temas");
+				console.log(topics);
+				console.log(temas);
+			console.log($scope.data.tema_id);
+			if(!angular.isUndefined($scope.data.tema_id)&&$scope.data.tema_id!=false){
+				var i=1;
+				angular.forEach($scope.data.tema_id, function(val, key){
+					if(val!=false){
+						var temas= val.split(":");
+						tema_id.push(temas[0]);
+						name_tema+=i+"- "+temas[1]+",<br>";
+						i++;
+					}
+				});
+
+				console.log(i);
+				console.log(temas+(i-1));
+				console.log(tema_id);
+			console.log(name_tema);
+			if(temas+(i-1)>topics){
+				var alertPopup = $ionicPopup.alert({
+					title: 'Temas contratados: '+temas+"/"+topics+".<br>Libres: "+(topics-temas),
+					template: 'Tu selección sobrepasa tus temas libres por elegir:<br><strong>'+name_tema+"</strong>", 
+					buttons:[{
+						text: 'Regresar',
+						type: 'button-positive',
+							onTap: function(e) {
+							
+							}	
+						}]
+				});
+			}else{
+			var alertPopup = $ionicPopup.alert({
+					title: 'Temas contratados: '+temas+"/"+topics+".<br>Libres: "+(topics-temas),
+					template: 'Estas seguro de seleccionar este(os) tema(s):<br><strong>'+name_tema+"</strong>", 
+					buttons:[{
+						text: 'Aceptar',
+						type: 'button-positive',
+							onTap: function(e) {
+							Themes.add(tema_id).success(function(data){
+								var alertPopup = $ionicPopup.alert({
+									title: 'Temas agregados con éxito',
+									template: 'Tema(s) agregado(s):<br><strong>'+name_tema+"</strong>", 
+									buttons:[{
+										text: 'Aceptar',
+										type: 'button-positive',
+											onTap: function(e) {
+											$state.go("tab.myfeeds");
+											}
+										}]
+								});
+							}).error(function(data){
+								var alertPopup = $ionicPopup.alert({
+									title: 'Error de conexión',
+									template: 'Porfavor intenta más tarde!', 
+									buttons:[{
+										text: 'Aceptar',
+										type: 'button-positive',
+											onTap: function(e) {
+											if(temas>0)
+											  $state.go('tab.myfeeds');
+											else
+											  $state.go('tab.feeds');
+											}
+										}]
+								});
+							});
+							}
+						},{
+						text: 'Regresar',
+						type: 'button-positive',
+							onTap: function(e) {
+							
+							}	
+						}]
+				});
+				}
+			}else{
+				var alertPopup = $ionicPopup.alert({
+					title: '<strong>Atención</strong>',
+					template: 'No has dado de alta ningún Tema. Sin personalización de Temas, solo recibirás el Feed genérico sin notificaciones en las sección de Temas ni de Mis Feeds. Puedes continuar y posteriormente hacerlo.', 
+					buttons:[{
+						text: 'Aceptar',
+						type: 'button-positive',
+							onTap: function(e) {
+							if(temas>0)
+							  $state.go('tab.myfeeds');
+							else
+							  $state.go('tab.feeds');
+							}
+						},{
+						text: 'Regresar',
+						type: 'button-positive',
+							onTap: function(e) {
+							
+							}	
+						}]
+				});
+			}
+				
+			
 		}
 		$scope.remove = function(theme) {
 			Themes.remove(theme);
