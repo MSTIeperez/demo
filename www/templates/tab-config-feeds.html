@@ -34,16 +34,16 @@
                         <i class="icon ion-arrow-down-b" ng-hide="temas.tema.length<1"></i>
                     </a>
                 </div>
-                <ul class="list-content">
-                    <li class="item li-parent" ng-repeat="tema in temas.tema">
+                <ul class="list-content" ng-class="{'active':themesearch!=''&&themesearch!=undefined,'':themesearch==''|| themesearch==undefined}">
+                    <li class="item li-parent" ng-repeat="tema in temas.tema |filter:themesearch">
                         <div class="list-header item item-checkbox item-icon-right">
                             <label class="checkbox">
-                               <input type="checkbox" class="tema_id" ng-model="data.tema_id[$index]" ng-true-value="'{{tema.id}}:{{tema.name}}'" ng-value="tema.id" data-name="{{tema.name}}">
+                               <input type="checkbox" class="tema_id" ng-model="data.tema_id[$index]" ng-true-value="'{{tema.id}}:{{tema.name}}'" ng-value="tema.id" data-name="{{tema.name}}" ng-checked="themesearch!=undefined && themesearch!=''">
                             </label>
                             {{tema.name}}
                             <a class="icon list-expand" href=""><i ng-hide="tema.comision.length<1" class="icon ion-arrow-down-b"></i></a>
                         </div>
-                        <ul class="list-content">
+                        <ul class="list-content" ng-class="{'active':themesearch!=''&&themesearch!=undefined,'':themesearch==''|| themesearch==undefined}">
                             <li class="item item-checkbox li-children" ng-repeat="comision in tema.comision">
                                 <!--<label class="checkbox">
                                    <input type="checkbox">

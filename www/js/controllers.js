@@ -201,6 +201,7 @@ angular.module('starter.controllers', [])
    	
 	$scope.$on('$ionicView.loaded', function(e) {
 		$scope.data={};
+		console.log("buscador: "+$scope.themesearch);
 		//$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
 		//$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
 		/*Themes.all().success(function(data){
