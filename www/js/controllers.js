@@ -201,7 +201,6 @@ angular.module('starter.controllers', [])
    	
 	$scope.$on('$ionicView.loaded', function(e) {
 		$scope.data={};
-		console.log("buscador: "+$scope.themesearch);
 		//$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
 		//$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
 		/*Themes.all().success(function(data){
@@ -233,25 +232,40 @@ angular.module('starter.controllers', [])
 				
 			});
 		}
+		var flag=true;
 		$scope.update_temas= function(){
 			var name_tema="";
 			var tema_id=[];
 			var topics = $("#count_tema").data("topic");
 			var temas = $("#count_tema").data("temas");
+			
 				console.log(topics);
 				console.log(temas);
-			console.log($scope.data.tema_id);
-			if(!angular.isUndefined($scope.data.tema_id)&&$scope.data.tema_id!=false){
-				var i=1;
-				angular.forEach($scope.data.tema_id, function(val, key){
-					if(val!=false){
-						var temas= val.split(":");
-						tema_id.push(temas[0]);
-						name_tema+=i+"- "+temas[1]+",<br>";
-						i++;
+				if(!flag)
+					$scope.data.tema_id=[];
+			if(!angular.isUndefined($scope.themesearch)&&$scope.themesearch!=""){
+				$scope.data.tema_id=[];
+					flag=false
+					$(".tema_id").each(function(){
+					if($(this).is(":checked")){
+						var dato= $(this).attr("ng-true-value").replace("'","");
+						$scope.data.tema_id.push(dato.substr(0,dato.length-1));
 					}
 				});
-
+			} else flag=true
+			console.log($scope.data.tema_id);
+			console.log("buscador: "+$scope.themesearch);
+			if(!angular.isUndefined($scope.data.tema_id)&&$scope.data.tema_id!=false){
+				var i=1;
+	
+					angular.forEach($scope.data.tema_id, function(val, key){
+						if(val!=false){
+							var temas= val.split(":");
+							tema_id.push(temas[0]);
+							name_tema+=i+"- "+temas[1]+",<br>";
+							i++;
+						}
+					});
 				console.log(i);
 				console.log(temas+(i-1));
 				console.log(tema_id);
@@ -317,7 +331,7 @@ angular.module('starter.controllers', [])
 			}else{
 				var alertPopup = $ionicPopup.alert({
 					title: '<strong>Atención</strong>',
-					template: 'No has dado de alta ningún Tema. Sin personalización de Temas, solo recibirás el Feed genérico sin notificaciones en las sección de Temas ni de Mis Feeds. Puedes continuar y posteriormente hacerlo.', 
+					template: 'No has dado de alta ningún Tema. Sin personalización de Temas, solo recibirás el Feed genérico sin notificaciones en la sección de Mis Feeds. Puedes continuar y posteriormente hacerlo.', 
 					buttons:[{
 						text: 'Aceptar',
 						type: 'button-positive',
