@@ -407,6 +407,7 @@ a.actived > i.icon-print, .icon-print:active, i.icon-print.active {
     white-space: normal;
 }
 .item-header {
+    min-height: 82px;
     padding-bottom: 8px;
     position: relative;
 }
@@ -425,9 +426,11 @@ a.actived > i.icon-print, .icon-print:active, i.icon-print.active {
     color: #9295a3;
 }
 .item h2 {
+    display: inline;
     font-weight: 700;
 }
 .item h3 {
+    display: inline;
     margin-bottom: 0;
 }
 .item-body {
@@ -462,6 +465,52 @@ a.actived > i.icon-print, .icon-print:active, i.icon-print.active {
     transform: rotate(45deg);
     -moz-transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
+}
+.item-subject {
+    margin-bottom: 16px;
+}
+.item-subject,
+.subject ul {
+    display: block;
+    overflow: hidden;
+}
+.item-subject ul:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.item-subject ul li {
+    display: block;
+    float: left;
+    margin: .66666666666667%;
+    width: 32%;
+}
+.item-subject ul li.li-subject {
+    display: none;
+}
+.item-subject ul li.active,
+.item-subject ul li.disregard {
+    display: block;
+}
+.item-subject ul li a {
+    border: 1px solid #cdcdcd;
+    border-radius: 3px;
+    color: #9295a3;
+    display: block;
+    font-size: 14px;
+    overflow: hidden;
+    max-height:  27px;
+    padding: 2px 5px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.item-subject ul li a:hover {
+     border: 1px solid #9295a3;
+}
+.item-subject ul li a.subject-more {
+    display: block;
+    color: #3091f4;
 }
 .item-comments {
     display: block;

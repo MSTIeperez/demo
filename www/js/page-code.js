@@ -8,7 +8,7 @@ $( document ).ready(function() {
 		url='http://legixapp.abardev.net';
 
     var step = 1;
-    var num=0;
+    var num = 0;
     function set_follows_unreads(){
 		
 		$.post(url+'/api/follow/get_follows_unread',{'send_data':'send_data'})
@@ -40,8 +40,23 @@ $( document ).ready(function() {
     notification();
     $(document).on('click', function() {
         notification(); 
-		
     });
+    
+    // Asuntos
+    function subject() {
+        $( 'body' ).on( 'click', '.subject-more', function() {
+            $(this).text(function(i, text){
+                return text === "+ Ver todos" ? "- Ver menos" : "+ Ver todos";
+            });
+            
+            $( $( this ).parent().parent( 'ul' ).children( 'li.li-subject' )).each( function() {
+                $( this ).toggleClass( 'active' );
+            });
+            
+        });
+        
+    }
+    subject();
     
     // Resize imagen perfil
     function resizeImage( elemento ) {
