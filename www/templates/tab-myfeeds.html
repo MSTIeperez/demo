@@ -16,7 +16,7 @@
         <div class="seen-menu clearfix">
 		 
             <a class="reads  nof_read" ng-class="{'active':noread>0, ' ':noread==0}" data-class="feed_noread" href="#" onclick="return false;" data-read="{{noread}}">No leídos ({{noread}})</a> 
-            <a  class="reads" ng-class="{'active':noread==0, ' ':noread>0}"  data-class="feed_read" href="#" onclick="return false;" >Leídos</a>
+            <a  class="reads f_read" ng-class="{'active':noread==0, ' ':noread>0}"  data-class="feed_read" href="#" onclick="return false;" data-read="{{read}}">Leídos ({{read}})</a>
         </div>
 		<div class="list-card"   ng-switch="flag" ng-show="flag" ng-hide="flag==false">
             <div class="item item-header item-empty">
@@ -47,13 +47,8 @@
                 
                 <div class="item-subject">
                     <ul>
-                        <li class="li-subject disregard"><a class="subject" href="#">Asunto_1_demo</a></li>
-                        <li class="li-subject disregard"><a class="subject" href="#">Asunto_1_demo</a></li>
-                        <li class="li-subject"><a class="subject" href="#">Asunto_1_demo</a></li>
-                        <li class="li-subject"><a class="subject" href="#">Asunto_1_demo</a></li>
-                        <li class="li-subject"><a class="subject" href="#">Asunto_1_demo</a></li>
-                        <li class="li-subject"><a class="subject" href="#">Asunto_1_demo</a></li>
-                        <li><a class="subject-more" href="#">+ Ver todos</a></li>
+                        <li class="li-subject" ng-class="{'disregard':$index<2,'':$index>1}" ng-repeat="asuntos in feed.asuntos_name"><a class="subject" href="#">{{asuntos}}</a></li>
+                        <li ng-show="feed.asuntos_name.length>2"><a class="subject-more" href="#">+ Ver todos</a></li>
                     </ul>
                 </div>
                 

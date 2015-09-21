@@ -96,21 +96,24 @@ $( document ).ready(function() {
 				var html = "";
 				var feed_id = $obj.parents(".feeds").data("id");
 				console.log(feed_id);
-			if(!$(this).hasClass('active')){	
+			if(!$obj.hasClass('active')){	
 				$.post(url+'/api/feeds_load',{read:'already',feed_id:feed_id}, function(response){
 					 resp=$.parseJSON(response);
 					if(resp.message="feed_leido"){
 						$('.feeds[data-id="'+feed_id+'"]').addClass("feed_read");
 						$('.feeds[data-id="'+feed_id+'"]').hide();
 						$('.feeds[data-id="'+feed_id+'"]').removeClass("feed_noread");
-						$(this).children('i').removeAttr('ng-class');
-						$(this).children('i').toggleClass('ion-ios-eye-outline');
-						$(this).children('i').toggleClass('ion-ios-eye');
-						var num= $(".nof_read").data("read");
-						$(".nof_read").html("").html("No leídos("+(parseInt(num)-1)+")")
-						/*if(num==1) 
+						$obj.children('i').removeAttr('ng-class');
+						$obj.children('i').toggleClass('ion-ios-checkmark-outline');
+                        $obj.children('i').toggleClass('ion-ios-checkmark');
+						$obj.addClass('active');
+                        var num= $(".nof_read").data("read");
+						var numr= $(".f_read").data("read");
+                        $(".nof_read").html("").html("No leídos ("+(parseInt(num)-1)+")")
+						$(".f_read").html("").html("Leídos ("+(parseInt(numr)+1)+")")
+						if(num==1) 
 							$(".not-count").hide();
-						$(".not-count").html("").html((parseInt(num)-1));*/
+						$(".not-count").html("").html((parseInt(num)-1));
 					}else if(resp.message="error")
 						console.log("Fallo de conexión con la base de datos");
 				});
@@ -320,7 +323,7 @@ $( document ).ready(function() {
 			 }
 
 			// $(".select_subject").find(".my_themes").find(".theme_fav").html("");
-			 $("#follow_asunto").append(code);
+			 $("#follow_asunto").html("").append(code);
 
 			//$('.select_subject').find("form").find("input").val(id);
 			//$('.select_subject').lightbox_me();
@@ -862,8 +865,8 @@ $( document ).ready(function() {
 											$('.feeds[data-id="'+feed_id+'"]').addClass("feed_read");
 											$('.feeds[data-id="'+feed_id+'"]').removeClass("feed_noread");
 											$('.feeds[data-id="'+feed_id+'"]').hide();
-											$('.feeds[data-id="'+feed_id+'"]').find('div.item-header').find('a.read').children('i').toggleClass('ion-ios-eye-outline');
-											$('.feeds[data-id="'+feed_id+'"]').find('div.item-header').find('a.read').children('i').toggleClass('ion-ios-eye');
+											$('.feeds[data-id="'+feed_id+'"]').find('div.item-header').find('a.read').children('i').toggleClass('ion-ios-checkmark-outline');
+											$('.feeds[data-id="'+feed_id+'"]').find('div.item-header').find('a.read').children('i').toggleClass('ion-ios-checkmark');
 											//if(feeds_noleidos==1) 
 											//	$(".nof_read").html('').html("No leídos("+(parseInt(feeds_noleidos)-1)+")");
 											

@@ -371,11 +371,26 @@ angular.module('starter.controllers', [])
 			$scope.flag=true;
 		Search.all(-1,$state.params.busqueda).success(function(data){
 			angular.forEach(data.feeds, function(val, key){
+				var asuntos_arr=[]
+		 		var tmp_name=[]
+		 		var asunto_name=[]
 				data.feeds[key].content=val.content+' <a href="#" onclick="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
 				data.feeds[key].content=$sce.trustAsHtml(data.feeds[key].content);
+				angular.forEach(val.follow, function(valor,index){
+					asuntos_arr.push(valor.subject_id);
+				})
 				if(val.read==0)
 					noread++;
+				data.feeds[key].asuntos_str =asuntos_arr.join(",");
+				tmp_name= val.asunto_name.split(",");
+				angular.forEach(tmp_name, function(dato, ind){
+					var tmp=[]
+					tmp=dato.split(":")
+					asunto_name.push(tmp[1]);
+				});
+				data.feeds[key].asuntos_name=asunto_name;
 			});
+			$scope.read=data.feeds.length-noread;
 			$scope.feeds = data.feeds;
 			$scope.noread = noread;
 			if(data.feeds.length==0)
@@ -402,8 +417,22 @@ angular.module('starter.controllers', [])
 			$scope.flag=true;
 		$scope.load = Feeds_all.all(-1).success(function(data){
 			angular.forEach(data.feeds, function(val, key){
+				var asuntos_arr=[]
+		 		var tmp_name=[]
+		 		var asunto_name=[]
 				data.feeds[key].content=val.content+' <a href="#" onclick="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
 				data.feeds[key].content=$sce.trustAsHtml(data.feeds[key].content);
+				angular.forEach(val.follow, function(valor,index){
+					asuntos_arr.push(valor.subject_id);
+				})
+				data.feeds[key].asuntos_str =asuntos_arr.join(",");
+				tmp_name= val.asunto_name.split(",");
+				angular.forEach(tmp_name, function(dato, ind){
+					var tmp=[]
+					tmp=dato.split(":")
+					asunto_name.push(tmp[1]);
+				});
+				data.feeds[key].asuntos_name=asunto_name;
 			});
 			if(data.feeds.length==0)
 				$scope.flag=false;
@@ -436,11 +465,14 @@ angular.module('starter.controllers', [])
 		$scope.temas = user.temas;
 		 var noread=0;
 		 var follow="";
-		 var asuntos_arr=[]
+		 
 		 $scope.flag=true;
 		// Feeds.all(-1,'send_data','','',$scope.data.origin_id, $scope.data.theme_id,'').success(function(data){
 		$scope.changeLocation= Feeds.all(-1,'send_data','','','', $state.params.origin_id, $state.params.theme_id,'').success(function(data){
 			angular.forEach(data.feeds, function(val, key){
+				var asuntos_arr=[]
+		 		var tmp_name=[]
+		 		var asunto_name=[]
 				data.feeds[key].content=val.content+' <a href="#" onclick="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
 				data.feeds[key].content=$sce.trustAsHtml(data.feeds[key].content);
 				angular.forEach(val.follow, function(valor,index){
@@ -449,7 +481,15 @@ angular.module('starter.controllers', [])
 				if(val.read==0)
 					noread++;
 				data.feeds[key].asuntos_str =asuntos_arr.join(",");
+				tmp_name= val.asunto_name.split(",");
+				angular.forEach(tmp_name, function(dato, ind){
+					var tmp=[]
+					tmp=dato.split(":")
+					asunto_name.push(tmp[1]);
+				});
+				data.feeds[key].asuntos_name=asunto_name;
 			});
+			$scope.read=data.feeds.length-noread;
 			$scope.feeds = data.feeds;
 			$scope.noread = noread;
 			if(data.feeds.length==0)
@@ -484,11 +524,26 @@ angular.module('starter.controllers', [])
 		$scope.flag=true;
 		Follow.all(-1,'','send_data','',asuntos, $state.params.origin_id, $state.params.theme_id).success(function(data){
 			angular.forEach(data.feeds, function(val, key){
+				var asuntos_arr=[]
+		 		var tmp_name=[]
+		 		var asunto_name=[]
 				data.feeds[key].content=val.content+ ' <a href="#" onclick="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
 				data.feeds[key].content=$sce.trustAsHtml(data.feeds[key].content);
+				angular.forEach(val.follow, function(valor,index){
+					asuntos_arr.push(valor.subject_id);
+				})
 				if(val.read==0)
 					noread++;
+				data.feeds[key].asuntos_str =asuntos_arr.join(",");
+				tmp_name= val.asunto_name.split(",");
+				angular.forEach(tmp_name, function(dato, ind){
+					var tmp=[]
+					tmp=dato.split(":")
+					asunto_name.push(tmp[1]);
+				});
+				data.feeds[key].asuntos_name=asunto_name;	
 			});
+			$scope.read=data.feeds.length-noread;
 			$scope.feeds = data.feeds;
 			$scope.noread = noread;
 			if(data.feeds.length==0)
@@ -523,11 +578,26 @@ angular.module('starter.controllers', [])
 			$scope.flag=true;
 			Feeds.all(-1,'send_data','','','', $state.params.origin_id, $state.params.theme_id,'').success(function(data){
 				angular.forEach(data.feeds, function(val, key){
+					var asuntos_arr=[]
+		 			var tmp_name=[]
+		 			var asunto_name=[]
 					data.feeds[key].content=val.content+' <a href="#" onclick="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
 					data.feeds[key].content=$sce.trustAsHtml(data.feeds[key].content);
+					angular.forEach(val.follow, function(valor,index){
+						asuntos_arr.push(valor.subject_id);
+					})
 					if(val.read==0)
 						noread++;
+					data.feeds[key].asuntos_str =asuntos_arr.join(",");
+					tmp_name= val.asunto_name.split(",");
+					angular.forEach(tmp_name, function(dato, ind){
+						var tmp=[]
+						tmp=dato.split(":")
+						asunto_name.push(tmp[1]);
+					});
+					data.feeds[key].asuntos_name=asunto_name;
 				});
+				$scope.read=data.feeds.length-noread;
 				$scope.feeds = data.feeds;
 				$scope.noread = noread;
 				if(data.feeds.length==0)
@@ -564,13 +634,27 @@ angular.module('starter.controllers', [])
 					//$rootScope.user_data= window.localStorage.setItem('user',JSON.stringify(data.user_data));
 					angular.forEach(data.feeds, function(val, key){
 						fav_feeds=[];
+						var asuntos_arr=[]
+		 				var tmp_name=[]
+		 				var asunto_name=[]
 						angular.forEach(val.favfolder, function(dato, index){
 							fav_feeds.push(dato.folder_id);
 						});
+						angular.forEach(val.follow, function(valor,index){
+							asuntos_arr.push(valor.subject_id);
+						})
 						data.feeds[key].content=val.content+' <a href="#" onclick="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
 						data.feeds[key].content=$sce.trustAsHtml(data.feeds[key].content);
 						if(val.read==0)
 							noread++;
+						data.feeds[key].asuntos_str =asuntos_arr.join(",");
+						tmp_name= val.asunto_name.split(",");
+						angular.forEach(tmp_name, function(dato, ind){
+							var tmp=[]
+							tmp=dato.split(":")
+							asunto_name.push(tmp[1]);
+						});
+						data.feeds[key].asuntos_name=asunto_name;
 						if(fav_feeds.indexOf($state.params.favfolder)!=-1){
 							data.feeds[key].folder=true;
 							$scope.flag=false;
@@ -580,6 +664,7 @@ angular.module('starter.controllers', [])
 					});
 				if(data.feeds.length==(flag))
 					$scope.flag="no_feeds";
+				$scope.read=data.feeds.length-noread;
 				$scope.feeds = data.feeds;
 				$scope.noread = noread;
 			});
