@@ -43,7 +43,7 @@ angular.module('starter.services', ['ngCookies'])
 .service('LoginService', function($http, $q) {
 	var user_data={};
     return {
-        loginUser: function(name, pw) {
+        loginUser: function(name, pw,remember) {
             var deferred = $q.defer();
 			
             var promise = deferred.promise;
@@ -53,9 +53,12 @@ angular.module('starter.services', ['ngCookies'])
 				.success(function(data, status, headers, config){
 				console.log(data);
 					 if (data.message=="logged") {
-						window.localStorage.setItem('user',JSON.stringify(data.user));
+            window.localStorage.setItem('user',JSON.stringify(data.user));
+						if(remember=="ok")
+              window.localStorage.setItem('remember','true');
 						user_data=data.user;
 						deferred.resolve(data);
+
 						
 					} else {
 						deferred.reject(data);

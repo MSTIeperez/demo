@@ -964,4 +964,4 @@ $( document ).ready(function() {
         });
 			
 });
- }, 600);
+ }, 1000);

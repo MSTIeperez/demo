@@ -18,7 +18,8 @@ angular.module('starter.controllers', [])
 		}else{
 			$rootScope.sidemenuenabled=false;
 			$ionicSideMenuDelegate.toggleLeft();
-		} 
+		}
+		console.log("enabled: "+$rootScope.sidemenuenabled); 
 		
 	});  
 })
@@ -44,8 +45,8 @@ angular.module('starter.controllers', [])
 		$ionicSideMenuDelegate.toggleLeft();
 	};
     $scope.login = function() {
-		  console.log("LOGIN user: " + $scope.data.username + " - PW: ********");
-        LoginService.loginUser($scope.data.username, $scope.data.password).success(function(data) {
+		  console.log("LOGIN user: " + $scope.data.username + " - PW: ********" + " Recordar: "+ $scope.data.remember );
+        LoginService.loginUser($scope.data.username, $scope.data.password, $scope.data.remember).success(function(data) {
 			$scope.user=data.user;
 			$rootScope.user_data =data.user;
 			 if (data.message=="logged") {
