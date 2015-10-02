@@ -48,6 +48,10 @@ angular.module('starter', ['ionic','ngRoute','ngCordova', 'starter.controllers',
 	
                templateUrl: 'templates/login.html',
                 controller: 'LoginCtrl'
+      onEnter: function($state, Auth){
+        if(Auth.isLoggedIn())
+           $state.go('tab.feeds');
+    }
 	
   }) 
    .state('login-password', {
