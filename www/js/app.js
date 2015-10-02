@@ -135,7 +135,8 @@ angular.module('starter', ['ionic','ngRoute','ngCordova', 'starter.controllers',
 		onEnter: function($state, Auth){
         if(!Auth.isLoggedIn()){
            $state.go('login');
-        }
+        }else
+            $state.go('tab.feeds');
     }
     })
   

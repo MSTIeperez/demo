@@ -54,8 +54,8 @@ angular.module('starter.services', ['ngCookies'])
 				console.log(data);
 					 if (data.message=="logged") {
             window.localStorage.setItem('user',JSON.stringify(data.user));
-						if(remember=="ok")
-              window.localStorage.setItem('remember','true');
+						if(remember=="1")
+              window.localStorage.setItem('remember_me',JSON.stringify(data.user));
 						user_data=data.user;
 						deferred.resolve(data);
 
