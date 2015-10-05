@@ -37,9 +37,11 @@
     <gap:plugin name="org.apache.cordova.dialogs" />
     <gap:plugin name="org.apache.cordova.file" />
     <!--gap:plugin name="org.apache.cordova.file-transfer" /-->
+    <gap:plugin name="com.chanthu.evri.gcs-file-transfer" version="1.0.0" />
     <gap:plugin name="org.apache.cordova.geolocation" />
     <gap:plugin name="org.apache.cordova.globalization" />
-    <gap:plugin name="org.apache.cordova.inappbrowser" />
+    <!--gap:plugin name="org.apache.cordova.inappbrowser" /-->
+    <gap:plugin name="org.li8.inappbrowser" version="0.1" />
     <gap:plugin name="org.apache.cordova.media" />
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
