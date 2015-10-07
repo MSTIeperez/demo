@@ -47,11 +47,11 @@ angular.module('starter', ['ionic','ngRoute','ngCordova', 'starter.controllers',
       url: '/login', 
 	
                templateUrl: 'templates/login.html',
-                controller: 'LoginCtrl',
+                controller: 'LoginCtrl'/*,
         onEnter: function($state, Auth){
         if(Auth.isLoggedIn()){
            $state.go('tab.feeds');
-        }
+        }*/
    
 	
   }) 
