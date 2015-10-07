@@ -375,7 +375,7 @@ angular.module('starter.controllers', [])
 				var asuntos_arr=[]
 		 		var tmp_name=[]
 		 		var asunto_name=[]
-				data.feeds[key].content=val.content+' <a href="#" onclick="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
+				data.feeds[key].content=val.content+' <a href="#" ontouchstart="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
 				data.feeds[key].content=$sce.trustAsHtml(data.feeds[key].content);
 				angular.forEach(val.follow, function(valor,index){
 					asuntos_arr.push(valor.subject_id);
@@ -421,7 +421,7 @@ angular.module('starter.controllers', [])
 				var asuntos_arr=[]
 		 		var tmp_name=[]
 		 		var asunto_name=[]
-				data.feeds[key].content=val.content+' <a href="#" onclick="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
+				data.feeds[key].content=val.content+' <a href="#" ontouchstart="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
 				data.feeds[key].content=$sce.trustAsHtml(data.feeds[key].content);
 				angular.forEach(val.follow, function(valor,index){
 					asuntos_arr.push(valor.subject_id);
@@ -474,7 +474,7 @@ angular.module('starter.controllers', [])
 				var asuntos_arr=[]
 		 		var tmp_name=[]
 		 		var asunto_name=[]
-				data.feeds[key].content=val.content+' <a href="#" onclick="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
+				data.feeds[key].content=val.content+' <a href="#" ontouchstart="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
 				data.feeds[key].content=$sce.trustAsHtml(data.feeds[key].content);
 				angular.forEach(val.follow, function(valor,index){
 					asuntos_arr.push(valor.subject_id);
@@ -528,7 +528,7 @@ angular.module('starter.controllers', [])
 				var asuntos_arr=[]
 		 		var tmp_name=[]
 		 		var asunto_name=[]
-				data.feeds[key].content=val.content+ ' <a href="#" onclick="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
+				data.feeds[key].content=val.content+ ' <a href="#" ontouchstart="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
 				data.feeds[key].content=$sce.trustAsHtml(data.feeds[key].content);
 				angular.forEach(val.follow, function(valor,index){
 					asuntos_arr.push(valor.subject_id);
@@ -582,7 +582,7 @@ angular.module('starter.controllers', [])
 					var asuntos_arr=[]
 		 			var tmp_name=[]
 		 			var asunto_name=[]
-					data.feeds[key].content=val.content+' <a href="#" onclick="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
+					data.feeds[key].content=val.content+' <a href="#" ontouchstart="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
 					data.feeds[key].content=$sce.trustAsHtml(data.feeds[key].content);
 					angular.forEach(val.follow, function(valor,index){
 						asuntos_arr.push(valor.subject_id);
@@ -644,7 +644,7 @@ angular.module('starter.controllers', [])
 						angular.forEach(val.follow, function(valor,index){
 							asuntos_arr.push(valor.subject_id);
 						})
-						data.feeds[key].content=val.content+' <a href="#" onclick="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
+						data.feeds[key].content=val.content+' <a href="#" ontouchstart="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
 						data.feeds[key].content=$sce.trustAsHtml(data.feeds[key].content);
 						if(val.read==0)
 							noread++;

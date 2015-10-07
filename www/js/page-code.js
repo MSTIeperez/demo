@@ -38,13 +38,13 @@ $( document ).ready(function() {
 			});
     }
     notification();
-    $(document).on('click', function() {
+    $(document).on('touchstart click', function() {
         notification(); 
     });
     
     // Asuntos
     function subject() {
-        $( 'body' ).on( 'click', '.subject-more', function() {
+        $( 'body' ).on( 'touchstart click', '.subject-more', function() {
             $(this).text(function(i, text){
                 return text === "+ Ver todos" ? "- Ver menos" : "+ Ver todos";
             });
@@ -78,7 +78,7 @@ $( document ).ready(function() {
     resizeImage( '.circle-picture img' );
     
     // Mostrar grupo
-    $('body').on('click', '#show-all', function() {
+    $('body').on('touchstart click', '#show-all', function() {
         $('.image-list').toggleClass('active');
         if($('.image-list').hasClass('active') != true) {
             $(this).html('Ver todos');
@@ -88,7 +88,7 @@ $( document ).ready(function() {
     });
        
 	// Botón visto 
-    $('body').on('click', 'a.read', function(e){
+    $('body').on('touchstart click', 'a.read', function(e){
 		e.preventDefault();
 				var feeds_noleidos=$(".feed_noread").size();
 				var feeds_leidos=$(".feed_read").size();
@@ -121,13 +121,13 @@ $( document ).ready(function() {
     });
 	
     // input comentar
-    $('body').on('click', '.icon-message', function() {
+    $('body').on('touchstart click', '.icon-message', function() {
          $(this).parent().toggleClass('active');
         $(this).parent().parent().parent().children('.input-comment').toggleClass('active');
     });
     
     // button seen menu: active para botones de no leido & leido
-    $( 'body' ).on( 'click', '.seen-menu a', function() {
+    $( 'body' ).on( 'touchstart click', '.seen-menu a', function() {
         $( '.seen-menu a' ).removeClass( 'active' );
         $( this ).addClass( 'active' );
 		if($(this).hasClass('active')){
@@ -138,7 +138,7 @@ $( document ).ready(function() {
     });
     
     // button search: activa lighbox de busqueda
-    $( 'body' ).on( 'click', '.ion-search, .btn-cancel', function() {
+    $( 'body' ).on( 'touchstart click', '.ion-search, .btn-cancel', function() {
         $( '.lightbox-search' ).toggleClass( 'active' );
 		setTimeout(function(){
 						$('#search').focus();
@@ -146,7 +146,7 @@ $( document ).ready(function() {
     });
 
     // button share: activa lighbox de compartir
-    $( 'body' ).on( 'click', '.show-share', function() {
+    $( 'body' ).on( 'touchstart click', '.show-share', function() {
         $( '.share' ).addClass( 'active' );
         var img= $(this).parents('.feeds').find("div.item-header").find("img.small-image").attr('src');
         var feed_date= $(this).parents('.feeds').find("div.item-header").find("p").text().trim();
@@ -163,10 +163,10 @@ $( document ).ready(function() {
         console.log(img)
         console.log(content)
         console.log(file)
-        $('.social-fb').attr('onclick',"window.plugins.socialsharing.shareViaFacebook('mensaje',null,'"+img+"')");
-        $('.social-tw').attr('onclick',"window.plugins.socialsharing.shareViaTwitter('"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx',null,'"+url+"')");
-        $('.social-more').attr('onclick',"window.plugins.socialsharing.share('"+content+" - "+feed_date+"- CREDITO: Legix Feed - www.legixfeed.com.mx')");
-        $('.social-email').attr('onclick',"window.plugins.socialsharing.shareViaEmail("+
+        $('.social-fb').attr('ontouchstart click',"window.plugins.socialsharing.shareViaFacebook('mensaje',null,'"+img+"')");
+        $('.social-tw').attr('ontouchstart click',"window.plugins.socialsharing.shareViaTwitter('"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx',null,'"+url+"')");
+        $('.social-more').attr('ontouchstart click',"window.plugins.socialsharing.share('"+content+" - "+feed_date+"- CREDITO: Legix Feed - www.legixfeed.com.mx')");
+        $('.social-email').attr('ontouchstart click',"window.plugins.socialsharing.shareViaEmail("+
           "'"+origen+"<br><br>"+content+"<br><br>CREDITO: Legix Feed - www.legixfeed.com.mx', "+// can contain HTML tags, but support on Android is rather limited:  http://stackoverflow.com/questions/15136480/how-to-send-html-content-with-image-through-android-default-email-client
           "'Legix Feed-"+feed_date+"',"+
           "null,"+ // TO: must be null or an array
@@ -182,13 +182,13 @@ $( document ).ready(function() {
     });
     
     // button share email: activa lighbox de compartir por email
-     $( 'body' ).on( 'click', '.show-lightbox-share, .socials', function() {
+     $( 'body' ).on( 'touchstart click', '.show-lightbox-share, .socials', function() {
         $( '.share' ).removeClass( 'active' );
         //$( '.lightbox-share' ).addClass( 'active' );
         return false;
     });
      // button edit folder: activa lighbox de edicion folder favorito
-     $( 'body' ).on( 'click', '.show-lightbox-folder', function(e) {
+     $( 'body' ).on( 'touchstart click', '.show-lightbox-folder', function(e) {
         e.preventDefault();
 		var folder_id=$(this).parent().data('id');
 		var folder_name=$(this).parent('li').find('h2').html();
@@ -201,7 +201,7 @@ $( document ).ready(function() {
 		}, 300);	
       });
     // oculta los lightbox's
-    $( 'body' ).on( 'click', '.close-lightbox', function() {
+    $( 'body' ).on( 'touchstart click', '.close-lightbox', function() {
         $( '.share, .lightbox' ).removeClass( 'active' );
 		$(".folder_title").val("");
 		$(".title_folder").val("");
@@ -209,7 +209,7 @@ $( document ).ready(function() {
     });
 
     // button comments: activa & oculta comentarios
-    $( 'body' ).on( 'click', '.show-comments', function() {
+    $( 'body' ).on( 'touchstart click', '.show-comments', function() {
         $( this ).parent( '.item-comments' ).toggleClass( 'active' );
 		var num= $(this).find('span.comments-count').html();
         if( $( '.item-comments' ).hasClass( 'active') ) {
@@ -222,7 +222,7 @@ $( document ).ready(function() {
     });
     
     // button favorite
-    $( 'body' ).on( 'click', '.btn-favorite', function(e) {
+    $( 'body' ).on( 'touchstart click', '.btn-favorite', function(e) {
 		
       
         e.preventDefault(); 
@@ -269,7 +269,7 @@ $( document ).ready(function() {
 	        }
         return false;
     });
-     $( 'body' ).on( 'click', '.show-follow', function(e) {
+     $( 'body' ).on( 'touchstart click', '.show-follow', function(e) {
 		
       
         e.preventDefault(); 
@@ -333,7 +333,7 @@ $( document ).ready(function() {
         return false;
     });
     // button add: agreca folder a favoritos
-    $( 'body' ).on( 'click', '.btn-add', function() {
+    $( 'body' ).on( 'touchstart click', '.btn-add', function() {
         $( this ).text( function( i, text ) {
              return text === "Agregar archivero favorito" ? "Guardar" : "Agregar archivero favorito";
         });
@@ -342,14 +342,14 @@ $( document ).ready(function() {
     });
 
     // list expand toggle: despliega las listas
-    $( 'body' ).on( 'click', '.list-expand', function() {
+    $( 'body' ).on( 'touchstart click', '.list-expand', function() {
         $( this ).parent().parent().children( '.list-content' ).toggleClass( 'active' );
         $( this ).children( 'i' ).toggleClass( 'ion-arrow-down-b ion-arrow-up-b' );
         return false;
     });
      
      // button selected: seleccion de carpeta favorito donde se guardara el feed
-     $( 'body' ).on( 'click', '.lightbox-favorited-content .btn-invisible', function() {
+     $( 'body' ).on( 'touchstart click', '.lightbox-favorited-content .btn-invisible', function() {
          $( this ).parent().toggleClass( 'selected' );
         // $( this ).attr( 'checked', 'checked' );
 		 if( $( this ).attr("checked") ){
@@ -360,7 +360,7 @@ $( document ).ready(function() {
      });
      
      // button active tutorial
-    $( 'body' ).on( 'click', '.show-tutorial, .hide-tutorial, .btn-skip', function(e) {
+    $( 'body' ).on( 'touchstart click', '.show-tutorial, .hide-tutorial, .btn-skip', function(e) {
 		e.preventDefault();
         if( ($( this ).attr( 'href' ) != '') && ($( this ).attr( 'href' ) != ' ') && ($( this ).attr( 'href' ) != '#') ) {
             var tutorial = $( this ).attr( 'href' );
@@ -385,13 +385,13 @@ $( document ).ready(function() {
         return false;
     });
      
-    $( 'body' ).on( 'click', '.show-warning', function() {
+    $( 'body' ).on( 'touchstart click', '.show-warning', function() {
         $( '.warning.grl' ).addClass( 'active' );
         return false;
     });
 
 	 // button hide warning
-    $( 'body' ).on( 'click', '.hide-warning', function() {
+    $( 'body' ).on( 'touchstart click', '.hide-warning', function() {
         $( '.warning' ).removeClass( 'active' );
         return false;
     });
@@ -408,7 +408,7 @@ $( document ).ready(function() {
 
     // tutorial: seleccion de temas
 
-    $( 'body' ).on( 'click', '.next-tutorial', function() {
+    $( 'body' ).on( 'touchstart click', '.next-tutorial', function() {
         step = step + 1;
         
         if( $( this ).parent().parent().attr('id') != 'temas') {
@@ -474,7 +474,7 @@ $( document ).ready(function() {
     });
 	//-------------------------------INDEX HTML FUNCTIONS--------------------------------
 	
-	$('body').on('click','.update_folder',function(e){ 
+	$('body').on('touchstart click','.update_folder',function(e){ 
 				e.preventDefault();
 				var $obj = $(this);
 				var input=  $('.folder_title');
@@ -509,7 +509,7 @@ $( document ).ready(function() {
 				
 				}
 			});
-			$('body').on('click','.deleted_folder',function(e){ 
+			$('body').on('touchstart click','.deleted_folder',function(e){ 
 				e.preventDefault();
 				var folder_name =$('.folder_title').attr("placeholder");
 				$( '.warning-content.grl' ).find('p').html("").html( '¿Estás seguro de borrar <strong>'+folder_name+'</strong> y todos sus contenidos?' );
@@ -518,7 +518,7 @@ $( document ).ready(function() {
 				$( '.warning.grl' ).addClass( 'active' );
 				return false;
 			});
-			$('body').on('click','.deleted_folder_ok',function(e){ 
+			$('body').on('touchstart click','.deleted_folder_ok',function(e){ 
 				e.preventDefault();
 				var folder_id =  $('#folder_id').attr("ng-value");
 				var count_folder="";
@@ -555,20 +555,20 @@ $( document ).ready(function() {
 						 });
 				}
 			});			
-			$('body').on('click','#returns', function(e){
+			$('body').on('touchstart click','#returns', function(e){
 				e.preventDefault();
 				$( '.warning-content.grl' ).find('p').html("").html( ' No has dado de alta ningún Tema. Sin personalización de Temas, solo recibirás el Feed genérico sin notificaciones en las sección de Temas ni de Mis Feeds. Puedes continuar y posteriormente hacerlo.' );
 				$(this).attr('href',"#/tab/config-feeds");
 				$('.warning-actions.grl').find('a#btn-aceptar').removeClass('deleted_folder_ok');
 				});
-			$('body').on('click','.btn-add-folder, .cancel_folder',function(e){
+			$('body').on('touchstart click','.btn-add-folder, .cancel_folder',function(e){
 				e.preventDefault();
 				$( '.lightbox-add.create-folder' ).toggleClass( 'active' );
 				setTimeout(function(){
 						$(".title_folder").focus();
 					}, 300);	
 			});
-			$("body").on('click','.create_folder',function(e){
+			$("body").on('touchstart click','.create_folder',function(e){
 				e.preventDefault();
 				var title= $('.title_folder').val().trim();
 				if(title.length>0){
@@ -593,7 +593,7 @@ $( document ).ready(function() {
 																'<i class="sprite2x icon icon-folder">0</i>'+
 																'<h2>'+data.title+'</h2>'+
 																'<p></p>'+
-															'<a class="button button-outline button-positive show-lightbox-folder" href="#" onclick="return false;">Editar</a>'+
+															'<a class="button button-outline button-positive show-lightbox-folder" href="#" ontouchstart="return false;">Editar</a>'+
 															'</li>';
 								var favfolder2 ='<li class="category-element item item-avatar item-icon-left item-button-right" data-id="'+data.id+'">'+
 														'<input class="btn-invisible" type="checkbox">'+
@@ -616,7 +616,7 @@ $( document ).ready(function() {
 				}
 				
 			});
-			$('body').on('click','.ok_temass',function(e){ 
+			$('body').on('touchstart click','.ok_temass',function(e){ 
 				var temas_name=[]
 				var topics = $("#count_tema").data("topic");
 				var temas = $("#count_tema").data("temas");
@@ -634,14 +634,14 @@ $( document ).ready(function() {
 				}else{	
 					if((topics-temas)>0){
 						$('.warning-actions.grl').find('a#btn-aceptar').addClass('add_temas_ok');
-						$('.warning-actions.grl').find('a#btn-aceptar').removeAttr('onclick');
+						$('.warning-actions.grl').find('a#btn-aceptar').removeAttr('ontouchstart click');
 						$( '.warning-content.grl' ).find('p').html("").html( 'Temas contratados: '+temas+'/'+topics+', libres: '+(topics-temas)+'<br> Estas seguro de seleccionar este(os) tema(s): <strong>'+temas_name+'.</strong>');
 					}else{
 						$( '.warning-content.grl' ).find('p').html("").html( 'Temas contratados: '+temas+'/'+topics+', libres: '+(topics-temas)+'<br> ¡Has llegado al límite de tus temas contratados, ya no puedes agregar temas!');
 					}
 				}
 			});
-			$('body').on('click','.add_temas_ok', function(e){
+			$('body').on('touchstart click','.add_temas_ok', function(e){
 				e.preventDefault();
 				var temas_id= []
 				var temas_name=[]
@@ -669,7 +669,7 @@ $( document ).ready(function() {
 						console.log(data);
 					});
 			});
-		$("body").on('click','.btn-upload',function(){
+		$("body").on('touchstart click','.btn-upload',function(){
 			$('#load_photo').toggleClass("active");
 		});			
 		$("html").on('keyup','#search',function(e){
@@ -723,7 +723,7 @@ $( document ).ready(function() {
 						console.log("llena el campo para mandar tu comentario");
 				}
 				});
-			$("body").delegate(".add_comment_btn", "click", function(e){
+			$("body").delegate(".add_comment_btn", "touchstart click", function(e){
 					e.preventDefault();
 					var input= $(this).parent().find('label.item-input-wrapper').find('input');
 					var comment = input.val().trim();
@@ -762,7 +762,7 @@ $( document ).ready(function() {
 						console.log("llena el campo para mandar tu comentario");
 			
 				});
-	$('body').delegate('.add_to_favfolder','click',function(e){
+	$('body').delegate('.add_to_favfolder','touchstart click',function(e){
 
 			e.preventDefault();
 			
@@ -897,7 +897,7 @@ $( document ).ready(function() {
 						});*/
 				
 		});
-		$('body').delegate('.add_to_follow','click',function(e){
+		$('body').delegate('.add_to_follow','touchstart click',function(e){
 			e.preventDefault();
 
 			var asunto_id 	= [];
@@ -952,14 +952,14 @@ $( document ).ready(function() {
 	               //}
 				
 		});
-		$('body').delegate('.group_edit','click',function(e){
+		$('body').delegate('.group_edit','touchstart click',function(e){
 			$(this).toggleClass("active");
 			if($(this).hasClass("active"))
 				$(this).parent().find("a.btn-edit").show();
 			else
 				$(this).parent().find("a.btn-edit").hide();
         });
-		$('body').delegate('.themesearch-clear','click',function(e){
+		$('body').delegate('.themesearch-clear','touchstart click',function(e){
             $("#theme-search").val("");
         });
 			
