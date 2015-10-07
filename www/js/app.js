@@ -48,7 +48,10 @@ angular.module('starter', ['ionic','ngRoute','ngCordova', 'starter.controllers',
 	
                templateUrl: 'templates/login.html',
                 controller: 'LoginCtrl'
-     
+        onEnter: function($state, Auth){
+        if(Auth.isLoggedIn()){
+           $state.go('tab.feeds');
+        }
    
 	
   }) 
@@ -137,8 +140,7 @@ angular.module('starter', ['ionic','ngRoute','ngCordova', 'starter.controllers',
 		onEnter: function($state, Auth){
         if(!Auth.isLoggedIn()){
            $state.go('login');
-        }else
-            $state.go('tab-myfeeds');
+        }
     }
     })
   
