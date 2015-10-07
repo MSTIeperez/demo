@@ -138,7 +138,7 @@ angular.module('starter', ['ionic','ngRoute','ngCordova', 'starter.controllers',
         if(!Auth.isLoggedIn()){
            $state.go('login');
         }else
-            $state.go('tab.feeds');
+            $state.go('tab-myfeeds');
     }
     })
   
