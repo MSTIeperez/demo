@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.abargon.Legix" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.abargon.Legix" version="1.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Legix</name>
     <description>
          An Ionic Framework and Cordova project.
@@ -47,7 +47,8 @@
     <gap:plugin name="org.apache.cordova.vibration" />
 	<gap:plugin name="nl.x-services.plugins.socialsharing" source="plugins.cordova.io" />
 	<gap:plugin name="io.github.pwlin.cordova.plugins.fileopener2" version="1.0.11" />
-	<gap:plugin name="de.appplant.cordova.plugin.printer" version="0.7.1" />
+    <gap:plugin name="de.appplant.cordova.plugin.printer" version="0.7.1" />
+	<gap:plugin name="org.apache.cordova.transport-security"  />
     
     <gap:plugin name="com.medlei.pushplugin" version="0.1.2">
     <!--gap:plugin name="com.parse.cordova.core.pushplugin"-->
