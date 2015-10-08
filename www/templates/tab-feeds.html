@@ -34,6 +34,12 @@
                         {{docs.file}}
                     </a>
                 </div>
+                <div class="item-subject">
+                    <ul>
+                        <li class="li-subject" ng-class="{'disregard':$index<2,'':$index>1}" ng-repeat="asuntos in feed.asuntos_name"><a class="subject" href="#">{{asuntos}}</a></li>
+                        <li ng-show="feed.asuntos_name.length>2"><a class="subject-more" href="#">+ Ver todos</a></li>
+                    </ul>
+                </div>
                 <div   ng-hide="{{feed.comments.length<1}}"class="item-comments">
                     <a ng-hide="{{feed.comments.length-1<1}}" href="#" class="show-comments">Mostrar <span class="comments-count">{{feed.comments.length-1}}</span> comentarios previos</a>
                     <ul class="comments-list">

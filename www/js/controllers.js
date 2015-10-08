@@ -44,7 +44,7 @@ angular.module('starter.controllers', [])
 		$rootScope.sidemenuenabled=false;
 		$ionicSideMenuDelegate.toggleLeft();
 	};
-
+	
     $scope.login = function() {
 		  console.log("LOGIN user: " + $scope.data.username + " - PW: ********" + " Recordar: "+ $scope.data.remember );
         LoginService.loginUser($scope.data.username, $scope.data.password, $scope.data.remember).success(function(data) {
@@ -417,7 +417,7 @@ angular.module('starter.controllers', [])
 	$scope.$on('$ionicView.loaded', function(e) { console.log(Auth.isLoggedIn())
 		if(Auth.isLoggedIn() && window.localStorage.getItem('user')!=null ){
 			$scope.flag=true;
-		var feeds_array =Feeds_all.all(-1).success(function(data){
+		$scope.load = Feeds_all.all(-1).success(function(data){
 			angular.forEach(data.feeds, function(val, key){
 				var asuntos_arr=[]
 		 		var tmp_name=[]
@@ -445,9 +445,6 @@ angular.module('starter.controllers', [])
 		}).error(function(){
 			$scope.feeds = "";
 		});
-		$scope.load = function(){
-			return feeds_array;
-		};
 		$scope.remove = function(feed) {
 			Feeds_all.remove(feed);
 		}
