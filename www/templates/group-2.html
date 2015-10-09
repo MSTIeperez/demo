@@ -77,7 +77,7 @@
             
         <div class="list-actions list-actions-border clearfix" ng-hide="group_id">
             <button class="button button-outline button-positive" type="submit" ng-click="creategroup()">Crear</button>
-            <button class="button button-outline button-positive" onclick="window.location.href='#/configuracion'">Crear después</button>
+            <button class="button button-outline button-positive" ontouchstart="window.location.href='#/configuracion'">Crear después</button>
         </div>
         <div class="list-actions list-actions-border clearfix" ng-show="group_id">
             <button class="button button-outline button-positive" ng-controller="ConfigCtrl"  ng-model="data.grupo_id=group_id"   ng-click="removeuser()" >Eliminar</button>
