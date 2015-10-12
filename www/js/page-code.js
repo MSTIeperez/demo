@@ -24,7 +24,7 @@ $( document ).ready(function() {
 	}
 	// Notificación
     function notification() {
-		$.post('/api/follow/get_follows_unread',{'send_data':'send_data'})
+		$.post(url+'/api/follow/get_follows_unread',{'send_data':'send_data'})
 			.success(function(response){
 				
 			response = $.parseJSON( response );
