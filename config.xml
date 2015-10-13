@@ -106,6 +106,7 @@
         <!--param name="android-package" value="com.medlei.pushplugin" /-->
     </feature>
     <access origin="*" launch-external="yes" />
+    <access origin="http://legixapp.abardev.net/" />
     <plugin name="cordova-plugin-whitelist" version="1" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
