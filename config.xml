@@ -106,7 +106,7 @@
         <!--param name="android-package" value="com.medlei.pushplugin" /-->
     </feature>
     
-    <plugin name="cordova-plugin-whitelist" source="npm" />
+    <gap:plugin name="cordova-plugin-whitelist" source="npm" />
     <access origin="*" launch-external="yes" />
     
     <allow-intent href="http://*/*" />
