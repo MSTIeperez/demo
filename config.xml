@@ -9,7 +9,7 @@
     </author>
     <content src="index.html" />
 
-    <!--preference name="permissions" value="none" /-->
+    <preference name="permissions" value="none" />
     <preference name="orientation" value="default" />
     <preference name="target-device" value="universal" />
     <preference name="fullscreen" value="true" />
@@ -106,9 +106,9 @@
         <!--param name="android-package" value="com.medlei.pushplugin" /-->
     </feature>
     
-    <gap:plugin name="cordova-plugin-whitelist" source="npm" />
+    <plugin name="cordova-plugin-whitelist" source="npm" />
     <access origin="*" launch-external="yes" />
-    <access origin="http://legixapp.abardev.net/" />
+    
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
