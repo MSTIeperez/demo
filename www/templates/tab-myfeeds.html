@@ -29,8 +29,8 @@
 			<input type="hidden" class="asunto_name" value="{{feed.asunto_name}}" />
             <div class="item item-header item-thumbnail-left">
                 <img class="small-image" ng-src="http://legixapp.abardev.net{{ feed.src_img }}">
-                <h2>{{ feed.title_origin }}</h2>
-                <h3>({{ feed.title_source }})</h3>
+               <h2>{{ feed.title_origin }}</h2>
+                <h3>({{ feed.title_themes }})</h3>
                 <p>{{ feed.title_source }}</p>
                 <p>{{ feed.date }}</p>
 				<a class="read"  ng-class="{'': feed.read==0, 'active': feed.read==1}" href="#"><i class="" ng-class="{'ion-ios-checkmark-outline': feed.read==0, 'ion-ios-checkmark': feed.read==1}"></i></a>
@@ -47,7 +47,7 @@
                 
                 <div class="item-subject">
                     <ul>
-                        <li class="li-subject" ng-class="{'disregard':$index<2,'':$index>1}" ng-repeat="asuntos in feed.asuntos_name"><a class="subject" href="#">{{asuntos}}</a></li>
+                        <li class="li-subject" ng-class="{'disregard':$index<2,'':$index>1}" ng-repeat="asuntos in feed.asuntos_name"><a class="subject" href="#" ontouchstar="return false; ">{{asuntos}}</a></li>
                         <li ng-show="feed.asuntos_name.length>2"><a class="subject-more" href="#">+ Ver todos</a></li>
                     </ul>
                 </div>
