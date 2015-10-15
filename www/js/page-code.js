@@ -362,7 +362,7 @@ $( document ).ready(function() {
      // button active tutorial
     $( 'body' ).on( 'touchstart ', '.show-tutorial, .hide-tutorial, .btn-skip', function(e) {
 		e.preventDefault();
-        if( ($( this ).attr( 'href' ) != '') && ($( this ).attr( 'href' ) != ' ') && ($( this ).attr( 'href' ) != '#') ) {
+        if( ($( this ).attr( 'href' ) != '') && ($( this ).attr( 'href' ) != ' ') && ($( this ).attr( 'href' ) != '#') && ($( this ).attr( 'href' ) != 'javascript:void(0);') ) {
             var tutorial = $( this ).attr( 'href' );
             $( tutorial ).toggleClass( 'active' );
         } else {
