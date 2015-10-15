@@ -6,7 +6,7 @@
 
 'use strict';
 angular.module('starter', ['ionic','ngRoute','ngCordova','ngCookies', 'starter.controllers', 'starter.services'])
-
+/*
 .directive('ngEnter', function () {
         return function (scope, element, attrs) {
             element.bind("keydown keypress", function (event) {
@@ -21,7 +21,7 @@ angular.module('starter', ['ionic','ngRoute','ngCordova','ngCookies', 'starter.c
                 }
             });
         };
-    })
+    })*/
 .config(function($ionicConfigProvider){
     $ionicConfigProvider.tabs.position('bottom');
 })
