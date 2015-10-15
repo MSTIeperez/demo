@@ -15,8 +15,8 @@
     <ion-content class="padding has-subheader bg-color-1"> 
          <div class="seen-menu clearfix">
 		 
-            <a class="reads  nof_read" ng-class="{'active':noread>0, ' ':noread==0}" data-class="feed_noread" href="#" ontouchstart="return false;" data-read="{{noread}}">No leídos ({{noread}})</a> 
-            <a  class="reads f_read" ng-class="{'active':noread==0, ' ':noread>0}"  data-class="feed_read" href="#" ontouchstart="return false;" data-read="{{read}}" >Leídos ({{read}})</a>
+            <a class="reads  nof_read" ng-class="{'active':noread>0, ' ':noread==0}" data-class="feed_noread" href="javascript:void(0);" ontouchstart="return false;" data-read="{{noread}}">No leídos ({{noread}})</a> 
+            <a  class="reads f_read" ng-class="{'active':noread==0, ' ':noread>0}"  data-class="feed_read" href="javascript:void(0);" ontouchstart="return false;" data-read="{{read}}" >Leídos ({{read}})</a>
         </div>
 		<div class="list-card"   ng-switch="flag" ng-show="flag" ng-hide="flag==false">
             <div class="item item-header item-empty">
@@ -33,25 +33,25 @@
                 <h3>({{ feed.title_themes }})</h3>
                 <p>{{ feed.title_source }}</p>
                 <p>{{ feed.date }}</p>
-				<a class="read"  ng-class="{'': feed.read==0, 'active': feed.read==1}" href="#"><i class="" ng-class="{'ion-ios-checkmark-outline': feed.read==0, 'ion-ios-checkmark': feed.read==1}"></i></a>
+				<a class="read"  ng-class="{'': feed.read==0, 'active': feed.read==1}" href="javascript:void(0);"><i class="" ng-class="{'ion-ios-checkmark-outline': feed.read==0, 'ion-ios-checkmark': feed.read==1}"></i></a>
           </div>
 
             <div class="item item-body">
                 <p ng-bind-html="feed.content"></p>
                  <div class="item-attachments" ng-controller="FunctionCtrl">
-                    <a ng-repeat="docs in feed.docs" href="#" ng-value="'http://legixapp.abardev.net{{docs.src_file}}'" ng-click="download('http://legixapp.abardev.net{{ docs.src_file }}')" download="{{docs.file}}">
+                    <a ng-repeat="docs in feed.docs" href="javascript:void(0);" ng-value="'http://legixapp.abardev.net{{docs.src_file}}'" ng-click="download('http://legixapp.abardev.net{{ docs.src_file }}')" download="{{docs.file}}">
                         <i class="icon ion-android-attach"></i>
                         {{docs.file}}
                     </a>
                 </div>
                 <div class="item-subject">
                     <ul>
-                        <li class="li-subject" ng-class="{'disregard':$index<2,'':$index>1}" ng-repeat="asuntos in feed.asuntos_name"><a class="subject" href="#" ontouchstart="return false; ">{{asuntos}}</a></li>
-                        <li ng-show="feed.asuntos_name.length>2"><a class="subject-more" href="#">+ Ver todos</a></li>
+                        <li class="li-subject" ng-class="{'disregard':$index<2,'':$index>1}" ng-repeat="asuntos in feed.asuntos_name"><a class="subject" href="javascript:void(0);" ontouchstart="return false; ">{{asuntos}}</a></li>
+                        <li ng-show="feed.asuntos_name.length>2"><a class="subject-more" href="javascript:void(0);">+ Ver todos</a></li>
                     </ul>
                 </div>
                 <div   ng-hide="{{feed.comments.length<1}}"class="item-comments">
-                    <a ng-hide="{{feed.comments.length-1<1}}" href="#" class="show-comments">Mostrar <span class="comments-count">{{feed.comments.length-1}}</span> comentarios previos</a>
+                    <a ng-hide="{{feed.comments.length-1<1}}" href="javascript:void(0);" class="show-comments">Mostrar <span class="comments-count">{{feed.comments.length-1}}</span> comentarios previos</a>
                     <ul class="comments-list">
                         <li class="comment  " ng-repeat="comments in feed.comments" ng-class="!$last ? ' ' : 'last-comment'">
                             <h3>{{comments.name}}</h3>
@@ -64,19 +64,19 @@
             </div>
 
             <div class="item tabs tabs-icon-only tabs-light tabs-secondary">
-                <a class="tab-item" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="#" ontouchstart="return false;">
+                <a class="tab-item" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="javascript:void(0);" ontouchstart="return false;">
                     <i class="icon sprite icon-message"></i>
                 </a>
-                <a class="tab-item show-follow"   ng-class="{'active' : feed.follow.length>0,'':feed.follow.length==0}" href="#">
+                <a class="tab-item show-follow"   ng-class="{'active' : feed.follow.length>0,'':feed.follow.length==0}" href="javascript:void(0);">
                     <i class="icon sprite icon-mark" ng-class="{'active' : feed.follow.length>0,'':feed.follow.length==0}"></i>
                 </a>
-                <a class="tab-item show-share" href="#">
+                <a class="tab-item show-share" href="javascript:void(0);">
                     <i class="icon sprite icon-share"></i>
                 </a>
-                <a class="tab-item btn-favorite"  href="#" ng-class="{'active' : feed.favfolder.length>0,'':feed.favfolder.length==0}" ontouchstart="return false;">
+                <a class="tab-item btn-favorite"  href="javascript:void(0);" ng-class="{'active' : feed.favfolder.length>0,'':feed.favfolder.length==0}" ontouchstart="return false;">
                     <i class="icon sprite icon-favorite" ng-class="{'active' : feed.favfolder.length>0,'':feed.favfolder.length==0}"></i>
                 </a>
-                  <a class="tab-item"  href="#" ng-controller="FunctionCtrl" ng-click="print({{feed.id}})" >
+                  <a class="tab-item"  href="javascript:void(0);" ng-controller="FunctionCtrl" ng-click="print({{feed.id}})" >
                     <i class="icon sprite icon-print"></i>
                 </a>
             </div>
@@ -109,17 +109,17 @@
                 <input class="btn-invisible folder_add" type="checkbox" ng-true-value="'{{folder.id}}'" data-id="{{folder.id}}" >
                 <i class="sprite2x icon icon-folder">{{folder.total}}</i>
                 <h2>{{folder.title}}</h2>
-                <a class="button button-outline button-positive btn-delete" href="#">Eliminar</a>
+                <a class="button button-outline button-positive btn-delete" href="javascript:void(0);">Eliminar</a>
             </li>     
 			<input class="feed_id" type="hidden" value="" >
         </div>
     </div>
     <div class="lightbox-favorited-add">
-        <a class="btn-add-folder" href="#">Agregar archivero favorito</a>
+        <a class="btn-add-folder" href="javascript:void(0);">Agregar archivero favorito</a>
     </div>
     <div class="lightbox-favorited-actions clearfix">
         <button class="button button-outline button-positive add_to_favfolder" type="submit" ng-click="">Aceptar</button>
-        <a class="close-lightbox" href="#">Cancelar</a>
+        <a class="close-lightbox" href="javascript:void(0);">Cancelar</a>
     </div>
     </form>
 </div>
@@ -131,7 +131,7 @@
         </div>
         <div class="warning-remove-actions clearfix">
             <button class="button button-outline button-positive btn-remove-favorited" type="submit">Confirmar</button>
-            <a class="hide-warning" href="#">Cancelar</a>
+            <a class="hide-warning" href="javascript:void(0);">Cancelar</a>
         </div>
     </div>
 </div>
@@ -164,7 +164,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum malesuada ur
 
             <div class="lightbox-favorited-actions clearfix">
                 <button class="button button-outline button-positive" type="submit">Aceptar</button>
-                <a class="close-lightbox" href="#">Cancelar</a>
+                <a class="close-lightbox" href="javascript:void(0);">Cancelar</a>
             </div>
         </div>
     </form>
