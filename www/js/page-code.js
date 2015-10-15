@@ -1,4 +1,4 @@
- setTimeout(function() {
+// setTimeout(function() {
 $( document ).ready(function() {
     	
     // Global variables
@@ -408,7 +408,7 @@ $( document ).ready(function() {
 
     // tutorial: seleccion de temas
 
-    $( 'body' ).on( 'touchstart ', '.next-tutorial', function() {
+    $( 'body' ).on( 'touchstart ', '.next-tutorial', function(e) {
         step = step + 1;
         
         if( $( this ).parent().parent().attr('id') != 'temas') {
@@ -964,4 +964,4 @@ $( document ).ready(function() {
         });
 			
 });
- }, 1000);
+ //}, 1000);
