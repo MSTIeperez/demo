@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 
 'use strict';
-angular.module('starter', ['ionic','ngRoute','ngCordova','ngCookies', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic','ngRoute','ngCordova','ngCookies', 'starter.controllers', 'starter.services', 'ngIOS9UIWebViewPatch'])
 
 .directive('ngEnter', function () {
         return function (scope, element, attrs) {
