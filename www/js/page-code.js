@@ -161,10 +161,10 @@ $( document ).ready(function() {
             file+=$(this).text().trim()+", ";
             download.push($(this).attr("ng-value"));
         });
-        //console.log(id)
-        //console.log(img)
-        //console.log(content)
-        //console.log(file)
+        console.log(id)
+        console.log(img)
+        console.log(content)
+        console.log(file)
         $('.social-fb').attr('onclick',"window.plugins.socialsharing.shareViaFacebook('mensaje',null,null,'"+url+"/esp/1/feed/"+id+"')");
         $('.social-tw').attr('onclick',"window.plugins.socialsharing.shareViaTwitter('"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx',null,'"+url+"/esp/1/feed/"+id+"')");
         $('.social-more').attr('onclick',"window.plugins.socialsharing.share('"+content+" - "+feed_date+"- CREDITO: Legix Feed - www.legixfeed.com.mx')");
