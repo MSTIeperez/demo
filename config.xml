@@ -93,7 +93,7 @@
 
 	<feature name="SocialSharing">
 		<param name="android-package" value="nl.xservices.plugins.SocialSharing" />
-		<param name="ios-package" value="SocialSharing" />
+		<param name="ios-package" value="CDVSocialSharing" />
 	</feature> 
     <feature name="SplashScreen">
         <param name="android-package" value="org.apache.cordova.SplashScreen" />
