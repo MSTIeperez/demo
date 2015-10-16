@@ -146,8 +146,9 @@ $( document ).ready(function() {
     });
 
     // button share: activa lighbox de compartir
-    $( 'body' ).on( 'touchstart ', '.show-share', function() {
+    $( 'body' ).on( 'touchstart click', '.show-share', function() {
         $( '.share' ).addClass( 'active' );
+        var id= $(this).parents('.feeds').data('id');
         var img= $(this).parents('.feeds').find("div.item-header").find("img.small-image").attr('src');
         var feed_date= $(this).parents('.feeds').find("div.item-header").find("p").text().trim();
         var origin= $(this).parents('.feeds').find("div.item-header").find("h2").text().trim();
@@ -160,13 +161,14 @@ $( document ).ready(function() {
             file+=$(this).text().trim()+", ";
             download.push($(this).attr("ng-value"));
         });
-        console.log(img)
-        console.log(content)
-        console.log(file)
-        $('.social-fb').attr('ontouchstart ',"window.plugins.socialsharing.shareViaFacebook('mensaje',null,'"+img+"')");
-        $('.social-tw').attr('ontouchstart ',"window.plugins.socialsharing.shareViaTwitter('"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx',null,'"+url+"')");
-        $('.social-more').attr('ontouchstart ',"window.plugins.socialsharing.share('"+content+" - "+feed_date+"- CREDITO: Legix Feed - www.legixfeed.com.mx')");
-        $('.social-email').attr('ontouchstart ',"window.plugins.socialsharing.shareViaEmail("+
+        //console.log(id)
+        //console.log(img)
+        //console.log(content)
+        //console.log(file)
+        $('.social-fb').attr('onclick',"window.plugins.socialsharing.shareViaFacebook('mensaje',null,null,'"+url+"/esp/1/feed/"+id+"')");
+        $('.social-tw').attr('onclick',"window.plugins.socialsharing.shareViaTwitter('"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx',null,'"+url+"/esp/1/feed/"+id+"')");
+        $('.social-more').attr('onclick',"window.plugins.socialsharing.share('"+content+" - "+feed_date+"- CREDITO: Legix Feed - www.legixfeed.com.mx')");
+        $('.social-email').attr('onclick',"window.plugins.socialsharing.shareViaEmail("+
           "'"+origen+"<br><br>"+content+"<br><br>CREDITO: Legix Feed - www.legixfeed.com.mx', "+// can contain HTML tags, but support on Android is rather limited:  http://stackoverflow.com/questions/15136480/how-to-send-html-content-with-image-through-android-default-email-client
           "'Legix Feed-"+feed_date+"',"+
           "null,"+ // TO: must be null or an array
