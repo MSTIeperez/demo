@@ -168,9 +168,9 @@ $( document ).ready(function() {
         console.log(img)
         console.log(content)
         console.log(file)
-        $('.social-fb').attr('onclick',"window.plugins.socialsharing.shareViaFacebook('message',null,null,'"+path+"',function() {console.log('share ok')}, function(errormsg){alert(errormsg)})");
-        $('.social-tw').attr('onclick',"window.plugins.socialsharing.shareViaTwitter('"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx',null,'"+path+"',function() {console.log('share ok')}, function(errormsg){alert(errormsg)})");
-        $('.social-more').attr('onclick',"window.plugins.socialsharing.share('"+content+" - "+feed_date+"- CREDITO: Legix Feed - www.legixfeed.com.mx',function() {console.log('share ok')}, function(errormsg){alert(errormsg)})");
+        $('.social-fb').attr('onclick',"window.plugins.socialsharing.shareViaFacebook('message',null,null,'"+path+"')");
+        $('.social-tw').attr('onclick',"window.plugins.socialsharing.shareViaTwitter('"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx',null,'"+path+"')");
+        $('.social-more').attr('onclick',"window.plugins.socialsharing.share('"+content+" - "+feed_date+"- CREDITO: Legix Feed - www.legixfeed.com.mx')");
         $('.social-email').attr('onclick',"window.plugins.socialsharing.shareViaEmail("+
           "'"+origen+"<br><br>"+content+"<br><br>CREDITO: Legix Feed - www.legixfeed.com.mx', "+// can contain HTML tags, but support on Android is rather limited:  http://stackoverflow.com/questions/15136480/how-to-send-html-content-with-image-through-android-default-email-client
           "'Legix Feed-"+feed_date+"',"+
