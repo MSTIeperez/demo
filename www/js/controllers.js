@@ -821,7 +821,8 @@ angular.module('starter.controllers', [])
 								text: 'Aceptar',
 								type: 'button-positive',
 								onTap: function(e) {
-									$state.go('config_user');
+									$state.go('configuracion');
+									//$state.go('config_user');
 								}
 								}]	
 							});
@@ -868,7 +869,8 @@ angular.module('starter.controllers', [])
 								text: 'Aceptar',
 								type: 'button-positive',
 								onTap: function(e) {
-									$state.go('config_groups');
+									$state.go('configuracion');
+									//$state.go('config_groups');
 								}
 								}]	
 							});
@@ -939,7 +941,7 @@ angular.module('starter.controllers', [])
 								text: 'Aceptar',
 								type: 'button-positive',
 								onTap: function(e) {
-									$state.go('config_groups');
+									$state.go('configuracion');
 								}
 								}]	
 							});
