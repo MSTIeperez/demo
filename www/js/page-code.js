@@ -146,7 +146,8 @@ $( document ).ready(function() {
     });
 
     // button share: activa lighbox de compartir
-    $( 'body' ).on( 'touchstart click', '.show-share', function() {
+    $( 'body' ).on( 'touchstart click', '.show-share', function(e) {
+        e.preventDefault();
         $( '.share' ).addClass( 'active' );
         var id= $(this).parents('.feeds').data('id');
         var img= $(this).parents('.feeds').find("div.item-header").find("img.small-image").attr('src');
