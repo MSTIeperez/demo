@@ -151,10 +151,9 @@ $( document ).ready(function() {
         $( '.share' ).addClass( 'active' );
         var id= $(this).parents('.feeds').data('id');
         var img= $(this).parents('.feeds').find("div.item-header").find("img.small-image").attr('src');
-        var feed_date= $(this).parents('.feeds').find("div.item-header").find("p").text().trim();
+        var feed_date= $(this).parents('.feeds').find("div.item-header").find("p.feed-date").text().trim();
         var origin= $(this).parents('.feeds').find("div.item-header").find("h2").text().trim();
-        var origen= origin+"-"+$(this).parents('.feeds').find("div.item-header").find("h3").text().trim();
-        var feed_date= $(this).parents('.feeds').find("div.item-header").find("p").text().trim();
+        var origen= origin+"-"+$(this).parents('.feeds').find("div.item-header").find("p").text().trim();
         var content= $(this).parents('.feeds').find("div.item-body").find("p.content-feed").text().trim();
         var file="";
         var download=[];
@@ -168,7 +167,7 @@ $( document ).ready(function() {
         console.log(img)
         console.log(content)
         console.log(file)
-        $('.social-fb').attr('onclick',"window.plugins.socialsharing.shareViaFacebook('message',null,null,'"+path+"')");
+        $('.social-fb').attr('onclick',"window.plugins.socialsharing.shareViaFacebook('message',null,'"+path+"')");
         $('.social-tw').attr('onclick',"window.plugins.socialsharing.shareViaTwitter('"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx',null,'"+path+"')");
         $('.social-more').attr('onclick',"window.plugins.socialsharing.share('"+content+" - "+feed_date+"- CREDITO: Legix Feed - www.legixfeed.com.mx')");
         $('.social-email').attr('onclick',"window.plugins.socialsharing.shareViaEmail("+
