@@ -167,9 +167,9 @@ $( document ).ready(function() {
         console.log(img)
         console.log(content)
         console.log(file)
-        $('.social-fb').attr('ontouchstart',"window.plugins.socialsharing.shareViaFacebook('message',null,'"+path+"', function(msg) {console.log('ok: ' + msg)}, function(msg) {alert('error: ' + msg)})");
-        $('.social-tw').attr('ontouchstart',"window.plugins.socialsharing.shareViaTwitter('"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx',null,'"+path+"', function(msg) {console.log('ok: ' + msg)}, function(msg) {alert('error: ' + msg)})");
-        $('.social-more').attr('ontouchstart',"window.plugins.socialsharing.share('"+content+" - "+feed_date+"- CREDITO: Legix Feed - www.legixfeed.com.mx', function(msg) {console.log('ok: ' + msg)}, function(msg) {alert('error: ' + msg)})");
+        $('.social-fb').attr('ontouchstart',"window.plugins.socialsharing.shareViaFacebook('message',null,'"+path+"')");
+        $('.social-tw').attr('ontouchstart',"window.plugins.socialsharing.shareViaTwitter('"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx',null,'"+path+"')");
+        $('.social-more').attr('ontouchstart',"window.plugins.socialsharing.share('"+content+" - "+feed_date+"- CREDITO: Legix Feed - www.legixfeed.com.mx')");
         $('.social-email').attr('ontouchstart',"window.plugins.socialsharing.shareViaEmail("+
           "'"+origen+"<br><br>"+content+"<br><br>CREDITO: Legix Feed - www.legixfeed.com.mx', "+// can contain HTML tags, but support on Android is rather limited:  http://stackoverflow.com/questions/15136480/how-to-send-html-content-with-image-through-android-default-email-client
           "'Legix Feed-"+feed_date+"',"+
