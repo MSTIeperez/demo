@@ -42,48 +42,48 @@
         navigator.splashscreen.hide();
          }, 1000);
     
-    var appId='psoFy4hpOEHy7mgg3L4tCAyDeJuCRwpOXHH8xVtp';
-    var clientKey='Efa1wjc3W9xk7QhAzpL9uVJib30p3aoRn6LFEy7u';
-    
-   // var parsePlugin=window.plugins.pushNotification;
-   parsePlugin.initialize(appId, clientKey, function() {
-       var parse_ready = true;
-        console.log('success');
-    }, function(e) {
-       
-        console.log('error');
-    });
-   if(parse_ready){ //parse_ready lo definimos a true en el paso 3
-    parsePlugin.getInstallationId(function(parse_installation_id) {
-            associateUserIdWithInstallId(user_id,parse_installation_id); //Esta función envia al servidor los ids a asociarse
+        var appId='psoFy4hpOEHy7mgg3L4tCAyDeJuCRwpOXHH8xVtp';
+        var clientKey='Efa1wjc3W9xk7QhAzpL9uVJib30p3aoRn6LFEy7u';
+        var parse_ready=false; 
+       // var parsePlugin=window.plugins.pushNotification;
+       parsePlugin.initialize(appId, clientKey, function() {
+            parse_ready = true;
+            console.log('success');
+        }, function(e) {
+           
+            console.log('error');
+        });
+       if(parse_ready){ //parse_ready lo definimos a true en el paso 3
+        parsePlugin.getInstallationId(function(parse_installation_id) {
+                associateUserIdWithInstallId(user_id,parse_installation_id); //Esta función envia al servidor los ids a asociarse
+            }, function(e) {
+                console.log('error');
+            });
+        }
+    /*
+        parsePlugin.getInstallationId(function(id) {
+            console.log(id);
         }, function(e) {
             console.log('error');
         });
-    }
-/*
-    parsePlugin.getInstallationId(function(id) {
-        console.log(id);
-    }, function(e) {
-        console.log('error');
-    });
 
-    parsePlugin.getSubscriptions(function(subscriptions) {
-        console.log(subscriptions);
-    }, function(e) {
-        console.log('error');
-    });
+        parsePlugin.getSubscriptions(function(subscriptions) {
+            console.log(subscriptions);
+        }, function(e) {
+            console.log('error');
+        });
 
-    parsePlugin.subscribe('abargon', function() {
-        console.log('OK');
-    }, function(e) {
-        console.log('error');
-    });
+        parsePlugin.subscribe('abargon', function() {
+            console.log('OK');
+        }, function(e) {
+            console.log('error');
+        });
 
-    parsePlugin.unsubscribe('abargon', function(msg) {
-        console.log('OK');
-    }, function(e) {
-        console.log('error');
-    }); */
+        parsePlugin.unsubscribe('abargon', function(msg) {
+            console.log('OK');
+        }, function(e) {
+            console.log('error');
+        }); */
     }
 
 
