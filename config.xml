@@ -46,7 +46,7 @@
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.vibration" />
-	<gap:plugin name="nl.x-services.plugins.socialsharing" source="npm"/>
+	<gap:plugin name="nl.x-services.plugins.socialsharing" source="plugins.cordova.io"/>
 	<gap:plugin name="io.github.pwlin.cordova.plugins.fileopener2" version="1.0.11" />
     <gap:plugin name="de.appplant.cordova.plugin.printer" version="0.7.1" />
 	
