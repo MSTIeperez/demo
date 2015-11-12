@@ -58,10 +58,11 @@ angular.module('starter.controllers', [])
 					$state.go('tab.tema_feeds');
 					angular.forEach(data.user.temas_ids, function(val, key){
 						parsePlugin.subscribe('tema_'+val, function() {
-			            console.log('OK');
-			        }, function(e) {
-			            console.log('error');
-			        });
+				            console.log('OK');
+				        }, function(e) {
+				            console.log('error');
+				        });
+					});
 				}
 				if(data.user.temas.length==0)
 					$state.go('tab.configfeeds');
