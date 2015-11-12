@@ -47,11 +47,13 @@ angular.module('starter', ['ionic','ngRoute','ngCordova','ngCookies', 'starter.c
       url: '/login', 
 	
                templateUrl: 'templates/login.html',
-                controller: 'LoginCtrl'/*,
-        onEnter: function($state, Auth){
-        if(Auth.isLoggedIn()){
-           $state.go('tab.feeds');
-        }*/
+                controller: 'LoginCtrl',
+		        onEnter: function($state, Auth){
+		        	Auth.checkRememberedUser();
+			        if(Auth.isLoggedIn()){
+			           $state.go('tab.feeds');
+			        }
+		        }
    
 	
   }) 

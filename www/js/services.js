@@ -222,7 +222,7 @@ angular.module('starter.services', ['ngCookies'])
    var setUser = function (user) {
       _user = user;
       $cookieStore.put('starter.user', _user);
-   }
+   };
 
    return {
       setUser: setUser,
@@ -233,11 +233,22 @@ angular.module('starter.services', ['ngCookies'])
          return _user;
       },
       logout: function () {
+      	console.log('logging out');
          $cookieStore.remove('starter.user');
+         localStorage.removeItem('remember_me');
          _user = null;
 		 window.localStorage.setItem('user',null);
+      },
+      checkRememberedUser:function(){
+      	if(localStorage.remember_me){
+      		console.log('Restored session');
+      		var u = JSON.parse(localStorage.remember_me);
+      		setUser(u);
+      	}else{
+      		console.log('No session to be restored');
+      	}
       }
-   }
+   };
 })
 
 
