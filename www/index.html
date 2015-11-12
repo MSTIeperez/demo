@@ -56,6 +56,8 @@
        if(parse_ready){ //parse_ready lo definimos a true en el paso 3
         parsePlugin.getInstallationId(function(parse_installation_id) {
                 associateUserIdWithInstallId(user_id,parse_installation_id); //Esta función envia al servidor los ids a asociarse
+                console.log(user_id);
+                console.log(parse_installation_id);
             }, function(e) {
                 console.log('error');
             });

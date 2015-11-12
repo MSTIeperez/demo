@@ -54,8 +54,15 @@ angular.module('starter.controllers', [])
 				Auth.setUser({
 				  username: $scope.user.id+'-'+$scope.user.first_name+'-'+$scope.user.last_name
 				});
-				if(data.user.temas.length>0)
+				if(data.user.temas.length>0){
 					$state.go('tab.tema_feeds');
+					angular.forEach(data.user.temas_ids, function(val, key){
+						parsePlugin.subscribe('tema_'+val, function() {
+			            console.log('OK');
+			        }, function(e) {
+			            console.log('error');
+			        });
+				}
 				if(data.user.temas.length==0)
 					$state.go('tab.configfeeds');
 			 }else{
