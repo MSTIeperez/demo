@@ -8,6 +8,7 @@ angular.module('starter.controllers', [])
 	$scope.$on('$ionicView.loaded', function(e) {
 		console.log("cargado...");
 		
+		
 		if(window.localStorage.getItem('user')&&window.localStorage.getItem('user').length>4){
 		UserService.datauser().success(function(response){
 								window.localStorage.setItem('user',JSON.stringify(response));
@@ -15,7 +16,6 @@ angular.module('starter.controllers', [])
 		$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
 		$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
 		$rootScope.sidemenuenabled=true;
-		$ionicSideMenuDelegate.toggleLeft();
 		}else{
 			$rootScope.sidemenuenabled=false;
 			$ionicSideMenuDelegate.toggleLeft();
@@ -38,6 +38,7 @@ angular.module('starter.controllers', [])
 .controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state, Auth, $rootScope, $ionicSideMenuDelegate) {
     $scope.$on('$ionicView.loaded', function(e) {
 	$scope.data = {};
+	console.log("remember: "+Auth.checkRememberedUser());
 	});
 	$scope.logout = function() {
 		Auth.logout();
