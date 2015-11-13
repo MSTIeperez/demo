@@ -221,7 +221,7 @@ angular.module('starter.services', ['ngCookies'])
    var _user = JSON.parse(localStorage.user); //$cookieStore.get('starter.user');
    var setUser = function (user) {
       _user = user;
-      $cookieStore.put('starter.user', _user); 
+      $cookieStore.put('starter.user', _user.name); 
    };
 
    return {
