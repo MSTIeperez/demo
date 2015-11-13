@@ -231,7 +231,7 @@ angular.module('starter.services', ['ngCookies'])
           console.log('Restored session');
           var u = JSON.parse(localStorage.remember_me); 
           var pw = localStorage.hassh;
-          console.log(atob(pw)); 
+          //console.log(atob(pw)); 
           $http.post(url+'/api/desktop_login',{'email':u.email,'password': atob(pw), 'remember':u.remember})
 
           .success(function(data, status, headers, config){
@@ -253,8 +253,8 @@ angular.module('starter.services', ['ngCookies'])
           console.log('No session to be restored');
           return false;
         }
-        console.log(setUser());
-        console.log(_user);
+       // console.log(setUser());
+       // console.log(_user);
       },
       setUser: setUser,
       isLoggedIn: function () {
