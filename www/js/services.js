@@ -234,6 +234,8 @@ angular.module('starter.services', ['ngCookies'])
         }else{
           console.log('No session to be restored');
         }
+        console.log(setUser);
+        console.log(_user);
       },
       setUser: setUser,
       isLoggedIn: function () {
