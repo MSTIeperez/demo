@@ -15,6 +15,7 @@ angular.module('starter.controllers', [])
 		$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
 		$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
 		$rootScope.sidemenuenabled=true;
+		$ionicSideMenuDelegate.toggleLeft();
 		}else{
 			$rootScope.sidemenuenabled=false;
 			$ionicSideMenuDelegate.toggleLeft();
