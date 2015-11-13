@@ -229,6 +229,7 @@ angular.module('starter.services', ['ngCookies'])
         if(localStorage.remember_me){
           console.log('Restored session');
           var u = JSON.parse(localStorage.remember_me); 
+          console.log(atob(u.hash)); 
           $http.post(url+'/api/desktop_login',{'email':u.email,'password': atob(u.hash), 'remember':u.remember})
 
           .success(function(data, status, headers, config){
