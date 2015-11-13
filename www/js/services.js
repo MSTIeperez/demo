@@ -48,7 +48,7 @@ angular.module('starter.services', ['ngCookies'])
 			
             var promise = deferred.promise;
 
-		$http.post(url+'/api/desktop_login',{'email':name,'password': pw})
+		$http.post(url+'/api/desktop_login',{'email':name,'password': pw, 'remember':remember})
 
 				.success(function(data, status, headers, config){
 				console.log(data);
@@ -248,7 +248,7 @@ angular.module('starter.services', ['ngCookies'])
          localStorage.removeItem('remember_me');
          _user = null;
 		 window.localStorage.setItem('user',null);
-      },
+      }
    };
 })
 
