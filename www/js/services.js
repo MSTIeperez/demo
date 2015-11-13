@@ -231,10 +231,12 @@ angular.module('starter.services', ['ngCookies'])
           var u = JSON.parse(localStorage.remember_me); 
           console.log(u);
           setUser(u);
+          return true;
         }else{
           console.log('No session to be restored');
+          return false;
         }
-        console.log(setUser);
+        console.log(setUser());
         console.log(_user);
       },
       setUser: setUser,
