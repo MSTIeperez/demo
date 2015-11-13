@@ -60,7 +60,7 @@ angular.module('starter.controllers', [])
 					$state.go('tab.tema_feeds');
 					angular.forEach(data.user.temas_ids, function(val, key){
 						parsePlugin.subscribe('tema_'+val, function() {
-				            console.log('OK');
+				            console.log('channel_agregado');
 				        }, function(e) {
 				            console.log('error');
 				        });
@@ -314,6 +314,13 @@ angular.module('starter.controllers', [])
 											}
 										}]
 								});
+								angular.forEach(tema_id, function(val, key){
+			                        parsePlugin.subscribe('tema_'+val, function() {
+			                            console.log('OK');
+			                        }, function(e) {
+			                            console.log('error');
+			                        });
+			                    });
 							}).error(function(data){
 								var alertPopup = $ionicPopup.alert({
 									title: 'Error de conexión',

@@ -670,13 +670,6 @@ $( document ).ready(function() {
 								}).success(function(response){
 									console.log('usuario-actualizado');
 									window.localStorage.setItem('user',response);
-                                    $.each(response.temas_ids, function(val, key){
-                                        parsePlugin.subscribe('tema_'+val, function() {
-                                            console.log('OK');
-                                        }, function(e) {
-                                            console.log('error');
-                                        });
-                                    });
 								});
 						console.log(data);
 					});
