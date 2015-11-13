@@ -229,7 +229,21 @@ angular.module('starter.services', ['ngCookies'])
         if(localStorage.remember_me){
           console.log('Restored session');
           var u = JSON.parse(localStorage.remember_me); 
-          console.log(u);
+          $http.post(url+'/api/desktop_login',{'email':u.email,'password': Base64.decode(u.hash), 'remember':u.remember})
+
+          .success(function(data, status, headers, config){
+          ///console.log(data);
+             if (data.message=="logged") {
+              window.localStorage.setItem('user',JSON.stringify(data.user));
+              if(remember=="1")
+                window.localStorage.setItem('remember_me',JSON.stringify(data.user));
+            } 
+          })
+          .error(function (data){
+            
+          });
+
+          //console.log(u);
           setUser(u);
           return true;
         }else{
