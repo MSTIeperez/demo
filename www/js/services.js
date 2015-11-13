@@ -218,10 +218,10 @@ angular.module('starter.services', ['ngCookies'])
 })
 
 .factory('Auth', function ($cookieStore) {
-   var _user = $cookieStore.get('starter.user');
+   var _user = JSON.parse(localStorage.user); //$cookieStore.get('starter.user');
    var setUser = function (user) {
       _user = user;
-      $cookieStore.put('starter.user', _user);
+      $cookieStore.put('starter.user', _user); 
    };
 
    return {
