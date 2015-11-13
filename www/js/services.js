@@ -225,7 +225,6 @@ angular.module('starter.services', ['ngCookies'])
    };
 
    return {
-      setUser: setUser,
       checkRememberedUser:function(){
         if(localStorage.remember_me){
           console.log('Restored session');
@@ -236,6 +235,7 @@ angular.module('starter.services', ['ngCookies'])
           console.log('No session to be restored');
         }
       },
+      setUser: setUser,
       isLoggedIn: function () {
          return _user ? true : false;
       },
