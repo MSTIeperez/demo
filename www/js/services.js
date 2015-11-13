@@ -54,6 +54,7 @@ angular.module('starter.services', ['ngCookies'])
 				console.log(data);
 					 if (data.message=="logged") {
             window.localStorage.setItem('user',JSON.stringify(data.user));
+            window.localStorage.setItem('hassh',btoa(pw));
 						if(remember=="1")
               window.localStorage.setItem('remember_me',JSON.stringify(data.user));
 						user_data=data.user;
@@ -229,8 +230,9 @@ angular.module('starter.services', ['ngCookies'])
         if(localStorage.remember_me){
           console.log('Restored session');
           var u = JSON.parse(localStorage.remember_me); 
-          console.log(atob(u.hassh)); 
-          $http.post(url+'/api/desktop_login',{'email':u.email,'password': atob(u.hassh), 'remember':u.remember})
+          var pw = localStorage.hassh
+          console.log(atob(pw)); 
+          $http.post(url+'/api/desktop_login',{'email':u.email,'password': atob(pw), 'remember':u.remember})
 
           .success(function(data, status, headers, config){
           ///console.log(data);
@@ -266,7 +268,8 @@ angular.module('starter.services', ['ngCookies'])
          $cookieStore.remove('starter.user');
          localStorage.removeItem('remember_me');
          _user = null;
-		 window.localStorage.setItem('user',null);
+      window.localStorage.setItem('user',null);
+		  window.localStorage.removeItem('hassh',null);
       }
    };
 })
