@@ -226,6 +226,16 @@ angular.module('starter.services', ['ngCookies'])
 
    return {
       setUser: setUser,
+      checkRememberedUser:function(){
+        if(localStorage.remember_me){
+          console.log('Restored session');
+          var u = JSON.parse(localStorage.remember_me); 
+          console.log(u);
+          setUser(u);
+        }else{
+          console.log('No session to be restored');
+        }
+      }
       isLoggedIn: function () {
          return _user ? true : false;
       },
@@ -239,15 +249,6 @@ angular.module('starter.services', ['ngCookies'])
          _user = null;
 		 window.localStorage.setItem('user',null);
       },
-      checkRememberedUser:function(){
-      	if(localStorage.remember_me){
-      		console.log('Restored session');
-      		var u = JSON.parse(localStorage.remember_me);
-      		setUser(u);
-      	}else{
-      		console.log('No session to be restored');
-      	}
-      }
    };
 })
 
