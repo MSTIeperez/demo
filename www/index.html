@@ -44,10 +44,10 @@
     
         var appId='psoFy4hpOEHy7mgg3L4tCAyDeJuCRwpOXHH8xVtp';
         var clientKey='Efa1wjc3W9xk7QhAzpL9uVJib30p3aoRn6LFEy7u';
-        //var parse_ready=false; 
+        var parse_ready=false; 
        // var parsePlugin=window.plugins.pushNotification;
        parsePlugin.initialize(appId, clientKey, function() {
-            var parse_ready = true;
+            parse_ready = true;
             console.log('initialize_success');
         }, function(e) {
            
@@ -55,7 +55,7 @@
         });
        if(parse_ready){ //parse_ready lo definimos a true en el paso 3
         parsePlugin.getInstallationId(function(parse_installation_id) {
-               associateUserIdWithInstallId(user_id,parse_installation_id); //Esta función envia al servidor los ids a asociarse
+               //associateUserIdWithInstallId(user_id,parse_installation_id); //Esta función envia al servidor los ids a asociarse
                 console.log(user_id);
                 console.log(parse_installation_id);
                 console.log('installation_success');
