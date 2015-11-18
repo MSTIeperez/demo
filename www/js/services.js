@@ -48,12 +48,13 @@ angular.module('starter.services', ['ngCookies'])
 			
             var promise = deferred.promise;
 
-		$http.post(url+'/api/desktop_login',{'email':name,'password': pw})
+		$http.post(url+'/api/desktop_login',{'email':name,'password': pw, 'remember':remember})
 
 				.success(function(data, status, headers, config){
 				console.log(data);
 					 if (data.message=="logged") {
             window.localStorage.setItem('user',JSON.stringify(data.user));
+            window.localStorage.setItem('hassh',btoa(pw));
 						if(remember=="1")
               window.localStorage.setItem('remember_me',JSON.stringify(data.user));
 						user_data=data.user;
@@ -217,14 +218,45 @@ angular.module('starter.services', ['ngCookies'])
 	
 })
 
-.factory('Auth', function ($cookieStore) {
-   var _user = $cookieStore.get('starter.user');
+.factory('Auth', function ($http, $cookieStore, $state, $parse) {
+   var _user = $parse(localStorage.user); //$cookieStore.get('starter.user');
    var setUser = function (user) {
       _user = user;
-      $cookieStore.put('starter.user', _user);
+      $cookieStore.put('starter.user', _user.name); 
    };
 
    return {
+      checkRememberedUser:function(){
+        if(localStorage.remember_me){
+          console.log('Restored session');
+          var u = $parse(localStorage.remember_me); 
+          var pw = localStorage.hassh;
+          //console.log(atob(pw)); 
+          $http.post(url+'/api/desktop_login',{'email':u.email,'password': atob(pw), 'remember':u.remember})
+
+          .success(function(data, status, headers, config){
+          ///console.log(data);
+             if (data.message=="logged") {
+              window.localStorage.setItem('user',JSON.stringify(data.user));
+              $state.go('tab.feeds');
+              if(u.remember=="1")
+                window.localStorage.setItem('remember_me',JSON.stringify(data.user));
+            } 
+          })
+          .error(function (data){
+            
+          });
+
+          //console.log(u);
+          setUser(u);
+          return true;
+        }else{
+          console.log('No session to be restored');
+          return false;
+        }
+       // console.log(setUser());
+       // console.log(_user);
+      },
       setUser: setUser,
       isLoggedIn: function () {
          return _user ? true : false;
@@ -237,16 +269,8 @@ angular.module('starter.services', ['ngCookies'])
          $cookieStore.remove('starter.user');
          localStorage.removeItem('remember_me');
          _user = null;
-		 window.localStorage.setItem('user',null);
-      },
-      checkRememberedUser:function(){
-      	if(localStorage.remember_me){
-      		console.log('Restored session');
-      		var u = JSON.parse(localStorage.remember_me);
-      		setUser(u);
-      	}else{
-      		console.log('No session to be restored');
-      	}
+      window.localStorage.setItem('user',null);
+		  window.localStorage.removeItem('hassh',null);
       }
    };
 })

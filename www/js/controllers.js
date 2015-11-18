@@ -8,6 +8,7 @@ angular.module('starter.controllers', [])
 	$scope.$on('$ionicView.loaded', function(e) {
 		console.log("cargado...");
 		
+		
 		if(window.localStorage.getItem('user')&&window.localStorage.getItem('user').length>4){
 		UserService.datauser().success(function(response){
 								window.localStorage.setItem('user',JSON.stringify(response));
@@ -37,6 +38,7 @@ angular.module('starter.controllers', [])
 .controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state, Auth, $rootScope, $ionicSideMenuDelegate) {
     $scope.$on('$ionicView.loaded', function(e) {
 	$scope.data = {};
+	console.log("remember: "+Auth.checkRememberedUser());
 	});
 	$scope.logout = function() {
 		Auth.logout();
@@ -58,7 +60,7 @@ angular.module('starter.controllers', [])
 					$state.go('tab.tema_feeds');
 					angular.forEach(data.user.temas_ids, function(val, key){
 						parsePlugin.subscribe('tema_'+val, function() {
-				            console.log('OK');
+				            console.log('channel_agregado');
 				        }, function(e) {
 				            console.log('error');
 				        });
@@ -312,6 +314,13 @@ angular.module('starter.controllers', [])
 											}
 										}]
 								});
+								angular.forEach(tema_id, function(val, key){
+			                        parsePlugin.subscribe('tema_'+val, function() {
+			                            console.log('OK');
+			                        }, function(e) {
+			                            console.log('error');
+			                        });
+			                    });
 							}).error(function(data){
 								var alertPopup = $ionicPopup.alert({
 									title: 'Error de conexión',

@@ -49,8 +49,7 @@ angular.module('starter', ['ionic','ngRoute','ngCordova','ngCookies', 'starter.c
                templateUrl: 'templates/login.html',
                 controller: 'LoginCtrl',
 		        onEnter: function($state, Auth){
-		        	Auth.checkRememberedUser();
-			        if(Auth.isLoggedIn()){
+		        	if(Auth.checkRememberedUser()){
 			           $state.go('tab.feeds');
 			        }
 		        }
@@ -140,8 +139,8 @@ angular.module('starter', ['ionic','ngRoute','ngCordova','ngCookies', 'starter.c
         templateUrl: "templates/tabs.html",
 		controller: 'LoginCtrl',
 		onEnter: function($state, Auth){
-        if(!Auth.isLoggedIn()){
-           $state.go('login');
+            if(!Auth.isLoggedIn() ){
+               $state.go('login');
         }
     }
     })
