@@ -49,13 +49,8 @@
        parsePlugin.initialize(appId, clientKey, function() {
             parse_ready = true;
             console.log('initialize_success');
-        }, function(e) {
-           
-            console.log('error');
-        });
-       if(parse_ready===true){ //parse_ready lo definimos a true en el paso 3
-        parsePlugin.getInstallationId(function(id) {
-              // associateUserIdWithInstallId(user_id,id); //Esta función envia al servidor los ids a asociarse
+            parsePlugin.getInstallationId(function(id) {
+               associateUserIdWithInstallId(user_id,id); //Esta función envia al servidor los ids a asociarse
                 console.log(user_id);
                 console.log(id);
                 console.log('installation_success');
@@ -68,6 +63,13 @@
             }, function(e) {
                 console.log('error');
             }); 
+        }, function(e) {
+           
+            console.log('error');
+        });
+
+       if(parse_ready===true){ //parse_ready lo definimos a true en el paso 3
+        
         }
     
      /*   parsePlugin.getInstallationId(function(id) {
