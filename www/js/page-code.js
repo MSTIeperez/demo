@@ -57,10 +57,14 @@ $( document ).ready(function() {
 
         $( 'body' ).on( 'click', 'li.li-subject', function(){
             if( $( this ).children( 'a' ).length >= 2 ){
-                $( this ).children( 'a' ).eq( 1 ).remove();
+                $( this ).parent().children( 'li.li-subject' ).find( '.hover' ).remove();
             } else {
+				$( this ).parent().children( 'li.li-subject' ).find( '.hover' ).remove();
                 $( this ).append( $( this ).html() );
-                $( 'li:nth-child(2)' ).addClass( 'hover' );
+				$( this ).children( 'a' ).eq( 1 ).addClass( 'hover' );
+				$( this ).children( 'a' ).eq( 1 ).css({
+					'width' : ''+$( this ).parent().width()+''
+				});
             }
         });
 

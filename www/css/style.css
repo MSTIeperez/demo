@@ -485,7 +485,7 @@ a.actived > i.icon-print, .icon-print:active, i.icon-print.active {
     display: block;
     float: left;
     margin: .66666666666667%;
-
+    position: relative;
     width: 32%;
 }
 .item-subject ul li.li-subject {
@@ -512,12 +512,22 @@ a.actived > i.icon-print, .icon-print:active, i.icon-print.active {
     background: #FFF;
     width: 100%;
     position: absolute;
-    top: 0;
-    left: 0;
     margin: 2px 0 0 2px;
-    z-index: 2;
+    top: -2px;
     word-break: break-all;
     white-space: normal;
+    z-index: 2;
+}
+.item-subject ul li:nth-child(3n + 1) a:nth-child(2) {
+    left: -2px;
+}
+.item-subject ul li:nth-child(3n + 2) a:nth-child(2) {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+.item-subject ul li:nth-child(3n + 3) a:nth-child(2) {
+    right: -2px;
 }
 .item-subject ul li a:hover {
      border: 1px solid #9295a3;
