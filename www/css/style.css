@@ -45,7 +45,7 @@ a {
 }
 /*//////////////
 
-   KEYFRAMES 
+   KEYFRAMES
 
 ///////////////////*/
 
@@ -96,7 +96,7 @@ a {
 
 /*//////////////
 
-   GENERAL 
+   GENERAL
 
 ///////////////////*/
 .center {
@@ -108,7 +108,7 @@ a {
 
 /*//////////////
 
-   ICONS 
+   ICONS
 
 ///////////////////*/
 
@@ -174,7 +174,7 @@ a.actived > i.icon-print, .icon-print:active, i.icon-print.active {
 
 /*//////////////
 
-   HEADER 
+   HEADER
 
 ///////////////////*/
 .bar.bar-positive {
@@ -201,7 +201,7 @@ a.actived > i.icon-print, .icon-print:active, i.icon-print.active {
 
 /*//////////////
 
-   NAVEGACION 
+   NAVEGACION
 
 ///////////////////*/
 
@@ -275,7 +275,7 @@ a.actived > i.icon-print, .icon-print:active, i.icon-print.active {
 
 /*//////////////
 
-   SIDE MENU 
+   SIDE MENU
 
 ///////////////////*/
 
@@ -340,7 +340,7 @@ a.actived > i.icon-print, .icon-print:active, i.icon-print.active {
 
 /*//////////////
 
-   SEEN MENU 
+   SEEN MENU
 
 ///////////////////*/
 .seen-menu {
@@ -365,7 +365,7 @@ a.actived > i.icon-print, .icon-print:active, i.icon-print.active {
 
 /*//////////////
 
-   CARD 
+   CARD
 
 ///////////////////*/
 .card {
@@ -382,6 +382,7 @@ a.actived > i.icon-print, .icon-print:active, i.icon-print.active {
     padding-top: 1px;
 }
 .item-body {
+    overflow: hidden;
     border-top: 0;
 }
 .item-thumbnail-left,
@@ -472,17 +473,19 @@ a.actived > i.icon-print, .icon-print:active, i.icon-print.active {
 .item-subject,
 .subject ul {
     display: block;
-    overflow: hidden;
+    overflow: visible;
+    position: relative;
 }
 .item-subject ul:after {
     content: "";
-    display: table;
     clear: both;
+    display: table;
 }
 .item-subject ul li {
     display: block;
     float: left;
     margin: .66666666666667%;
+
     width: 32%;
 }
 .item-subject ul li.li-subject {
@@ -499,11 +502,22 @@ a.actived > i.icon-print, .icon-print:active, i.icon-print.active {
     display: block;
     font-size: 14px;
     overflow: hidden;
-    max-height:  27px;
+    /*max-height:  27px;*/
     padding: 2px 5px;
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+.item-subject ul li a:nth-child(2) {
+    background: #FFF;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 2px 0 0 2px;
+    z-index: 2;
+    word-break: break-all;
+    white-space: normal;
 }
 .item-subject ul li a:hover {
      border: 1px solid #9295a3;
@@ -588,7 +602,7 @@ a.actived > i.icon-print, .icon-print:active, i.icon-print.active {
 
 /*//////////////
 
-   TEMPLATE: USERS 
+   TEMPLATE: USERS
 
 ///////////////////*/
 
@@ -669,13 +683,13 @@ a.actived > i.icon-print, .icon-print:active, i.icon-print.active {
     top: 50%;
 }
 .category-element .button.button-positive.button-outline {
-    border-color: #cdcdcd;  
+    border-color: #cdcdcd;
 }
 
 
 /*//////////////
 
-   TEMPLATE: FAVORITOS 
+   TEMPLATE: FAVORITOS
 
 ///////////////////*/
 
@@ -686,7 +700,7 @@ a.actived > i.icon-print, .icon-print:active, i.icon-print.active {
 
 /*//////////////
 
-   TEMPLATE: RECURSOS HUMANOS 
+   TEMPLATE: RECURSOS HUMANOS
 
 ///////////////////*/
 
@@ -709,7 +723,7 @@ a.actived > i.icon-print, .icon-print:active, i.icon-print.active {
     padding: 15px;
     text-align: center;
     width: 33.33%;
-    
+
 }
 .images-content .button {
     display: block;
@@ -757,7 +771,7 @@ a.actived > i.icon-print, .icon-print:active, i.icon-print.active {
 
 /*//////////////
 
-   TEMPLATE: CONFIGURACION DE FEEDS 
+   TEMPLATE: CONFIGURACION DE FEEDS
 
 ///////////////////*/
 .header h2 {
@@ -798,7 +812,7 @@ a.actived > i.icon-print, .icon-print:active, i.icon-print.active {
     margin: 0;
     padding: 0;
     position: relative;
-} 
+}
 a.list-expand {
     display: block;
     padding-bottom: 16px;
@@ -842,7 +856,7 @@ a.list-expand {
     padding: 0 0 0 20px;
 }
 .li-parent .list-header {
-    padding: 10px 0 10px 40px; 
+    padding: 10px 0 10px 40px;
 }
 .li-parent .list-header::after {
     display: none;
@@ -880,7 +894,7 @@ a.list-expand {
 }
 .li-children .checkbox input:before,
 .li-children .checkbox-icon:before {
-    left: 20px !important;   
+    left: 20px !important;
 }
 .checkbox input:after,
 .checkbox-icon:after {
@@ -889,7 +903,7 @@ a.list-expand {
 }
 .li-children .checkbox input:after,
 .li-children .checkbox-icon:after {
-    left: 120% !important;   
+    left: 120% !important;
 }
 .item-checkbox .icon {
     font-size: 20px;
@@ -929,7 +943,7 @@ a.list-expand {
 
 /*//////////////
 
-   SIMPLE PAGE 
+   SIMPLE PAGE
 
 ///////////////////*/
 
@@ -1016,7 +1030,7 @@ a.list-expand {
     width: 22px;
     z-index: 1;
     -webkit-animation: pulsate-inner 3s ease infinite;
-   
+
 }
 .example .point-1 {
       left: 50px;
@@ -1243,7 +1257,7 @@ z-index: 9999;
     padding: 20px;
 }
 .lightbox-share-content {
-    
+
 }
 .lightbox-share-content label {
     display: block;
@@ -1281,7 +1295,7 @@ z-index: 9999;
     height: 150px;
     margin: 20px 0;
     padding: 10px 0;
-    resize: none; 
+    resize: none;
     width: 100%;
 }
 

@@ -1,6 +1,6 @@
 // setTimeout(function() {
 $( document ).ready(function() {
-    	
+
     // Global variables
 	var url ='';
 	console.log(window.location.hostname);
@@ -10,10 +10,10 @@ $( document ).ready(function() {
     var step = 1;
     var num = 0;
     function set_follows_unreads(){
-		
+
 		$.post(url+'/api/follow/get_follows_unread',{'send_data':'send_data'})
 			.success(function(response){
-				
+
 				response = $.parseJSON( response );
 				return response.total;
 				//console.log(response.total);
@@ -26,7 +26,7 @@ $( document ).ready(function() {
     function notification() {
 		$.post(url+'/api/follow/get_follows_unread',{'send_data':'send_data'})
 			.success(function(response){
-				
+
 			response = $.parseJSON( response );
 		//	setTimeout(function() {
 				if($('.notification > i > span').length == 0) {
@@ -39,30 +39,39 @@ $( document ).ready(function() {
     }
     notification();
     $(document).on('touchstart', function() {
-        notification(); 
+        notification();
     });
-    
+
     // Asuntos
     function subject() {
         $( 'body' ).on( 'touchstart', '.subject-more', function() {
             $(this).text(function(i, text){
                 return text === "+ Ver todos" ? "- Ver menos" : "+ Ver todos";
             });
-            
+
             $( $( this ).parent().parent( 'ul' ).children( 'li.li-subject' )).each( function() {
                 $( this ).toggleClass( 'active' );
             });
-            
+
         });
-        
+
+        $( 'body' ).on( 'click', 'li.li-subject', function(){
+            if( $( this ).children( 'a' ).length >= 2 ){
+                $( this ).children( 'a' ).eq( 1 ).remove();
+            } else {
+                $( this ).append( $( this ).html() );
+                $( 'li:nth-child(2)' ).addClass( 'hover' );
+            }
+        });
+
     }
     subject();
-    
+
     // Resize imagen perfil
     function resizeImage( elemento ) {
         var imageHeight = $( elemento ).height();
         var imageWidth = $( elemento ).width();
-        
+
         if( imageHeight > imageWidth ) {
             $( elemento ).css( 'width', '100%' );
             $( elemento ).css( 'height', 'auto' );
@@ -74,9 +83,9 @@ $( document ).ready(function() {
             $( elemento ).css( 'height', '100%' );
         }
     }
-    
+
     resizeImage( '.circle-picture img' );
-    
+
     // Mostrar grupo
     $('body').on('touchstart', '#show-all', function() {
         $('.image-list').toggleClass('active');
@@ -86,8 +95,8 @@ $( document ).ready(function() {
             $(this).html('Ver menos');
         }
     });
-       
-	// Botón visto 
+
+	// Botón visto
     $('body').on('touchstart', 'a.read', function(e){
 		e.preventDefault();
 				var feeds_noleidos=$(".feed_noread").size();
@@ -96,7 +105,7 @@ $( document ).ready(function() {
 				var html = "";
 				var feed_id = $obj.parents(".feeds").data("id");
 				console.log(feed_id);
-			if(!$obj.hasClass('active')){	
+			if(!$obj.hasClass('active')){
 				$.post(url+'/api/feeds_load',{read:'already',feed_id:feed_id}, function(response){
 					 resp=$.parseJSON(response);
 					if(resp.message="feed_leido"){
@@ -111,7 +120,7 @@ $( document ).ready(function() {
 						var numr= $(".f_read").data("read");
                         $(".nof_read").html("").html("No leídos ("+(parseInt(num)-1)+")")
 						$(".f_read").html("").html("Leídos ("+(parseInt(numr)+1)+")")
-						if(num==1) 
+						if(num==1)
 							$(".not-count").hide();
 						$(".not-count").html("").html((parseInt(num)-1));
 					}else if(resp.message="error")
@@ -119,13 +128,13 @@ $( document ).ready(function() {
 				});
 			}else console.log("feed ya leido");
     });
-	
+
     // input comentar
     $('body').on('touchstart ', '.icon-message', function() {
          $(this).parent().toggleClass('active');
         $(this).parent().parent().parent().children('.input-comment').toggleClass('active');
     });
-    
+
     // button seen menu: active para botones de no leido & leido
     $( 'body' ).on( 'touchstart ', '.seen-menu a', function() {
         $( '.seen-menu a' ).removeClass( 'active' );
@@ -136,13 +145,13 @@ $( document ).ready(function() {
 					$('.'+$(this).data('class')).show();
 				}
     });
-    
+
     // button search: activa lighbox de busqueda
     $( 'body' ).on( 'touchstart ', '.ion-search, .btn-cancel', function() {
         $( '.lightbox-search' ).toggleClass( 'active' );
 		setTimeout(function(){
 						$('#search').focus();
-					}, 300);	
+					}, 300);
     });
 
     // button share: activa lighbox de compartir
@@ -184,7 +193,7 @@ $( document ).ready(function() {
 
         return false;
     });
-    
+
     // button share email: activa lighbox de compartir por email
      $( 'body' ).on( 'touchstart ', '.show-lightbox-share, .socials', function() {
         $( '.share' ).removeClass( 'active' );
@@ -202,7 +211,7 @@ $( document ).ready(function() {
 		$( '.lightbox-add.update-folder' ).toggleClass( 'active' );
 		setTimeout(function(){
 			$('.folder_title').focus();
-		}, 300);	
+		}, 300);
       });
     // oculta los lightbox's
     $( 'body' ).on( 'touchstart ', '.close-lightbox', function() {
@@ -224,13 +233,13 @@ $( document ).ready(function() {
 
         return false;
     });
-    
+
     // button favorite
     $( 'body' ).on( 'touchstart ', '.btn-favorite', function(e) {
-		
-      
-        e.preventDefault(); 
-			
+
+
+        e.preventDefault();
+
 			//  if( $( this ).children( 'i' ).hasClass( 'active' ) == false ) {
             $( '.lightbox-favorited' ).addClass( 'active' );
             //$( this ).children( 'i' ).toggleClass( 'active' );
@@ -240,11 +249,11 @@ $( document ).ready(function() {
 			var id=$(this).parents('.feeds').data('id');
 			$('.feed_id').val(id);
 				$("li.list_folder").each(function(){
-					
-											$(this).removeClass("selected");	
-											$(this).removeClass("already");	
-											$(this).children('input').removeAttr("checked");	
-								});	console.log(id); 
+
+											$(this).removeClass("selected");
+											$(this).removeClass("already");
+											$(this).children('input').removeAttr("checked");
+								});	console.log(id);
 			if(id > 0){
 				$.ajax({
 	                type: "POST",
@@ -261,8 +270,8 @@ $( document ).ready(function() {
 							for(i=0;i<resp.folder_id.length;i++){
 								$("li.list_folder").each(function(){
 										if($(this).data("id")==resp.folder_id[i]){
-											$(this).addClass("selected");	
-											$(this).addClass("already");	
+											$(this).addClass("selected");
+											$(this).addClass("already");
 										$(this).children('input').attr('checked','checked');	}
 								});
 							}
@@ -274,9 +283,9 @@ $( document ).ready(function() {
         return false;
     });
      $( 'body' ).on( 'touchstart ', '.show-follow', function(e) {
-		
-      
-        e.preventDefault(); 
+
+
+        e.preventDefault();
 
 			 var code 			= "";
 			 var asuntos 		= $(this).parents(".feeds").find("input.asunto_name").val();
@@ -294,7 +303,7 @@ $( document ).ready(function() {
 			 	follow_ids_arr = follow_ids_str.split(",");
 			 	if( follow_ids_arr.length == 0 ) follow_ids_arr.push( follow_ids_str );
 
-			 } 
+			 }
 
 			 asuntos = asuntos.split(",");
 
@@ -302,7 +311,7 @@ $( document ).ready(function() {
 
 			 if( follow > 0 ) fw_active = "active";
 			 	else fw_active = "";
-			
+
 			 for( i = 0; i < asuntos.length; i++ ){
 
 			 	var active_class = "";
@@ -351,7 +360,7 @@ $( document ).ready(function() {
         $( this ).children( 'i' ).toggleClass( 'ion-arrow-down-b ion-arrow-up-b' );
         return false;
     });
-     
+
      // button selected: seleccion de carpeta favorito donde se guardara el feed
      $( 'body' ).on( 'touchstart ', '.lightbox-favorited-content .btn-invisible', function() {
          $( this ).parent().toggleClass( 'selected' );
@@ -359,10 +368,10 @@ $( document ).ready(function() {
 		 if( $( this ).attr("checked") ){
 				$( this ).removeAttr( 'checked' );
 		}else
-			$( this ).attr( 'checked','checked' )		
+			$( this ).attr( 'checked','checked' )
          return false;
      });
-     
+
      // button active tutorial
     $( 'body' ).on( 'touchstart ', '.show-tutorial, .hide-tutorial, .btn-skip', function(e) {
 		e.preventDefault();
@@ -371,24 +380,24 @@ $( document ).ready(function() {
             $( tutorial ).toggleClass( 'active' );
         } else {
             var what_tutorial = $( '.tutorial.active' ).attr( 'id' );
-            
+
             $( '#' + what_tutorial ).toggleClass( 'active' );
-            
+
             if( $( this ).hasClass( 'btn-skip' )) {
                 setTimeout( function(){
                     $( '.next-tutorial' ).removeClass( 'btn-skip' );
                     $( '.next-tutorial' ).html( 'Siguiente' );
                     $( '.step' ).removeClass( 'active' );
                     $( '.step-1' ).addClass( 'active' );
-                    
+
                     step = 1;
                 }, 500);
             }
-            
+
         }
         return false;
     });
-     
+
     $( 'body' ).on( 'touchstart ', '.show-warning', function() {
         $( '.warning.grl' ).addClass( 'active' );
         return false;
@@ -415,7 +424,7 @@ $( document ).ready(function() {
     $( 'body' ).on( 'touchstart ', '.next-tutorial', function(e) {
         e.preventDefault();
         step = step + 1;
-        
+
         if( $( this ).parent().parent().attr('id') != 'temas') {
             if( step == 1 ) {
                 $( '.step' ).removeClass( 'active' );
@@ -478,8 +487,8 @@ $( document ).ready(function() {
         return false;
     });
 	//-------------------------------INDEX HTML FUNCTIONS--------------------------------
-	
-	$('body').on('touchstart ','.update_folder',function(e){ 
+
+	$('body').on('touchstart ','.update_folder',function(e){
 				e.preventDefault();
 				var $obj = $(this);
 				var input=  $('.folder_title');
@@ -488,19 +497,19 @@ $( document ).ready(function() {
 				var user= window.localStorage.getItem('user');
 				if(title.length>0){
 					$.post(url+'/api/update_folder',{'title':title,'folder_id':folder_id})
-					
+
 						 .error(function(){
 								console.log("no se recibieron datos");
 								input.val( "" );
 	                        })
 						 .success(function(data){
-						 
+
 							data=$.parseJSON(data);
 							console.log(data);
 							console.log(data.message);
 							if(data.message=="folder_guardado"){
 								$.get(url+'/api/user_data').error(function(){
-								
+
 									console.log('error de conexión');
 								}).success(function(response){
 									console.log('usuario-actualizado');
@@ -511,10 +520,10 @@ $( document ).ready(function() {
 								$( '.lightbox-add.update-folder' ).toggleClass( 'active' );
 							}
 						 });
-				
+
 				}
 			});
-			$('body').on('touchstart ','.deleted_folder',function(e){ 
+			$('body').on('touchstart ','.deleted_folder',function(e){
 				e.preventDefault();
 				var folder_name =$('.folder_title').attr("placeholder");
 				$( '.warning-content.grl' ).find('p').html("").html( '¿Estás seguro de borrar <strong>'+folder_name+'</strong> y todos sus contenidos?' );
@@ -523,13 +532,13 @@ $( document ).ready(function() {
 				$( '.warning.grl' ).addClass( 'active' );
 				return false;
 			});
-			$('body').on('touchstart ','.deleted_folder_ok',function(e){ 
+			$('body').on('touchstart ','.deleted_folder_ok',function(e){
 				e.preventDefault();
 				var folder_id =  $('#folder_id').attr("ng-value");
 				var count_folder="";
 				console.log(folder_id);
 				if(folder_id>0){
-					
+
 					$.post(url+'/api/delete_folder', {'send_data':'eliminar','folder_id':folder_id})
 	                        .error(function(){
 								console.log("no se recibieron datos");
@@ -538,7 +547,7 @@ $( document ).ready(function() {
 							data=$.parseJSON(data);
 							if(data.message=="folder_eliminado"){
 								$.get(url+'/api/user_data').error(function(){
-								
+
 									console.log('error de conexión');
 								}).success(function(response){
 									window.localStorage.setItem('user',response);
@@ -554,12 +563,12 @@ $( document ).ready(function() {
 								$( '.warning-content.grl' ).find('p').html("").html( ' No has dado de alta ningún Tema. Sin personalización de Temas, solo recibirás el Feed genérico sin notificaciones en las sección de Temas ni de Mis Feeds. Puedes continuar y posteriormente hacerlo.' );
 								$('.warning-actions.grl').find('a#returns').attr('href',"#/tab/config-feeds");
 								$('.warning-actions.grl').find('a#btn-aceptar').removeClass('deleted_folder_ok');
-								
+
 								//$( '.warning' ).removeClass( 'active' );
 							}
 						 });
 				}
-			});			
+			});
 			$('body').on('touchstart ','#returns', function(e){
 				e.preventDefault();
 				$( '.warning-content.grl' ).find('p').html("").html( ' No has dado de alta ningún Tema. Sin personalización de Temas, solo recibirás el Feed genérico sin notificaciones en las sección de Temas ni de Mis Feeds. Puedes continuar y posteriormente hacerlo.' );
@@ -571,14 +580,14 @@ $( document ).ready(function() {
 				$( '.lightbox-add.create-folder' ).toggleClass( 'active' );
 				setTimeout(function(){
 						$(".title_folder").focus();
-					}, 300);	
+					}, 300);
 			});
 			$("body").on('touchstart ','.create_folder',function(e){
 				e.preventDefault();
 				var title= $('.title_folder').val().trim();
 				if(title.length>0){
 					$.post(url+'/api/add_folder', {'title':title})
-					
+
 				        .error(function(){
 								console.log("no se recibieron datos");
 								$('.title_folder').val( "" );
@@ -613,19 +622,19 @@ $( document ).ready(function() {
 								$(".msg").addClass('ng-hide');
 							}else
 								$('.title_folder').css('border','1px solid #FF0000');
-							
+
 						 });
-				
+
 				}else{
 					$('.title_folder').css('border','1px solid #FF0000');
 				}
-				
+
 			});
-			$('body').on('touchstart ','.ok_temass',function(e){ 
+			$('body').on('touchstart ','.ok_temass',function(e){
 				var temas_name=[]
 				var topics = $("#count_tema").data("topic");
 				var temas = $("#count_tema").data("temas");
-				
+
 				console.log(topics+' / '+temas )
 				$(".tema_id").each(function(){
 					if($(this).is(":checked")){
@@ -635,8 +644,8 @@ $( document ).ready(function() {
 				console.log(temas_name)
 				if(temas_name.length==0){
 					$( '.warning-content.grl' ).find('p').html("").html( ' No has dado de alta ningún Tema. Sin personalización de Temas, solo recibirás el Feed genérico sin notificaciones en las sección de Temas ni de Mis Feeds. Puedes continuar y posteriormente hacerlo.' );
-					
-				}else{	
+
+				}else{
 					if((topics-temas)>0){
 						$('.warning-actions.grl').find('a#btn-aceptar').addClass('add_temas_ok');
 						$('.warning-actions.grl').find('a#btn-aceptar').removeAttr('ontouchstart');
@@ -650,7 +659,7 @@ $( document ).ready(function() {
 				e.preventDefault();
 				var temas_id= []
 				var temas_name=[]
-			
+
 				$(".tema_id").each(function(){
 					if($(this).is(":checked")){
 						temas_id.push($(this).val());
@@ -676,7 +685,7 @@ $( document ).ready(function() {
 			});
 		$("body").on('touchstart ','.btn-upload',function(){
 			$('#load_photo').toggleClass("active");
-		});			
+		});
 		$("html").on('keyup','#search',function(e){
 			console.log(e.keyCode);
 			if(e.keyCode==13){
@@ -688,9 +697,9 @@ $( document ).ready(function() {
 			}
 		});
 /*---------------------------------------functions bar------------------------------------*/
-		
+
 		$("body").delegate(".add_comment", "keypress", function(e){
-					if(e.keyCode==13){	
+					if(e.keyCode==13){
 					e.preventDefault();
 					var comment = $(this).val().trim();
 					var feed_id = $(this).parents(".feeds").data("id");
@@ -720,9 +729,9 @@ $( document ).ready(function() {
 								$obj.parents(".feeds").find('div.item-body').find('div.item-comments').find("ul.comments-list").append( code );
 							   }
 								if(!$(this).parents(".feeds").find('div.item-body').find('div.item-comments').find('a.show-comments').is(':visible')){
-									if((num_comments.length+2)>2) 
-										$(this).parents(".feeds").find('div.item-body').find('div.item-comments').find('a.show-comments').show().removeClass("ng-hide").find("span.comments-count").html("").html("Ocultar "+(num_comments.length)+" comentarios previos");	
-								}						
+									if((num_comments.length+2)>2)
+										$(this).parents(".feeds").find('div.item-body').find('div.item-comments').find('a.show-comments').show().removeClass("ng-hide").find("span.comments-count").html("").html("Ocultar "+(num_comments.length)+" comentarios previos");
+								}
 						});
 	                }else
 						console.log("llena el campo para mandar tu comentario");
@@ -759,31 +768,31 @@ $( document ).ready(function() {
 								$obj.parents(".feeds").find('div.item-body').find('div.item-comments').find("ul.comments-list").append( code );
 							   }
 								if(!$(this).parents(".feeds").find('div.item-body').find('div.item-comments').find('a.show-comments').is(':visible')){
-									if((num_comments.length+2)>2) 
-										$(this).parents(".feeds").find('div.item-body').find('div.item-comments').find('a.show-comments').show().removeClass("ng-hide").find("span.comments-count").html("").html("Ocultar "+(num_comments.length)+" comentarios previos");	
-								}						
+									if((num_comments.length+2)>2)
+										$(this).parents(".feeds").find('div.item-body').find('div.item-comments').find('a.show-comments').show().removeClass("ng-hide").find("span.comments-count").html("").html("Ocultar "+(num_comments.length)+" comentarios previos");
+								}
 						});
 	                }else
 						console.log("llena el campo para mandar tu comentario");
-			
+
 				});
 	$('body').delegate('.add_to_favfolder','touchstart ',function(e){
 
 			e.preventDefault();
-			
+
 			var folder_to_add 		= [];
 			var folder_to_remove 	= [];
 
 			var $obj 		= $(this);
 			var feed_id 	= $obj.parents("form").find("input.feed_id").val();
-			
+
 			$(".folder_add").each(function(){
 				if( $( this ).attr("checked") ){
 					folder_to_add.push( $(this).data('id') );
 				}else{
 					folder_to_remove.push( $(this).data('id') );
 				}
-				
+
 			});
 			console.log(folder_to_add);
 			console.log(folder_to_remove);
@@ -796,9 +805,9 @@ $( document ).ready(function() {
 					$( '.lightbox-favorited' ).toggleClass( 'active' );
                 },
                 success: function(response){
-					
+
                        // $("body").css("cursor", "default");
-                       
+
                         var resp = $.parseJSON( response );
 						console.log(resp);
 
@@ -809,7 +818,7 @@ $( document ).ready(function() {
 									var id=$(this).data('id');
 									$(this).find('i').html("").html(parseInt(num)+1);
 									$.get(url+'/api/user_data').error(function(){
-								
+
 										console.log('error de conexión');
 									}).success(function(response){
 										console.log('usuario-actualizado');
@@ -817,9 +826,9 @@ $( document ).ready(function() {
 									});
 									/*var user= window.localStorage.getItem('user');
 									user=$.parseJSON(user);
-					
+
 									$.each(user.favfolder,function(index,val){
-										
+
 										if(id==val.id)
 											user.favfolder[index].total=parseInt(val.total)+1;
 									});
@@ -829,7 +838,7 @@ $( document ).ready(function() {
 									var id=$(this).data('id');
 									var user= window.localStorage.getItem('user');
 									user=$.parseJSON(user);
-									
+
 									var num= $(this).find('i').html();
 									if((parseInt(num)-1)<0)
 										$(this).find('i').html("").html('0');
@@ -845,25 +854,25 @@ $( document ).ready(function() {
 								}
 								});
 							if( folder_to_add.length > 0 )
-								$('.feeds[data-id="'+feed_id+'"]').find('div.tabs-icon-only').find('a').children('i').addClass('active');	
+								$('.feeds[data-id="'+feed_id+'"]').find('div.tabs-icon-only').find('a').children('i').addClass('active');
 							else
-								$('.feeds[data-id="'+feed_id+'"]').find('div.tabs-icon-only').find('a').children('i').removeClass('active');	
-							
+								$('.feeds[data-id="'+feed_id+'"]').find('div.tabs-icon-only').find('a').children('i').removeClass('active');
+
                         	$( '.lightbox-favorited' ).toggleClass( 'active' );
 
-						
+
 
 							//Pasa a leidos los agregados a favoritos <<< Sólo si está en no leídos >>>
 							var read = $('.feeds[data-id="' + feed_id + '"]').hasClass("feed_read");
 
 							if( !read ){
 								//$('article.feed[data-id="' + feed_id + '"]').find(".read").remove();
-								
+
 								var feeds_noleidos 	= $(".feed_noread").size();
 								var feeds_leidos 	= $(".feed_read").size();
-								
+
 								$.post(url+'/api/feeds_load',{read:'already',feed_id:feed_id}, function(response){
-									 	
+
 									 	resp=$.parseJSON(response);
 
 										if( resp.message="feed_leido" ){
@@ -872,15 +881,15 @@ $( document ).ready(function() {
 											$('.feeds[data-id="'+feed_id+'"]').hide();
 											$('.feeds[data-id="'+feed_id+'"]').find('div.item-header').find('a.read').children('i').toggleClass('ion-ios-checkmark-outline');
 											$('.feeds[data-id="'+feed_id+'"]').find('div.item-header').find('a.read').children('i').toggleClass('ion-ios-checkmark');
-											//if(feeds_noleidos==1) 
+											//if(feeds_noleidos==1)
 											//	$(".nof_read").html('').html("No leídos("+(parseInt(feeds_noleidos)-1)+")");
-											
+
 
 										}else if(resp.message="error")
 											console.log("Fallo de conexión con la base de datos");
 								});
 							}
-						
+
 						}else{
 							$(".msg").html('').html("Ocurrió un error, intenta mas tarde").css('color', 'red').show();
 								setTimeout(function(){
@@ -888,7 +897,7 @@ $( document ).ready(function() {
 								}, 4000);
 						}
                     },
-					
+
             });/*.done(function(){
 						setTimeout(function(){
 							$.get(url+'/api/user_data').error(function(){
@@ -897,10 +906,10 @@ $( document ).ready(function() {
 									console.log('usuario-actualizado');
 									window.localStorage.setItem('user',response);
 								});
-					
+
 						},600);
 						});*/
-				
+
 		});
 		$('body').delegate('.add_to_follow','touchstart ',function(e){
 			e.preventDefault();
@@ -930,7 +939,7 @@ $( document ).ready(function() {
 	                        success: function(response){
 
 	                               // $("body").css("cursor", "default");
-	                               
+
 	                                var resp = $.parseJSON( response );
 									console.log(resp);
 
@@ -951,11 +960,11 @@ $( document ).ready(function() {
 											}, 4000);
 
 									}
-								
+
 	                            }
 	                    });
 	               //}
-				
+
 		});
 		$('body').delegate('.group_edit','touchstart ',function(e){
 			$(this).toggleClass("active");
@@ -967,6 +976,6 @@ $( document ).ready(function() {
 		$('body').delegate('.themesearch-clear','touchstart ',function(e){
             $("#theme-search").val("");
         });
-			
+
 });
  //}, 1000);
