@@ -55,10 +55,11 @@ $( document ).ready(function() {
 
         });
 
-        $( 'body' ).on( 'touchstart', 'li.li-subject', function(){
+        $( 'body' ).on( 'touchstart, click', 'li.li-subject', function(){
             if( $( this ).children( 'a' ).length >= 2 ){
                 $( this ).parent().children( 'li.li-subject' ).find( '.hover' ).remove();
-            } else {
+                console.log("mas-elementos")
+            } else {           console.log("un-elemento")
 				$( this ).parent().children( 'li.li-subject' ).find( '.hover' ).remove();
                 $( this ).append( $( this ).html() );
 				$( this ).children( 'a' ).eq( 1 ).addClass( 'hover' );
