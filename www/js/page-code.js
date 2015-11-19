@@ -55,7 +55,7 @@ $( document ).ready(function() {
 
         });
 
-        $( 'body' ).on( 'click', 'li.li-subject', function(){
+        $( 'body' ).on( 'touchstart', 'li.li-subject', function(){
             if( $( this ).children( 'a' ).length >= 2 ){
                 $( this ).parent().children( 'li.li-subject' ).find( '.hover' ).remove();
             } else {
