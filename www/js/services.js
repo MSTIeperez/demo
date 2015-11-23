@@ -219,7 +219,7 @@ angular.module('starter.services', ['ngCookies'])
 })
 
 .factory('Auth', function ($http, $cookieStore, $state, $parse) {
-   var _user = $parse(localStorage.user); //$cookieStore.get('starter.user');
+   var _user = $.parseJSON(localStorage.user); //$cookieStore.get('starter.user');
    var setUser = function (user) {
       _user = user;
       $cookieStore.put('starter.user', _user.name); 
@@ -229,9 +229,9 @@ angular.module('starter.services', ['ngCookies'])
       checkRememberedUser:function(){
         if(localStorage.remember_me){
           console.log('Restored session');
-          var u = $parse(localStorage.remember_me); 
+          var u = $.parseJSON(localStorage.remember_me); 
           var pw = localStorage.hassh;
-          //console.log(atob(pw)); 
+          
           $http.post(url+'/api/desktop_login',{'email':u.email,'password': atob(pw), 'remember':u.remember})
 
           .success(function(data, status, headers, config){
