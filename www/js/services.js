@@ -238,7 +238,10 @@ angular.module('starter.services', ['ngCookies'])
           ///console.log(data);
              if (data.message=="logged") {
               window.localStorage.setItem('user',JSON.stringify(data.user));
-              $state.go('tab.feeds');
+              if(data.user.temas.length>0)
+                $state.go('tab.tema_feeds');
+              else
+                $state.go('tab.feeds');
               if(u.remember=="1")
                 window.localStorage.setItem('remember_me',JSON.stringify(data.user));
             } 
