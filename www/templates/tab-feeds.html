@@ -12,10 +12,10 @@
     </ion-nav-bar>
     <!-- END: sub header -->
     
-    <ion-content class="has-subheader bg-color1"> 
+    <ion-content class="has-subheader bg-color1" > 
         
         <!-- BEGIN: card -->
-        <ion-item class="list card " data-id="{{feed.id}}" ng-repeat="feed in feeds">
+        <ion-item class="list card " data-id="{{feed.id}}" ng-repeat="feed in feeds track by $index">
 			<input type="hidden" class="asunto_name" value="{{feed.asunto_name}}" />
            
             <div class="item item-header item-thumbnail-left">
@@ -85,7 +85,7 @@
             
         </ion-item>
         <!-- END: card -->
- 
+        <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="load()" distance="3%"></ion-infinite-scroll>
     </ion-content>
     
 </ion-view>

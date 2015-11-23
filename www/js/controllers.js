@@ -426,15 +426,19 @@ angular.module('starter.controllers', [])
 		}
 		} else $state.go('login');
 	});  
+  
 })
 .controller('FeedsCtrl', function($scope, Feeds_all, Auth, $state, $sce) {
 	
 	$scope.data={}
-	
+
 	$scope.$on('$ionicView.loaded', function(e) { console.log(Auth.isLoggedIn())
 		if(Auth.isLoggedIn() && window.localStorage.getItem('user')!=null ){
 			$scope.flag=true;
-		$scope.load = Feeds_all.all(-1).success(function(data){
+		$scope.feeds=[];
+		$scope.page=1;
+		$scope.load = function(){
+		  Feeds_all.all($scope.page,-1).success(function(data){
 			angular.forEach(data.feeds, function(val, key){
 				var asuntos_arr=[]
 		 		var tmp_name=[]
@@ -453,15 +457,28 @@ angular.module('starter.controllers', [])
 				});
 				data.feeds[key].asuntos_name=asunto_name;
 			});
-			if(data.feeds.length==0)
+			
+			if(!angular.isUndefined(data.feeds) && data.feeds.length==0 )
 				$scope.flag=false;
 			else
 				$scope.flag="no_feeds";
-			$scope.feeds = data.feeds;
+			//$scope.feeds = data.feeds;
+			
+			if(angular.isUndefined(data.feeds)){
+	 			$scope.noMoreItemsAvailable=true;
+	 			return;
+	 		}
+	 		$scope.feeds = $scope.feeds.concat(data.feeds);
+				$scope.$broadcast('scroll.infiniteScrollComplete');
+		  		console.log($scope.page);
+		  		$scope.page ++;
 			
 		}).error(function(){
 			$scope.feeds = "";
+
 		});
+		
+	}
 		$scope.remove = function(feed) {
 			Feeds_all.remove(feed);
 		}
@@ -487,7 +504,10 @@ angular.module('starter.controllers', [])
 		 
 		 $scope.flag=true;
 		// Feeds.all(-1,'send_data','','',$scope.data.origin_id, $scope.data.theme_id,'').success(function(data){
-		$scope.changeLocation= Feeds.all(-1,'send_data','','','', $state.params.origin_id, $state.params.theme_id,'').success(function(data){
+		$scope.feeds=[];
+		$scope.page=1;
+		$scope.load = //function(){
+		 Feeds.all(-1,'send_data','','','', $state.params.origin_id, $state.params.theme_id,'').success(function(data){
 			angular.forEach(data.feeds, function(val, key){
 				var asuntos_arr=[]
 		 		var tmp_name=[]
@@ -511,13 +531,22 @@ angular.module('starter.controllers', [])
 			$scope.read=data.feeds.length-noread;
 			$scope.feeds = data.feeds;
 			$scope.noread = noread;
-			if(data.feeds.length==0)
+			if(!angular.isUndefined(data.feeds) && data.feeds.length==0)
 				$scope.flag="no_feeds";
 			else
 				$scope.flag=false;
+			if(angular.isUndefined(data.feeds)){
+	 			$scope.noMoreItemsAvailable=true;
+	 			return;
+	 		}
+	 		/*$scope.feeds = $scope.feeds.concat(data.feeds);
+				$scope.$broadcast('scroll.infiniteScrollComplete');
+		  		console.log($scope.page);
+		  	*/	$scope.page ++;
 		});
 		$scope.tema_name=$state.params.name;
-		
+
+		//}
 		$scope.remove = function(feed) {
 			Feeds.remove(feed);
 		}

@@ -12,7 +12,7 @@
     </ion-nav-bar>
     <!-- END: sub header -->
 	
-    <ion-content class="padding has-subheader bg-color-1"> 
+    <ion-content class="padding has-subheader bg-color-1" > 
         <div class="seen-menu clearfix">
 		 
             <a class="reads  nof_read" ng-class="{'active':noread>0, ' ':noread==0}" data-class="feed_noread" href="javascript:void(0);" ontouchstart="return false;" data-read="{{noread}}">No leídos ({{noread}})</a> 
@@ -97,6 +97,6 @@
         </ion-item>
             
         <!-- END: card -->
- 
+        <!--ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="load()" distance="3%"></ion-infinite-scroll-->
     </ion-content>
 </ion-view>
