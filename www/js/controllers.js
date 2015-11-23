@@ -535,11 +535,11 @@ angular.module('starter.controllers', [])
 				$scope.flag="no_feeds";
 			else
 				$scope.flag=false;
-			if(angular.isUndefined(data.feeds)){
+			/*if(angular.isUndefined(data.feeds)){
 	 			$scope.noMoreItemsAvailable=true;
 	 			return;
 	 		}
-	 		/*$scope.feeds = $scope.feeds.concat(data.feeds);
+	 		$scope.feeds = $scope.feeds.concat(data.feeds);
 				$scope.$broadcast('scroll.infiniteScrollComplete');
 		  		console.log($scope.page);
 		  	*/	$scope.page ++;
