@@ -22,6 +22,24 @@
                             "xml": "<dict><key>NSAllowsArbitraryLoads</key><true /></dict>",
                             "count": 1
                         }
+                    ],
+                    "UISupportedInterfaceOrientations": [
+                        {
+                            "xml": "<array><string>UIInterfaceOrientationPortrait</string><string>UIInterfaceOrientationLandscapeLeft</string><string>UIInterfaceOrientationLandscapeRight</string></array>",
+                            "count": 1
+                        }
+                    ],
+                    "UISupportedInterfaceOrientations~ipad": [
+                        {
+                            "xml": "<array><string>UIInterfaceOrientationPortrait</string><string>UIInterfaceOrientationPortraitUpsideDown</string><string>UIInterfaceOrientationLandscapeLeft</string><string>UIInterfaceOrientationLandscapeRight</string></array>",
+                            "count": 1
+                        }
+                    ],
+                    "UIRequiresFullScreen": [
+                        {
+                            "xml": "<string>YES</string>",
+                            "count": 1
+                        }
                     ]
                 }
             }
@@ -35,6 +53,9 @@
             "PACKAGE_NAME": "com.phonegap.legix1"
         },
         "sk.kcorp.cordova.ios-security": {
+            "PACKAGE_NAME": "com.abargon.Legix"
+        },
+        "cordova-plugin-ipad-multitasking": {
             "PACKAGE_NAME": "com.abargon.Legix"
         }
     },

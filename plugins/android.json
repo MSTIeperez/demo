@@ -27,6 +27,9 @@
         },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.abargon.Legix"
+        },
+        "cordova-plugin-ipad-multitasking": {
+            "PACKAGE_NAME": "com.abargon.Legix"
         }
     },
     "dependent_plugins": {}

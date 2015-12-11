@@ -28,5 +28,13 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-plugin-ipad-multitasking": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-ipad-multitasking"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }
