@@ -222,7 +222,7 @@ $( document ).ready(function() {
 		}, 300);
       });
     // oculta los lightbox's
-    $( 'body' ).on( 'touchstart ', '.close-lightbox, .back-button', function() {
+    $( 'body' ).on( 'touchstart ', '.close-lightbox', function() {
         $( '.share, .lightbox' ).removeClass( 'active' );
 		$(".folder_title").val("");
 		$(".title_folder").val("");
