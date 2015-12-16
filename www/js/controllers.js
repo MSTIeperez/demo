@@ -36,7 +36,7 @@ angular.module('starter.controllers', [])
 	});
 })
 .controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state, Auth, $rootScope, $ionicSideMenuDelegate) {
-    $scope.$on('$ionicView.enter', function(e) {
+    $scope.$on('$ionicView.afterEnter', function(e) {
 	$scope.data = {};
 	console.log("remember: "+Auth.checkRememberedUser());
 	});
