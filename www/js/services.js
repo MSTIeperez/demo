@@ -227,36 +227,39 @@ angular.module('starter.services', ['ngCookies'])
 
    return {
       checkRememberedUser:function(){
-        if(localStorage.remember_me){
-          console.log('Restored session');
-          var u = $.parseJSON(localStorage.remember_me); 
-          var pw = localStorage.hassh;
-          
-          $http.post(url+'/api/desktop_login',{'email':u.email,'password': atob(pw), 'remember':u.remember})
-
-          .success(function(data, status, headers, config){
-          ///console.log(data);
-             if (data.message=="logged") {
-              window.localStorage.setItem('user',JSON.stringify(data.user));
-              if(data.user.temas.length>0)
-                $state.go('tab.tema_feeds');
-              else
-                $state.go('tab.feeds');
-              if(u.remember=="1")
-                window.localStorage.setItem('remember_me',JSON.stringify(data.user));
-            } 
-          })
-          .error(function (data){
+        
+        if(!_user){
+          if(localStorage.remember_me){
+            console.log('Restored session');
+            var u = $.parseJSON(localStorage.remember_me); 
+            var pw = localStorage.hassh;
             
-          });
+            $http.post(url+'/api/desktop_login',{'email':u.email,'password': atob(pw), 'remember':u.remember})
 
-          //console.log(u);
-          setUser(u);
-          return true;
-        }else{
-          console.log('No session to be restored');
-          return false;
-        }
+            .success(function(data, status, headers, config){
+            ///console.log(data);
+               if (data.message=="logged") {
+                window.localStorage.setItem('user',JSON.stringify(data.user));
+                if(data.user.temas.length>0)
+                  $state.go('tab.tema_feeds');
+                else
+                  $state.go('tab.feeds');
+                if(u.remember=="1")
+                  window.localStorage.setItem('remember_me',JSON.stringify(data.user));
+              } 
+            })
+            .error(function (data){
+              
+            });
+
+            //console.log(u);
+            setUser(u);
+            return true;
+          }else{
+            console.log('No session to be restored');
+            return false;
+          }
+      }else return false; 
        // console.log(setUser());
        // console.log(_user);
       },
