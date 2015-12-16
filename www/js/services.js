@@ -232,7 +232,7 @@ angular.module('starter.services', ['ngCookies'])
           var u = $.parseJSON(localStorage.remember_me); 
           var pw = localStorage.hassh;
           
-          $http.post(url+'/api/desktop_login',{'email':u.email,'password': pw, 'remember':u.remember})
+          $http.post(url+'/api/desktop_login',{'email':u.email,'password': atob(pw), 'remember':u.remember})
 
           .success(function(data, status, headers, config){
           ///console.log(data);
