@@ -224,11 +224,11 @@ angular.module('starter.services', ['ngCookies'])
       _user = user;
       $cookieStore.put('starter.user', _user.name); 
    };
-
+   var remember_once= false;
    return {
       checkRememberedUser:function(){
-        
-        if(!_user){
+        console.log(remember_once);
+        if(!remember_once){
           if(localStorage.remember_me){
             console.log('Restored session');
             var u = $.parseJSON(localStorage.remember_me); 
@@ -251,11 +251,12 @@ angular.module('starter.services', ['ngCookies'])
             .error(function (data){
               
             });
-
+            remember_once=true;
             //console.log(u);
             setUser(u);
             return true;
           }else{
+            remember_once= false;
             console.log('No session to be restored');
             return false;
           }
