@@ -439,7 +439,6 @@ angular.module('starter.services', ['ngCookies'])
 				console.log(data);
 				feeds=data.feeds;
 				deferred.resolve(data);
-        console.log("mensaje: "+data.message);
 				console.log("feeds: "+feeds);
 				if(data.message=="Es necesario iniciar sesión"){
 				
