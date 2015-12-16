@@ -38,13 +38,13 @@ $( document ).ready(function() {
     var step = 1;
     var num = 0;
     
-    set_follows_unreads()
+   /* set_follows_unreads()
 
     notification();
     $(document).on('touchstart', function() {
         notification();
     });
-
+*/
     // Asuntos
     function subject() {
         $( 'body' ).on( 'touchstart', '.subject-more', function() {
