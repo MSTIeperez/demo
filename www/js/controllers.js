@@ -835,6 +835,10 @@ angular.module('starter.controllers', [])
 .controller('ConfigAddCtrl', function($scope,$rootScope, Registerservice, UserService,GroupService, $ionicPopup, $state, $stateParams) {
 	$scope.$on('$ionicView.loaded', function(e) {
 	$scope.data={}; //});
+    $scope.group_id= false;
+    if($state.params.group_id)
+    	$scope.group_id= $state.params.group_id
+			
 			console.log($scope.data);
 			
 			console.log($scope.data.group_name);
@@ -943,6 +947,7 @@ angular.module('starter.controllers', [])
 				});
 		}
 	}
+
 	if($state.params.group_id){
 		var grupo=[];
 		var temas=[];
