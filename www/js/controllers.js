@@ -837,6 +837,10 @@ angular.module('starter.controllers', [])
 	$scope.data={}; //});
 	$scope.datas={};
     $scope.group_id= false;
+    var grupo=[];
+	var temas=[];
+	var usuarios=[];
+	var group=$rootScope.user_data.grupos;
     if($state.params.group_id)
     	$scope.group_id= $state.params.group_id
 			
@@ -950,10 +954,7 @@ angular.module('starter.controllers', [])
 	}
 
 	if($state.params.group_id){
-		var grupo=[];
-		var temas=[];
-		var usuarios=[];
-		var group=$rootScope.user_data.grupos;
+		
 		angular.forEach(group, function(val, key){
 			if($state.params.group_id==val.id)
 				grupo.push(val);
@@ -1032,9 +1033,9 @@ angular.module('starter.controllers', [])
 		$scope.removegroup= function(){
 		
 		var texto="Usuario";
-		if ($scope.group_id!="" && !angular.isUndefined($scope.group_id))
+		if ($state.params.group_id!="" && !angular.isUndefined($state.params.group_id))
 			var texto="Grupo";
-		UserService.remove($scope.grupo_id,$scope.data.user_id).success(function(data) {
+		UserService.remove($state.params.group_id,$scope.data.user_id).success(function(data) {
 				//$scope.user=data.user;
 				 if (data.message=="Eliminados") {
 					UserService.datauser().success(function(response){
