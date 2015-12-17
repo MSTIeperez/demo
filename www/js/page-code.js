@@ -9,6 +9,19 @@ $( document ).ready(function() {
 
     var step = 1;
     var num = 0;
+
+	// variables para evitar click durante scroll de menu secundario
+	var initialValue;
+	var finalValue;
+
+	$( 'body' ).on( 'touchstart', '.tabs-secondary > a', function(e) {
+		e.preventDefault();
+		initialValue = $( this ).parent('.tabs-secondary').offset().top;
+	}).on( 'touchend', '.tabs-secondary > a', function(e) {
+		e.preventDefault();
+		finalValue = $( this ).parent('.tabs-secondary').offset().top;
+	});
+
     function set_follows_unreads(){
 
 		$.post(url+'/api/follow/get_follows_unread',{'send_data':'send_data'})
@@ -140,9 +153,16 @@ $( document ).ready(function() {
     });
 
     // input comentar
-    $('body').on('touchstart ', '.icon-message', function() {
-         $(this).parent().toggleClass('active');
-        $(this).parent().parent().parent().children('.input-comment').toggleClass('active');
+    $('body').on('touchend ', '.icon-message', function( e ) {
+		e.preventDefault();
+		var $thiz = $( this );
+
+		setTimeout( function(){
+			if( initialValue == finalValue ){
+		        $thiz.parent().toggleClass('active');
+		        $thiz.parent().parent().parent().children('.input-comment').toggleClass('active');
+			}
+		}, 300);
     });
 
     // button seen menu: active para botones de no leido & leido
@@ -177,62 +197,49 @@ $( document ).ready(function() {
 	});
 
     // button share: activa lighbox de compartir
-
-	var initialValue;
-	var finalValue;
-
-	$( 'body' ).on( 'touchstart', '.show-share', function(e) {
-		initialValue = $('.scroll').offset().top;
-	});
-	$( 'body' ).on( 'touchmove', '.show-share', function(e) {
-		finalValue = $('.scroll').offset().top;
-	});
-
     $( 'body' ).on( 'touchend', '.show-share', function(e) {
+		e.preventDefault();
+		var $thiz = $( this );
+		setTimeout( function(){
+			console.log(''+initialValue+' , '+finalValue+'');
+			if( initialValue == finalValue ){
+		        $( '.share' ).addClass( 'active' );
+		        var id= $thiz.parents('.feeds').data('id');
+		        var img= $thiz.parents('.feeds').find("div.item-header").find("img.small-image").attr('src');
+		        var feed_date= $thiz.parents('.feeds').find("div.item-header").find("p.feed-date").text().trim();
+		        var origin= $thiz.parents('.feeds').find("div.item-header").find("h2").text().trim();
+		        var origen= origin+"-"+$thiz.parents('.feeds').find("div.item-header").find("p").text().trim();
+		        var content= $thiz.parents('.feeds').find("div.item-body").find("p.content-feed").text().trim();
+		        var file="";
+		        var download=[];
+		        var path = url+'/esp/1/feed/'+id;
+		        $thiz.parents('.feeds').find("div.item-body").find("div.item-attachments").find("a").each(function(){
+		            file+=$(this).text().trim()+", ";
+		            download.push($(this).attr("ng-value"));
+		        });
+		        console.log(id);
+		        console.log(path);
+		        console.log(img);
+		        console.log(content);
+		        console.log(file);
+		        $('.social-fb').attr('ontouchstart',"window.plugins.socialsharing.shareViaFacebook('message',null,'"+path+"')");
+		        $('.social-tw').attr('ontouchstart',"window.plugins.socialsharing.shareViaTwitter('"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx',null,'"+path+"')");
+		        $('.social-more').attr('ontouchstart',"window.plugins.socialsharing.share('"+content+" - "+feed_date+"- CREDITO: Legix Feed - www.legixfeed.com.mx')");
+		        $('.social-email').attr('ontouchstart',"window.plugins.socialsharing.shareViaEmail("+
+		          "'"+origen+"<br><br>"+content+"<br><br>CREDITO: Legix Feed - www.legixfeed.com.mx', "+// can contain HTML tags, but support on Android is rather limited:  http://stackoverflow.com/questions/15136480/how-to-send-html-content-with-image-through-android-default-email-client
+		          "'Legix Feed-"+feed_date+"',"+
+		          "null,"+ // TO: must be null or an array
+		          "null,"+ // CC: must be null or an array
+		          "null,"+ // BCC: must be null or an array
+		          "["+download+"]"+ // FILES: can be null, a string, or an array
+		        ")");
+		        $('.subject').attr("placeholder",'Legix Feed-'+feed_date);
+		        $('.txt-content').html("").html(origen+"\n\n"+content);
+		        $('input[name=attachment]').val(file);
 
-		alert(initialValue , finalValue);
-		//alert( initialValue);
-		//alert( finalValue );
-
-		if( initialValue == finalValue ){
-			console.log($('.scroll').offset().top );
-	        e.preventDefault();
-	        $( '.share' ).addClass( 'active' );
-	        var id= $(this).parents('.feeds').data('id');
-	        var img= $(this).parents('.feeds').find("div.item-header").find("img.small-image").attr('src');
-	        var feed_date= $(this).parents('.feeds').find("div.item-header").find("p.feed-date").text().trim();
-	        var origin= $(this).parents('.feeds').find("div.item-header").find("h2").text().trim();
-	        var origen= origin+"-"+$(this).parents('.feeds').find("div.item-header").find("p").text().trim();
-	        var content= $(this).parents('.feeds').find("div.item-body").find("p.content-feed").text().trim();
-	        var file="";
-	        var download=[];
-	        var path = url+'/esp/1/feed/'+id;
-	        $(this).parents('.feeds').find("div.item-body").find("div.item-attachments").find("a").each(function(){
-	            file+=$(this).text().trim()+", ";
-	            download.push($(this).attr("ng-value"));
-	        });
-	        console.log(id);
-	        console.log(path);
-	        console.log(img);
-	        console.log(content);
-	        console.log(file);
-	        $('.social-fb').attr('ontouchstart',"window.plugins.socialsharing.shareViaFacebook('message',null,'"+path+"')");
-	        $('.social-tw').attr('ontouchstart',"window.plugins.socialsharing.shareViaTwitter('"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx',null,'"+path+"')");
-	        $('.social-more').attr('ontouchstart',"window.plugins.socialsharing.share('"+content+" - "+feed_date+"- CREDITO: Legix Feed - www.legixfeed.com.mx')");
-	        $('.social-email').attr('ontouchstart',"window.plugins.socialsharing.shareViaEmail("+
-	          "'"+origen+"<br><br>"+content+"<br><br>CREDITO: Legix Feed - www.legixfeed.com.mx', "+// can contain HTML tags, but support on Android is rather limited:  http://stackoverflow.com/questions/15136480/how-to-send-html-content-with-image-through-android-default-email-client
-	          "'Legix Feed-"+feed_date+"',"+
-	          "null,"+ // TO: must be null or an array
-	          "null,"+ // CC: must be null or an array
-	          "null,"+ // BCC: must be null or an array
-	          "["+download+"]"+ // FILES: can be null, a string, or an array
-	        ")");
-	        $('.subject').attr("placeholder",'Legix Feed-'+feed_date);
-	        $('.txt-content').html("").html(origen+"\n\n"+content);
-	        $('input[name=attachment]').val(file);
-
-	        return false;
-		}
+		        return false;
+			}
+		}, 300);
     });
 
 
@@ -242,9 +249,10 @@ $( document ).ready(function() {
         //$( '.lightbox-share' ).addClass( 'active' );
         return false;
     });
-     // button edit folder: activa lighbox de edicion folder favorito
-     $( 'body' ).on( 'touchstart', '.show-lightbox-folder', function(e) {
-        e.preventDefault();
+
+    // button edit folder: activa lighbox de edicion folder favorito
+	$( 'body' ).on( 'touchstart', '.show-lightbox-folder', function(e) {
+	    e.preventDefault();
 		var folder_id=$(this).parent().data('id');
 		var folder_name=$(this).parent('li').find('h2').html();
 		console.log(folder_name);
@@ -254,7 +262,8 @@ $( document ).ready(function() {
 		setTimeout(function(){
 			$('.folder_title').focus();
 		}, 300);
-      });
+	 });
+
     // oculta los lightbox's
     $( 'body' ).on( 'touchstart', '.close-lightbox', function() {
         $( '.share, .lightbox' ).removeClass( 'active' );
@@ -277,116 +286,123 @@ $( document ).ready(function() {
     });
 
     // button favorite
-    $( 'body' ).on( 'touchstart', '.btn-favorite', function(e) {
-
-
-        e.preventDefault();
-
-			//  if( $( this ).children( 'i' ).hasClass( 'active' ) == false ) {
-            $( '.lightbox-favorited' ).addClass( 'active' );
-            //$( this ).children( 'i' ).toggleClass( 'active' );
-       // } else {
-        //    $( '.warning-remove' ).addClass( 'active' );
-        //}
-			var id=$(this).parents('.feeds').data('id');
-			$('.feed_id').val(id);
-				$("li.list_folder").each(function(){
-
-											$(this).removeClass("selected");
-											$(this).removeClass("already");
-											$(this).children('input').removeAttr("checked");
-								});	console.log(id);
-			if(id > 0){
-				$.ajax({
-	                type: "POST",
-	                url: url+'/api/add_folder',
-	                data: {folder:"send_data", feed_id:id},
-	                error: function(){
-						console.log("no se recibieron datos");
-			        },
-	                success: function(response){
-						var resp = $.parseJSON( response );
-						console.log(resp);
-	                    if( resp.message="folders_ok" ){
-							if(resp.folder_id.length>0){
-								for(i=0;i<resp.folder_id.length;i++){
-									$("li.list_folder").each(function(){
-											if($(this).data("id")==resp.folder_id[i]){
-												$(this).addClass("selected");
-												$(this).addClass("already");
-												$(this).children('input').attr('checked','checked');
-											}
-									});
-								}
+    $( 'body' ).on( 'touchend', '.btn-favorite', function(e) {
+		e.preventDefault();
+		var $thiz = $( this );
+		setTimeout( function(){
+			console.log(initialValue, finalValue);
+			if( initialValue == finalValue ){
+					//  if( $( this ).children( 'i' ).hasClass( 'active' ) == false ) {
+		            $( '.lightbox-favorited' ).addClass( 'active' );
+		            //$( this ).children( 'i' ).toggleClass( 'active' );
+					// } else {
+			        //    $( '.warning-remove' ).addClass( 'active' );
+			        //}
+					var id=$thiz.parents('.feeds').data('id');
+					$('.feed_id').val(id);
+						$("li.list_folder").each(function(){
+							$(this).removeClass("selected");
+							$(this).removeClass("already");
+							$(this).children('input').removeAttr("checked");
+					});
+					console.log(id);
+					if(id > 0){
+						$.ajax({
+			                type: "POST",
+			                url: url+'/api/add_folder',
+			                data: {folder:"send_data", feed_id:id},
+			                error: function(){
+								console.log("no se recibieron datos");
+					        },
+			                success: function(response){
+								var resp = $.parseJSON( response );
+								console.log(resp);
+			                    if( resp.message="folders_ok" ){
+									if(resp.folder_id.length>0){
+										for(i=0;i<resp.folder_id.length;i++){
+											$("li.list_folder").each(function(){
+												if($(this).data("id")==resp.folder_id[i]){
+													$(this).addClass("selected");
+													$(this).addClass("already");
+													$(this).children('input').attr('checked','checked');
+												}
+											});
+										}
+									}
+			        			}
 							}
-	        			}
-					}
-				});
-	        }
-        return false;
+						});
+			        }
+		        return false;
+			}
+		}, 300);
     });
-	$( 'body' ).on( 'touchstart', '.show-follow', function(e) {
 
+	$( 'body' ).on( 'touchend', '.show-follow', function(e) {
+		e.preventDefault();
+		var $thiz = $( this );
+		setTimeout( function(){
+			if( initialValue == finalValue ){
 
-        e.preventDefault();
+				 var code 			= "";
+				 var asuntos 		= $thiz.parents(".feeds").find("input.asunto_name").val();
+				 var id 			= $thiz.parents(".feeds").data("id");
+				 var follow 		= $thiz.parents(".feeds").data("follow");
+				 var follow_ids_str	= $thiz.parents(".feeds").data("followids") + "";
+				 var fw_active 		= "";
+				 var asuntos_array 	= [];
+				 var follow_ids_arr = [];
 
-			 var code 			= "";
-			 var asuntos 		= $(this).parents(".feeds").find("input.asunto_name").val();
-			 var id 			= $(this).parents(".feeds").data("id");
-			 var follow 		= $(this).parents(".feeds").data("follow");
-			 var follow_ids_str	= $(this).parents(".feeds").data("followids") + "";
-			 var fw_active 		= "";
-			 var asuntos_array 	= [];
-			 var follow_ids_arr = [];
+				 console.log( follow_ids_str );
 
-			 console.log( follow_ids_str );
+				 if( follow_ids_str.length > 0 ){
 
-			 if( follow_ids_str.length > 0 ){
+					follow_ids_arr = follow_ids_str.split(",");
+					if( follow_ids_arr.length == 0 ) follow_ids_arr.push( follow_ids_str );
 
-				follow_ids_arr = follow_ids_str.split(",");
-				if( follow_ids_arr.length == 0 ) follow_ids_arr.push( follow_ids_str );
+				 }
 
-			 }
+				 asuntos = asuntos.split(",");
 
-			 asuntos = asuntos.split(",");
+				 if( $thiz.hasClass("legix") ) return false;
 
-			 if( $(this).hasClass("legix") ) return false;
+				 if( follow > 0 ) fw_active = "active";
+				 	else fw_active = "";
 
-			 if( follow > 0 ) fw_active = "active";
-			 	else fw_active = "";
+				 for( i = 0; i < asuntos.length; i++ ){
 
-			 for( i = 0; i < asuntos.length; i++ ){
+				 	var active_class = "";
+				 	var check = "";
 
-			 	var active_class = "";
-			 	var check = "";
+					asuntos_array 		= asuntos[i].split(":");
+					asuntos_array[0] 	= asuntos_array[0].trim();
 
-				asuntos_array 		= asuntos[i].split(":");
-				asuntos_array[0] 	= asuntos_array[0].trim();
+					console.log( asuntos_array );
+					console.log( follow_ids_arr );
 
-				console.log( asuntos_array );
-				console.log( follow_ids_arr );
+				 	if( $.inArray( asuntos_array[0], follow_ids_arr ) >= 0 ){ active_class = "selected";  check="checked='checked'";}
+				 		else{ active_class = ""; check="";}
 
-			 	if( $.inArray( asuntos_array[0], follow_ids_arr ) >= 0 ){ active_class = "selected";  check="checked='checked'";}
-			 		else{ active_class = ""; check="";}
+					code+= '<li class="category-element item item-avatar item-icon-left item-button-right list_follow '+ active_class +'"  data-id="'+asuntos_array[0]+'" >'+
+									'<input class="btn-invisible follow_add" type="checkbox"  '+check+' data-id="'+asuntos_array[0]+'" >'+
+									'<!--i class="sprite2x icon icon-folder"></i-->'+
+									'<h2>'+asuntos_array[1]+'</h2>'
+								'<a class="button button-outline button-positive btn-delete" href="#">Eliminar</a>'+
+								'</li>';
 
-				code+= '<li class="category-element item item-avatar item-icon-left item-button-right list_follow '+ active_class +'"  data-id="'+asuntos_array[0]+'" >'+
-								'<input class="btn-invisible follow_add" type="checkbox"  '+check+' data-id="'+asuntos_array[0]+'" >'+
-								'<!--i class="sprite2x icon icon-folder"></i-->'+
-								'<h2>'+asuntos_array[1]+'</h2>'
-							'<a class="button button-outline button-positive btn-delete" href="#">Eliminar</a>'+
-							'</li>';
+				 }
 
-			 }
+				// $(".select_subject").find(".my_themes").find(".theme_fav").html("");
+				 $("#follow_asunto").html("").append(code);
 
-			// $(".select_subject").find(".my_themes").find(".theme_fav").html("");
-			 $("#follow_asunto").html("").append(code);
+				//$('.select_subject').find("form").find("input").val(id);
+				//$('.select_subject').lightbox_me();
 
-			//$('.select_subject').find("form").find("input").val(id);
-			//$('.select_subject').lightbox_me();
+	            $( '.lightbox-follow' ).addClass( 'active' );
 
-            $( '.lightbox-follow' ).addClass( 'active' );
-
-        return false;
+	        	return false;
+		}
+	}, 300);
     });
     // button add: agreca folder a favoritos
     $( 'body' ).on( 'touchstart', '.btn-add', function() {

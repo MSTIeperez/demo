@@ -1716,7 +1716,6 @@ select[readonly] {
 .share ul li {
     border-bottom: 1px solid #EEE;
     display: block;
-    padding: 10px 20px;
     text-align: center;
 }
 .share ul li:active {
@@ -1732,10 +1731,12 @@ select[readonly] {
     font-size: 16px;
     line-height: 30px;
     margin: 0;
+    padding: 10px 20px;
 }
 .share ul li a {
-    display: inline-block;
+    display: block;
     line-height: 30px;
+    padding: 10px 20px;
     text-align: center;
     vertical-align: middle;
 }
