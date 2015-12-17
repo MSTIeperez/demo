@@ -1,32 +1,4 @@
 // setTimeout(function() {
-    function set_follows_unreads(){
-
-        $.post(url+'/api/follow/get_follows_unread',{'send_data':'send_data'})
-            .success(function(response){
-
-                response = $.parseJSON( response );
-                return response.total;
-                //console.log(response.total);
-                    /*if( response.total > 0 )
-                        $(".not-count").html("").html( response.total );*/
-            })
-
-    }
-    // Notificación
-    function notification() {
-        $.post(url+'/api/follow/get_follows_unread',{'send_data':'send_data'})
-            .success(function(response){
-
-            response = $.parseJSON( response );
-        //  setTimeout(function() {
-                if($('.notification > i > span').length == 0) {
-                    if(response.total>0)
-                        $('.notification > i').append('<span class="not-count">'+response.total+'</span>');
-                }else
-                    $(".not-count").html("").html(response.total);
-            //}, 500);
-            });
-    }
 $( document ).ready(function() {
 
     // Global variables
@@ -37,9 +9,34 @@ $( document ).ready(function() {
 
     var step = 1;
     var num = 0;
-    
-    set_follows_unreads()
+    function set_follows_unreads(){
 
+		$.post(url+'/api/follow/get_follows_unread',{'send_data':'send_data'})
+			.success(function(response){
+
+				response = $.parseJSON( response );
+				return response.total;
+				//console.log(response.total);
+					/*if( response.total > 0 )
+						$(".not-count").html("").html( response.total );*/
+			})
+
+	}
+	// Notificación
+    function notification() {
+		$.post(url+'/api/follow/get_follows_unread',{'send_data':'send_data'})
+			.success(function(response){
+
+			response = $.parseJSON( response );
+		//	setTimeout(function() {
+				if($('.notification > i > span').length == 0) {
+					if(response.total>0)
+						$('.notification > i').append('<span class="not-count">'+response.total+'</span>');
+				}else
+					$(".not-count").html("").html(response.total);
+			//}, 500);
+			});
+    }
     notification();
     $(document).on('touchstart', function() {
         notification();
@@ -97,7 +94,7 @@ $( document ).ready(function() {
     // Mostrar grupo
     $('body').on('touchstart', '#show-all', function() {
         $('.image-list').toggleClass('active');
-        if($('.image-list').hasClass('active') != true) {
+        if($('.image-list').hasClass('active') != true){
             $(this).html('Ver todos');
         } else {
             $(this).html('Ver menos');
@@ -124,19 +121,16 @@ $( document ).ready(function() {
 						$obj.children('i').toggleClass('ion-ios-checkmark-outline');
                         $obj.children('i').toggleClass('ion-ios-checkmark');
 						$obj.addClass('active');
-                        var num= feeds_noleidos;//$(".nof_read").data("read");
-						var numr= feeds_leidos;//$(".f_read").data("read");
-                        console.log(num);
-                        console.log(numr);
+                        var num= $(".nof_read").data("read");
+						var numr= $(".f_read").data("read");
                         $(".nof_read").html("").html("No leídos ("+(parseInt(num)-1)+")");
-                        $(".nof_read").attr("data-read",(parseInt(num)-1));
 						$(".f_read").html("").html("Leídos ("+(parseInt(numr)+1)+")");
-                        $(".f_read").attr("data-read",(parseInt(numr)+1));
 						if(num==1)
 							$(".not-count").hide();
 						$(".not-count").html("").html((parseInt(num)-1));
-					}else if(resp.message="error")
+					}else if(resp.message="error"){
 						console.log("Fallo de conexión con la base de datos");
+					}
 				});
 			}else console.log("feed ya leido");
     });
@@ -162,62 +156,94 @@ $( document ).ready(function() {
     $( 'body' ).on( 'touchstart ', '.ion-search, .btn-cancel', function() {
         $( '.lightbox-search' ).toggleClass( 'active' );
 		setTimeout(function(){
-						$('#search').focus();
-					}, 300);
+			$('#search').focus();
+		}, 300);
     });
+
+	var touchmoved;
+	$('body').on('touchend', function(e){
+	    if(touchmoved !== true){
+	        $(this).prev('input').val("");
+		}
+	}).on('touchmove', function(e){
+	    touchmoved = true;
+	    e.preventDefault();
+	}).on('touchstart', function(){
+	    touchmoved = false;
+	});
 
     // button share: activa lighbox de compartir
-    $( 'body' ).on( 'touchstart click', '.show-share', function(e) {
-        e.preventDefault();
-        $( '.share' ).addClass( 'active' );
-        var id= $(this).parents('.feeds').data('id');
-        var img= $(this).parents('.feeds').find("div.item-header").find("img.small-image").attr('src');
-        var feed_date= $(this).parents('.feeds').find("div.item-header").find("p.feed-date").text().trim();
-        var origin= $(this).parents('.feeds').find("div.item-header").find("h2").text().trim();
-        var origen= origin+"-"+$(this).parents('.feeds').find("div.item-header").find("p").text().trim();
-        var content= $(this).parents('.feeds').find("div.item-body").find("p.content-feed").text().trim();
-        var file="";
-        var download=[];
-        var path = url+'/esp/1/feed/'+id;
-        $(this).parents('.feeds').find("div.item-body").find("div.item-attachments").find("a").each(function(){
-            file+=$(this).text().trim()+", ";
-            download.push($(this).attr("ng-value"));
-        });
-        console.log(id)
-        console.log(path)
-        console.log(img)
-        console.log(content)
-        console.log(file)
-        $('.social-fb').attr('ontouchstart',"window.plugins.socialsharing.shareViaFacebook('message',null,'"+path+"')");
-        $('.social-tw').attr('ontouchstart',"window.plugins.socialsharing.shareViaTwitter('"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx',null,'"+path+"')");
-        $('.social-more').attr('ontouchstart',"window.plugins.socialsharing.share('"+content+" - "+feed_date+"- CREDITO: Legix Feed - www.legixfeed.com.mx')");
-        $('.social-email').attr('ontouchstart',"window.plugins.socialsharing.shareViaEmail("+
-          "'"+origen+"<br><br>"+content+"<br><br>CREDITO: Legix Feed - www.legixfeed.com.mx', "+// can contain HTML tags, but support on Android is rather limited:  http://stackoverflow.com/questions/15136480/how-to-send-html-content-with-image-through-android-default-email-client
-          "'Legix Feed-"+feed_date+"',"+
-          "null,"+ // TO: must be null or an array
-          "null,"+ // CC: must be null or an array
-          "null,"+ // BCC: must be null or an array
-          "["+download+"]"+ // FILES: can be null, a string, or an array
-        ")");
-        $('.subject').attr("placeholder",'Legix Feed-'+feed_date);
-        $('.txt-content').html("").html(origen+"\n\n"+content);
-        $('input[name=attachment]').val(file);
 
-        return false;
+	var initialValue;
+	var finalValue;
+
+	$( 'body' ).on( 'touchstart', '.show-share', function(e) {
+		initialValue = $('.scroll').offset().top;
+	});
+	$( 'body' ).on( 'touchmove', '.show-share', function(e) {
+		finalValue = $('.scroll').offset().top;
+	});
+
+    $( 'body' ).on( 'touchend', '.show-share', function(e) {
+
+		alert(initialValue , finalValue);
+		//alert( initialValue);
+		//alert( finalValue );
+
+		if( initialValue == finalValue ){
+			console.log($('.scroll').offset().top );
+	        e.preventDefault();
+	        $( '.share' ).addClass( 'active' );
+	        var id= $(this).parents('.feeds').data('id');
+	        var img= $(this).parents('.feeds').find("div.item-header").find("img.small-image").attr('src');
+	        var feed_date= $(this).parents('.feeds').find("div.item-header").find("p.feed-date").text().trim();
+	        var origin= $(this).parents('.feeds').find("div.item-header").find("h2").text().trim();
+	        var origen= origin+"-"+$(this).parents('.feeds').find("div.item-header").find("p").text().trim();
+	        var content= $(this).parents('.feeds').find("div.item-body").find("p.content-feed").text().trim();
+	        var file="";
+	        var download=[];
+	        var path = url+'/esp/1/feed/'+id;
+	        $(this).parents('.feeds').find("div.item-body").find("div.item-attachments").find("a").each(function(){
+	            file+=$(this).text().trim()+", ";
+	            download.push($(this).attr("ng-value"));
+	        });
+	        console.log(id);
+	        console.log(path);
+	        console.log(img);
+	        console.log(content);
+	        console.log(file);
+	        $('.social-fb').attr('ontouchstart',"window.plugins.socialsharing.shareViaFacebook('message',null,'"+path+"')");
+	        $('.social-tw').attr('ontouchstart',"window.plugins.socialsharing.shareViaTwitter('"+content+" - "+feed_date+" - CREDITO: Legix Feed - www.legixfeed.com.mx',null,'"+path+"')");
+	        $('.social-more').attr('ontouchstart',"window.plugins.socialsharing.share('"+content+" - "+feed_date+"- CREDITO: Legix Feed - www.legixfeed.com.mx')");
+	        $('.social-email').attr('ontouchstart',"window.plugins.socialsharing.shareViaEmail("+
+	          "'"+origen+"<br><br>"+content+"<br><br>CREDITO: Legix Feed - www.legixfeed.com.mx', "+// can contain HTML tags, but support on Android is rather limited:  http://stackoverflow.com/questions/15136480/how-to-send-html-content-with-image-through-android-default-email-client
+	          "'Legix Feed-"+feed_date+"',"+
+	          "null,"+ // TO: must be null or an array
+	          "null,"+ // CC: must be null or an array
+	          "null,"+ // BCC: must be null or an array
+	          "["+download+"]"+ // FILES: can be null, a string, or an array
+	        ")");
+	        $('.subject').attr("placeholder",'Legix Feed-'+feed_date);
+	        $('.txt-content').html("").html(origen+"\n\n"+content);
+	        $('input[name=attachment]').val(file);
+
+	        return false;
+		}
     });
 
+
     // button share email: activa lighbox de compartir por email
-     $( 'body' ).on( 'touchstart ', '.show-lightbox-share, .socials', function() {
+     $( 'body' ).on( 'touchstart', '.show-lightbox-share, .socials', function() {
         $( '.share' ).removeClass( 'active' );
         //$( '.lightbox-share' ).addClass( 'active' );
         return false;
     });
      // button edit folder: activa lighbox de edicion folder favorito
-     $( 'body' ).on( 'touchstart ', '.show-lightbox-folder', function(e) {
+     $( 'body' ).on( 'touchstart', '.show-lightbox-folder', function(e) {
         e.preventDefault();
 		var folder_id=$(this).parent().data('id');
 		var folder_name=$(this).parent('li').find('h2').html();
-		console.log(folder_name)
+		console.log(folder_name);
 		$("#folder_id").attr("ng-value",folder_id);
 		$(".folder_title").attr("placeholder",folder_name);
 		$( '.lightbox-add.update-folder' ).toggleClass( 'active' );
@@ -226,7 +252,7 @@ $( document ).ready(function() {
 		}, 300);
       });
     // oculta los lightbox's
-    $( 'body' ).on( 'touchstart ', '.close-lightbox', function() {
+    $( 'body' ).on( 'touchstart', '.close-lightbox', function() {
         $( '.share, .lightbox' ).removeClass( 'active' );
 		$(".folder_title").val("");
 		$(".title_folder").val("");
@@ -234,7 +260,7 @@ $( document ).ready(function() {
     });
 
     // button comments: activa & oculta comentarios
-    $( 'body' ).on( 'touchstart ', '.show-comments', function() {
+    $( 'body' ).on( 'touchstart', '.show-comments', function() {
         $( this ).parent( '.item-comments' ).toggleClass( 'active' );
 		var num= $(this).find('span.comments-count').html();
         if( $( '.item-comments' ).hasClass( 'active') ) {
@@ -247,7 +273,7 @@ $( document ).ready(function() {
     });
 
     // button favorite
-    $( 'body' ).on( 'touchstart ', '.btn-favorite', function(e) {
+    $( 'body' ).on( 'touchstart', '.btn-favorite', function(e) {
 
 
         e.preventDefault();
@@ -279,22 +305,23 @@ $( document ).ready(function() {
 						console.log(resp);
 	                    if( resp.message="folders_ok" ){
 							if(resp.folder_id.length>0){
-							for(i=0;i<resp.folder_id.length;i++){
-								$("li.list_folder").each(function(){
-										if($(this).data("id")==resp.folder_id[i]){
-											$(this).addClass("selected");
-											$(this).addClass("already");
-										$(this).children('input').attr('checked','checked');	}
-								});
+								for(i=0;i<resp.folder_id.length;i++){
+									$("li.list_folder").each(function(){
+											if($(this).data("id")==resp.folder_id[i]){
+												$(this).addClass("selected");
+												$(this).addClass("already");
+												$(this).children('input').attr('checked','checked');
+											}
+									});
+								}
 							}
-							}
-	        		}
+	        			}
 					}
 				});
 	        }
         return false;
     });
-     $( 'body' ).on( 'touchstart ', '.show-follow', function(e) {
+	$( 'body' ).on( 'touchstart', '.show-follow', function(e) {
 
 
         e.preventDefault();
@@ -312,8 +339,8 @@ $( document ).ready(function() {
 
 			 if( follow_ids_str.length > 0 ){
 
-			 	follow_ids_arr = follow_ids_str.split(",");
-			 	if( follow_ids_arr.length == 0 ) follow_ids_arr.push( follow_ids_str );
+				follow_ids_arr = follow_ids_str.split(",");
+				if( follow_ids_arr.length == 0 ) follow_ids_arr.push( follow_ids_str );
 
 			 }
 
@@ -358,7 +385,7 @@ $( document ).ready(function() {
         return false;
     });
     // button add: agreca folder a favoritos
-    $( 'body' ).on( 'touchstart ', '.btn-add', function() {
+    $( 'body' ).on( 'touchstart', '.btn-add', function() {
         $( this ).text( function( i, text ) {
              return text === "Agregar archivero favorito" ? "Guardar" : "Agregar archivero favorito";
         });
@@ -367,14 +394,14 @@ $( document ).ready(function() {
     });
 
     // list expand toggle: despliega las listas
-    $( 'body' ).on( 'touchstart ', '.list-expand', function() {
+    $( 'body' ).on( 'touchstart', '.list-expand', function() {
         $( this ).parent().parent().children( '.list-content' ).toggleClass( 'active' );
         $( this ).children( 'i' ).toggleClass( 'ion-arrow-down-b ion-arrow-up-b' );
         return false;
     });
 
      // button selected: seleccion de carpeta favorito donde se guardara el feed
-     $( 'body' ).on( 'touchstart ', '.lightbox-favorited-content .btn-invisible', function() {
+     $( 'body' ).on( 'touchstart', '.lightbox-favorited-content .btn-invisible', function() {
          $( this ).parent().toggleClass( 'selected' );
         // $( this ).attr( 'checked', 'checked' );
 		 if( $( this ).attr("checked") ){
@@ -385,7 +412,7 @@ $( document ).ready(function() {
      });
 
      // button active tutorial
-    $( 'body' ).on( 'touchstart ', '.show-tutorial, .hide-tutorial, .btn-skip', function(e) {
+    $( 'body' ).on( 'touchstart', '.show-tutorial, .hide-tutorial, .btn-skip', function(e) {
 		e.preventDefault();
         if( ($( this ).attr( 'href' ) != '') && ($( this ).attr( 'href' ) != ' ') && ($( this ).attr( 'href' ) != '#') && ($( this ).attr( 'href' ) != 'javascript:void(0);') ) {
             var tutorial = $( this ).attr( 'href' );
@@ -410,13 +437,13 @@ $( document ).ready(function() {
         return false;
     });
 
-    $( 'body' ).on( 'touchstart ', '.show-warning', function() {
+    $( 'body' ).on( 'touchstart', '.show-warning', function() {
         $( '.warning.grl' ).addClass( 'active' );
         return false;
     });
 
 	 // button hide warning
-    $( 'body' ).on( 'touchstart ', '.hide-warning', function() {
+    $( 'body' ).on( 'touchstart', '.hide-warning', function() {
         $( '.warning' ).removeClass( 'active' );
         return false;
     });
@@ -485,7 +512,7 @@ $( document ).ready(function() {
                     setTimeout(function(){
                         $( '.step-header span' ).html( step );
                         $( '.step-header p' ).html( step1 );
-                        $( '.next-tutorial' ).html( 'Siguiente' )
+                        $( '.next-tutorial' ).html( 'Siguiente' );
                         $( '.example .list-content' ).removeClass( 'active' );
                         $( '.point-1' ).addClass( 'active' );
                         $( '.point-3' ).removeClass( 'active' );
@@ -500,7 +527,7 @@ $( document ).ready(function() {
     });
 	//-------------------------------INDEX HTML FUNCTIONS--------------------------------
 
-	$('body').on('touchstart ','.update_folder',function(e){
+	$('body').on('touchstart','.update_folder',function(e){
 				e.preventDefault();
 				var $obj = $(this);
 				var input=  $('.folder_title');
@@ -535,7 +562,7 @@ $( document ).ready(function() {
 
 				}
 			});
-			$('body').on('touchstart ','.deleted_folder',function(e){
+			$('body').on('touchstart','.deleted_folder',function(e){
 				e.preventDefault();
 				var folder_name =$('.folder_title').attr("placeholder");
 				$( '.warning-content.grl' ).find('p').html("").html( '¿Estás seguro de borrar <strong>'+folder_name+'</strong> y todos sus contenidos?' );
@@ -544,7 +571,7 @@ $( document ).ready(function() {
 				$( '.warning.grl' ).addClass( 'active' );
 				return false;
 			});
-			$('body').on('touchstart ','.deleted_folder_ok',function(e){
+			$('body').on('touchstart','.deleted_folder_ok',function(e){
 				e.preventDefault();
 				var folder_id =  $('#folder_id').attr("ng-value");
 				var count_folder="";
@@ -564,7 +591,7 @@ $( document ).ready(function() {
 								}).success(function(response){
 									window.localStorage.setItem('user',response);
 									console.log('usuario-actualizado');
-									response=$.parseJSON(response)
+									response=$.parseJSON(response);
 									count_folder=response.favfolder.length;
 									console.log(count_folder);
 									if(count_folder<1)
@@ -581,20 +608,20 @@ $( document ).ready(function() {
 						 });
 				}
 			});
-			$('body').on('touchstart ','#returns', function(e){
+			$('body').on('touchstart','#returns', function(e){
 				e.preventDefault();
 				$( '.warning-content.grl' ).find('p').html("").html( ' No has dado de alta ningún Tema. Sin personalización de Temas, solo recibirás el Feed genérico sin notificaciones en las sección de Temas ni de Mis Feeds. Puedes continuar y posteriormente hacerlo.' );
 				$(this).attr('href',"#/tab/config-feeds");
 				$('.warning-actions.grl').find('a#btn-aceptar').removeClass('deleted_folder_ok');
 				});
-			$('body').on('touchstart ','.btn-add-folder, .cancel_folder',function(e){
+			$('body').on('touchstart','.btn-add-folder, .cancel_folder',function(e){
 				e.preventDefault();
 				$( '.lightbox-add.create-folder' ).toggleClass( 'active' );
 				setTimeout(function(){
 						$(".title_folder").focus();
 					}, 300);
 			});
-			$("body").on('touchstart ','.create_folder',function(e){
+			$("body").on('touchstart','.create_folder',function(e){
 				e.preventDefault();
 				var title= $('.title_folder').val().trim();
 				if(title.length>0){
@@ -642,7 +669,7 @@ $( document ).ready(function() {
 				}
 
 			});
-			$('body').on('touchstart ','.ok_temass',function(e){
+			$('body').on('touchstart','.ok_temass',function(e){
 				var temas_name=[]
 				var topics = $("#count_tema").data("topic");
 				var temas = $("#count_tema").data("temas");
@@ -667,7 +694,7 @@ $( document ).ready(function() {
 					}
 				}
 			});
-			$('body').on('touchstart ','.add_temas_ok', function(e){
+			$('body').on('touchstart','.add_temas_ok', function(e){
 				e.preventDefault();
 				var temas_id= []
 				var temas_name=[]
@@ -678,8 +705,8 @@ $( document ).ready(function() {
 						temas_name.push($(this).data("name"));
 					}
 				});
-				console.log(temas_id)
-				console.log(temas_name)
+				console.log(temas_id);
+				console.log(temas_name);
 				$.post(url+'/api/update_temas', {'temas_id':temas_id})
 					.error(function(data){
 						console.log(data.message);
@@ -701,11 +728,11 @@ $( document ).ready(function() {
 		$("html").on('keyup','#search',function(e){
 			console.log(e.keyCode);
 			if(e.keyCode==13){
-				var text=$(this).val()
-					console.log(text);
-					        $( '.lightbox-search' ).toggleClass( 'active' );
-						$('#search').val("")
-						window.location="#/tab/feeds/busqueda/"+text;
+				var text=$(this).val();
+				console.log(text);
+				$( '.lightbox-search' ).toggleClass( 'active' );
+				$('#search').val("");
+				window.location="#/tab/feeds/busqueda/"+text;
 			}
 		});
 /*---------------------------------------functions bar------------------------------------*/
