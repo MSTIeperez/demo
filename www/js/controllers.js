@@ -833,8 +833,9 @@ angular.module('starter.controllers', [])
 	//});
 })
 .controller('ConfigAddCtrl', function($scope,$rootScope, Registerservice, UserService,GroupService, $ionicPopup, $state, $stateParams) {
-	$scope.$on('$ionicView.afterEnter', function(e) {
+	$scope.$on('$ionicView.beforeEnter', function(e) {
 	$scope.data={}; //});
+	$scope.datas={};
     $scope.group_id= false;
     if($state.params.group_id)
     	$scope.group_id= $state.params.group_id
@@ -900,12 +901,12 @@ angular.module('starter.controllers', [])
 			}
 	}
 	$scope.creategroup = function(){
-			console.log($scope.data);
-			console.log($scope.data.nombregrupo+' '+angular.isUndefined($scope.data.themas)+' '+angular.isUndefined($scope.data.usuarios))
-	if($scope.data.nombregrupo && !angular.isUndefined($scope.data.themas) && !angular.isUndefined($scope.data.usuarios)){
-			console.log($scope.data.nombregrupo+' '+angular.isUndefined($scope.data.themas)+' '+angular.isUndefined($scope.data.usuarios))
+			console.log($scope.datas);
+			console.log($scope.data.nombregrupo+' '+angular.isUndefined($scope.datas.themas)+' '+angular.isUndefined($scope.datas.usuarios))
+	if($scope.data.nombregrupo && !angular.isUndefined($scope.datas.themas) && !angular.isUndefined($scope.datas.usuarios)){
+			console.log($scope.data.nombregrupo+' '+angular.isUndefined($scope.datas.themas)+' '+angular.isUndefined($scope.datas.usuarios))
 	
-		GroupService.newgroup($scope.data.nombregrupo, $scope.data.themas,$scope.data.usuarios, $scope.data.group_id).success(function(data) {
+		GroupService.newgroup($scope.data.nombregrupo, $scope.datas.themas,$scope.datas.usuarios, $scope.data.group_id).success(function(data) {
 				 if (data.message=='Actualizado') {
 					UserService.datauser().success(function(response){
 								window.localStorage.setItem('user',JSON.stringify(response));
@@ -949,6 +950,7 @@ angular.module('starter.controllers', [])
 	}
 
 	if($state.params.group_id){
+$scope.datas={};
 		var grupo=[];
 		var temas=[];
 		var usuarios=[];
@@ -958,27 +960,16 @@ angular.module('starter.controllers', [])
 				grupo.push(val);
 		});
 		grupo=grupo[0];
-		$scope.group_id=$state.params.group_id;
-		$scope.data.nombregrupo=grupo.title;
-		angular.forEach(grupo.temas, function(val, key){
-				temas.push(val.origen_id+':'+val.subject_id);
-		});
-		angular.forEach(grupo.users, function(val, key){
-				usuarios.push(val.user_id);
-		});
-		$scope.data.themas=temas;
-		$scope.data.usuarios=usuarios;
-		console.log($scope.data.nombregrupo)
-		console.log($scope.group_id)
-		console.log(temas)
-		console.log(usuarios)
 		$scope.updategroup = function(){
-			console.log($scope.data);
-			console.log($scope.data.nombregrupo+' '+angular.isUndefined($scope.data.themas)+' '+angular.isUndefined($scope.data.usuarios)+' '+$state.params.group_id)
-	if($scope.data.nombregrupo && !angular.isUndefined($scope.data.themas) && !angular.isUndefined($scope.data.usuarios)){
-			console.log($scope.data.nombregrupo+' '+angular.isUndefined($scope.data.themas)+' '+angular.isUndefined($scope.data.usuarios)+' '+$state.params.group_id)
+			
+			console.log($scope.datas);
+			console.log($scope.data.nombregrupo+' '+angular.isUndefined($scope.datas.themas)+' '+angular.isUndefined($scope.datas.usuarios)+' '+$state.params.group_id)
+	if($scope.data.nombregrupo && !angular.isUndefined($scope.datas.themas) && !angular.isUndefined($scope.datas.usuarios)){
+			
+			console.log($scope.datas.themas)
+			console.log($scope.datas.usuarios)
 	
-		GroupService.updategroup($scope.data.nombregrupo, $scope.data.themas,$scope.data.usuarios, $state.params.group_id).success(function(data) {
+		GroupService.updategroup($scope.data.nombregrupo, $scope.datas.themas,$scope.datas.usuarios, $state.params.group_id).success(function(data) {
 				 if (data.status==true) {
 					UserService.datauser().success(function(response){
 								window.localStorage.setItem('user',JSON.stringify(response));
@@ -1019,7 +1010,61 @@ angular.module('starter.controllers', [])
 				});
 		}
 	}	
+		$scope.group_id=$state.params.group_id;
+		$scope.data.nombregrupo=grupo.title;
+		angular.forEach(grupo.temas, function(val, key){
+				temas.push(val.origen_id+':'+val.subject_id);
+		});
+		angular.forEach(grupo.users, function(val, key){
+				usuarios.push(val.user_id);
+		});
+		$scope.data.themas=temas;
+		$scope.data.usuarios=usuarios;
+		console.log($scope.data.nombregrupo)
+		console.log($scope.group_id)
+		console.log(temas)
+		console.log(usuarios)
 
+		$scope.removegroup= function(){
+		
+		var texto="Usuario";
+		if ($scope.group_id!="" && !angular.isUndefined($scope.group_id))
+			var texto="Grupo";
+		UserService.remove($scope.grupo_id,$scope.data.user_id).success(function(data) {
+				//$scope.user=data.user;
+				 if (data.message=="Eliminados") {
+					UserService.datauser().success(function(response){
+								window.localStorage.setItem('user',JSON.stringify(response));
+								 $rootScope.user_data=response;
+								 $rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
+							})
+					var alertPopup = $ionicPopup.alert({
+							title: '¡'+texto+' eliminado con éxito!',
+							//template: "Selecciona una imagen de tu galería o directo de la cámara", //'¡Por favor revisa tu correo y/o contraseña!',
+							buttons:[{
+								text: 'Aceptar',
+								type: 'button-positive',
+								onTap: function(e) {
+									$state.go('configuracion');
+								}
+								}]	
+							});
+				 }else{
+					var alertPopup = $ionicPopup.alert({
+					title: 'Error de conexion',
+					template: '¡Por favor intenta mas tarde!', //'¡Por favor revisa tu correo y/o contraseña!',
+					okText: 'Aceptar'
+					});
+				 }
+			}).error(function(data) {
+				console.log(data)
+				var alertPopup = $ionicPopup.alert({
+					title: 'Error de conexión',
+					template: '¡Por favor intenta mas tarde!', //'¡Por favor revisa tu correo y/o contraseña!',
+					okText: 'Aceptar'
+				});
+			});
+		}
 	}
 	});
 })
