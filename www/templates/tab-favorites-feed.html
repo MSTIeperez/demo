@@ -75,12 +75,13 @@
                 <a class="tab-item show-share" href="javascript:void(0);">
                     <i class="icon sprite icon-share"></i>
                 </a>
+                <a class="tab-item"  href="javascript:void(0);" ng-controller="FunctionCtrl" ng-click="print({{feed.id}})" >
+                    <i class="icon sprite icon-print"></i>
+                </a>
                 <a class="tab-item btn-favorite"  href="javascript:void(0);" ng-class="{'active' : feed.favfolder.length>0,'':feed.favfolder.length==0}" ontouchstart="return false;">
                     <i class="icon sprite icon-favorite" ng-class="{'active' : feed.favfolder.length>0,'':feed.favfolder.length==0}"></i>
                 </a>
-                  <a class="tab-item"  href="javascript:void(0);" ng-controller="FunctionCtrl" ng-click="print({{feed.id}})" >
-                    <i class="icon sprite icon-print"></i>
-                </a>
+              
             </div>
             <div class="list input-comment">
                 <div class="item item-input-inset">
