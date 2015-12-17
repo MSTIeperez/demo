@@ -835,11 +835,13 @@ angular.module('starter.controllers', [])
 .controller('ConfigAddCtrl', function($scope,$rootScope, Registerservice, UserService,GroupService, $ionicPopup, $state, $stateParams) {
 	$scope.$on('$ionicView.beforeEnter', function(e) {
 	$scope.data={}; //});
-	$scope.datas={};
+
     $scope.group_id= false;
     var grupo=[];
 	var temas=[];
+	var temas_check=$rootScope.user_data.temas;
 	var usuarios=[];
+	var usuarios_check=$rootScope.user_data.users;
 	var group=$rootScope.user_data.grupos;
     if($state.params.group_id)
     	$scope.group_id= $state.params.group_id
@@ -959,33 +961,81 @@ angular.module('starter.controllers', [])
 			if($state.params.group_id==val.id)
 				grupo.push(val);
 		});
+
 		grupo=grupo[0];
 		$scope.group_id=$state.params.group_id;
+
 		$scope.data.nombregrupo=grupo.title;
+		var indice =[];
+		angular.forEach(temas_check, function(val, key){
+			indice.push(val.origen_id+':'+val.subject_id);
+		});
+		var theme =[];
 		angular.forEach(grupo.temas, function(val, key){
-				temas.push(val.origen_id+':'+val.subject_id);
+				theme.push(val.origen_id+':'+val.subject_id);
+				
 		});
+		angular.forEach(indice, function(val, key){ 
+				if(theme.indexOf(val)>-1)
+					temas.push(val);
+				else
+					temas.push(undefined);
+		});
+
+		var indice2=[];
+		angular.forEach(usuarios_check, function(val, key){
+			indice2.push(val.id);
+		});
+		var user =[];
 		angular.forEach(grupo.users, function(val, key){
-				usuarios.push(val.user_id);
+				user.push(val.user_id);
+				
 		});
+		
+		angular.forEach(indice2, function(val, key){ 
+				if(user.indexOf(val)>-1)
+					usuarios.push(val);
+				else
+					usuarios.push(undefined);
+		});
+
 		$scope.data.themas=temas;
 		$scope.data.usuarios=usuarios;
-		console.log($scope.data.nombregrupo)
-		console.log($scope.group_id)
-		console.log(temas)
-		console.log(usuarios)
+		
+		$scope.data.myClick = function($event) {
+                alert($event);
+          }
 		$scope.updategroup = function(){
+			var error="";
+			var error2="";
 			
-			console.log($scope.datas);
-			console.log($scope.data.nombre);
 			console.log($scope.data.themas)
 			console.log($scope.data.usuarios)
-			console.log($scope.data.nombregrupo+' '+angular.isUndefined($scope.data.themas)+' '+angular.isUndefined($scope.data.usuarios)+' '+$state.params.group_id)
 			
 				if($scope.data.nombregrupo && !angular.isUndefined($scope.data.themas) && !angular.isUndefined($scope.data.usuarios)){
-					
-					
-			
+				var stop=true;	
+				var stop2=true;	
+				angular.forEach($scope.data.themas, function(val, key){ 
+					if(stop){
+						if(val==undefined)
+							error="vacio";
+						else{
+							error="";
+							stop=false;
+						}
+					}
+					});
+				angular.forEach($scope.data.usuarios, function(val, key){ 
+					if(stop2){
+						if(val==undefined)
+							error2="vacio";
+						else{
+							error2="";
+							stop2=false;
+						}
+					}
+					});
+				if(error==""&& error2==""){
 				GroupService.updategroup($scope.data.nombregrupo, $scope.data.themas,$scope.data.usuarios, $state.params.group_id).success(function(data) {
 						 if (data.status==true) {
 							UserService.datauser().success(function(response){
@@ -1020,6 +1070,13 @@ angular.module('starter.controllers', [])
 						});
 					});
 				}else{
+					var alertPopup = $ionicPopup.alert({
+							title: 'Campos obligatorios',
+							template: 'Para crear tu grupo debes ingresar el nombre, seleccionar tema(s) y usuario(s)', //'¡Por favor revisa tu correo y/o contraseña!',
+							okText: 'Aceptar'
+						});
+				}
+			}else{
 					var alertPopup = $ionicPopup.alert({
 							title: 'Campos obligatorios',
 							template: 'Para crear tu grupo debes ingresar el nombre, seleccionar tema(s) y usuario(s)', //'¡Por favor revisa tu correo y/o contraseña!',
