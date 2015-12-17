@@ -44,7 +44,7 @@
                         <li class="item li-parent" ng-repeat="tema in user_data.temas">
                             <div class="list-header item item-checkbox">
                                 <label class="checkbox" ng-class="{'active':(data.themas.indexOf('{{tema.origen_id}}:{{tema.subject_id}}') > -1)}">
-                                   <input type="checkbox" ng-model="datas.themas[$index]" ng-checked="data.themas.indexOf('{{tema.origen_id}}:{{tema.subject_id}}') > -1"   ng-true-value="'{{tema.origen_id}}:{{tema.subject_id}}'" ng-false-value="undefined" >
+                                   <input type="checkbox" ng-model="data.themas[$index]" ng-checked="data.themas.indexOf('{{tema.origen_id}}:{{tema.subject_id}}') > -1"   ng-true-value="'{{tema.origen_id}}:{{tema.subject_id}}'" ng-false-value="undefined" >
                                 </label>
                                 {{tema.origen}} | {{tema.tema}}
                             </div>
@@ -63,7 +63,7 @@
                         <li class="item li-parent" ng-repeat="user in user_data.users">
                             <div class="list-header item item-checkbox">
                                 <label class="checkbox" ng-class="{'active':(data.usuarios.indexOf('{{user.id}}') > -1)}" >
-                                   <input type="checkbox" ng-model="datas.usuarios[$index]" ng-true-value="'{{user.id}}'" ng-false-value="undefined" ng-checked="data.usuarios.indexOf('{{user.id}}') > -1" >
+                                   <input type="checkbox" ng-model="data.usuarios[$index]" ng-true-value="'{{user.id}}'" ng-false-value="undefined" ng-checked="data.usuarios.indexOf('{{user.id}}') > -1" >
                                 </label>
                                 {{user.first_name}} {{user.last_name}}
                             </div>
