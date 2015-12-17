@@ -911,7 +911,30 @@ angular.module('starter.controllers', [])
 			console.log($scope.data.nombregrupo+' '+angular.isUndefined($scope.data.themas)+' '+angular.isUndefined($scope.data.usuarios))
 	if($scope.data.nombregrupo && !angular.isUndefined($scope.data.themas) && !angular.isUndefined($scope.data.usuarios)){
 			
-	
+		var stop=true;	
+		var stop2=true;	
+				angular.forEach($scope.data.themas, function(val, key){ 
+					if(stop){
+						if(val==undefined)
+							error="vacio";
+						else{
+							error="";
+							stop=false;
+						}
+					}
+					});
+				angular.forEach($scope.data.usuarios, function(val, key){ 
+					if(stop2){
+						if(val==undefined)
+							error2="vacio";
+						else{
+							error2="";
+							stop2=false;
+						}
+					}
+					});
+
+		if(error==""&& error2==""){
 		GroupService.newgroup($scope.data.nombregrupo, $scope.data.themas,$scope.data.usuarios, $scope.data.group_id).success(function(data) {
 				 if (data.message=='Actualizado') {
 					UserService.datauser().success(function(response){
@@ -946,6 +969,13 @@ angular.module('starter.controllers', [])
 					okText: 'Aceptar'
 				});
 			});
+		}else{
+			var alertPopup = $ionicPopup.alert({
+					title: 'Campos obligatorios',
+					template: 'Para crear tu grupo debes ingresar el nombre, seleccionar tema(s) y usuario(s)', //'¡Por favor revisa tu correo y/o contraseña!',
+					okText: 'Aceptar'
+				});
+		}
 		}else{
 			var alertPopup = $ionicPopup.alert({
 					title: 'Campos obligatorios',
@@ -1072,14 +1102,14 @@ angular.module('starter.controllers', [])
 				}else{
 					var alertPopup = $ionicPopup.alert({
 							title: 'Campos obligatorios',
-							template: 'Para crear tu grupo debes ingresar el nombre, seleccionar tema(s) y usuario(s)', //'¡Por favor revisa tu correo y/o contraseña!',
+							template: 'Para editar tu grupo debes ingresar el nombre, seleccionar tema(s) y usuario(s)', //'¡Por favor revisa tu correo y/o contraseña!',
 							okText: 'Aceptar'
 						});
 				}
 			}else{
 					var alertPopup = $ionicPopup.alert({
 							title: 'Campos obligatorios',
-							template: 'Para crear tu grupo debes ingresar el nombre, seleccionar tema(s) y usuario(s)', //'¡Por favor revisa tu correo y/o contraseña!',
+							template: 'Para editar tu grupo debes ingresar el nombre, seleccionar tema(s) y usuario(s)', //'¡Por favor revisa tu correo y/o contraseña!',
 							okText: 'Aceptar'
 						});
 				}
