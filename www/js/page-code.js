@@ -292,7 +292,7 @@ $( document ).ready(function() {
     });
 
     // button favorite
-    $( 'body' ).on( 'touchend, click', '.btn-favorite', function(e) {
+    $( 'body' ).on( 'touchend', '.btn-favorite', function(e) {
 		e.preventDefault();
 		var $thiz = $( this );
 		setTimeout( function(){
@@ -939,7 +939,7 @@ $( document ).ready(function() {
 											$('.feeds[data-id="'+feed_id+'"]').hide();
 											$('.feeds[data-id="'+feed_id+'"]').find('div.item-header').find('a.read').children('i').toggleClass('ion-ios-checkmark-outline');
 											$('.feeds[data-id="'+feed_id+'"]').find('div.item-header').find('a.read').children('i').toggleClass('ion-ios-checkmark');
-											
+
 												$(".nof_read").html('').html("No leídos("+(parseInt(feeds_noleidos)-1)+")");
 												$(".f_read").html('').html("Leídos("+(parseInt(feeds_leidos)+1)+")");
 											if(feeds_noleidos==1){

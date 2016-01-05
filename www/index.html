@@ -15,23 +15,22 @@
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
-	<!--script src="lib/ionic/js/angular/angular.js"></script--> 
-	<script src="lib/ionic/js/angular/angular-route.js"></script> 
-	<script src="lib/ionic/js/angular/angular-cookies.min.js"></script> 
+	<!--script src="lib/ionic/js/angular/angular.js"></script-->
+	<script src="lib/ionic/js/angular/angular-route.js"></script>
+	<script src="lib/ionic/js/angular/angular-cookies.min.js"></script>
 
 
     <!-- cordova script (this will be a 404 during development) -->
-	
+
     <!--script type="text/javascript" charset="utf-8" src="js/FileTransfer.js"></script-->
 	<script type="text/javascript" charset="utf-8" src="js/PushNotification.js"></script>
     <script type='text/javascript' src='js/ng-infinite-scroll.js'></script>
-    <script src="js/ios9-$browser-patch.js"></script>    
+    <script src="js/ios9-$browser-patch.js"></script>
 	<script src="js/ng-cordova.min.js"></script>
-    <script src="cordova.js"></script>
-     
+
     <script type="text/javascript" charset="utf-8">
 
-       
+
     // Wait for device API libraries to load
     //
     document.addEventListener("deviceready", onDeviceReady, false);
@@ -43,10 +42,10 @@
         setTimeout(function() {
         navigator.splashscreen.hide();
          }, 1000);
-    
+
         var appId='psoFy4hpOEHy7mgg3L4tCAyDeJuCRwpOXHH8xVtp';
         var clientKey='Efa1wjc3W9xk7QhAzpL9uVJib30p3aoRn6LFEy7u';
-        var parse_ready=false; 
+        var parse_ready=false;
        // var parsePlugin=window.plugins.pushNotification;
        parsePlugin.initialize(appId, clientKey, function() {
             parse_ready = true;
@@ -64,16 +63,16 @@
                 console.log('subscriptions_ok');
             }, function(e) {
                 console.log('error');
-            }); 
+            });
         }, function(e) {
-           
+
             console.log('error');
         });
 
        if(parse_ready===true){ //parse_ready lo definimos a true en el paso 3
-        
+
         }
-    
+
      /*   parsePlugin.getInstallationId(function(id) {
             console.log(id);
         }, function(e) {
@@ -98,10 +97,8 @@
             console.log('error');
         }); */
     }
-
-
     </script>
-    
+
     <!--script src="js/jquery-1.11.3.js"></script-->
     <script src="js/jquery-2.1.4.js"></script>
 
@@ -112,14 +109,13 @@
     <script src="js/page-code.js"></script>
 	 <script src="js/load_picture.js" type="text/javascript"></script>
     <!--<script src="js/favorites.js"></script>-->
+    <script src="cordova.js"></script>
 
-	 
- 
 </head>
-    
+
 <body ng-app="starter" ng-controller="MainCtrl" animation="slide-left-right" ><!--on-load="init()"-->
-   
-   
+
+
     <ion-side-menus >
          <!-- BEGIN: content -->
         <ion-side-menu-content>
@@ -128,7 +124,7 @@
         <!-- END: content -->
         <!-- BEGIN: content >
         <ion-side-menu-content>
-            
+
             <!-- BEGIN: header >
             <ion-header-bar class="bar bar-header bar-positive" align-title="center">
                 <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
@@ -138,26 +134,26 @@
             <!-- END: header -->
 <!-- BEGIN: ion-nav-view >
             <ion-nav-view >
-                
+
                 <!-- BEGIN: sub header ->
                 <ion-nav-bar class="bar-dark bar-subheader bar-secondary" align-title="left"  >
                     <ion-nav-back-button></ion-nav-back-button>
                 </ion-nav-bar>
                 <!-- END: sub header ->
-            
+
             </ion-nav-view>
             <!-- END: ion-nav-view ->
-            
-            
-          
-            
+
+
+
+
         </ion-side-menu-content>
         <!-- END: content -->
-        
+
         <!-- BEGIN: left menu -->
         <ion-side-menu side="left" width="myWidthValue + 300"  menu-toggle="left" is-enabled="sidemenuenabled" >
             <div class="side-menu-header">
-               
+
                 <div class="circle-picture">
                     <a href="#/profile">
                         <img src="{{user_data.src_img}}" alt="{{ user_data.first_name}}">
@@ -175,15 +171,15 @@
             </ul>
         </ion-side-menu>
         <!-- END: left menu -->
-        
+
     </ion-side-menus>
 
     <div class="warning grl">
         <div class="warning-container center">
             <div class="warning-content grl">
                 <p>
-                    No has dado de alta ningún Tema. Sin personalización de Temas, 
-                    solo recibirás el Feed genérico sin notificaciones en las sección 
+                    No has dado de alta ningún Tema. Sin personalización de Temas,
+                    solo recibirás el Feed genérico sin notificaciones en las sección
                     de Temas ni de Mis Feeds. Puedes continuar y posteriormente hacerlo.
                 </p>
             </div>
@@ -207,7 +203,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="share">
         <ul class="share-list">
             <li><h2>Compartir</h2></li>
@@ -218,7 +214,7 @@
             <li><a class="close-lightbox" href="javascript:void(0);">Cancelar</a></li>
         </ul>
     </div>
-    
+
     <div id="temas" class="transition tutorial">
         <div class="step step-1 active">
             <div class="step-header">
@@ -227,7 +223,7 @@
             </div>
             <div class="step-content">
                 <ul class="list list-style example">
-                
+
                     <!-- BEGIN: list-->
                     <li class="item li-master">
 
@@ -248,7 +244,7 @@
                                     </label>
                                     Hacienda
                                     <a class="icon list-expand" href=""><i class="icon ion-arrow-down-b"></i></a>
-                                    
+
                                 </div>
                                 <ul class="list-content">
                                     <li class="item item-checkbox li-children">
@@ -269,7 +265,7 @@
                         </ul>
                     </li>
                     <!-- END: list-->
-                    
+
                 </ul>
             </div>
         </div>
@@ -278,7 +274,7 @@
             <a class="btn-skip button button-outline button-positive " href="javascript:void(0);" >Omitir</a>
         </div>
     </div>
-    
+
     <div id="users" class="transition tutorial">
         <div class="step step-1 active">
             <div class="step-header">
@@ -313,7 +309,7 @@
             <a class="btn-skip button button-outline button-positive " href="javascript:void(0);" >Omitir</a>
         </div>
     </div>
-    
+
     <div id="grupos" class="transition tutorial">
         <div class="step step-1 active">
             <div class="step-header">
@@ -348,7 +344,7 @@
             <a class="btn-skip button button-outline button-positive " href="javascript:void(0);" >Omitir</a>
         </div>
     </div>
-    
+
     <div class="lightbox lightbox-search">
         <form ng-controller="FeedsCtrl" >
         <div class="bar bar-header item-input-inset bar-dark">
@@ -368,14 +364,14 @@
 			<h4>Selecciona un archivo favorito</h4>
 		</div>
 		<div class="lightbox-favorited-content">
-			<div class="list has-excerpt favorite_folders"> 
-				
+			<div class="list has-excerpt favorite_folders">
+
 				<li class="category-element item item-avatar item-icon-left item-button-right list_folder" ng-repeat="folder in user_data.favfolder" data-id="{{folder.id}}" >
 					<input class="btn-invisible folder_add" type="checkbox" ng-true-value="'{{folder.id}}'" data-id="{{folder.id}}" >
 					<i class="sprite2x icon icon-folder">{{folder.total}}</i>
 					<h2>{{folder.title}}</h2>
 					<a class="button button-outline button-positive btn-delete" href="javascript:void(0);">Eliminar</a>
-				</li>     
+				</li>
 				<input class="feed_id" type="hidden" value="" >
 			</div>
 		</div>
@@ -394,8 +390,8 @@
 			<h4>Selecciona un asunto a seguir</h4>
 		</div>
 		<div class="lightbox-favorited-content">
-			<div class="list has-excerpt favorite_folders" id="follow_asunto"> 
-				
+			<div class="list has-excerpt favorite_folders" id="follow_asunto">
+
 				<input class="feed_id" type="hidden" value="" >
 			</div>
 		</div>
@@ -467,23 +463,23 @@
         <div class="lightbox-share-content">
             <label>
                 <span>To:</span>
-                <input type="email" placeholder="name@domain.com"> 
+                <input type="email" placeholder="name@domain.com">
             </label>
             <label>
                 <span>Cc:</span>
-                <input type="email" placeholder=""> 
+                <input type="email" placeholder="">
             </label>
             <label>
                 <span>Subject:</span>
-                <input type="email" class="subject" placeholder="Legix Feed-07/mayo/2015" disabled> 
+                <input type="email" class="subject" placeholder="Legix Feed-07/mayo/2015" disabled>
             </label>
             <textarea class="txt-content" disabled>Diputados
-                
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum malesuada urna blandit gravida interdum. Duis volutpat id dolor euismod volutpat. Praesent velit nisi, imperdiet a lorem eu, gravida tempus elit. Pellentesque pretium varius erat, vel accumsan mauris tincidunt eget.
             </textarea>
             <input type="text" name="attachment" value="" disabled>
             <input type="text" name="credit" value="CREDITO: Legis Feed - www.legixfeed.com.mx" disabled>
-        
+
 
             <div class="lightbox-favorited-actions clearfix">
                 <button class="button button-outline button-positive" type="submit">Aceptar</button>
