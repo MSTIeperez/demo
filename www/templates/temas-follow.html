@@ -21,7 +21,7 @@
             
             <li class="category-element item item-avatar item-icon-left item-icon-right"  ng-repeat="tema in temas_follow">
                 <a class="btn-invisible" href="#/tab/following/feeds/{{tema.origen}} | {{tema.tema}}/{{tema.subject_id}}/{{tema.origen_id}}"></a>
-                <i class="icon icon-circle">{{tema.total}}</i>
+                <i class="icon icon-circle">{{tema.total}} <span class="not-count" ng-if="tema.total_noleido>0">{{tema.total_noleido}}</span></i>
                 <h2> {{tema.origen}} | {{tema.tema}}</h2>
                 <i class="icon ion-chevron-right"></i>
                 
