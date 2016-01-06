@@ -64,7 +64,7 @@
             </div>
 
             <div class="item tabs tabs-icon-only tabs-light tabs-secondary">
-                <a class="tab-item" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="javascript:void(0);" ontouchstart="return false;">
+                <a class="tab-item" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="javascript:void(0);" >
                     <i class="icon sprite icon-message"></i>
                 </a>
                 <a class="tab-item show-follow"   ng-class="{'active' : feed.follow.length>0,'':feed.follow.length==0}" href="javascript:void(0);">
@@ -76,7 +76,7 @@
                 <a class="tab-item"  href="javascript:void(0);" ng-controller="FunctionCtrl" ng-click="print({{feed.id}})" >
                     <i class="icon sprite icon-print"></i>
                 </a>
-                <a class="tab-item btn-favorite"  href="javascript:void(0);" ng-class="{'active' : feed.favfolder.length>0,'':feed.favfolder.length==0}" ontouchstart="return false;">
+                <a class="tab-item btn-favorite"  href="javascript:void(0);" ng-class="{'active' : feed.favfolder.length>0,'':feed.favfolder.length==0}" >
                     <i class="icon sprite icon-favorite" ng-class="{'active' : feed.favfolder.length>0,'':feed.favfolder.length==0}"></i>
                 </a>
                  
