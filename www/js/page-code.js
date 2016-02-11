@@ -46,7 +46,7 @@ $( document ).ready(function() {
 					if(response.total>0)
 						$('.notification > i').append('<span class="not-count">'+response.total+'</span>');
 				}else
-					$(".not-count").html("").html(response.total);
+					$(".notification > i > span.not-count").html("").html(response.total);
 			//}, 500);
 			});
     }
@@ -117,9 +117,9 @@ $( document ).ready(function() {
 	// Botón visto
     $('body').on('touchstart', 'a.read', function(e){
 		e.preventDefault();
-				var feeds_noleidos=$(".feed_noread").size();
-				var feeds_leidos=$(".feed_read").size();
 				var $obj = $(this);
+				var feeds_noleidos=$obj.parents(".has-subheader").find(".feed_noread").size();
+				var feeds_leidos=$obj.parents(".has-subheader").find(".feed_read").size();
 				var html = "";
 				var feed_id = $obj.parents(".feeds").data("id");
 				console.log(feed_id);
@@ -134,14 +134,14 @@ $( document ).ready(function() {
 						$obj.children('i').toggleClass('ion-ios-checkmark-outline');
                         $obj.children('i').toggleClass('ion-ios-checkmark');
 						$obj.addClass('active');
-                        var num= feeds_noleidos;//$(".nof_read").data("read");
-                        var numr= feeds_leidos;//$(".f_read").data("read");
+                        var num= feeds_noleidos;//$obj.parents(".has-subheader").find(".nof_read").data("read");
+                        var numr= feeds_leidos;//$obj.parents(".has-subheader").find(".f_read").data("read");
                         console.log(num);
                         console.log(numr);
-                        $(".nof_read").html("").html("No leídos ("+(parseInt(num)-1)+")");
-                        $(".nof_read").attr("data-read",(parseInt(num)-1));
-                        $(".f_read").html("").html("Leídos ("+(parseInt(numr)+1)+")");
-                        $(".f_read").attr("data-read",(parseInt(numr)+1));
+                       	$obj.parents(".has-subheader").find(".nof_read").html("").html("No leídos ("+(parseInt(num)-1)+")");
+                        $obj.parents(".has-subheader").find(".nof_read").attr("data-read",(parseInt(num)-1));
+                        $obj.parents(".has-subheader").find(".f_read").html("").html("Leídos ("+(parseInt(numr)+1)+")");
+                        $obj.parents(".has-subheader").find(".f_read").attr("data-read",(parseInt(numr)+1));
 						if(num==1){
 							//$(".not-count").hide();
 							$('.feeds[data-id="'+feed_id+'"]').show();
