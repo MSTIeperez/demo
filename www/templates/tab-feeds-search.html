@@ -35,7 +35,7 @@
                 <!--h3>({{ feed.title_themes }})</h3-->
                 <p>{{ feed.title_source }}</p>
                 <p class="feed-date">{{ feed.date }}</p>
-				<a class="read"  ng-class="{'': feed.read==0, 'active': feed.read==1}" href="javascript:void(0);"><i class="" ng-class="{'ion-ios-checkmark-outline': feed.read==0, 'ion-ios-checkmark': feed.read==1}"></i></a>
+				<a ng-hide="{{feed.myfeeds!='true'}}" class="read"  ng-class="{'': feed.read==0, 'active': feed.read==1}" href="javascript:void(0);"><i class="" ng-class="{'ion-ios-checkmark-outline': feed.read==0, 'ion-ios-checkmark': feed.read==1}"></i></a>
             </div>
 
             <div class="item item-body">
@@ -65,7 +65,7 @@
                 </div>
             </div>
 
-            <div class="item tabs tabs-icon-only tabs-light tabs-secondary">
+            <div ng-hide="{{feed.myfeeds!='true'}}" class="item tabs tabs-icon-only tabs-light tabs-secondary">
                 <a class="tab-item" ng-click="toggle.state = !toggle.state" ng-class="{'active' : toggle.state}" href="javascript:void(0);" >
                     <i class="icon sprite icon-message"></i>
                 </a>
