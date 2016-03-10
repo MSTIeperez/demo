@@ -204,15 +204,17 @@
         </div>
     </div>
 
-    <div class="share">
-        <ul class="share-list">
-            <li><h2>Compartir</h2></li>
-            <li><a class="socials social-fb" href="#" ontouchstart="window.plugins.socialsharing.shareViaFacebook('Message only')"><i class="icon ion-social-facebook"></i><span>Facebook</span></a></li>
-            <li><a class="socials social-tw" href="#" ontouchstart="window.plugins.socialsharing.shareViaTwitter('Message only')"><i class="icon ion-social-twitter"></i><span>Twitter</span></a></li>
-            <li><a class="socials social-email show-lightbox-shares" href="#" ontouchstart=""><i class="icon ion-email"></i><span>E-mail</span></a></li>
-            <li><a href="#" class="socials social-more" ontouchstart=""><i class="icon ion-share"></i><span>Mas...</span></a></li>
-            <li><a class="close-lightbox" href="javascript:void(0);">Cancelar</a></li>
-        </ul>
+    <div class="share with-scroll">
+        <ion-scroll direction="y" class="fullscreen">
+            <ul class="share-list">
+                <li><h2>Compartir</h2></li>
+                <li><a class="socials social-fb" href="#" ontouchstart="window.plugins.socialsharing.shareViaFacebook('Message only')"><i class="icon ion-social-facebook"></i><span>Facebook</span></a></li>
+                <li><a class="socials social-tw" href="#" ontouchstart="window.plugins.socialsharing.shareViaTwitter('Message only')"><i class="icon ion-social-twitter"></i><span>Twitter</span></a></li>
+                <li><a class="socials social-email show-lightbox-shares" href="#" ontouchstart=""><i class="icon ion-email"></i><span>E-mail</span></a></li>
+                <li><a href="#" class="socials social-more" ontouchstart=""><i class="icon ion-share"></i><span>Mas...</span></a></li>
+                <li><a class="close-lightbox" href="javascript:void(0);">Cancelar</a></li>
+            </ul>
+        </ion-scroll>
     </div>
 
     <div id="temas" class="transition tutorial">
@@ -358,52 +360,64 @@
         </div>
         </form>
     </div>
-	<div class="lightbox lightbox-favorited has-subheader" >
-		<form >
-		<div class="lightbox-favorited-header">
-			<h4>Selecciona un archivo favorito</h4>
-		</div>
-		<div class="lightbox-favorited-content">
-			<div class="list has-excerpt favorite_folders">
 
-				<li class="category-element item item-avatar item-icon-left item-button-right list_folder" ng-repeat="folder in user_data.favfolder" data-id="{{folder.id}}" >
-					<input class="btn-invisible folder_add" type="checkbox" ng-true-value="'{{folder.id}}'" data-id="{{folder.id}}" >
-					<i class="sprite2x icon icon-folder">{{folder.total}}</i>
-					<h2>{{folder.title}}</h2>
-					<a class="button button-outline button-positive btn-delete" href="javascript:void(0);">Eliminar</a>
-				</li>
-				<input class="feed_id" type="hidden" value="" >
-			</div>
-		</div>
-		<div class="lightbox-favorited-add">
-			<a class="btn-add-folder" href="javascript:void(0);">Agregar archivero favorito</a>
-		</div>
-		<div class="lightbox-favorited-actions clearfix">
-			<button class="button button-outline button-positive add_to_favfolder" type="submit">Aceptar</button>
-			<a class="close-lightbox" href="javascript:void(0);">Cancelar</a>
-		</div>
-		</form>
-	</div>
-	<div class="lightbox lightbox-follow has-subheader">
-		<form >
-		<div class="lightbox-favorited-header">
-			<h4>Selecciona un asunto a seguir</h4>
-		</div>
-		<div class="lightbox-favorited-content">
-			<div class="list has-excerpt favorite_folders" id="follow_asunto">
+	<div class="lightbox lightbox-favorited has-subheader with-scroll" >
+        <ion-scroll direction="y" class="fullscreen">
+    		<form>
+        		<div class="lightbox-favorited-header">
+        			<h4>Selecciona un archivo favorito</h4>
+        		</div>
+        		<div class="lightbox-favorited-content">
+        			<div class="list has-excerpt favorite_folders">
+                        <ul>
+            				<li class="category-element item item-avatar item-icon-left item-button-right list_folder" ng-repeat="folder in user_data.favfolder" data-id="{{folder.id}}" >
+            					<input class="btn-invisible folder_add" type="checkbox" ng-true-value="'{{folder.id}}'" data-id="{{folder.id}}" >
+            					<i class="sprite2x icon icon-folder">{{folder.total}}</i>
+            					<h2>{{folder.title}}</h2>
+            					<a class="button button-outline button-positive btn-delete" href="javascript:void(0);">Eliminar</a>
+            				</li>
+            				<input class="feed_id" type="hidden" value="" >
+                        </ul>
+        			</div>
+        		</div>
+        		<div class="lightbox-favorited-add">
+        			<a class="btn-add-folder" href="javascript:void(0);">Agregar archivero favorito</a>
+        		</div>
+    		</form>
+        </ion-scroll>
 
-				<input class="feed_id" type="hidden" value="" >
-			</div>
-		</div>
-		<!--div class="lightbox-favorited-add">
-			<a class="btn-add-folder" href="javascript:void(0);">Agregar archivero favorito</a>
-		</div-->
-		<div class="lightbox-favorited-actions clearfix">
-			<button class="button button-outline button-positive add_to_follow" type="submit" >Aceptar</button>
-			<a class="close-lightbox" href="javascript:void(0);">Cancelar</a>
-		</div>
-		</form>
+        <div class="lightbox-actions lightbox-favorited-actions clearfix">
+            <button class="button button-outline button-positive add_to_favfolder" type="submit">Aceptar</button>
+            <a class="close-lightbox" href="javascript:void(0);">Cancelar</a>
+        </div>
 	</div>
+
+	<div class="lightbox lightbox-follow has-subheader with-scroll">
+        <ion-scroll direction="y" class="fullscreen">
+    		<form>
+        		<div class="lightbox-favorited-header">
+        			<h4>Selecciona un asunto a seguir</h4>
+        		</div>
+        		<div class="lightbox-favorited-content">
+        			<div class="list has-excerpt favorite_folders" id="follow_asunto">
+                        <ul>
+
+        				    <input class="feed_id" type="hidden" value="">
+                        </ul>
+        			</div>
+        		</div>
+        		<!--div class="lightbox-favorited-add">
+        			<a class="btn-add-folder" href="javascript:void(0);">Agregar archivero favorito</a>
+        		</div-->
+    		</form>
+        </ion-scroll>
+
+        <div class="lightbox-actions lightbox-favorited-actions clearfix">
+            <button class="button button-outline button-positive add_to_follow" type="submit" >Aceptar</button>
+            <a class="close-lightbox" href="javascript:void(0);">Cancelar</a>
+        </div>
+	</div>
+
 	<div class="lightbox lightbox-add update-folder" >
         <div ng-controller="FavoritesCtrl">
             <div class="lightbox-add-content">
@@ -423,6 +437,7 @@
             </div>
         </div>
     </div>
+
 	<div class="lightbox lightbox-add create-folder" >
         <div ng-controller="FavoritesCtrl">
             <div class="lightbox-add-content">

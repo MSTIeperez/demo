@@ -210,6 +210,7 @@ $( document ).ready(function() {
 			console.log(''+initialValue+' , '+finalValue+'');
 			if( initialValue == finalValue ){
 		        $( '.share' ).addClass( 'active' );
+				$( '.share' ).find('.scroll').css({ transform : 'translate3d(0, 0, 0)' });
 		        var id= $thiz.parents('.feeds').data('id');
 		        var img= $thiz.parents('.feeds').find("div.item-header").find("img.small-image").attr('src');
 		        var feed_date= $thiz.parents('.feeds').find("div.item-header").find("p.feed-date").text().trim();
@@ -389,12 +390,12 @@ $( document ).ready(function() {
 				 	if( $.inArray( asuntos_array[0], follow_ids_arr ) >= 0 ){ active_class = "selected";  check="checked='checked'";}
 				 		else{ active_class = ""; check="";}
 
-					code+= '<li class="category-element item item-avatar item-icon-left item-button-right list_follow '+ active_class +'"  data-id="'+asuntos_array[0]+'" >'+
-									'<input class="btn-invisible follow_add" type="checkbox"  '+check+' data-id="'+asuntos_array[0]+'" >'+
-									'<!--i class="sprite2x icon icon-folder"></i-->'+
-									'<h2>'+asuntos_array[1]+'</h2>'
-								'<a class="button button-outline button-positive btn-delete" href="#">Eliminar</a>'+
-								'</li>';
+					code+= '<li class="category-element item item-icon-left list_follow '+ active_class +'"  data-id="'+asuntos_array[0]+'" >'+
+								'<input class="btn-invisible follow_add" type="checkbox"  '+check+' data-id="'+asuntos_array[0]+'" >'+
+								'<i class="icon center icon-circle"></i>'+
+								'<h2 class="word-break">'+asuntos_array[1]+'</h2>'+
+								//'<a class="button button-outline button-positive btn-delete" href="#">Eliminar</a>'+
+							'</li>';
 
 				 }
 
@@ -410,7 +411,7 @@ $( document ).ready(function() {
 		}
 	}, 300);
     });
-    // button add: agreca folder a favoritos
+    // button add: agrega folder a favoritos
     $( 'body' ).on( 'touchstart', '.btn-add', function() {
         $( this ).text( function( i, text ) {
              return text === "Agregar archivero favorito" ? "Guardar" : "Agregar archivero favorito";
@@ -430,10 +431,11 @@ $( document ).ready(function() {
      $( 'body' ).on( 'touchstart', '.lightbox-favorited-content .btn-invisible', function() {
          $( this ).parent().toggleClass( 'selected' );
         // $( this ).attr( 'checked', 'checked' );
-		 if( $( this ).attr("checked") ){
-				$( this ).removeAttr( 'checked' );
-		}else
-			$( this ).attr( 'checked','checked' )
+		if( $( this ).attr("checked") ){
+			$( this ).removeAttr( 'checked' );
+		} else {
+			$( this ).attr( 'checked','checked' );
+		}
          return false;
      });
 
