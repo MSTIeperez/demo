@@ -13,7 +13,46 @@
     <!-- END: sub header -->
     
     <ion-content class="has-subheader bg-color1" > 
-        
+               <ion-item class="list card " data-id="{{feed_new.id}}" ng-repeat="feed_new in feeds_new | orderBy:'id':true">
+            <input type="hidden" class="asunto_name" value="{{feed_new.asunto_name}}" />
+           
+            <div class="item item-header item-thumbnail-left">
+                <img class="small-image" ng-src="http://legixapp.abardev.net{{ feed_new.src_img }}">
+                <h2>{{ feed_new.title_origin }}</h2>
+                <!--h3>({{ feed.title_themes }})</h3-->
+                <p>{{ feed_new.title_source }}</p>
+                <p class="feed-date">{{ feed_new.date }}</p>
+                <!--a class="read"  ng-class="{'': feed.read==0, 'active': feed.read==1}" href="javascript:void(0);"><i class="" ng-class="{'ion-ios-eye-outline': feed.read==0, 'ion-ios-eye': feed.read==1}"></i></a-->
+            </div>
+
+            <div class="item item-body">
+                <p ng-bind-html="feed_new.content"></p>
+               <div class="item-attachments" ng-controller="FunctionCtrl">
+                    <a ng-repeat="docs in feed_new.docs" href="javascript:void(0);" ng-value="'http://legixapp.abardev.net{{docs.src_file}}'" ng-click="download('http://legixapp.abardev.net{{ docs.src_file }}')" download="{{docs.file}}">
+                        <i class="icon ion-android-attach"></i>
+                        {{docs.file}}
+                    </a>
+                </div>
+                <div class="item-subject">
+                    <ul>
+                        <li class="li-subject" ng-class="{'disregard':$index<2,'':$index>1}" ng-repeat="asuntos in feed_new.asuntos_name"><a class="subject" href="javascript:void(0);" ontouchstart="return false;">{{asuntos}}</a></li>
+                        <li ng-show="feed_new.asuntos_name.length>2"><a class="subject-more" href="javascript:void(0);">+ Ver todos</a></li>
+                    </ul>
+                </div>
+                <div   ng-hide="{{feed_new.comments.length<1}}"class="item-comments">
+                    <a ng-hide="{{feed_new.comments.length-1<1}}" href="javascript:void(0);" class="show-comments">Mostrar <span class="comments-count">{{feed.comments.length-1}}</span> comentarios previos</a>
+                    <ul class="comments-list">
+                        <li class="comment  " ng-repeat="comments in feed_new.comments" ng-class="!$last ? ' ' : 'last-comment'">
+                            <h3>{{comments.name}}</h3>
+                            <p>{{comments.comment}}</p>
+                            <p class="date">{{comments.date}}</p>
+                        </li>
+                       
+                    </ul>
+                </div>
+            </div>
+            
+        </ion-item>
         <!-- BEGIN: card -->
         <ion-item class="list card " data-id="{{feed.id}}" ng-repeat="feed in feeds track by $index">
 			<input type="hidden" class="asunto_name" value="{{feed.asunto_name}}" />
@@ -86,7 +125,7 @@
             
         </ion-item>
         <!-- END: card -->
-        <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="load()" distance="3%"></ion-infinite-scroll>
+        <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="load(false)" distance="3%"></ion-infinite-scroll>
     </ion-content>
     
 </ion-view>

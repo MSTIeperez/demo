@@ -428,7 +428,7 @@ angular.module('starter.controllers', [])
 	});  
   
 })
-.controller('FeedsCtrl', function($scope, Feeds_all, Auth, $state, $sce) {
+.controller('FeedsCtrl', function($scope, Feeds_all, Auth, $state, $sce, $interval) {
 	
 	$scope.data={}
 
@@ -436,9 +436,16 @@ angular.module('starter.controllers', [])
 		if(Auth.isLoggedIn() && window.localStorage.getItem('user')!=null ){
 			$scope.flag=true;
 		$scope.feeds=[];
+		$scope.feeds_new =[];
 		$scope.page=1;
+		$scope.news=false;
+		var id_load="";
+		var tmp_id="";
 		$scope.load = function(){
-		  Feeds_all.all($scope.page,-1).success(function(data){
+			
+				id_load="";
+			console.log('id_load: '+id_load+' news: '+$scope.news);
+			Feeds_all.all(id_load,$scope.page,-1).success(function(data){
 			angular.forEach(data.feeds, function(val, key){
 				var asuntos_arr=[]
 		 		var tmp_name=[]
@@ -458,30 +465,104 @@ angular.module('starter.controllers', [])
 				data.feeds[key].asuntos_name=asunto_name;
 			});
 			
-			if(!angular.isUndefined(data.feeds) && data.feeds.length==0 )
+			
+			
+
+			if(!angular.isUndefined(data.feeds) && data.feeds.length==0 ){
 				$scope.flag=false;
-			else
+				
+				
+			}else{
 				$scope.flag="no_feeds";
 			//$scope.feeds = data.feeds;
+				//news=false;
+				if(!angular.isUndefined(data.feeds)){
+					if($scope.page==1 )
+						tmp_id=data.feeds[0].id;
+				}
+			}
 			
-			if(angular.isUndefined(data.feeds)){
+			if(angular.isUndefined(data.feeds) ){
 	 			$scope.noMoreItemsAvailable=true;
 	 			return;
 	 		}
-	 		$scope.feeds = $scope.feeds.concat(data.feeds);
-				$scope.$broadcast('scroll.infiniteScrollComplete');
-		  		console.log($scope.page);
-		  		$scope.page ++;
-			
-		}).error(function(){
-			$scope.feeds = "";
-
-		});
+		 		
+		 		
+		 		$scope.feeds = $scope.feeds.concat(data.feeds);
+					$scope.$broadcast('scroll.infiniteScrollComplete');
+			  		console.log($scope.page);
+			  		//if(!$scope.news)
+			  			$scope.page ++;
+			//$scope.news=true;
 		
-	}
-		$scope.remove = function(feed) {
-			Feeds_all.remove(feed);
+			}).error(function(){
+				$scope.feeds = "";
+
+			});
 		}
+		moreload =  function(){
+				id_load = tmp_id;
+				
+				console.log('id_load: '+id_load+' news: '+$scope.news);
+				Feeds_all.all(id_load,$scope.page,-1).success(function(data){
+				angular.forEach(data.feeds, function(val, key){
+					var asuntos_arr=[]
+			 		var tmp_name=[]
+			 		var asunto_name=[]
+					data.feeds[key].content=val.content+' <a href="#" onclick="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
+					data.feeds[key].content=$sce.trustAsHtml(data.feeds[key].content);
+					angular.forEach(val.follow, function(valor,index){
+						asuntos_arr.push(valor.subject_id);
+					})
+					data.feeds[key].asuntos_str =asuntos_arr.join(",");
+					tmp_name= val.asunto_name.split(",");
+					angular.forEach(tmp_name, function(dato, ind){
+						var tmp=[]
+						tmp=dato.split(":")
+						asunto_name.push(tmp[1]);
+					});
+					data.feeds[key].asuntos_name=asunto_name;
+				});
+
+				if(!angular.isUndefined(data.feeds) && data.feeds.length==0 ){
+					$scope.flag=false;	
+					$scope.feeds_new = ""
+				}else{
+					$scope.flag="no_feeds";
+					if(!angular.isUndefined(data.feeds)){
+						tmp_id=data.feeds[0].id;
+					}
+				
+				} 
+				if(angular.isUndefined(data.feeds) ){
+	 				//$scope.feeds_new = "";
+	 				return;
+	 			}
+				
+		 
+		 			$scope.feeds_new = $scope.feeds_new.concat(data.feeds);
+		 			$scope.feeds_new = $scope.feeds_new.reverse();
+		 	
+			 	console.log($scope.page);
+		 			return;
+		 	
+		
+			}).error(function(){
+				$scope.feeds_new = "";
+
+			});
+		
+		}
+		
+		var startCountdown = function(){
+				$interval(moreload, 10000, $scope.feeds_new);
+			}
+		
+		startCountdown(); 
+			
+		$scope.remove = function(feed) {
+				Feeds_all.remove(feed);
+			}
 		} else $state.go('login');
 	});  
 })

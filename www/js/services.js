@@ -382,10 +382,10 @@ angular.module('starter.services', ['ngCookies'])
 	
 
   return {
-    all: function(page,status,search,my_feeds, my_follow, fav,  subject_id, origin_id, theme_id, comision_id, feed_in) {
+    all: function(id_load,page,status,search,my_feeds, my_follow, fav,  subject_id, origin_id, theme_id, comision_id, feed_in) {
 			var deferred = $q.defer();
             var promise = deferred.promise;
-		$http.post(url+'/api/feeds/get_all',{'page':page,'status':-1,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
+		$http.post(url+'/api/feeds/get_all',{'id_load':id_load,'page':page,'status':-1,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
 			.success(function(data){
 				if(data.message!="Es necesario iniciar sesión"){
 				console.log(data);
