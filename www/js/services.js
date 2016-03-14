@@ -541,10 +541,10 @@ angular.module('starter.services', ['ngCookies'])
 
 
   return {
-    all: function(status,my_feeds, my_follow, fav,  subject_id, origin_id, theme_id, comision_id, feed_in) {
+    all: function(id_load,status,my_feeds, my_follow, fav,  subject_id, origin_id, theme_id, comision_id, feed_in) {
 			var deferred = $q.defer();
             var promise = deferred.promise;
-		$http.post(url+'/api/follow/get_all',{'status':-1,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
+		$http.post(url+'/api/follow/get_all',{'id_load':id_load,'status':-1,'my_feeds':my_feeds,'my_follow':my_follow,'fav':fav, 'subject_id':subject_id, 'origin_id':origin_id, 'theme_id':theme_id, 'comision_id': comision_id, 'feed_in':feed_in})
 				.success(function(data){
 				console.log(data);
 				feeds=data.feeds;
