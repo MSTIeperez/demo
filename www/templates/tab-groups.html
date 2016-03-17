@@ -16,13 +16,13 @@
         
         <div class="list"> 
             
-            <div class="item item-divider" ng-show="{{group.users.length>1}}" >
+            <div class="item item-divider " ng-hide="group.users.length<=1">
                 {{group.users.length}} participantes
             </div>
-			<div class="item item-divider" ng-hide="{{group.users.length>1}}" >
+			<div class="item item-divider" ng-hide="group.users.length>=2">
                 {{group.users.length}} participante
             </div>
-            
+             
             <div class="images-content">
                 <ul class="image-list">
                     
@@ -34,7 +34,7 @@
                     </li>   
                 </ul>
                 
-                <a id="show-all" class="button button-outline button-positive" href="javascript:void(0);">Ver todos</a>
+                <a id="show-all" class="button button-outline button-positive" href="javascript:void(0);" ng-show="group.users.length>3">Ver todos</a>
                    
             </div>
             
