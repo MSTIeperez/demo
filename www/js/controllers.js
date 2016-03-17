@@ -1,7 +1,7 @@
 var url ='';
 //console.log(window.location.hostname);
 if(window.location.hostname=="")
-	url='http://legixapp.abardev.net';
+	url='http://legixappqa.abardev.net';
 angular.module('starter.controllers', [])
 
 .controller('MainCtrl', function($scope,$cookies,$cookieStore, $rootScope, Auth, UserService,$ionicSideMenuDelegate ){
