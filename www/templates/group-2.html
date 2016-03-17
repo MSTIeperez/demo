@@ -46,7 +46,8 @@
                                 <label class="checkbox" ng-class="{'active':(data.themas.indexOf('{{tema.origen_id}}:{{tema.subject_id}}') > -1)}">
                                    <input type="checkbox" ng-model="data.themas[$index]" ng-checked="data.themas.indexOf('{{tema.origen_id}}:{{tema.subject_id}}') > -1"    ng-true-value="'{{tema.origen_id}}:{{tema.subject_id}}'" ng-false-value="undefined"  ng-change="alert(data.themas[$index])">
                                 </label>
-                                {{tema.origen}} | {{tema.tema}}
+                               <!-- {{tema.origen}} | {{tema.tema}}-->
+                                 {{tema.tema}}
                             </div>
                         </li>
                     </ul>
