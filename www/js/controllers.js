@@ -1,7 +1,7 @@
 var url ='';
 //console.log(window.location.hostname);
 if(window.location.hostname=="")
-	url='http://legixappqa.abardev.net';
+	url='http://legixapp.abardev.net';
 angular.module('starter.controllers', [])
 
 .controller('MainCtrl', function($scope,$cookies,$cookieStore, $rootScope, Auth, UserService,$ionicSideMenuDelegate ){
@@ -310,7 +310,7 @@ angular.module('starter.controllers', [])
 										text: 'Aceptar',
 										type: 'button-positive',
 											onTap: function(e) {
-											$state.go("tab.myfeeds");
+											$state.go("tab.tema_feeds");
 											}
 										}]
 								});
@@ -330,7 +330,7 @@ angular.module('starter.controllers', [])
 										type: 'button-positive',
 											onTap: function(e) {
 											if(temas>0)
-											  $state.go('tab.myfeeds');
+											  $state.go('tab.tema_feeds');
 											else
 											  $state.go('tab.feeds');
 											}
@@ -356,7 +356,7 @@ angular.module('starter.controllers', [])
 						type: 'button-positive',
 							onTap: function(e) {
 							if(temas>0)
-							  $state.go('tab.myfeeds');
+							  $state.go('tab.tema_feeds');
 							else
 							  $state.go('tab.feeds');
 							}
@@ -556,7 +556,7 @@ angular.module('starter.controllers', [])
 		}
 		
 		var startCountdown = function(){
-				$interval(moreload, 10000, $scope.feeds_new);
+				$interval(moreload, 30000, $scope.feeds_new);
 			}
 		
 		startCountdown(); 
@@ -576,7 +576,7 @@ angular.module('starter.controllers', [])
 var id_load="";
 		var tmp_id="";
 
-	$scope.$on('$ionicView.loaded', function(e) {
+	$scope.$on('$ionicView.afterEnter', function(e) {
 		 if(Auth.isLoggedIn() && window.localStorage.getItem('user')!=null ){
 			//$rootScope.user_data = JSON.parse(window.localStorage.getItem('user'));
 			//$rootScope.user_data.src_img= url+$rootScope.user_data.src_img;
@@ -690,7 +690,7 @@ var id_load="";
 		});
 		}
 		var startCountdown = function(){
-				$interval(moreload, 10000, $scope.feeds_new);
+				$interval(moreload, 30000, $scope.feeds_new);
 			}
 		
 		startCountdown(); 
@@ -812,7 +812,7 @@ var id_load="";
 		});
 		}
 		var startCountdown = function(){
-			 $interval(moreload, 10000, $scope.feeds_new);
+			 $interval(moreload, 30000, $scope.feeds_new);
 			}
 		
 		startCountdown(); 

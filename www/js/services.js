@@ -2,7 +2,7 @@
 var url ='';
 console.log(window.location.hostname);
 if(window.location.hostname=="")
-	url='http://legixappqa.abardev.net';
+	url='http://legixapp.abardev.net';
 
 angular.module('starter.services', ['ngCookies'])
 

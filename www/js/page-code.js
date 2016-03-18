@@ -5,7 +5,7 @@ $( document ).ready(function() {
 	var url ='';
 	console.log(window.location.hostname);
 	if(window.location.hostname=="")
-		url='http://legixappqa.abardev.net';
+		url='http://legixapp.abardev.net';
 
     var step = 1;
     var num = 0;
