@@ -828,10 +828,11 @@ var id_load="";
 		} else $state.go('login');
 	});  
 })
-.controller('GroupsCtrl', function($scope, Feeds, $rootScope, Auth, $stateParams, $state, $sce) {
-
+.controller('GroupsCtrl', function($scope, Feeds, $rootScope, Auth, $stateParams, $state, $sce, $interval) {
+	var id_load="";
+	var tmp_id="";
 	$scope.$on('$ionicView.loaded', function(e) {
-		 if(Auth.isLoggedIn() && window.localStorage.getItem('user')!=null ){
+		if(Auth.isLoggedIn() && window.localStorage.getItem('user')!=null ){
 		$scope.grupos=$rootScope.user_data.grupos;
 		console.log($scope.grupos);
 		if($state.params.id){
@@ -846,7 +847,11 @@ var id_load="";
 			$scope.tema_name=$state.params.name;
 			var noread=0;
 			$scope.flag=true;
-			Feeds.all(-1,'send_data','','','', $state.params.origin_id, $state.params.theme_id,'').success(function(data){
+			$scope.page=1;
+			$scope.feeds_new =[];
+			$scope.news=false;
+
+			Feeds.all(id_load,-1,'send_data','','','', $state.params.origin_id, $state.params.theme_id,'').success(function(data){
 				angular.forEach(data.feeds, function(val, key){
 					var asuntos_arr=[]
 		 			var tmp_name=[]
@@ -874,8 +879,67 @@ var id_load="";
 					$scope.flag="no_feeds";
 				else
 					$scope.flag=false;
+				if(!angular.isUndefined(data.feeds)){
+					if($scope.page==1 )
+						tmp_id=data.feeds[0].id;
+				}
+				$scope.page ++;
 			});
 		}
+		moreload = function(){
+			id_load = tmp_id;
+			noread = $scope.noread;
+			Feeds.all(id_load,-1,'send_data','','','', $state.params.origin_id, $state.params.theme_id,'').success(function(data){
+			angular.forEach(data.feeds, function(val, key){
+				var asuntos_arr=[]
+		 		var tmp_name=[]
+		 		var asunto_name=[]
+				data.feeds[key].content=val.content+' <a href="#" onclick="window.open(\''+val.url+'\', \'_system\', \'location=no\'); return false;"> '+val.url+'</a>';
+				data.feeds[key].content=$sce.trustAsHtml(data.feeds[key].content);
+				angular.forEach(val.follow, function(valor,index){
+					asuntos_arr.push(valor.subject_id);
+				})
+				if(val.read==0)
+					noread++;
+				data.feeds[key].asuntos_str =asuntos_arr.join(",");
+				tmp_name= val.asunto_name.split(",");
+				angular.forEach(tmp_name, function(dato, ind){
+					var tmp=[]
+					tmp=dato.split(":")
+					asunto_name.push(tmp[1]);
+				});
+				data.feeds[key].asuntos_name=asunto_name;
+			});
+			//$scope.read=data.feeds.length-noread;
+			//$scope.feeds = data.feeds;
+			
+			//if(!angular.isUndefined(data.feeds) && data.feeds.length==0)
+				//$scope.flag="no_feeds";
+		//	else
+				//$scope.flag=false;
+			if(!angular.isUndefined(data.feeds) && data.feeds.length>0){
+					//if($scope.page>=2 )
+						tmp_id=data.feeds[0].id;
+				//$scope.noread = noread;
+				}
+			/*if(angular.isUndefined(data.feeds)){
+	 			$scope.noMoreItemsAvailable=true;
+	 			return;
+	 		}*/
+	 		$scope.feeds_new = $scope.feeds_new.concat(data.feeds);
+	 		//	$scope.$broadcast('scroll.infiniteScrollComplete');
+		  	//	console.log($scope.page);
+		  	//	$scope.page ++;
+		});
+		}
+		var startCountdown = function(){
+				$interval(moreload, 30000, $scope.feeds_new);
+			}
+		
+		startCountdown(); 
+		$scope.$on("$destroy",function(){
+		    $interval.cancel(startCountdown());
+		});
 		$scope.remove = function(feed) {
 			Feeds.remove(feed);
 		}

@@ -28,6 +28,78 @@
                 <h2 ng-switch-when="no_feeds">No hay Feeds en este tema del grupo.</h2>
             </div>
         </div >
+
+                  <ion-item class="list card feeds" data-id="{{feed_new.id}}" data-followids="{{feed_new.asuntos_str}}" data-follow="{{feed_new.follow.length}}" ng-repeat="feed_new in feeds_new | orderBy:'id':true" ng-class="{'feed_noread': feed_new.read==0, 'feed_read': feed_new.read==1}" ng-show="(feed_new.read==0&&noread!=0)||(feed_new.read==1&&noread==0)">
+            <input type="hidden" class="asunto_name" value="{{feed_new.asunto_name}}" />
+           
+            <div class="item item-header item-thumbnail-left">
+                <img class="small-image" ng-src="http://legixapp.abardev.net{{ feed_new.src_img }}">
+                <h2>{{ feed_new.title_origin }}</h2>
+                <!--h3>({{ feed.title_themes }})</h3-->
+                <p>{{ feed_new.title_source }}</p>
+                <p class="feed-date">{{ feed_new.date }}</p>
+                <a class="read"  ng-class="{'': feed_new.read==0, 'active': feed_new.read==1}" href="javascript:void(0);"><i class="" ng-class="{'ion-ios-checkmark-outline': feed_new.read==0, 'ion-ios-checkmark': feed_new.read==1}"></i></a>
+            </div>
+
+            <div class="item item-body">
+                <p ng-bind-html="feed_new.content"></p>
+               <div class="item-attachments" ng-controller="FunctionCtrl">
+                    <a ng-repeat="docs in feed_new.docs" href="javascript:void(0);" ng-value="'http://legixapp.abardev.net{{docs.src_file}}'" ng-click="download('http://legixapp.abardev.net{{ docs.src_file }}')" download="{{docs.file}}">
+                        <i class="icon ion-android-attach"></i>
+                        {{docs.file}}
+                    </a>
+                </div>
+                <div class="item-subject">
+                    <ul>
+                        <li class="li-subject" ng-class="{'disregard':$index<2,'':$index>1}" ng-repeat="asuntos in feed_new.asuntos_name track by $index"><a class="subject" href="javascript:void(0);" ontouchstart="return false;">{{asuntos}}</a></li>
+                        <li ng-show="feed_new.asuntos_name.length>2"><a class="subject-more" href="javascript:void(0);">+ Ver todos</a></li>
+                    </ul>
+                </div>
+                <div   ng-hide="{{feed_new.comments.length<1}}"class="item-comments">
+                    <a ng-hide="{{feed_new.comments.length-1<1}}" href="javascript:void(0);" class="show-comments">Mostrar <span class="comments-count">{{feed_new.comments.length-1}}</span> comentarios previos</a>
+                    <ul class="comments-list">
+                        <li class="comment  " ng-repeat="comments in feed_new.comments" ng-class="!$last ? ' ' : 'last-comment'">
+                            <h3>{{comments.name}}</h3>
+                            <p>{{comments.comment}}</p>
+                            <p class="date">{{comments.date}}</p>
+                        </li>
+                       
+                    </ul>
+                </div>
+            </div>
+
+            <div class="item tabs tabs-icon-only tabs-light tabs-secondary">
+                <a class="tab-item" href="javascript:void(0);" >
+                    <i class="icon sprite icon-message"></i>
+                </a>
+                <a class="tab-item show-follow"   ng-class="{'active' : feed_new.follow.length>0,'':feed_new.follow.length==0}" href="javascript:void(0);">
+                    <i class="icon sprite icon-mark" ng-class="{'active' : feed_new.follow.length>0,'':feed_new.follow.length==0}"></i>
+                </a>
+                <a class="tab-item show-share" href="javascript:void(0);">
+                    <i class="icon sprite icon-share"></i>
+                </a>
+                <a class="tab-item"  href="javascript:void(0);" ng-controller="FunctionCtrl" ng-click="print({{feed_new.id}})" >
+                    <i class="icon sprite icon-print"></i>
+                </a>
+                <a class="tab-item btn-favorite"  href="javascript:void(0);" ng-class="{'active' : feed_new.favfolder.length>0,'':feed_new.favfolder.
+                    length==0}" >
+                    <i class="icon sprite icon-favorite" ng-class="{'active' : feed_new.favfolder.length>0,'':feed_new.favfolder.length==0}"></i> 
+                </a>
+               
+            </div>
+            <div class="list input-comment">
+                <div class="item item-input-inset">
+                    <label class="item-input-wrapper">
+                        <input type="text" class="add_comment" placeholder="Escribe un comentario...">
+                    </label>
+                    <button class="button button-small add_comment_btn" >
+                        Enviar
+                    </button>
+                </div>
+            </div>
+            
+        </ion-item>
+        
          <!-- BEGIN: card -->
         <ion-item class="list card feeds" data-id="{{feed.id}}" data-followids="{{feed.asuntos_str}}" data-follow="{{feed.follow.length}}" ng-repeat="feed in feeds" ng-class="{'feed_noread': feed.read==0, 'feed_read': feed.read==1}" ng-show="(feed.read==0&&noread!=0)||(feed.read==1&&noread==0)">
 		<input type="hidden" class="asunto_name" value="{{feed.asunto_name}}" />
