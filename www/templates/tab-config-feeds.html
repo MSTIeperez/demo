@@ -26,41 +26,42 @@
         <ul class="list list-style">
                 
             <!-- BEGIN: list-->
-            <li class="item li-master" ng-repeat="temas in themes |filter:themesearch"> <!-- track by $id(temas)" -->
+            <!--li class="item li-master" ng-repeat="temas in themes |filter:themesearch"> <!-- track by $id(temas)" -->
 
-                <div class="list-header">
+                <!--div class="list-header">
                     <a class="list-expand item-icon-right" href="javascript:void(0);">
                         <h2>{{temas.name}}</h2>
                         <i class="icon ion-arrow-down-b" ng-hide="temas.tema.length<1"></i>
                     </a>
-                </div>
-                <ul class="list-content" ng-class="{'active':themesearch!=''&&themesearch!=undefined,'':themesearch==''|| themesearch==undefined}">
-                    <li class="item li-parent" ng-repeat="tema in temas.tema |filter:themesearch">
+                </div-->
+                <!--ul class="list-content active" ng-class="{'active':themesearch!=''&&themesearch!=undefined,'':themesearch==''|| themesearch==undefined}"-->
+                <ul class="list-content active" >
+                    <li class="item li-parent" ng-repeat="tema in themes |filter:themesearch">
                         <div class="list-header item item-checkbox item-icon-right">
                             <label class="checkbox">
                                <input type="checkbox" class="tema_id" ng-model="data.tema_id[$index]" ng-true-value="'{{tema.id}}:{{tema.name}}'" ng-value="tema.id" data-name="{{tema.name}}" ng-checked="themesearch!=undefined && themesearch!=''">
                             </label>
                             {{tema.name}}
-                            <a class="icon list-expand" href=""><i ng-hide="tema.comision.length<1" class="icon ion-arrow-down-b"></i></a>
+                            <a class="icon list-expand" href=""><i ng-hide="tema.origen.length<1" class="icon ion-arrow-down-b"></i></a>
                         </div>
-                        <ul class="list-content" ng-class="{'active':themesearch!=''&&themesearch!=undefined,'':themesearch==''|| themesearch==undefined}">
-                            <li class="item item-checkbox li-children" ng-repeat="comision in tema.comision">
+                        <ul class="list-content" ng-class="{'active':themesearch!=''&&themesearch!=undefined,'':themesearch==''|| themesearch==undefined}" ng-repeat="origen in tema.origen" ng-hide="origen.comision.length<1"> {{origen.title}}
+                            <li class="item item-checkbox li-children" ng-repeat="comision in origen.comision">
                                 <!--<label class="checkbox">
                                    <input type="checkbox">
                                 </label>-->
                                 {{comision.title}}
                             </li>
 
-                            <li class="item item-checkbox li-children">
-                                <!--<label class="checkbox">
+                            <!--li class="item item-checkbox li-children">
+                                <!- -<label class="checkbox">
                                     <input type="checkbox">
-                                </label>-->
+                                </label>- ->
                                 Público
-                            </li>
+                            </li-->
                         </ul>
                     </li>
                 </ul>
-            </li>       
+            <!--/li-->       
             <!-- END: list -->
         </ul>
             

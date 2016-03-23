@@ -230,7 +230,7 @@ angular.module('starter.controllers', [])
 				temas_id.push(parseInt(val));
 			});
 			Themes.all().success(function(data){
-				angular.forEach(data, function(dato,key){
+			/*	angular.forEach(data, function(dato,key){
 					angular.forEach(dato.tema, function(val,index){
 						if(temas_id.indexOf(parseInt(val.id))!=-1)
 							dato.tema.splice(index,1);
@@ -239,6 +239,17 @@ angular.module('starter.controllers', [])
 							dato.tema.splice(0,1);
 					}
 					});
+				});*/
+
+				angular.forEach(data, function(dato,key){
+					//angular.forEach(dato.tema, function(val,index){
+						if(temas_id.indexOf(parseInt(dato.id))!=-1)
+							data.splice(key,1);
+						if(key==1){
+						if(temas_id.indexOf(parseInt(data[0].id))!=-1)
+							data.splice(0,1);
+					}
+					//});
 				});
 				$scope.themes = data;
 				

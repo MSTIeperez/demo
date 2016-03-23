@@ -601,8 +601,8 @@ angular.module('starter.services', ['ngCookies'])
 		
 				.success(function(data){
 				
-				themas=data.origen;
-				deferred.resolve(data.origen);
+				themas=data.tema;
+				deferred.resolve(data.tema);
 				console.log(themas);
 				if(data.message=="el usuario no esta registrado"){
 				
