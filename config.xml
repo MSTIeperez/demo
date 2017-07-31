@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.abargon.Legix" version="1.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0"  android-minSdkVersion="7" android-targetSdkVersion="22" android-versionCode="35" ios-CFBundleVersion="35">
+<widget id="com.abargon.Legix" version="1.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0"  android-minSdkVersion="7" android-targetSdkVersion="22" android-versionCode="37" ios-CFBundleVersion="37">
     <name>Legix</name>
     <description>
-         An Ionic Framework and Cordova project.
+         Sistema de seguimiento y notificación personalizada de monitoreo legislativo.
     </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+    <author email="eperez@abargon.com">
+        Abargon evalue developers
     </author>
     <content src="index.html" />
 
